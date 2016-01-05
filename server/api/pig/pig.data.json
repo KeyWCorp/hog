@@ -1,0 +1,85 @@
+{
+  "0": {
+    "name": "Test",
+    "data": "A = LOAD 'file:///Users/sdemmer/test.data' AS (one:int,two:int,three:int);\nB = FILTER A BY one > 1;\nDUMP B;",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local"
+      }
+    ],
+    "id": 0
+  },
+  "1": {
+    "name": "",
+    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local",
+        "$$hashKey": "object:42"
+      }
+    ],
+    "id": 1
+  },
+  "2": {
+    "name": "Test",
+    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local",
+        "$$hashKey": "object:42"
+      }
+    ],
+    "id": 2
+  },
+  "3": {
+    "name": "test",
+    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local",
+        "$$hashKey": "object:42"
+      }
+    ],
+    "id": 3
+  },
+  "4": {
+    "name": "test_steve",
+    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local"
+      }
+    ],
+    "id": 4
+  },
+  "41": {
+    "name": "teste",
+    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local",
+        "$$hashKey": "object:42"
+      }
+    ],
+    "id": "41"
+  },
+  "42": {
+    "name": "mytest",
+    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local",
+        "$$hashKey": "object:42"
+      }
+    ],
+    "id": 42
+  },
+  "undefined": "{\"name\":\"Test\",\"data\":\"A = 'file:///Users/sdemmer/test.data' AS (one:int,two:int,three:int);\\nB = FILTER A BY one > 1;\\nDUMP B;\",\"args\":[{\"arg\":\"-x\",\"input\":\"local\"}],\"id\":0}"
+}

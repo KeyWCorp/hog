@@ -1,0 +1,24 @@
+<div>
+  {{ vm.name }}
+</div>
+<md-content>
+    <section id="List">
+        <md-list>
+            <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
+                <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="determinate" value="{{pig.progress}}"></md-progress-circular>
+                </div>
+                <h3>{{pig.name}}</h3>
+                <h4>{{pig.interval}}</h4>
+                <p>{{pig.isRandom}}</p>
+                <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-button class="md-primary md-raised" ng-click="vm.run(pig.id)">Run</md-button>
+                </div>
+                <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-button class="md-primary md-raised" ng-click="vm.edit(pig.id)">Edit</md-button>
+                </div>
+                <md-divider></md-divider>
+            </md-list-item>
+        </md-list>
+    </section>
+</md-content>
