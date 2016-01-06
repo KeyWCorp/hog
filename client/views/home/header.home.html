@@ -11,8 +11,11 @@
         <h1 class="md-toolbar-tools">Sidenav Left</h1>
       </md-toolbar>
         <md-content layout-padding>
-            <md-button ng-repeat="nav in vm.menu" class="md-raised md-secondary" ui-sref="{{nav.state}}">{{nav.name}}</md-button>
+            <md-button ng-click="close()" ng-repeat="nav in vm.menu" class="md-raised md-secondary" ui-sref="{{nav.state}}">{{nav.name}}</md-button>
                     <!--<md-divider ng-if="!$last"></md-divider>-->
         </md-content>
+         
     </md-sidenav>
+    
+      
 </section>

@@ -3,12 +3,18 @@
 angular.module('hog')
   .controller('HeaderCtrl', function ($scope, $log, $mdSidenav) {
 
+    $scope.close = function (){
+        $mdSidenav('left').close();
+    }
     var vm = this;
+    
     $scope.$on('stateChangeSuccess',
         function()
         {
-            $mdSidenav('left').close();
+            // $mdSidenav('left').close();
+            console.log('closeing side menu');
         });
+        
     angular.extend(vm, {
         name: 'HeaderCtrl',
         menu: [
