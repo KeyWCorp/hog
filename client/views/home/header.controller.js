@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('hog')
   .controller('HeaderCtrl', function ($scope, $log, $mdSidenav) {
 
@@ -11,12 +10,11 @@ angular.module('hog')
     $scope.$on('stateChangeSuccess',
         function()
         {
-            // $mdSidenav('left').close();
+            $mdSidenav('left').close();
             console.log('closeing side menu');
         });
-        
     angular.extend(vm, {
-        name: 'HeaderCtrl',
+        name: 'Hog',
         menu: [
             {
                 name: 'Complex',

@@ -14,7 +14,11 @@ angular.module('hog', [
     'btford.socket-io',
     'uuid4',
     'ngLodash'
-])
+]).config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+    .primaryPalette('blue')
+    .accentPalette('orange');
+})
   .config(function ( $urlRouterProvider , $locationProvider) {
     $urlRouterProvider
         .otherwise('/');
@@ -22,3 +26,6 @@ angular.module('hog', [
     $locationProvider.html5Mode(true);
 
   });
+
+
+

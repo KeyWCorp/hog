@@ -1,11 +1,15 @@
 {
   "0": {
     "name": "Test",
-    "data": "A = LOAD 'file:///Users/sdemmer/test.data' AS (one:int,two:int,three:int);\nB = FILTER A BY one > 1;\nDUMP B;",
+    "data": "A = LOAD 'file:///Users/sdemmer/test.data' AS (one:int,two:int,three:int);\nB = FILTER A BY one > 55;\nDUMP B;",
     "args": [
       {
         "arg": "-x",
         "input": "local"
+      },
+      {
+        "arg": "-t",
+        "input": ""
       }
     ],
     "id": 0
