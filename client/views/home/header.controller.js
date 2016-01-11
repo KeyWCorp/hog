@@ -14,19 +14,22 @@ angular.module('hog')
             console.log('closeing side menu');
         });
     angular.extend(vm, {
-        name: 'Hog',
+        name: 'Hog Application',
         menu: [
             {
                 name: 'Complex',
-                state: 'home.complex'
+                state: 'home.complex',
+                tooltip: 'Complex Section Information goes here'
             },
             {
                 name: 'Simple',
-                state: 'home.simple'
+                state: 'home.simple',
+                tooltip: 'Simple Section Information goes here'
             },
             {
                 name: 'List',
-                state: 'home.complex.list'
+                state: 'home.complex.list',
+                tooltip: 'List Section will allow you the ability to run Pig command '
             }
         ],
         toggleNav: function()

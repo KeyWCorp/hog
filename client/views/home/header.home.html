@@ -3,7 +3,7 @@
         <md-button class="md-icon-button" aria-label="Settings" ng-click="vm.toggleNav()">
             <ng-md-icon icon="menu" ></ng-md-icon>  
         </md-button>
-        <div style="padding-left: 40px;" > {{ vm.name }} </div>
+        <div style="padding-left: 40px;" > <a href='#'> {{ vm.name }} </a></div>
     </div>
 </md-toolbar>
 
@@ -11,9 +11,11 @@
     <md-sidenav class="md-sidenav-left md-whiteframe-z" md-component-id="left" style="width: 204px; min-width: 204px;">
         <md-toolbar  class="md-theme-light">
             <h4 class="md-toolbar-tools"> Navigation </h4>
-        </md-toolbar>
+        </md-toolbar>        
         <md-content layout-padding >
-             <md-button ng-click="close()" ng-repeat="nav in vm.menu" class="md-raised md-primary" ui-sref="{{nav.state}}">{{nav.name}}</md-button>
+             <md-button ng-click="close()" ng-repeat="nav in vm.menu" class="md-raised md-primary" ui-sref="{{nav.state}}">
+          <md-tooltip md-direction="right">{{nav.tooltip}}</md-tooltip> {{nav.name}}
+             </md-button>
         </md-content>     
     </md-sidenav>
 </section>

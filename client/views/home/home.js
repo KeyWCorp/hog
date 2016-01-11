@@ -19,9 +19,6 @@ angular.module('hog')
                     controllerAs: 'vm'
                 }
             },
-            //templateUrl: 'views/home/home.html',
-            //controller: 'HomeCtrl',
-            //controllerAs: 'vm'
         });    
     
   });
