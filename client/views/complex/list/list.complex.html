@@ -2,6 +2,22 @@
   {{ vm.name }}
 </div>
 <md-content>
+    <md-list>
+        <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
+            <md-card flex-gt-sm="190" flex-gt-md="80">
+                <md-card-header> <h4>{{pig.name}}</h4></md-card-header>
+                <md-card-content>
+                   <div  layout-sm="column" layout-align="space-around left">
+                   </div>
+                </md-card-content>
+             </md-card>
+        </md-list-item>
+    </md-list>
+
+
+
+
+
     <section id="List">
         <md-list>
             <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
