@@ -8,6 +8,7 @@ describe('Controller: ListComplexCtrl', function () {
 
   beforeEach(inject(function ($controller) {
     ListComplexCtrl = $controller('ListComplexCtrl', {});
+
   }));
 
   it('should ...', function () {
