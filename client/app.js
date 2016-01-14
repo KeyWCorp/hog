@@ -14,7 +14,9 @@ angular.module('hog', [
     'btford.socket-io',
     'uuid4',
     'ngLodash'
-]).config(function($mdThemingProvider) {
+]).run(function($rootScope){
+  $rootScope = [];
+}).config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')
     .accentPalette('orange')

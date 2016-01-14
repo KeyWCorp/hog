@@ -19,7 +19,7 @@ module.exports = function (app) {
   app.use(compression());
   app.use(morgan('dev'));
     app.use(morgan(logger.stream))
-  app.use(express.static(path.join(config.root, 'client')));
+  app.use(express.static(path.join(config.root, 'client_new')));
   app.set('appPath', 'client');
 
   if (env === 'development' || env === 'test') {

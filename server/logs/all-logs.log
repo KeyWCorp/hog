@@ -5364,3 +5364,170 @@
 {"level":"debug","message":" /api/pigs [Tue, 12 Jan 2016 19:36:51 GMT] 127.0.0.1 logged.","timestamp":"2016-01-12T19:36:51.469Z"}
 {"level":"debug","message":"test on indx","timestamp":"2016-01-12T19:36:51.503Z"}
 {"level":"debug","message":"Index requested","timestamp":"2016-01-12T19:36:51.503Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T16:42:52.930Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T16:42:52.931Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 16:45:41 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T16:45:41.035Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T16:54:41.585Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T16:54:41.585Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 16:54:41 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T16:54:41.585Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T16:54:41.640Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T16:54:41.640Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 16:56:44 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T16:56:44.209Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T16:56:45.623Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T16:56:45.623Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 16:56:45 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T16:56:45.624Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 16:56:58 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T16:56:58.473Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T16:56:59.673Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T16:56:59.673Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 16:56:59 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T16:56:59.673Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T16:56:59.708Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T16:56:59.708Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:01:08 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:01:08.499Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:01:09.938Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:01:09.938Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:01:09 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:01:09.938Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:01:09.977Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:01:09.977Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:01:18 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:01:18.672Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:01:24.535Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:01:24.535Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:01:24 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:01:24.535Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:01:24.595Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:01:24.595Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:02:19 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:02:19.939Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:02:27.530Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:02:27.531Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:02:27 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:02:27.531Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:02:27.611Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:02:27.611Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:03:03 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:03:03.045Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:03:04.417Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:03:04.418Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:03:04 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:03:04.418Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:03:04.468Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:03:04.468Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:03:58 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:03:58.266Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:03:59.510Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:03:59.510Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:03:59 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:03:59.510Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:03:59.543Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:03:59.543Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:04:12 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:04:12.185Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:04:19.871Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:04:19.871Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:04:19 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:04:19.871Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:04:19.925Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:04:19.926Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:05:43 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:05:43.188Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:05:44.529Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:05:44.529Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:05:44 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:05:44.530Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:05:44.568Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:05:44.569Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:05:56 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:05:56.495Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:06:02.403Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:06:02.403Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:06:02 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:06:02.404Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:06:02.467Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:06:02.467Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:06:37 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:06:37.725Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:06:39.039Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:06:39.039Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:06:39 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:06:39.040Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:06:39.085Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:06:39.085Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:06:44 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:06:44.772Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:07:14.294Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:07:14.295Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:07:14 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:07:14.295Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:07:14.348Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:07:14.349Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:14:42 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:14:42.151Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:14:43.561Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:14:43.561Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:14:43 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:14:43.561Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:14:43.606Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:14:43.606Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:15:12 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:15:12.442Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:15:13.786Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:15:13.787Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:15:13 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:15:13.787Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:15:13.840Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:15:13.840Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:17:02 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:17:02.685Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:17:04.085Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:17:04.085Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:17:04 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:17:04.086Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:17:04.129Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:17:04.129Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:17:43 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:17:43.428Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:17:44.717Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:17:44.718Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:17:44 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:17:44.718Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:17:44.761Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:17:44.761Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:17:56 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:17:56.823Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:18:22.039Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:18:22.040Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:18:22 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:18:22.040Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:18:22.098Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:18:22.098Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:24:35 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:24:35.419Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:24:36.832Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:24:36.832Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:24:36 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:24:36.833Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:24:51 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:24:51.670Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:24:53.157Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:24:53.157Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:24:53 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:24:53.157Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:24:53.204Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:24:53.205Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:26:47 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:26:47.239Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:26:48.640Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:26:48.640Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:26:48 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:26:48.641Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:26:48.682Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:26:48.683Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:28:19 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:28:19.203Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:28:20.523Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:28:20.523Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:28:20 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:28:20.524Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:28:20.568Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:28:20.568Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:34:04 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:34:04.247Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:34:05.746Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:34:05.746Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:34:05 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:34:05.746Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:34:48 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:34:48.791Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:34:50.259Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:34:50.259Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:34:50 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:34:50.260Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:34:54.615Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:34:54.615Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:37:48 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:37:48.112Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:37:49.590Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:37:49.590Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:37:49 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:37:49.591Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:37:49.630Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:37:49.630Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:45:29 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:45:29.106Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:45:30.428Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:45:30.429Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:45:30 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:45:30.429Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:45:30.470Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:45:30.471Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 17:45:48 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T17:45:48.822Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-13T17:45:50.198Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-13T17:45:50.198Z"}
+{"level":"debug","message":" /api/pigs [Wed, 13 Jan 2016 17:45:50 GMT] 127.0.0.1 logged.","timestamp":"2016-01-13T17:45:50.199Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-13T17:45:50.249Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-13T17:45:50.250Z"}
+{"level":"debug","message":"/api/pigs [Wed, 13 Jan 2016 18:37:34 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-13T18:37:34.629Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-14T14:19:19.260Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-14T14:19:19.260Z"}
+{"level":"debug","message":" /api/pigs [Thu, 14 Jan 2016 14:19:19 GMT] 127.0.0.1 logged.","timestamp":"2016-01-14T14:19:19.261Z"}
+{"level":"debug","message":"/api/pigs [Thu, 14 Jan 2016 14:29:04 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-14T14:29:04.215Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-14T14:29:05.376Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-14T14:29:05.376Z"}
+{"level":"debug","message":" /api/pigs [Thu, 14 Jan 2016 14:29:05 GMT] 127.0.0.1 logged.","timestamp":"2016-01-14T14:29:05.376Z"}
+{"level":"debug","message":"/api/pigs [Thu, 14 Jan 2016 14:29:08 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-14T14:29:08.888Z"}
