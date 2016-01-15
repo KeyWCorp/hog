@@ -12,5 +12,15 @@ hogApp.config(function($stateProvider, $urlRouterProvider) {
                         url: '/home',
                         templateUrl: 'app/view/home.html'
                 })
+        .state('complex', {
+                        url: '/complex',
+                        templateUrl: 'app/view/complex.html',
+                        controller: 'ComplexCtrl'
+                })
+        .state('complex', {
+                        url: '/complex',
+                        templateUrl: 'app/view/complex.html',
+                        controller: 'ComplexCtrl'
+                })
 
 });
