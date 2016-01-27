@@ -6,7 +6,7 @@ angular.module('hog')
         $mdSidenav('left').close();
     }
     var vm = this;
-
+    
     $scope.$on('stateChangeSuccess',
         function()
         {
