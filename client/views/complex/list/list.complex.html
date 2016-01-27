@@ -2,30 +2,30 @@
   {{ vm.name }}
 </div>
 --->
-    
+    <md-content>
 
-<md-content>
-        <section id="List">
-   
-    <ang-accordion class="md-3-line" ng-repeat="pig in vm.scripts" flex-gt-sm="190" flex-gt-md="80">
-        <collapsible-item  title="{{pig.name}}">
-                <div>{{pig.name}}</div>
+    <section id="List">
+    <md-list>
+        <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
             <md-card flex-gt-sm="190" flex-gt-md="80">
                 <md-card-header> <h4>{{pig.name}}</h4></md-card-header>
                 <md-card-content>
-                   <div  layout-sm="column" layout-align="space-around left">
-                   </div>
+
+   <ang-accordion>
+        <collapsible-item one-at-a-time="true"  title="Chart">        </collapsible-item>
+    </ang-accordion>
+                    
+    <ang-accordion>
+        <collapsible-item one-at-a-time="true" title="Logs">        </collapsible-item>
+    </ang-accordion>
+   
+                   <div  layout-sm="column" layout-align="space-around left">  </div>
                 </md-card-content>
              </md-card>
-    
-        </collapsible-item>
-    </ang-accordion>
-    
+        </md-list-item>
+    </md-list>
     </section>
- 
-     
 </md-content>
-
 <!-- 
 <md-list>
             <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
