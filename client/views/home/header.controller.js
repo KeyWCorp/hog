@@ -1,12 +1,12 @@
 'use strict';
 angular.module('hog')
-  .controller('HeaderCtrl', function ($scope, $log, $mdSidenav,  $rootScope) {
-    // on rootscope change
+  .controller('HeaderCtrl', function ($scope, $log, $mdSidenav) {
+
     $scope.close = function (){
         $mdSidenav('left').close();
     }
     var vm = this;
-    console.log($rootScope);
+
     $scope.$on('stateChangeSuccess',
         function()
         {
@@ -15,26 +15,21 @@ angular.module('hog')
         });
     angular.extend(vm, {
         name: 'Hog Application',
-        
         menu: [
             {
                 name: 'Complex',
                 state: 'home.complex',
-                tooltip: 'Complex Section Information goes here',
-                icon: 'view_list'
+                tooltip: 'Complex Section Information goes here'
             },
             {
                 name: 'Simple',
                 state: 'home.simple',
-                tooltip: 'Simple Section Information goes here',
-                icon: 'view_list'
+                tooltip: 'Simple Section Information goes here'
             },
             {
                 name: 'List',
                 state: 'home.complex.list',
-                tooltip: 'List Section will allow you the ability to run Pig command ',
-                icon: 'view_list'
-                
+                tooltip: 'List Section will allow you the ability to run Pig command '
             }
         ],
         toggleNav: function()

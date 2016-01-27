@@ -1,9 +1,9 @@
 'use strict';
+
 angular.module('hog')
-    .controller('ListComplexCtrl', function ($log, $state, Runner,  $rootScope)
+    .controller('ListComplexCtrl', function ($log, $state, Runner)
     {
         var vm = this;
-        
         angular.extend(vm, {
             name: 'ListComplexCtrl',
             scripts: [],

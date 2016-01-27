@@ -10,18 +10,14 @@ angular.module('hog', [
     'ngMaterial',
     'ngMdIcons',
     'ui.router',
-    'ui.ace','angAccordion',
+    'ui.ace',
     'btford.socket-io',
     'uuid4',
     'ngLodash'
-]).run(function($rootScope){
-  $rootScope = [];
-}).config(function($mdThemingProvider) {
+]).config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')
-    .accentPalette('orange')
-    .warnPalette('red')
-    .backgroundPalette('grey');
+    .accentPalette('orange');
 })
   .config(function ( $urlRouterProvider , $locationProvider) {
     $urlRouterProvider

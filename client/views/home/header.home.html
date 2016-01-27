@@ -3,7 +3,7 @@
         <md-button class="md-icon-button" aria-label="Settings" ng-click="vm.toggleNav()">
             <ng-md-icon icon="menu" ></ng-md-icon>  
         </md-button>
-        <div style="padding-left: 40px;" > <a href='#'><h4> {{ vm.name }}  </h4> </a></div>
+        <div style="padding-left: 40px;" > <a href='#'> {{ vm.name }} </a></div>
     </div>
 </md-toolbar>
 
@@ -14,26 +14,9 @@
             <h5 class="md-toolbar-tools" ng-click="close()"> Navigation </h5>
         </md-toolbar>        
         <md-content layout-padding >
-          <!---
-            <md-button ng-click="close()" ng-repeat="nav in vm.menu" class="md-raised md-primary" ui-sref="{{nav.state}}">
-                 <i class="material-icons">{{vm.icon}}</i>
-                 <md-tooltip md-direction="right">{{nav.tooltip}}</md-tooltip> {{nav.name}}
+             <md-button ng-click="close()" ng-repeat="nav in vm.menu" class="md-raised md-primary" ui-sref="{{nav.state}}">
+          <md-tooltip md-direction="right">{{nav.tooltip}}</md-tooltip> {{nav.name}}
              </md-button>
-            --->
-      <md-button  ng-repeat="nav in vm.menu"  layout="column" layout-align="center center"
-                 flex class="capitalize" ng-click="close()" ui-sref="{{nav.state}}">
-
-          <div hide-sm hide-md class="md-tile-content">
-              <i class="material-icons md-36">{{vm.icon}}</i>
-          </div>
-          <div class="md-tile-content">
-              {{nav.name}}
-          </div>
-      </md-button>
         </md-content>     
     </md-sidenav>
 </section>
-<!--- Main Menu -->
-
- 
-
