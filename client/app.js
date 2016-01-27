@@ -12,7 +12,7 @@ angular.module('hog', [
     'ui.router',
     'ui.ace',
     'btford.socket-io',
-    'uuid4',
+    'uuid4','angAccordion',
     'ngLodash'
 ]).config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')

@@ -1,9 +1,15 @@
-<div>
+<!--- <div>
   {{ vm.name }}
 </div>
+--->
+    
+
 <md-content>
-    <md-list>
-        <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
+        <section id="List">
+   
+    <ang-accordion class="md-3-line" ng-repeat="pig in vm.scripts" flex-gt-sm="190" flex-gt-md="80">
+        <collapsible-item  title="{{pig.name}}">
+                <div>{{pig.name}}</div>
             <md-card flex-gt-sm="190" flex-gt-md="80">
                 <md-card-header> <h4>{{pig.name}}</h4></md-card-header>
                 <md-card-content>
@@ -11,15 +17,17 @@
                    </div>
                 </md-card-content>
              </md-card>
-        </md-list-item>
-    </md-list>
+    
+        </collapsible-item>
+    </ang-accordion>
+    
+    </section>
+ 
+     
+</md-content>
 
-
-
-
-
-    <section id="List">
-        <md-list>
+<!-- 
+<md-list>
             <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
                 <div layout="row" layout-sm="column" layout-align="space-around">
                     <md-progress-circular md-mode="determinate" value="{{pig.progress}}"></md-progress-circular>
@@ -36,5 +44,4 @@
                 <md-divider></md-divider>
             </md-list-item>
         </md-list>
-    </section>
-</md-content>
+-->
