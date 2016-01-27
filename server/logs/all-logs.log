@@ -4517,3 +4517,10 @@
 {"level":"debug","message":" /api/pigs [Mon, 11 Jan 2016 15:10:58 GMT] 127.0.0.1 logged.","timestamp":"2016-01-11T15:10:58.157Z"}
 {"level":"debug","message":"test on indx","timestamp":"2016-01-11T15:10:58.181Z"}
 {"level":"debug","message":"Index requested","timestamp":"2016-01-11T15:10:58.181Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-27T18:11:17.266Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-27T18:11:17.269Z"}
+{"level":"debug","message":" /api/pigs [Wed, 27 Jan 2016 18:11:17 GMT] 127.0.0.1 logged.","timestamp":"2016-01-27T18:11:17.271Z"}
+{"level":"debug","message":"/api/pigs [Wed, 27 Jan 2016 18:11:17 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-27T18:11:17.571Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-27T18:11:23.894Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-27T18:11:23.894Z"}
+{"level":"debug","message":" /api/pigs [Wed, 27 Jan 2016 18:11:23 GMT] 127.0.0.1 logged.","timestamp":"2016-01-27T18:11:23.894Z"}
