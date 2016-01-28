@@ -15,18 +15,28 @@
                 <div flex><h4>Name:   {{vm.script.name}} </h4> </div>
                 <div flex layout-align="end" style="float:right;"><md-button  class="md-raised md-primary" ng-click="vm.run()">Execute</md-button>
                           <md-button   class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
-                              <md-button   class="md-raised md-primary" ng-click="vm.canceled()">Cancel</md-button> 
+                              <md-button   class="md-raised md-primary" ng-click="vm.canceled()">Cancel</md-button>
               </div>
               </div>
-             <div layout="row" ng-repeat="item in vm.args">
-                 <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
-                     {{item.arg}}
-                 </md-checkbox>
-                 <md-input-container ng-show="vm.exists(item, vm.script.args)">
-                 <input ng-model="vm.script.args[vm.index(vm.script.args, item.arg)].input" aria-label="arg {{item.arg}}">
-                 </md-input-container>
+
+             <div layout="row">
+                <div layout="row" ng-repeat="item in vm.args">
+
+                 <div flex><md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
+                      {{item.arg}}
+                  </md-checkbox>
+                 </div>
+
+                 <div flex>
+                   <md-input-container ng-show="vm.exists(item, vm.script.args)">
+                   <input ng-model="vm.script.args[vm.index(vm.script.args, item.arg)].input" aria-label="arg {{item.arg}}">
+                   </md-input-container>
+                 </div>
+
+                 </div>
              </div>
 
+             
              <div ui-ace="vm.editorOptions" ng-model="vm.script.data"> </div>
              <md-progress-linear md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>
         </md-card-content>
