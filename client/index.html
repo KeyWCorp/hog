@@ -9,10 +9,12 @@
     <!-- build:css app.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css">
+    <link rel="stylesheet" href="bower_components/angular-accordion/css/ang-accordion.css">
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
     <link rel="stylesheet" href="bower_components/angular-accordion/css/ang-accordion.css">
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+
     <!-- endinject -->
+
     <link rel="stylesheet" href="styles/css/app.css">
     <!-- endbuild -->
   </head>
@@ -37,31 +39,33 @@
     <script src="bower_components/angular-socket-io/socket.js"></script>
     <script src="bower_components/angular-uuid4/angular-uuid4.js"></script>
     <script src="bower_components/ng-lodash/build/ng-lodash.js"></script>
+    <script src="bower_components/angular-accordion/js/ang-accordion.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
+
+
     <!-- endinject -->
     <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
-    <script type="text/javascript" src="bower_components/angular-accordion/js/ang-accordion.js"></script>
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
     <!-- inject:js -->
     <script src="app.js"></script>
+    <script src="views/home/home.js"></script>
+    <script src="views/home/home.controller.js"></script>
+    <script src="views/home/header.controller.js"></script>
     <script src="views/complex/complex.js"></script>
     <script src="views/complex/complex.controller.js"></script>
-    <script src="views/complex/edit/edit.complex.js"></script>
-    <script src="views/complex/edit/edit.complex.controller.js"></script>
+    <script src="views/complex/states/complex.new.controller.js"></script>
     <script src="views/complex/new/new.complex.js"></script>
     <script src="views/complex/new/new.complex.controller.js"></script>
     <script src="views/complex/list/list.complex.js"></script>
     <script src="views/complex/list/list.complex.controller.js"></script>
-    <script src="views/complex/states/complex.new.controller.js"></script>
-    <script src="views/home/home.js"></script>
-    <script src="views/home/home.controller.js"></script>
-    <script src="views/home/header.controller.js"></script>
+    <script src="views/complex/edit/edit.complex.js"></script>
+    <script src="views/complex/edit/edit.complex.controller.js"></script>
     <script src="services/runner/runner.js"></script>
     <script src="services/pig/pig.js"></script>
     <!-- endinject -->

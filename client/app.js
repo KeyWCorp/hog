@@ -26,6 +26,3 @@ angular.module('hog', [
     $locationProvider.html5Mode(true);
 
   });
-
-
-

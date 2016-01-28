@@ -11,22 +11,30 @@
                 <md-card-header> <h4>{{pig.name}}</h4></md-card-header>
                 <md-card-content>
 
-   <ang-accordion>
-        <collapsible-item one-at-a-time="true"  title="Chart">        </collapsible-item>
-    </ang-accordion>
-                    
-    <ang-accordion>
-        <collapsible-item one-at-a-time="true" title="Logs">        </collapsible-item>
-    </ang-accordion>
-   
-                   <div  layout-sm="column" layout-align="space-around left">  </div>
+                 <ang-accordion>
+                      <collapsible-item one-at-a-time="true"  title="Chart">        </collapsible-item>
+                  </ang-accordion>
+
+                  <ang-accordion>
+                      <collapsible-item one-at-a-time="true" title="Logs">        </collapsible-item>
+                  </ang-accordion>
+
+                   <div  layout-sm="column" layout-align="space-around left">
+                     <div layout="row" layout-sm="column" layout-align="space-around">
+                         <md-button class="md-primary md-raised" ng-click="vm.run(pig.id)">Run</md-button>
+                     </div>
+                     <div layout="row" layout-sm="column" layout-align="space-around">
+                         <md-button class="md-primary md-raised" ng-click="vm.edit(pig.id)">Edit</md-button>
+                     </div>
+                     <md-divider></md-divider>
+                   </div>
                 </md-card-content>
              </md-card>
         </md-list-item>
     </md-list>
     </section>
 </md-content>
-<!-- 
+<!--
 <md-list>
             <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
                 <div layout="row" layout-sm="column" layout-align="space-around">

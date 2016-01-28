@@ -58,6 +58,10 @@ angular.module('hog')
                         $log.error('error: ' +err);
                     });
         }
+        vm.canceled = function() {
+          console.log('go back'+ vm.script.id);
+            $state.go('/list');
+        }
         vm.run = function()
         {
             $log.debug('running: ', vm.script.id);

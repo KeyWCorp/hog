@@ -16,7 +16,8 @@
     "angular-socket-io": "~0.7.0",
     "angular-uuid4": "~0.3.1",
     "ng-lodash": "~0.3.0",
-    "font-awesome": "~4.5.0"
+    "font-awesome": "~4.5.0",
+    "angular-accordion": "ang-accordion#*"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.7",
