@@ -5427,3 +5427,7 @@
 {"level":"debug","message":"data:  \"547  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n\"","timestamp":"2016-01-28T03:37:45.137Z"}
 {"level":"debug","message":"data:  \"547  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-01-28T03:37:45.138Z"}
 {"level":"debug","message":"close:  8","timestamp":"2016-01-28T03:37:45.382Z"}
+{"level":"debug","message":"/api/pigs [Thu, 28 Jan 2016 11:36:53 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-28T11:36:53.139Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-28T11:36:59.379Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-28T11:36:59.379Z"}
+{"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 11:36:59 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T11:36:59.380Z"}
