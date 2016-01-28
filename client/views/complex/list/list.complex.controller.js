@@ -9,6 +9,7 @@ angular.module('hog')
             scripts: [],
             edit: function(id)
             {
+              
                 $state.go('^.edit', {id: id});
             },
             run: function(id)
@@ -36,12 +37,12 @@ angular.module('hog')
                         });
             }
         });
-        
+
         Runner.list().then(
                 function(data)
                 {
                     // Might Need to Parse it
                     vm.scripts = data.json;
                 });
-        
+
     });
