@@ -5529,3 +5529,172 @@
 {"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 12:07:55 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T12:07:55.165Z"}
 {"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:07:55.326Z"}
 {"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:07:55.328Z"}
+{"level":"debug","message":"/api/pigs [Thu, 28 Jan 2016 12:12:31 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-28T12:12:31.727Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-28T12:12:35.955Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-28T12:12:35.956Z"}
+{"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 12:12:35 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T12:12:35.956Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:12:36.114Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:12:36.115Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-01-28T12:12:38.730Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-01-28T12:12:38.731Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-01-28T12:12:38.771Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-01-28T12:12:40.248Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-01-28T12:12:40.248Z"}
+{"level":"debug","message":"data:  \"456  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-01-28T12:12:40.704Z"}
+{"level":"debug","message":"data:  \"457  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n\"","timestamp":"2016-01-28T12:12:40.704Z"}
+{"level":"debug","message":"data:  \"458  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-01-28T12:12:40.705Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-01-28T12:12:40.923Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-01-28T12:12:47.474Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-01-28T12:12:47.475Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-01-28T12:12:47.519Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-01-28T12:12:48.285Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-01-28T12:12:48.285Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-01-28T12:12:48.330Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-01-28T12:12:48.539Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-01-28T12:12:48.540Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-01-28T12:12:48.690Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-01-28T12:12:48.690Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-01-28T12:12:48.865Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-01-28T12:12:48.932Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-01-28T12:12:51.458Z"}
+{"level":"debug","message":"error:  \"\\n\"","timestamp":"2016-01-28T12:12:51.462Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\"","timestamp":"2016-01-28T12:12:51.463Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-01-28T12:12:51.466Z"}
+{"level":"debug","message":"data:  \"1395 [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-01-28T12:12:52.854Z"}
+{"level":"debug","message":"data:  \"1399 [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n\"","timestamp":"2016-01-28T12:12:52.857Z"}
+{"level":"debug","message":"data:  \"1405 [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-01-28T12:12:52.863Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-01-28T12:12:53.113Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-01-28T12:12:53.113Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-01-28T12:12:54.370Z"}
+{"level":"debug","message":"data:  \"1275 [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n1276 [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n1276 [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-01-28T12:12:54.390Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-01-28T12:12:54.601Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-01-28T12:12:54.607Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-01-28T12:12:54.895Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-01-28T12:12:54.896Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-01-28T12:12:55.126Z"}
+{"level":"debug","message":"data:  \"1107 [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-01-28T12:12:55.708Z"}
+{"level":"debug","message":"data:  \"1110 [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n\"","timestamp":"2016-01-28T12:12:55.711Z"}
+{"level":"debug","message":"data:  \"1112 [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-01-28T12:12:55.713Z"}
+{"level":"debug","message":"data:  \"924  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-01-28T12:12:55.820Z"}
+{"level":"debug","message":"data:  \"926  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n926  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-01-28T12:12:55.821Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-01-28T12:12:56.141Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-01-28T12:12:56.228Z"}
+{"level":"debug","message":"/api/pigs [Thu, 28 Jan 2016 12:14:43 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-28T12:14:43.025Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-28T12:14:49.585Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-28T12:14:49.586Z"}
+{"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 12:14:49 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T12:14:49.586Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:14:49.765Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:14:49.765Z"}
+{"level":"debug","message":"/api/pigs [Thu, 28 Jan 2016 12:15:45 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-28T12:15:45.722Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-28T12:15:50.094Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-28T12:15:50.094Z"}
+{"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 12:15:50 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T12:15:50.094Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:15:50.288Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:15:50.288Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:18:15.101Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:18:15.101Z"}
+{"level":"debug","message":"/api/pigs [Thu, 28 Jan 2016 12:18:55 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-28T12:18:55.332Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-28T12:19:05.092Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-28T12:19:05.092Z"}
+{"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 12:19:05 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T12:19:05.093Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:19:05.267Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:19:05.270Z"}
+{"level":"debug","message":"/api/pigs [Thu, 28 Jan 2016 12:19:40 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-28T12:19:40.760Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-28T12:19:46.113Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-28T12:19:46.114Z"}
+{"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 12:19:46 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T12:19:46.114Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:19:46.294Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:19:46.294Z"}
+{"level":"debug","message":"/api/pigs [Thu, 28 Jan 2016 12:20:52 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-28T12:20:52.563Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-28T12:20:59.172Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-28T12:20:59.173Z"}
+{"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 12:20:59 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T12:20:59.173Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:20:59.355Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:20:59.355Z"}
+{"level":"debug","message":"/api/pigs [Thu, 28 Jan 2016 12:24:02 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-28T12:24:02.518Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-28T12:24:08.228Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-28T12:24:08.228Z"}
+{"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 12:24:08 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T12:24:08.229Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:24:08.401Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:24:08.401Z"}
+{"level":"debug","message":"/api/pigs [Thu, 28 Jan 2016 12:24:42 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-28T12:24:42.146Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-28T12:24:47.901Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-28T12:24:47.901Z"}
+{"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 12:24:47 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T12:24:47.901Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:24:48.087Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:24:48.087Z"}
+{"level":"debug","message":"/api/pigs [Thu, 28 Jan 2016 12:25:10 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-28T12:25:10.361Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-28T12:25:18.207Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-28T12:25:18.207Z"}
+{"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 12:25:18 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T12:25:18.207Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:25:18.396Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:25:18.396Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-01-28T12:25:23.672Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-01-28T12:25:23.672Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-01-28T12:25:23.728Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-01-28T12:25:25.562Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-01-28T12:25:25.563Z"}
+{"level":"debug","message":"data:  \"567  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-01-28T12:25:26.130Z"}
+{"level":"debug","message":"data:  \"568  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n568  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-01-28T12:25:26.131Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-01-28T12:25:26.357Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-01-28T12:25:42.511Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-01-28T12:25:42.511Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-01-28T12:25:42.559Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-01-28T12:25:44.446Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-01-28T12:25:44.447Z"}
+{"level":"debug","message":"data:  \"745  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-01-28T12:25:45.192Z"}
+{"level":"debug","message":"data:  \"746  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n746  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-01-28T12:25:45.192Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-01-28T12:25:45.439Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-01-28T12:29:36.808Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-01-28T12:29:36.808Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-01-28T12:29:36.851Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-01-28T12:29:38.428Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-01-28T12:29:38.429Z"}
+{"level":"debug","message":"data:  \"531  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-01-28T12:29:38.960Z"}
+{"level":"debug","message":"data:  \"536  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n\"","timestamp":"2016-01-28T12:29:38.964Z"}
+{"level":"debug","message":"data:  \"538  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-01-28T12:29:38.966Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-01-28T12:29:39.230Z"}
+{"level":"debug","message":"/api/pigs [Thu, 28 Jan 2016 12:33:03 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-28T12:33:03.778Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-28T12:34:59.196Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-28T12:34:59.197Z"}
+{"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 12:34:59 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T12:34:59.199Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:34:59.376Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:34:59.376Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-01-28T12:35:32.943Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-01-28T12:35:32.944Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-01-28T12:35:32.989Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-01-28T12:35:34.982Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-01-28T12:35:34.983Z"}
+{"level":"debug","message":"data:  \"764  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-01-28T12:35:35.748Z"}
+{"level":"debug","message":"data:  \"766  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n766  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-01-28T12:35:35.748Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-01-28T12:35:36.022Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-28T12:45:04.901Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-28T12:45:04.904Z"}
+{"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 12:45:04 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T12:45:04.906Z"}
+{"level":"debug","message":"/api/pigs [Thu, 28 Jan 2016 12:45:20 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-28T12:45:20.581Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-01-28T12:45:34.313Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-01-28T12:45:34.313Z"}
+{"level":"debug","message":" /api/pigs [Thu, 28 Jan 2016 12:45:34 GMT] 127.0.0.1 logged.","timestamp":"2016-01-28T12:45:34.313Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:45:34.398Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:45:34.398Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-01-28T12:45:50.460Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-01-28T12:45:50.460Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-01-28T12:45:50.511Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-01-28T12:45:52.239Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-01-28T12:45:52.240Z"}
+{"level":"debug","message":"data:  \"563  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-01-28T12:45:52.804Z"}
+{"level":"debug","message":"data:  \"564  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n565  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-01-28T12:45:52.804Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-01-28T12:45:53.067Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-01-28T12:48:17.231Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-01-28T12:48:17.231Z"}
+{"level":"debug","message":"Running Pig Script:  2","timestamp":"2016-01-28T12:48:31.380Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-01-28T12:48:31.381Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-01-28T12:48:31.427Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-01-28T12:48:33.026Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-01-28T12:48:33.027Z"}
+{"level":"debug","message":"error:  \"2016-01-28 07:48:33,637 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-01-28T12:48:33.637Z"}
+{"level":"debug","message":"error:  \"2016-01-28 07:48:33,639 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1453985313618.log\\n\"","timestamp":"2016-01-28T12:48:33.638Z"}
+{"level":"debug","message":"error:  \"2016-01-28 07:48:33,681 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-01-28T12:48:33.680Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1453985313618.log\"","timestamp":"2016-01-28T12:48:33.690Z"}
+{"level":"debug","message":"error:  \"\\n\"","timestamp":"2016-01-28T12:48:33.690Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-01-28T12:48:34.113Z"}

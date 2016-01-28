@@ -4,12 +4,14 @@
 --->
     <md-content>
 
+
     <section id="List">
     <md-list>
         <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
             <md-card flex-gt-sm="190" flex-gt-md="80">
-                <md-card-header> <h4>{{pig.name}}</h4></md-card-header>
+                <md-card-header> <h4>{{pig.name}} - {{pig.progress}}</h4></md-card-header>
                 <md-card-content>
+    <md-progress-circular md-mode="determinate" value="{{pig.progress}}"></md-progress-circular>
 
                    <div  layout-sm="column" layout-align="space-around left">
                       <div layout="row">
