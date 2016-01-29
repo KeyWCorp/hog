@@ -59,7 +59,7 @@ angular.module('hog')
                     });
         }
         vm.canceled = function(id) {
-console.log('changing to list');
+            console.log('changing to list');
             $state.go('home.complex.list');
 
         }

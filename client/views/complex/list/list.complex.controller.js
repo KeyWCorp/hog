@@ -7,13 +7,15 @@ angular.module('hog')
         angular.extend(vm, {
             name: 'ListComplexCtrl',
             scripts: [],
+
             edit: function(id)
             {
-              
+
                 $state.go('^.edit', {id: id});
             },
             run: function(id)
             {
+              var processCount = 0;
                 Runner.run(id)
                     .then(
                         function(out)
@@ -26,9 +28,15 @@ angular.module('hog')
                         },
                         function(update)
                         {
+                            console.log(update.type);
                             if (update.type == 'progress')
                             {
-                                vm.scripts[id].progress = update.data;
+                              //process status
+                              console.log(update.data);
+                              vm.scripts[id].progress = update.data;
+
+
+
                             }
                             else if (update.type == 'log')
                             {
