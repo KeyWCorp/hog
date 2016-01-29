@@ -28,11 +28,14 @@ angular.module('hog')
                         },
                         function(update)
                         {
-                            console.log(update.type);
-                            if (update.type == 'progress')
+                          console.log(update.type);
+                           if (update.type == 'end') {
+                              vm.scripts[id].progress = 100;
+                           }
+                            else if (update.type == 'progress')
                             {
                               //process status
-                              console.log(update.data);
+
                               vm.scripts[id].progress = update.data;
 
 

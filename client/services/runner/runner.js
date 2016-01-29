@@ -146,8 +146,9 @@ angular.module('hog')
                 Pig.on('run:end',
                     function(data)
                     {
-                        console.log('end promise');
-                        deferred.resolve(data);
+
+                       deferred.notify({type: 'end', data: data});
+                        //deferred.resolve(data);
                     });
                 Pig.on('run:progress',
                     function(percent)

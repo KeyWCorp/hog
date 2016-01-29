@@ -5,13 +5,30 @@
     <md-content>
     <section id="List">
 
+      <div class='md-padding' layout="row" layout-wrap>
+         <md-card style="width: 350px;" ng-repeat="pig in vm.scripts">
+           <md-card-content>
+             <h2>{{pig.name}} - {{pig.progress}}</h2>
+             <md-progress-circular md-mode="determinate" value="{{pig.progress}}"></md-progress-circular>
+      <!---  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,magna aliqua</p>   --->
+           </md-card-content>
+           <div class="md-actions" layout="row" layout-align="end center">
+               <md-button class="md-primary md-raised" ng-click="vm.run(pig.id)">Run</md-button>
+               <md-button class="md-primary md-raised" ng-click="vm.edit(pig.id)">Edit</md-button>
+           </div>
+         </md-card>
+       </div>
+
+
+
+
+<!---
     <md-list>
         <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
             <md-card flex-gt-sm="100" flex-gt-md="80">
                 <md-card-header> <h4>{{pig.name}} - {{pig.progress}}</h4></md-card-header>
                 <md-card-content>
             <md-progress-circular md-mode="determinate" value="{{pig.progress}}  "></md-progress-circular>
-
                    <div  layout-sm="column" layout-align="space-around left">
                       <div layout="row">
                                          <div layout="row" layout-sm="column" layout-align="space-around">
@@ -23,13 +40,13 @@
                       </div>
                    <md-divider></md-divider>
                    </div>
-
                 </md-card-content>
              </md-card>
         </md-list-item>
     </md-list>
     </section>
 </md-content>
+--->
 <!--
 <md-list>
             <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
