@@ -59,8 +59,7 @@ angular.module('hog')
         function percent_data (current) {
           var currentPer = current;
           var top = 95;
-
-
+          console.log(currentPer);
           if (currentPer < top) {
               currentPer = currentPer + 5
 
