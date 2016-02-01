@@ -7327,3 +7327,605 @@
 {"level":"debug","message":"error:  \"2016-01-29 18:20:28,285 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-01-29T23:20:28.284Z"}
 {"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454109628221.log\\n\"","timestamp":"2016-01-29T23:20:28.296Z"}
 {"level":"debug","message":"close:  8","timestamp":"2016-01-29T23:20:28.558Z"}
+{"level":"debug","message":"/api/pigs [Fri, 29 Jan 2016 23:21:12 GMT] 127.0.0.1 disconnected.","timestamp":"2016-01-29T23:21:12.263Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T00:32:15.788Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T00:32:15.791Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 00:32:15 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T00:32:15.822Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T00:32:15.913Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T00:32:15.918Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-01T00:32:18.923Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-01T00:32:18.923Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T00:32:18.953Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-02-01T00:32:20.973Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T00:32:20.974Z"}
+{"level":"debug","message":"data:  \"553  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-01T00:32:21.528Z"}
+{"level":"debug","message":"data:  \"555  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n555  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-01T00:32:21.529Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T00:32:22.103Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 00:32:25 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T00:32:25.943Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T02:57:50.588Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T02:57:50.588Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 02:57:50 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T02:57:50.589Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T02:57:50.613Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T02:57:50.613Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:09:02 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:09:02.206Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:09:03.208Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:09:03.208Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:09:03 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:09:03.208Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:09:03.223Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:09:03.225Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:09:08 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:09:08.456Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:09:10.016Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:09:10.018Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:09:10 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:09:10.019Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:09:10.048Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:09:10.050Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:09:15 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:09:15.365Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:09:17.077Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:09:17.081Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:09:17 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:09:17.082Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:09:17.138Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:09:17.140Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:09:24 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:09:24.826Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:09:26.404Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:09:26.405Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:09:26 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:09:26.405Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:09:26.678Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:09:26.678Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:11:09.784Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:11:09.786Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:11:09 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:11:09.788Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:11:14.102Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:11:14.102Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:11:21 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:11:21.560Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:11:23.059Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:11:23.062Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:11:23 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:11:23.063Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:11:23.108Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:11:23.109Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:16:23 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:16:23.061Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:16:24.488Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:16:24.492Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:16:24 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:16:24.493Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:16:24.533Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:16:24.533Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-01T03:18:32.448Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-01T03:18:32.449Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:18:32.474Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-02-01T03:18:34.054Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:18:34.055Z"}
+{"level":"debug","message":"data:  \"527  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-01T03:18:34.582Z"}
+{"level":"debug","message":"data:  \"528  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n528  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-01T03:18:34.583Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:18:34.880Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-01T03:18:37.944Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-01T03:18:37.945Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:18:37.982Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-02-01T03:18:39.653Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:18:39.654Z"}
+{"level":"debug","message":"data:  \"549  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-01T03:18:40.202Z"}
+{"level":"debug","message":"data:  \"550  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n550  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-01T03:18:40.203Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:18:40.454Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:20:45 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:20:45.498Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:20:46.975Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:20:46.975Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:20:46 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:20:46.975Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:21:22 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:21:22.220Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:21:23.641Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:21:23.645Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:21:23 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:21:23.645Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:22:49 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:22:49.066Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:22:50.538Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:22:50.541Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:22:50 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:22:50.541Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:23:06 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:23:06.217Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:23:07.684Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:23:07.685Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:23:07 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:23:07.685Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:24:49 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:24:49.298Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:24:50.858Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:24:50.858Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:24:50 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:24:50.858Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:25:01 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:25:01.422Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:25:02.938Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:25:02.940Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:25:02 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:25:02.940Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:25:19 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:25:19.344Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:25:20.905Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:25:20.905Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:25:20 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:25:20.905Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:25:20.957Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:25:20.958Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:25:27 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:25:27.027Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:25:28.580Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:25:28.580Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:25:28 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:25:28.581Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:25:28.646Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:25:28.646Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:25:32 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:25:32.296Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:25:33.881Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:25:33.881Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:25:33 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:25:33.884Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:25:33.944Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:25:33.944Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-01T03:25:35.676Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-01T03:25:35.677Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:25:35.699Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:25:37.848Z"}
+{"level":"debug","message":"data:  \"911  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-01T03:25:38.758Z"}
+{"level":"debug","message":"data:  \"912  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n912  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-01T03:25:38.758Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:25:39.033Z"}
+{"level":"debug","message":"Running Pig Script:  1","timestamp":"2016-02-01T03:25:47.212Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/.pig\"]","timestamp":"2016-02-01T03:25:47.212Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:25:47.254Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-02-01T03:25:49.734Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:25:49.735Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:25:50,679 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-01T03:25:50.716Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:25:50,717 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454297150624.log\\n\"","timestamp":"2016-02-01T03:25:50.717Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:25:50,835 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-02-01T03:25:50.834Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454297150624.log\\n\"","timestamp":"2016-02-01T03:25:50.841Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:25:51.111Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:26:44 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:26:44.083Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:26:45.719Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:26:45.719Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:26:45 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:26:45.719Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:26:45.782Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:26:45.783Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:26:56 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:26:56.998Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:26:58.676Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:26:58.678Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:26:58 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:26:58.678Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:26:58.732Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:26:58.732Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:27:09 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:27:09.795Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:27:11.532Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:27:11.532Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:27:11 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:27:11.532Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:27:11.591Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:27:11.591Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-01T03:27:15.445Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-01T03:27:15.445Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:27:15.492Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-02-01T03:27:17.165Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:27:17.166Z"}
+{"level":"debug","message":"data:  \"519  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-01T03:27:17.685Z"}
+{"level":"debug","message":"data:  \"520  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n520  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-01T03:27:17.687Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:27:17.964Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:28:30 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:28:30.653Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:28:32.351Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:28:32.352Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:28:32 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:28:32.352Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:28:32.411Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:28:32.411Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:28:56 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:28:56.406Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:28:58.124Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:28:58.124Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:28:58 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:28:58.125Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:28:58.181Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:28:58.182Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-01T03:29:03.243Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-01T03:29:03.245Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:29:03.277Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:29:05.084Z"}
+{"level":"debug","message":"data:  \"738  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-01T03:29:05.820Z"}
+{"level":"debug","message":"data:  \"739  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n739  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-01T03:29:05.821Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:29:06.056Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:29:56 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:29:56.074Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:29:57.810Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:29:57.810Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:29:57 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:29:57.810Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:29:57.870Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:29:57.870Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:30:39 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:30:39.055Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:30:40.814Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:30:40.815Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:30:40 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:30:40.815Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:30:40.871Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:30:40.872Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:32:44 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:32:44.463Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:32:46.348Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:32:46.348Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:32:46 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:32:46.349Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:32:46.411Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:32:46.411Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:34:19 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:34:19.400Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:34:21.250Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:34:21.250Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:34:21 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:34:21.251Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:34:21.316Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:34:21.316Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:34:52 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:34:52.795Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:34:54.666Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:34:54.666Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:34:54 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:34:54.666Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:34:54.733Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:34:54.734Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:35:25 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:35:25.085Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:35:26.962Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:35:26.964Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:35:26 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:35:26.964Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:35:27.026Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:35:27.027Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:35:57 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:35:57.542Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:35:59.451Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:35:59.451Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:35:59 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:35:59.451Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:35:59.517Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:35:59.518Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:37:29 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:37:29.556Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:37:31.579Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:37:31.579Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:37:31 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:37:31.579Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:37:57 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:37:57.787Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:37:59.835Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:37:59.836Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:37:59 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:37:59.836Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:41:22 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:41:22.051Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:41:25.842Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:41:25.842Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:41:25 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:41:25.842Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:41:31 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:41:31.379Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:41:36.660Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:41:36.660Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:41:36 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:41:36.660Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:41:40 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:41:40.078Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:41:42.556Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:41:42.557Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:41:42 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:41:42.557Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:42:03 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:42:03.932Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:42:06.156Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:42:06.156Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:42:06 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:42:06.157Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:42:06.236Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:42:06.240Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-01T03:42:10.086Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-01T03:42:10.086Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:42:10.125Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:42:12.176Z"}
+{"level":"debug","message":"data:  \"671  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-01T03:42:12.845Z"}
+{"level":"debug","message":"data:  \"672  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n672  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-01T03:42:12.845Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:42:13.125Z"}
+{"level":"debug","message":"Running Pig Script:  1","timestamp":"2016-02-01T03:42:16.958Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/.pig\"]","timestamp":"2016-02-01T03:42:16.958Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:42:16.982Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-02-01T03:42:18.695Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:42:18.696Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:19,288 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-01T03:42:19.288Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:19,290 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454298139260.log\\n\"","timestamp":"2016-02-01T03:42:19.289Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:19,350 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-02-01T03:42:19.349Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454298139260.log\"","timestamp":"2016-02-01T03:42:19.350Z"}
+{"level":"debug","message":"error:  \"\\n\"","timestamp":"2016-02-01T03:42:19.351Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:42:19.662Z"}
+{"level":"debug","message":"Running Pig Script:  4","timestamp":"2016-02-01T03:42:26.132Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/test_steve.pig\"]","timestamp":"2016-02-01T03:42:26.133Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:42:26.165Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-02-01T03:42:27.879Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:42:27.879Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:28,438 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-01T03:42:28.438Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:28,439 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454298148417.log\\n\"","timestamp":"2016-02-01T03:42:28.439Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:28,456 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - user.name is deprecated. Instead, use mapreduce.job.user.name\\n\"","timestamp":"2016-02-01T03:42:28.455Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:29,379 [main] INFO  org.apache.pig.impl.util.Utils - Default bootup file /root/.pigbootup not found\\n\"","timestamp":"2016-02-01T03:42:29.378Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:29,476 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:29.475Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:29,476 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address\\n\"","timestamp":"2016-02-01T03:42:29.476Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:29,488 [main] INFO  org.apache.pig.backend.hadoop.executionengine.HExecutionEngine - Connecting to hadoop file system at: file:///\\n\"","timestamp":"2016-02-01T03:42:29.487Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:29,631 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:29.630Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:29,773 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:29.772Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:29,920 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:29.919Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:29,958 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:29.957Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:29,999 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:29.998Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:30,040 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:30.040Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:30,115 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:30.114Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:30,173 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:30.172Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:30,912 [main] INFO  org.apache.pig.tools.pigstats.ScriptState - Pig features used in the script: UNKNOWN\\n\"","timestamp":"2016-02-01T03:42:30.912Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,042 [main] INFO  org.apache.pig.newplan.logical.optimizer.LogicalPlanOptimizer - {RULES_ENABLED=[AddForEach, ColumnMapKeyPrune, DuplicateForEachColumnRewrite, GroupByConstParallelSetter, ImplicitSplitInserter, LimitOptimizer, LoadTypeCastInserter, MergeFilter, MergeForEach, NewPartitionFilterOptimizer, PushDownForEachFlatten, PushUpFilter, SplitFilter, StreamTypeCastInserter], RULES_DISABLED=[FilterLogicExpressionSimplifier, PartitionFilterOptimizer]}\\n\"","timestamp":"2016-02-01T03:42:31.066Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,086 [main] INFO  org.apache.pig.newplan.logical.rules.ColumnPruneVisitor - Columns pruned for A: $1, $2\\n\"","timestamp":"2016-02-01T03:42:31.088Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,254 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MRCompiler - File concatenation threshold: 100 optimistic? false\\n\"","timestamp":"2016-02-01T03:42:31.253Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,315 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MultiQueryOptimizer - MR plan size before optimization: 1\\n\"","timestamp":"2016-02-01T03:42:31.314Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,316 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MultiQueryOptimizer - MR plan size after optimization: 1\\n\"","timestamp":"2016-02-01T03:42:31.315Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,446 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - session.id is deprecated. Instead, use dfs.metrics.session-id\\n\"","timestamp":"2016-02-01T03:42:31.446Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,452 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Initializing JVM Metrics with processName=JobTracker, sessionId=\\n\"","timestamp":"2016-02-01T03:42:31.451Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,526 [main] INFO  org.apache.pig.tools.pigstats.ScriptState - Pig script settings are added to the job\\n\"","timestamp":"2016-02-01T03:42:31.525Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,698 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.reduce.markreset.buffer.percent is deprecated. Instead, use mapreduce.reduce.markreset.buffer.percent\\n\"","timestamp":"2016-02-01T03:42:31.697Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,698 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - mapred.job.reduce.markreset.buffer.percent is not set, set to default 0.3\\n2016-01-31 22:42:31,698 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.output.compress is deprecated. Instead, use mapreduce.output.fileoutputformat.compress\\n\"","timestamp":"2016-02-01T03:42:31.698Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,793 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - Setting up single store job\\n\"","timestamp":"2016-02-01T03:42:31.793Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,804 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Key [pig.schematuple] is false, will not generate code.\\n\"","timestamp":"2016-02-01T03:42:31.803Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,806 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Starting process to move generated code to distributed cache\\n\"","timestamp":"2016-02-01T03:42:31.805Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,808 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Distributed cache not supported or needed in local mode. Setting key [pig.schematuple.local.dir] with code temp directory: /tmp/1454298151803-0\\n\"","timestamp":"2016-02-01T03:42:31.807Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,851 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 1 map-reduce job(s) waiting for submission.\\n\"","timestamp":"2016-02-01T03:42:31.851Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,879 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker.http.address is deprecated. Instead, use mapreduce.jobtracker.http.address\\n\"","timestamp":"2016-02-01T03:42:31.878Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:31,968 [JobControl] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized\\n\"","timestamp":"2016-02-01T03:42:31.967Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:33,350 [JobControl] WARN  org.apache.hadoop.mapreduce.JobResourceUploader - No job jar file set.  User classes may not be found. See Job or Job#setJar(String).\\n\"","timestamp":"2016-02-01T03:42:33.349Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:33,432 [JobControl] INFO  org.apache.hadoop.mapreduce.JobSubmitter - Cleaning up the staging area file:/tmp/hadoop-root/mapred/staging/root974987471/.staging/job_local974987471_0001\\n\"","timestamp":"2016-02-01T03:42:33.431Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:33,443 [JobControl] WARN  org.apache.hadoop.security.UserGroupInformation - PriviledgedActionException as:root (auth:SIMPLE) cause:org.apache.pig.backend.executionengine.ExecException: ERROR 2118: Input path does not exist: file:/home/xadmin/Downloads/work/hog/student\\n\"","timestamp":"2016-02-01T03:42:33.442Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:33,444 [JobControl] INFO  org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob - PigLatin:test_steve.pig got an error while submitting \\norg.apache.pig.backend.executionengine.ExecException: ERROR 2118: Input path does not exist: file:/home/xadmin/Downloads/work/hog/student\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigInputFormat.getSplits(PigInputFormat.java:288)\\n\\tat org.apache.hadoop.mapreduce.JobSubmitter.writeNewSplits(JobSubmitter.java:304)\\n\\tat org.apache.hadoop.mapreduce.JobSubmitter.writeSplits(JobSubmitter.java:321)\\n\\tat org.apache.hadoop.mapreduce.JobSubmitter.submitJobInternal(JobSubmitter.java:199)\\n\\tat org.apache.hadoop.mapreduce.Job$10.run(Job.java:1307)\\n\\tat org.apache.hadoop.mapreduce.Job$10.run(Job.java:1304)\\n\\tat java.security.AccessController.doPrivileged(Native Method)\\n\\tat javax.security.auth.Subject.doAs(Subject.java:422)\\n\\tat org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1671)\\n\\tat org.apache.hadoop.mapreduce.Job.submit(Job.java:1304)\\n\\tat org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob.submit(ControlledJob.java:335)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.pig.backend.hadoop23.PigJobControl.submit(PigJobControl.java:128)\\n\\tat org.apache.pig.backend.hadoop23.PigJobControl.run(PigJobControl.java:191)\\n\\tat java.lang.Thread.run(Thread.java:745)\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher$1.run(MapReduceLauncher.java:270)\\nCaused by: org.apache.hadoop.mapreduce.lib.input.InvalidInputException: Input path does not exist: file:/home/xadmin/Downloads/work/hog/student\\n\\tat org.apache.hadoop.mapreduce.lib.input.FileInputFormat.singleThreadedListStatus(FileInputFormat.java:323)\\n\\tat org.apache.hadoop.mapreduce.lib.input.FileInputFormat.listStatus(FileInputFormat.java:265)\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigTextInputFormat.listStatus(PigTextInputFormat.java:36)\\n\\tat org.apache.hadoop.mapreduce.lib.input.FileInputFormat.getSplits(FileInputFormat.java:387)\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigInputFormat.getSplits(PigInputFormat.java:274)\\n\\t... 18 more\\n\"","timestamp":"2016-02-01T03:42:33.455Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:33,460 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - HadoopJobId: job_local974987471_0001\\n2016-01-31 22:42:33,460 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Processing aliases A,B\\n2016-01-31 22:42:33,460 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - detailed locations: M: A[1,4],B[-1,-1] C:  R: \\n\"","timestamp":"2016-02-01T03:42:33.461Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:33,464 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 0% complete\\n\"","timestamp":"2016-02-01T03:42:33.464Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:33,973 [main] WARN  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Ooops! Some job has failed! Specify -stop_on_failure if you want Pig to stop immediately on failure.\\n\"","timestamp":"2016-02-01T03:42:33.972Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:33,977 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - job job_local974987471_0001 has failed! Stop running all dependent jobs\\n\"","timestamp":"2016-02-01T03:42:33.976Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:33,978 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 100% complete\\n\"","timestamp":"2016-02-01T03:42:33.977Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:34,005 [main] ERROR org.apache.pig.tools.pigstats.PigStatsUtil - 1 map reduce job(s) failed!\\n\"","timestamp":"2016-02-01T03:42:34.004Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:34,007 [main] INFO  org.apache.pig.tools.pigstats.SimplePigStats - Detected Local mode. Stats reported below may be incomplete\\n\"","timestamp":"2016-02-01T03:42:34.006Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:34,023 [main] INFO  org.apache.pig.tools.pigstats.SimplePigStats - Script Statistics: \\n\\nHadoopVersion\\tPigVersion\\tUserId\\tStartedAt\\tFinishedAt\\tFeatures\\n2.6.0-cdh5.5.1\\t0.12.0-cdh5.5.1\\troot\\t2016-01-31 22:42:31\\t2016-01-31 22:42:34\\tUNKNOWN\\n\\nFailed!\\n\\nFailed Jobs:\\nJobId\\tAlias\\tFeature\\tMessage\\tOutputs\\njob_local974987471_0001\\tA,B\\tMAP_ONLY\\tMessage: org.apache.pig.backend.executionengine.ExecException: ERROR 2118: Input path does not exist: file:/home/xadmin/Downloads/work/hog/student\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigInputFormat.getSplits(PigInputFormat.java:288)\\n\\tat org.apache.hadoop.mapreduce.JobSubmitter.writeNewSplits(JobSubmitter.java:304)\\n\\tat org.apache.hadoop.mapreduce.JobSubmitter.writeSplits(JobSubmitter.java:321)\\n\\tat org.apache.hadoop.mapreduce.JobSubmitter.submitJobInternal(JobSubmitter.java:199)\\n\\tat org.apache.hadoop.mapreduce.Job$10.run(Job.java:1307)\\n\\tat org.apache.hadoop.mapreduce.Job$10.run(Job.java:1304)\\n\\tat java.security.AccessController.doPrivileged(Native Method)\\n\\tat javax.security.auth.Subject.doAs(Subject.java:422)\\n\\tat org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1671)\\n\\tat org.apache.hadoop.mapreduce.Job.submit(Job.java:1304)\\n\\tat org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob.submit(ControlledJob.java:335)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.pig.backend.hadoop23.PigJobControl.submit(PigJobControl.java:128)\\n\\tat org.apache.pig.backend.hadoop23.PigJobControl.run(PigJobControl.java:191)\\n\\tat java.lang.Thread.run(Thread.java:745)\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher$1.run(MapReduceLauncher.java:270)\\nCaused by: org.apache.hadoop.mapreduce.lib.input.InvalidInputException: Input path does not exist: file:/home/xadmin/Downloads/work/hog/student\\n\\tat org.apache.hadoop.mapreduce.lib.input.FileInputFormat.singleThreadedListStatus(FileInputFormat.java:323)\\n\\tat org.apache.hadoop.mapreduce.lib.input.FileInputFormat.listStatus(FileInputFormat.java:265)\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigTextInputFormat.listStatus(PigTextInputFormat.java:36)\\n\\tat org.apache.hadoop.mapreduce.lib.input.FileInputFormat.getSplits(FileInputFormat.java:387)\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigInputFormat.getSplits(PigInputFormat.java:274)\\n\\t... 18 more\\n\\tfile:/tmp/temp1326035963/tmp-97931892,\\n\\nInput(s):\\nFailed to read data from \\\"file:///home/xadmin/Downloads/work/hog/student\\\"\\n\\nOutput(s):\\nFailed to produce result in \\\"file:/tmp/temp1326035963/tmp-97931892\\\"\\n\\nJob DAG:\\njob_local974987471_0001\\n\\n\\n\"","timestamp":"2016-02-01T03:42:34.022Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:34,028 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Failed!\\n\"","timestamp":"2016-02-01T03:42:34.027Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:34,043 [main] ERROR org.apache.pig.tools.grunt.Grunt - ERROR 1066: Unable to open iterator for alias B\\n\"","timestamp":"2016-02-01T03:42:34.042Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454298148417.log\"","timestamp":"2016-02-01T03:42:34.044Z"}
+{"level":"debug","message":"error:  \"\\n\"","timestamp":"2016-02-01T03:42:34.045Z"}
+{"level":"debug","message":"close:  6","timestamp":"2016-02-01T03:42:34.350Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:42:48 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:42:48.897Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:42:51.084Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:42:51.084Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:42:51 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:42:51.084Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:42:51.159Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:42:51.160Z"}
+{"level":"debug","message":"Running Pig Script:  4","timestamp":"2016-02-01T03:42:53.308Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/test_steve.pig\"]","timestamp":"2016-02-01T03:42:53.308Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:42:53.344Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-02-01T03:42:55.150Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:42:55.150Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:55,705 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-01T03:42:55.705Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:55,706 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454298175678.log\\n\"","timestamp":"2016-02-01T03:42:55.706Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:55,734 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - user.name is deprecated. Instead, use mapreduce.job.user.name\\n\"","timestamp":"2016-02-01T03:42:55.734Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:56,093 [main] INFO  org.apache.pig.impl.util.Utils - Default bootup file /root/.pigbootup not found\\n\"","timestamp":"2016-02-01T03:42:56.092Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:56,157 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:56.156Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:56,160 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address\\n\"","timestamp":"2016-02-01T03:42:56.159Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:56,164 [main] INFO  org.apache.pig.backend.hadoop.executionengine.HExecutionEngine - Connecting to hadoop file system at: file:///\\n\"","timestamp":"2016-02-01T03:42:56.163Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:56,261 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:56.264Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:56,387 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:56.386Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:56,536 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:56.535Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:56,618 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:56.618Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:56,702 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:56.701Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:56,778 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:56.777Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:56,844 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:56.843Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:56,890 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS\\n\"","timestamp":"2016-02-01T03:42:56.889Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,451 [main] INFO  org.apache.pig.tools.pigstats.ScriptState - Pig features used in the script: UNKNOWN\\n\"","timestamp":"2016-02-01T03:42:57.450Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,490 [main] INFO  org.apache.pig.newplan.logical.optimizer.LogicalPlanOptimizer - {RULES_ENABLED=[AddForEach, ColumnMapKeyPrune, DuplicateForEachColumnRewrite, GroupByConstParallelSetter, ImplicitSplitInserter, LimitOptimizer, LoadTypeCastInserter, MergeFilter, MergeForEach, NewPartitionFilterOptimizer, PushDownForEachFlatten, PushUpFilter, SplitFilter, StreamTypeCastInserter], RULES_DISABLED=[FilterLogicExpressionSimplifier, PartitionFilterOptimizer]}\\n\"","timestamp":"2016-02-01T03:42:57.491Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,516 [main] INFO  org.apache.pig.newplan.logical.rules.ColumnPruneVisitor - Columns pruned for A: $1, $2\\n\"","timestamp":"2016-02-01T03:42:57.515Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,623 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MRCompiler - File concatenation threshold: 100 optimistic? false\\n\"","timestamp":"2016-02-01T03:42:57.622Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,657 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MultiQueryOptimizer - MR plan size before optimization: 1\\n2016-01-31 22:42:57,657 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MultiQueryOptimizer - MR plan size after optimization: 1\\n\"","timestamp":"2016-02-01T03:42:57.657Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,701 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - session.id is deprecated. Instead, use dfs.metrics.session-id\\n\"","timestamp":"2016-02-01T03:42:57.700Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,702 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Initializing JVM Metrics with processName=JobTracker, sessionId=\\n\"","timestamp":"2016-02-01T03:42:57.704Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,728 [main] INFO  org.apache.pig.tools.pigstats.ScriptState - Pig script settings are added to the job\\n\"","timestamp":"2016-02-01T03:42:57.728Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,832 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.reduce.markreset.buffer.percent is deprecated. Instead, use mapreduce.reduce.markreset.buffer.percent\\n\"","timestamp":"2016-02-01T03:42:57.831Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,832 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - mapred.job.reduce.markreset.buffer.percent is not set, set to default 0.3\\n2016-01-31 22:42:57,832 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.output.compress is deprecated. Instead, use mapreduce.output.fileoutputformat.compress\\n\"","timestamp":"2016-02-01T03:42:57.832Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,895 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - Setting up single store job\\n\"","timestamp":"2016-02-01T03:42:57.894Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,915 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Key [pig.schematuple] is false, will not generate code.\\n\"","timestamp":"2016-02-01T03:42:57.914Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,920 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Starting process to move generated code to distributed cache\\n\"","timestamp":"2016-02-01T03:42:57.919Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:57,921 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Distributed cache not supported or needed in local mode. Setting key [pig.schematuple.local.dir] with code temp directory: /tmp/1454298177914-0\\n\"","timestamp":"2016-02-01T03:42:57.920Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:58,006 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 1 map-reduce job(s) waiting for submission.\\n\"","timestamp":"2016-02-01T03:42:58.005Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:58,008 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker.http.address is deprecated. Instead, use mapreduce.jobtracker.http.address\\n\"","timestamp":"2016-02-01T03:42:58.007Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:58,056 [JobControl] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized\\n\"","timestamp":"2016-02-01T03:42:58.056Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:58,407 [JobControl] WARN  org.apache.hadoop.mapreduce.JobResourceUploader - No job jar file set.  User classes may not be found. See Job or Job#setJar(String).\\n\"","timestamp":"2016-02-01T03:42:58.406Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:58,465 [JobControl] INFO  org.apache.hadoop.mapreduce.JobSubmitter - Cleaning up the staging area file:/tmp/hadoop-root/mapred/staging/root456797605/.staging/job_local456797605_0001\\n\"","timestamp":"2016-02-01T03:42:58.465Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:58,474 [JobControl] WARN  org.apache.hadoop.security.UserGroupInformation - PriviledgedActionException as:root (auth:SIMPLE) cause:org.apache.pig.backend.executionengine.ExecException: ERROR 2118: Input path does not exist: file:/home/xadmin/Downloads/work/hog/student\\n\"","timestamp":"2016-02-01T03:42:58.473Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:58,475 [JobControl] INFO  org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob - PigLatin:test_steve.pig got an error while submitting \\norg.apache.pig.backend.executionengine.ExecException: ERROR 2118: Input path does not exist: file:/home/xadmin/Downloads/work/hog/student\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigInputFormat.getSplits(PigInputFormat.java:288)\\n\\tat org.apache.hadoop.mapreduce.JobSubmitter.writeNewSplits(JobSubmitter.java:304)\\n\\tat org.apache.hadoop.mapreduce.JobSubmitter.writeSplits(JobSubmitter.java:321)\\n\\tat org.apache.hadoop.mapreduce.JobSubmitter.submitJobInternal(JobSubmitter.java:199)\\n\\tat org.apache.hadoop.mapreduce.Job$10.run(Job.java:1307)\\n\\tat org.apache.hadoop.mapreduce.Job$10.run(Job.java:1304)\\n\\tat java.security.AccessController.doPrivileged(Native Method)\\n\\tat javax.security.auth.Subject.doAs(Subject.java:422)\\n\\tat org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1671)\\n\\tat org.apache.hadoop.mapreduce.Job.submit(Job.java:1304)\\n\\tat org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob.submit(ControlledJob.java:335)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.pig.backend.hadoop23.PigJobControl.submit(PigJobControl.java:128)\\n\\tat org.apache.pig.backend.hadoop23.PigJobControl.run(PigJobControl.java:191)\\n\\tat java.lang.Thread.run(Thread.java:745)\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher$1.run(MapReduceLauncher.java:270)\\nCaused by: org.apache.hadoop.mapreduce.lib.input.InvalidInputException: Input path does not exist: file:/home/xadmin/Downloads/work/hog/student\\n\\tat org.apache.hadoop.mapreduce.lib.input.FileInputFormat.singleThreadedListStatus(FileInputFormat.java:323)\\n\\tat org.apache.hadoop.mapreduce.lib.input.FileInputFormat.listStatus(FileInputFormat.java:265)\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigTextInputFormat.listStatus(PigTextInputFormat.java:36)\\n\\tat org.apache.hadoop.mapreduce.lib.input.FileInputFormat.getSplits(FileInputFormat.java:387)\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigInputFormat.getSplits(PigInputFormat.java:274)\\n\\t... 18 more\\n\"","timestamp":"2016-02-01T03:42:58.482Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:58,534 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - HadoopJobId: job_local456797605_0001\\n2016-01-31 22:42:58,535 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Processing aliases A,B\\n2016-01-31 22:42:58,535 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - detailed locations: M: A[1,4],B[-1,-1] C:  R: \\n\"","timestamp":"2016-02-01T03:42:58.534Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:58,545 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 0% complete\\n\"","timestamp":"2016-02-01T03:42:58.544Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:59,058 [main] WARN  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Ooops! Some job has failed! Specify -stop_on_failure if you want Pig to stop immediately on failure.\\n\"","timestamp":"2016-02-01T03:42:59.058Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:59,058 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - job job_local456797605_0001 has failed! Stop running all dependent jobs\\n2016-01-31 22:42:59,059 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 100% complete\\n\"","timestamp":"2016-02-01T03:42:59.059Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:59,069 [main] ERROR org.apache.pig.tools.pigstats.PigStatsUtil - 1 map reduce job(s) failed!\\n\"","timestamp":"2016-02-01T03:42:59.069Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:59,072 [main] INFO  org.apache.pig.tools.pigstats.SimplePigStats - Detected Local mode. Stats reported below may be incomplete\\n\"","timestamp":"2016-02-01T03:42:59.072Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:59,082 [main] INFO  org.apache.pig.tools.pigstats.SimplePigStats - Script Statistics: \\n\\nHadoopVersion\\tPigVersion\\tUserId\\tStartedAt\\tFinishedAt\\tFeatures\\n2.6.0-cdh5.5.1\\t0.12.0-cdh5.5.1\\troot\\t2016-01-31 22:42:57\\t2016-01-31 22:42:59\\tUNKNOWN\\n\\nFailed!\\n\\nFailed Jobs:\\nJobId\\tAlias\\tFeature\\tMessage\\tOutputs\\njob_local456797605_0001\\tA,B\\tMAP_ONLY\\tMessage: org.apache.pig.backend.executionengine.ExecException: ERROR 2118: Input path does not exist: file:/home/xadmin/Downloads/work/hog/student\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigInputFormat.getSplits(PigInputFormat.java:288)\\n\\tat org.apache.hadoop.mapreduce.JobSubmitter.writeNewSplits(JobSubmitter.java:304)\\n\\tat org.apache.hadoop.mapreduce.JobSubmitter.writeSplits(JobSubmitter.java:321)\\n\\tat org.apache.hadoop.mapreduce.JobSubmitter.submitJobInternal(JobSubmitter.java:199)\\n\\tat org.apache.hadoop.mapreduce.Job$10.run(Job.java:1307)\\n\\tat org.apache.hadoop.mapreduce.Job$10.run(Job.java:1304)\\n\\tat java.security.AccessController.doPrivileged(Native Method)\\n\\tat javax.security.auth.Subject.doAs(Subject.java:422)\\n\\tat org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1671)\\n\\tat org.apache.hadoop.mapreduce.Job.submit(Job.java:1304)\\n\\tat org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob.submit(ControlledJob.java:335)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.pig.backend.hadoop23.PigJobControl.submit(PigJobControl.java:128)\\n\\tat org.apache.pig.backend.hadoop23.PigJobControl.run(PigJobControl.java:191)\\n\\tat java.lang.Thread.run(Thread.java:745)\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher$1.run(MapReduceLauncher.java:270)\\nCaused by: org.apache.hadoop.mapreduce.lib.input.InvalidInputException: Input path does not exist: file:/home/xadmin/Downloads/work/hog/student\\n\\tat org.apache.hadoop.mapreduce.lib.input.FileInputFormat.singleThreadedListStatus(FileInputFormat.java:323)\\n\\tat org.apache.hadoop.mapreduce.lib.input.FileInputFormat.listStatus(FileInputFormat.java:265)\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigTextInputFormat.listStatus(PigTextInputFormat.java:36)\\n\\tat org.apache.hadoop.mapreduce.lib.input.FileInputFormat.getSplits(FileInputFormat.java:387)\\n\\tat org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigInputFormat.getSplits(PigInputFormat.java:274)\\n\\t... 18 more\\n\\tfile:/tmp/temp-2063508378/tmp-17979996,\\n\\nInput(s):\\nFailed to read data from \\\"file:///home/xadmin/Downloads/work/hog/student\\\"\\n\\nOutput(s):\\nFailed to produce result in \\\"file:/tmp/temp-2063508378/tmp-17979996\\\"\\n\\nJob DAG:\\njob_local456797605_0001\\n\\n\\n\"","timestamp":"2016-02-01T03:42:59.082Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:59,087 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Failed!\\n\"","timestamp":"2016-02-01T03:42:59.086Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:42:59,103 [main] ERROR org.apache.pig.tools.grunt.Grunt - ERROR 1066: Unable to open iterator for alias B\\n\"","timestamp":"2016-02-01T03:42:59.102Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454298175678.log\"","timestamp":"2016-02-01T03:42:59.104Z"}
+{"level":"debug","message":"error:  \"\\n\"","timestamp":"2016-02-01T03:42:59.105Z"}
+{"level":"debug","message":"close:  6","timestamp":"2016-02-01T03:42:59.385Z"}
+{"level":"debug","message":"Running Pig Script: ","timestamp":"2016-02-01T03:43:04.958Z"}
+{"level":"debug","message":"Running Pig Script: ","timestamp":"2016-02-01T03:43:15.744Z"}
+{"level":"debug","message":"Running Pig Script:  42","timestamp":"2016-02-01T03:43:18.847Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/mytest.pig\"]","timestamp":"2016-02-01T03:43:18.847Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:43:18.879Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:43:21.181Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:43:22,034 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-01T03:43:22.034Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:43:22,035 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454298201983.log\\n\"","timestamp":"2016-02-01T03:43:22.036Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:43:22,097 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-02-01T03:43:22.096Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454298201983.log\\n\"","timestamp":"2016-02-01T03:43:22.103Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:43:22.433Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:43:34 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:43:34.920Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:43:37.136Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:43:37.137Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:43:37 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:43:37.137Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:43:37.230Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:43:37.230Z"}
+{"level":"debug","message":"Running Pig Script:  42","timestamp":"2016-02-01T03:43:40.222Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/mytest.pig\"]","timestamp":"2016-02-01T03:43:40.222Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:43:40.246Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-02-01T03:43:42.247Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:43:42.248Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:43:42,927 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-01T03:43:42.926Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:43:42,931 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454298222905.log\\n\"","timestamp":"2016-02-01T03:43:42.930Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:43:42,968 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-02-01T03:43:42.967Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454298222905.log\"","timestamp":"2016-02-01T03:43:42.976Z"}
+{"level":"debug","message":"error:  \"\\n\"","timestamp":"2016-02-01T03:43:42.977Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:43:43.354Z"}
+{"level":"debug","message":"Running Pig Script:  1","timestamp":"2016-02-01T03:43:55.883Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/.pig\"]","timestamp":"2016-02-01T03:43:55.883Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:43:55.917Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-02-01T03:43:58.443Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:43:58.444Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:43:59,231 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-01T03:43:59.231Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:43:59,232 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454298239190.log\\n\"","timestamp":"2016-02-01T03:43:59.231Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:43:59,294 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-02-01T03:43:59.293Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454298239190.log\"","timestamp":"2016-02-01T03:43:59.294Z"}
+{"level":"debug","message":"error:  \"\\n\"","timestamp":"2016-02-01T03:43:59.295Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:43:59.740Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:44:48 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:44:48.418Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:44:50.720Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:44:50.721Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:44:50 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:44:50.721Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:44:50.798Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:44:50.798Z"}
+{"level":"debug","message":"Running Pig Script: ","timestamp":"2016-02-01T03:45:04.244Z"}
+{"level":"debug","message":"Running Pig Script:  42","timestamp":"2016-02-01T03:45:08.789Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/mytest.pig\"]","timestamp":"2016-02-01T03:45:08.789Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:45:08.812Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-02-01T03:45:11.195Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:45:11.196Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:45:11,980 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-01T03:45:11.980Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:45:11,983 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454298311944.log\\n\"","timestamp":"2016-02-01T03:45:11.982Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:45:12,018 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-02-01T03:45:12.017Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454298311944.log\"","timestamp":"2016-02-01T03:45:12.026Z"}
+{"level":"debug","message":"error:  \"\\n\"","timestamp":"2016-02-01T03:45:12.028Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:45:12.406Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:45:19 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:45:19.580Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:45:21.887Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:45:21.888Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:45:21 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:45:21.888Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:45:21.971Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:45:21.971Z"}
+{"level":"debug","message":"Running Pig Script: ","timestamp":"2016-02-01T03:45:27.379Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:45:42.884Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:45:42.884Z"}
+{"level":"debug","message":"Running Pig Script: ","timestamp":"2016-02-01T03:45:49.662Z"}
+{"level":"debug","message":"Running Pig Script:  42","timestamp":"2016-02-01T03:45:53.792Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/mytest.pig\"]","timestamp":"2016-02-01T03:45:53.792Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:45:53.823Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-02-01T03:45:56.214Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:45:56.215Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:45:56,920 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n2016-01-31 22:45:56,921 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454298356884.log\\n\"","timestamp":"2016-02-01T03:45:56.922Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:45:56,982 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-02-01T03:45:56.981Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454298356884.log\"","timestamp":"2016-02-01T03:45:56.995Z"}
+{"level":"debug","message":"error:  \"\\n\"","timestamp":"2016-02-01T03:45:56.996Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:45:57.273Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:46:40 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:46:40.387Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:46:45.962Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:46:45.962Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:46:45 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:46:45.962Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:46:46.052Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:46:46.052Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:46:46 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:46:46.520Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:46:49.018Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:46:49.021Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:46:49 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:46:49.021Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:46:49.112Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:46:49.113Z"}
+{"level":"debug","message":"Running Pig Script:  42","timestamp":"2016-02-01T03:46:51.301Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/mytest.pig\"]","timestamp":"2016-02-01T03:46:51.301Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:46:51.326Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:46:53.251Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:46:53,898 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-01T03:46:53.897Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:46:53,898 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454298413877.log\\n\"","timestamp":"2016-02-01T03:46:53.898Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:46:53,932 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-02-01T03:46:53.931Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454298413877.log\"","timestamp":"2016-02-01T03:46:53.940Z"}
+{"level":"debug","message":"error:  \"\\n\"","timestamp":"2016-02-01T03:46:53.940Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:46:54.291Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:47:22 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:47:22.618Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:47:25.061Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:47:25.061Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:47:25 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:47:25.062Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:47:25.159Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:47:25.159Z"}
+{"level":"debug","message":"Running Pig Script: ","timestamp":"2016-02-01T03:47:28.729Z"}
+{"level":"debug","message":"Running Pig Script:  2","timestamp":"2016-02-01T03:47:38.149Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-01T03:47:38.149Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:47:38.171Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-02-01T03:47:40.073Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:47:40.074Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:47:40,874 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-01T03:47:40.874Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:47:40,875 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454298460840.log\\n\"","timestamp":"2016-02-01T03:47:40.875Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:47:40,939 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-02-01T03:47:40.938Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454298460840.log\\n\"","timestamp":"2016-02-01T03:47:40.948Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:47:41.355Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:48:00 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:48:00.906Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:48:03.343Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:48:03.343Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:48:03 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:48:03.343Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:48:03.435Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:48:03.435Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:48:07 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:48:07.257Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:48:10.769Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:48:10.769Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:48:10 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:48:10.769Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:48:10.862Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:48:10.862Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-01T03:48:13.228Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-01T03:48:13.228Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:48:13.261Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-02-01T03:48:14.894Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:48:14.895Z"}
+{"level":"debug","message":"data:  \"695  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-01T03:48:15.590Z"}
+{"level":"debug","message":"data:  \"696  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n696  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-01T03:48:15.591Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:48:15.920Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:48:33 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:48:33.297Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:48:35.776Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:48:35.776Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:48:35 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:48:35.777Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:48:35.871Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:48:35.874Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:48:57 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:48:57.035Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:48:59.655Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:48:59.655Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:48:59 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:48:59.655Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:48:59.753Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:48:59.753Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-01T03:49:03.683Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-01T03:49:03.684Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:49:03.716Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-02-01T03:49:05.400Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:49:05.400Z"}
+{"level":"debug","message":"data:  \"589  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-01T03:49:05.990Z"}
+{"level":"debug","message":"data:  \"595  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n\"","timestamp":"2016-02-01T03:49:05.995Z"}
+{"level":"debug","message":"data:  \"602  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-01T03:49:06.001Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:49:06.259Z"}
+{"level":"debug","message":"Running Pig Script:  1","timestamp":"2016-02-01T03:49:08.247Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/.pig\"]","timestamp":"2016-02-01T03:49:08.247Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:49:08.278Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-02-01T03:49:10.297Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:49:10.297Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:49:10,978 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-01T03:49:10.978Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:49:10,978 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454298550941.log\\n\"","timestamp":"2016-02-01T03:49:10.979Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:49:11,013 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-02-01T03:49:11.013Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454298550941.log\\n\"","timestamp":"2016-02-01T03:49:11.013Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:49:11.319Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:49:15 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:49:15.652Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:49:18.247Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:49:18.247Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:49:18 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:49:18.247Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:49:18.358Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:49:18.358Z"}
+{"level":"debug","message":"Running Pig Script:  1","timestamp":"2016-02-01T03:49:20.503Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/.pig\"]","timestamp":"2016-02-01T03:49:20.504Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:49:20.540Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:49:22.348Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:49:22,876 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-01T03:49:22.876Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:49:22,882 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454298562854.log\\n\"","timestamp":"2016-02-01T03:49:22.881Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:49:22,922 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-02-01T03:49:22.921Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454298562854.log\\n\"","timestamp":"2016-02-01T03:49:22.925Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:49:23.201Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:49:25 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:49:25.808Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:49:29.094Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:49:29.094Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:49:29 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:49:29.094Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:49:29.201Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:49:29.201Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-01T03:49:36.324Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-01T03:49:36.324Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:49:36.363Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-02-01T03:49:37.960Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:49:37.961Z"}
+{"level":"debug","message":"data:  \"553  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-01T03:49:38.515Z"}
+{"level":"debug","message":"data:  \"555  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n555  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-01T03:49:38.515Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:49:38.764Z"}
+{"level":"debug","message":"Running Pig Script: ","timestamp":"2016-02-01T03:49:44.245Z"}
+{"level":"debug","message":"Running Pig Script: ","timestamp":"2016-02-01T03:49:47.701Z"}
+{"level":"debug","message":"Running Pig Script:  42","timestamp":"2016-02-01T03:49:49.202Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/mytest.pig\"]","timestamp":"2016-02-01T03:49:49.202Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:49:49.235Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:49:51.489Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:49:52,368 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-01T03:49:52.368Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:49:52,368 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454298592323.log\\n\"","timestamp":"2016-02-01T03:49:52.368Z"}
+{"level":"debug","message":"error:  \"2016-01-31 22:49:52,434 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-02-01T03:49:52.433Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454298592323.log\\n\"","timestamp":"2016-02-01T03:49:52.441Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:49:52.866Z"}
+{"level":"debug","message":"/api/pigs [Mon, 01 Feb 2016 03:50:01 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-01T03:50:01.584Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-01T03:50:04.413Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-01T03:50:04.414Z"}
+{"level":"debug","message":" /api/pigs [Mon, 01 Feb 2016 03:50:04 GMT] 127.0.0.1 logged.","timestamp":"2016-02-01T03:50:04.414Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-01T03:50:04.520Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-01T03:50:04.520Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-01T03:50:12.073Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-01T03:50:12.073Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-01T03:50:12.101Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-02-01T03:50:13.791Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-01T03:50:13.792Z"}
+{"level":"debug","message":"data:  \"592  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-01T03:50:14.384Z"}
+{"level":"debug","message":"data:  \"593  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n593  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-01T03:50:14.384Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-01T03:50:14.637Z"}
