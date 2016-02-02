@@ -27,7 +27,7 @@
     "gulp-protractor": "^1.0.0",
     "gulp-replace": "^0.5.2",
     "gulp-rev-all": "0.8.18",
-    "gulp-sass": "^2.0.4",
+    "gulp-sass": "^2.1.1",
     "gulp-uglify": "^1.1.0",
     "gulp-usemin": "^0.3.11",
     "gulp-util": "^3.0.2",

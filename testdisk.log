@@ -1,0 +1,694 @@
+
+
+Tue Feb  2 15:23:42 2016
+Command line: TestDisk
+
+TestDisk 6.14, Data Recovery Utility, July 2013
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 4.2.0-27-generic (#32-Ubuntu SMP Fri Jan 22 04:49:08 UTC 2016) x86_64
+Compiler: GCC 4.9
+Compilation date: 2015-04-03T09:01:54
+ext2fs lib: 1.42.12, ntfs lib: libntfs-3g, reiserfs lib: none, ewf lib: none
+/dev/sda: LBA, HPA, LBA48, DCO support
+/dev/sda: size       1953525168 sectors
+/dev/sda: user_max   1953525168 sectors
+/dev/sda: native_max 1953525168 sectors
+/dev/sdb: LBA, HPA, LBA48, DCO support
+/dev/sdb: size       1953525168 sectors
+/dev/sdb: user_max   1953525168 sectors
+/dev/sdb: native_max 1953525168 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - 1 sectors, sector size=512
+Hard disk list
+Disk /dev/sda - 1000 GB / 931 GiB - CHS 121601 255 63, sector size=512 - WDC WD10EZEX-00BN5A0, S/N:WD-WCC3F5PX97DC, FW:01.01A01
+Disk /dev/sdb - 1000 GB / 931 GiB - CHS 121601 255 63, sector size=512 - WDC WD10EZEX-00BN5A0, S/N:WD-WCC3F3767771, FW:01.01A01
+
+Partition table type (auto): EFI GPT
+Disk /dev/sdb - 1000 GB / 931 GiB - WDC WD10EZEX-00BN5A0
+Partition table type: EFI GPT
+
+Analyse Disk /dev/sdb - 1000 GB / 931 GiB - CHS 121601 255 63
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=1953525167 (expected 1953525167)
+hdr_lba_start=34
+hdr_lba_end=1953525134
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+Current partition structure:
+ 1 P EFI System                  2048     411647     409600 [EFI System Partition]
+ 2 P Unknown                   411648    1435647    1024000
+ 3 P Linux LVM                1435648 1953523711 1952088064
+Backup partition structure
+partition_save
+
+search_part()
+Disk /dev/sdb - 1000 GB / 931 GiB - CHS 121601 255 63
+FAT16 at 0/32/33
+FAT1 : 1-200
+FAT2 : 201-400
+start_rootdir : 401
+Data : 433-409592
+sectors : 409600
+cluster_size : 8
+no_of_cluster : 51145 (2 - 51146)
+fat_length 200 calculated 200
+
+FAT16 at 0/32/33
+     MS Data                     2048     411647     409600 [NO NAME]
+     FAT16, blocksize=4096, 209 MB / 200 MiB
+
+recover_EXT2: s_block_group_nr=0/62, s_mnt_count=105/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+
+LVM2 magic value at 89/93/5
+part_size 1952088064
+     Linux LVM                1435648 1953523711 1952088064
+     LVM2, 999 GB / 930 GiB
+
+Results
+   P MS Data                     2048     411647     409600 [NO NAME]
+     FAT16, blocksize=4096, 209 MB / 200 MiB
+   P MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+   P Linux LVM                1435648 1953523711 1952088064
+     LVM2, 999 GB / 930 GiB
+
+interface_write()
+ 1 P MS Data                     2048     411647     409600 [NO NAME]
+ 2 P MS Data                   411648    1435647    1024000
+ 3 P Linux LVM                1435648 1953523711 1952088064
+
+search_part()
+Disk /dev/sdb - 1000 GB / 931 GiB - CHS 121601 255 63
+FAT16 at 0/32/33
+FAT1 : 1-200
+FAT2 : 201-400
+start_rootdir : 401
+Data : 433-409592
+sectors : 409600
+cluster_size : 8
+no_of_cluster : 51145 (2 - 51146)
+fat_length 200 calculated 200
+
+FAT16 at 0/32/33
+     MS Data                     2048     411647     409600 [NO NAME]
+     FAT16, blocksize=4096, 209 MB / 200 MiB
+
+recover_btrfs: part_size 15253227288736955
+     MS Data                     8038 15253227288744993 15253227288736955 [s (%d substripes) of %lx)
+]
+     btrfs blocksize=1768300660 Backup superblock, 7809652 TB / 7102837 TiB
+This partition ends after the disk limits. (start=8038, size=15253227288736955, end=15253227288744993, disk end=1953525168)
+
+recover_btrfs: part_size 15253227288736955
+     MS Data                    10118 15253227288747073 15253227288736955 [s (%d substripes) of %lx)
+]
+     btrfs blocksize=1768300660 Backup superblock, 7809652 TB / 7102837 TiB
+This partition ends after the disk limits. (start=10118, size=15253227288736955, end=15253227288747073, disk end=1953525168)
+
+recover_EXT2: s_block_group_nr=0/62, s_mnt_count=105/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+
+block_group_nr 1
+
+recover_EXT2: "e2fsck -b 8193 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=1/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 1
+
+recover_EXT2: "e2fsck -b 8193 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=1/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 3
+
+recover_EXT2: "e2fsck -b 24577 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=3/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 3
+
+recover_EXT2: "e2fsck -b 24577 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=3/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 5
+
+recover_EXT2: "e2fsck -b 40961 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=5/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 5
+
+recover_EXT2: "e2fsck -b 40961 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=5/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 7
+
+recover_EXT2: "e2fsck -b 57345 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=7/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 7
+
+recover_EXT2: "e2fsck -b 57345 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=7/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 9
+
+recover_EXT2: "e2fsck -b 73729 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=9/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 9
+
+recover_EXT2: "e2fsck -b 73729 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=9/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+recover_EXT2: s_block_group_nr=0/62, s_mnt_count=105/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   690180    1714179    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+
+recover_EXT2: s_block_group_nr=0/62, s_mnt_count=27/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   690254    1714253    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+
+recover_EXT2: s_block_group_nr=0/62, s_mnt_count=1/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   690404    1714403    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+
+block_group_nr 25
+
+recover_EXT2: "e2fsck -b 204801 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=25/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 25
+
+recover_EXT2: "e2fsck -b 204801 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=25/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 27
+
+recover_EXT2: "e2fsck -b 221185 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=27/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 27
+
+recover_EXT2: "e2fsck -b 221185 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=27/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 49
+
+recover_EXT2: "e2fsck -b 401409 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=49/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 49
+
+recover_EXT2: "e2fsck -b 401409 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=49/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+LVM2 magic value at 89/93/5
+part_size 1952088064
+     Linux LVM                1435648 1953523711 1952088064
+     LVM2, 999 GB / 930 GiB
+     Linux Swap               1437688    1437703         16
+     SWAP2 version 0, pagesize=8192, 8192 B
+     Linux Swap               1437696   17821679   16383984
+     SWAP2 version 1, pagesize=4096, 8388 MB / 7999 MiB
+Search for partition aborted
+Disk /dev/sdb - 1000 GB / 931 GiB - CHS 121601 255 63
+Check the harddisk size: HD jumpers settings, BIOS detection...
+The harddisk (1000 GB / 931 GiB) seems too small! (< 7809652 TB / 7102837 TiB)
+The following partitions can't be recovered:
+     MS Data                     8038 15253227288744993 15253227288736955 [s (%d substripes) of %lx)
+]
+     btrfs blocksize=1768300660 Backup superblock, 7809652 TB / 7102837 TiB
+     MS Data                    10118 15253227288747073 15253227288736955 [s (%d substripes) of %lx)
+]
+     btrfs blocksize=1768300660 Backup superblock, 7809652 TB / 7102837 TiB
+
+Results
+     MS Data                     2048     411647     409600 [NO NAME]
+     FAT16, blocksize=4096, 209 MB / 200 MiB
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+     MS Data                   690180    1714179    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+     MS Data                   690254    1714253    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+     MS Data                   690404    1714403    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+     Linux LVM                1435648 1953523711 1952088064
+     LVM2, 999 GB / 930 GiB
+     Linux Swap               1437688    1437703         16
+     SWAP2 version 0, pagesize=8192, 8192 B
+     Linux Swap               1437696   17821679   16383984
+     SWAP2 version 1, pagesize=4096, 8388 MB / 7999 MiB
+
+interface_write()
+ 
+No partition found or selected for recovery
+simulate write!
+
+Analyse Disk /dev/sdb - 1000 GB / 931 GiB - CHS 121601 255 63
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=1953525167 (expected 1953525167)
+hdr_lba_start=34
+hdr_lba_end=1953525134
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+Current partition structure:
+ 1 P EFI System                  2048     411647     409600 [EFI System Partition]
+ 2 P Unknown                   411648    1435647    1024000
+ 3 P Linux LVM                1435648 1953523711 1952088064
+
+search_part()
+Disk /dev/sdb - 1000 GB / 931 GiB - CHS 121601 255 63
+FAT16 at 0/32/33
+FAT1 : 1-200
+FAT2 : 201-400
+start_rootdir : 401
+Data : 433-409592
+sectors : 409600
+cluster_size : 8
+no_of_cluster : 51145 (2 - 51146)
+fat_length 200 calculated 200
+
+FAT16 at 0/32/33
+     MS Data                     2048     411647     409600 [NO NAME]
+     FAT16, blocksize=4096, 209 MB / 200 MiB
+
+recover_EXT2: s_block_group_nr=0/62, s_mnt_count=105/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+
+LVM2 magic value at 89/93/5
+part_size 1952088064
+     Linux LVM                1435648 1953523711 1952088064
+     LVM2, 999 GB / 930 GiB
+
+Results
+   P MS Data                     2048     411647     409600 [NO NAME]
+     FAT16, blocksize=4096, 209 MB / 200 MiB
+   P MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+   P Linux LVM                1435648 1953523711 1952088064
+     LVM2, 999 GB / 930 GiB
+
+interface_write()
+ 1 P MS Data                     2048     411647     409600 [NO NAME]
+ 2 P MS Data                   411648    1435647    1024000
+ 3 P Linux LVM                1435648 1953523711 1952088064
+simulate write!
+
+Analyse Disk /dev/sdb - 1000 GB / 931 GiB - CHS 121601 255 63
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=1953525167 (expected 1953525167)
+hdr_lba_start=34
+hdr_lba_end=1953525134
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+Current partition structure:
+ 1 P EFI System                  2048     411647     409600 [EFI System Partition]
+ 2 P Unknown                   411648    1435647    1024000
+ 3 P Linux LVM                1435648 1953523711 1952088064
+
+search_part()
+Disk /dev/sdb - 1000 GB / 931 GiB - CHS 121601 255 63
+FAT16 at 0/32/33
+FAT1 : 1-200
+FAT2 : 201-400
+start_rootdir : 401
+Data : 433-409592
+sectors : 409600
+cluster_size : 8
+no_of_cluster : 51145 (2 - 51146)
+fat_length 200 calculated 200
+
+FAT16 at 0/32/33
+     MS Data                     2048     411647     409600 [NO NAME]
+     FAT16, blocksize=4096, 209 MB / 200 MiB
+
+recover_EXT2: s_block_group_nr=0/62, s_mnt_count=105/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+
+LVM2 magic value at 89/93/5
+part_size 1952088064
+     Linux LVM                1435648 1953523711 1952088064
+     LVM2, 999 GB / 930 GiB
+
+Results
+   P MS Data                     2048     411647     409600 [NO NAME]
+     FAT16, blocksize=4096, 209 MB / 200 MiB
+   P MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+   P Linux LVM                1435648 1953523711 1952088064
+     LVM2, 999 GB / 930 GiB
+
+interface_write()
+ 1 P MS Data                     2048     411647     409600 [NO NAME]
+ 2 P MS Data                   411648    1435647    1024000
+ 3 P Linux LVM                1435648 1953523711 1952088064
+
+search_part()
+Disk /dev/sdb - 1000 GB / 931 GiB - CHS 121601 255 63
+FAT16 at 0/32/33
+FAT1 : 1-200
+FAT2 : 201-400
+start_rootdir : 401
+Data : 433-409592
+sectors : 409600
+cluster_size : 8
+no_of_cluster : 51145 (2 - 51146)
+fat_length 200 calculated 200
+
+FAT16 at 0/32/33
+     MS Data                     2048     411647     409600 [NO NAME]
+     FAT16, blocksize=4096, 209 MB / 200 MiB
+
+recover_btrfs: part_size 15253227288736955
+     MS Data                     8038 15253227288744993 15253227288736955 [s (%d substripes) of %lx)
+]
+     btrfs blocksize=1768300660 Backup superblock, 7809652 TB / 7102837 TiB
+This partition ends after the disk limits. (start=8038, size=15253227288736955, end=15253227288744993, disk end=1953525168)
+
+recover_btrfs: part_size 15253227288736955
+     MS Data                    10118 15253227288747073 15253227288736955 [s (%d substripes) of %lx)
+]
+     btrfs blocksize=1768300660 Backup superblock, 7809652 TB / 7102837 TiB
+This partition ends after the disk limits. (start=10118, size=15253227288736955, end=15253227288747073, disk end=1953525168)
+
+recover_EXT2: s_block_group_nr=0/62, s_mnt_count=105/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+
+block_group_nr 1
+
+recover_EXT2: "e2fsck -b 8193 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=1/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 1
+
+recover_EXT2: "e2fsck -b 8193 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=1/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 3
+
+recover_EXT2: "e2fsck -b 24577 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=3/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 3
+
+recover_EXT2: "e2fsck -b 24577 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=3/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 5
+
+recover_EXT2: "e2fsck -b 40961 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=5/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 5
+
+recover_EXT2: "e2fsck -b 40961 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=5/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 7
+
+recover_EXT2: "e2fsck -b 57345 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=7/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 7
+
+recover_EXT2: "e2fsck -b 57345 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=7/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 9
+
+recover_EXT2: "e2fsck -b 73729 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=9/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 9
+
+recover_EXT2: "e2fsck -b 73729 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=9/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+recover_EXT2: s_block_group_nr=0/62, s_mnt_count=105/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   690180    1714179    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+
+recover_EXT2: s_block_group_nr=0/62, s_mnt_count=27/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   690254    1714253    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+
+recover_EXT2: s_block_group_nr=0/62, s_mnt_count=1/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   690404    1714403    1024000
+     ext4 blocksize=1024 Sparse superblock Recover, 524 MB / 500 MiB
+
+block_group_nr 25
+
+recover_EXT2: "e2fsck -b 204801 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=25/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 25
+
+recover_EXT2: "e2fsck -b 204801 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=25/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 27
+
+recover_EXT2: "e2fsck -b 221185 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=27/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 27
+
+recover_EXT2: "e2fsck -b 221185 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=27/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 49
+
+recover_EXT2: "e2fsck -b 401409 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=49/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411646    1435645    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+block_group_nr 49
+
+recover_EXT2: "e2fsck -b 401409 -B 1024 device" may be needed
+recover_EXT2: s_block_group_nr=49/62, s_mnt_count=0/4294967295, s_blocks_per_group=8192, s_inodes_per_group=2032
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 512000
+recover_EXT2: part_size 1024000
+     MS Data                   411648    1435647    1024000
+     ext4 blocksize=1024 Sparse superblock Backup superblock, 524 MB / 500 MiB
+
+LVM2 magic value at 89/93/5
+part_size 1952088064
+     Linux LVM                1435648 1953523711 1952088064
+     LVM2, 999 GB / 930 GiB
+     Linux Swap               1437688    1437703         16
+     SWAP2 version 0, pagesize=8192, 8192 B
+     Linux Swap               1437696   17821679   16383984
+     SWAP2 version 1, pagesize=4096, 8388 MB / 7999 MiB
+Search for partition aborted
+Disk /dev/sdb - 1000 GB / 931 GiB - CHS 121601 255 63
+Check the harddisk size: HD jumpers settings, BIOS detection...
+The harddisk (1000 GB / 931 GiB) seems too small! (< 7809652 TB / 7102837 TiB)
+The following partitions can't be recovered:
+     MS Data                     8038 15253227288744993 15253227288736955 [s (%d substripes) of %lx)
+]
+     btrfs blocksize=1768300660 Backup superblock, 7809652 TB / 7102837 TiB
+     MS Data                    10118 15253227288747073 15253227288736955 [s (%d substripes) of %lx)
+]
+     btrfs blocksize=1768300660 Backup superblock, 7809652 TB / 7102837 TiB
+SIGINT detected! TestDisk has been killed.
