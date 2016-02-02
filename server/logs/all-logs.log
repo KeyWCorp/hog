@@ -8072,3 +8072,29 @@
 {"level":"debug","message":"close:  8","timestamp":"2016-02-01T18:51:09.720Z"}
 {"level":"debug","message":"test on indx","timestamp":"2016-02-01T19:08:30.397Z"}
 {"level":"debug","message":"Index requested","timestamp":"2016-02-01T19:08:30.399Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-02T14:33:36.042Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-02T14:33:36.045Z"}
+{"level":"debug","message":" /api/pigs [Tue, 02 Feb 2016 14:33:36 GMT] 127.0.0.1 logged.","timestamp":"2016-02-02T14:33:36.046Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-02T14:33:36.133Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-02T14:33:36.134Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-02T14:33:45.524Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/root/Downloads/workIrad/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-02T14:33:45.524Z"}
+{"level":"debug","message":"error:  \"16/02/02 09:33:47 ERROR pig.Main: ERROR 2999: Unexpected internal error. String index out of range: 0\\n16/02/02 09:33:47 WARN pig.Main: There is no log file to write to.\\n16/02/02 09:33:47 ERROR pig.Main: java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:246)\\n\\tat org.apache.pig.Main.main(Main.java:177)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-02T14:33:47.078Z"}
+{"level":"debug","message":"error:  \"16/02/02 09:33:47 INFO pig.Main: Pig script completed in 510 milliseconds (510 ms)\\n\"","timestamp":"2016-02-02T14:33:47.085Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-02T14:33:47.231Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-02T15:30:31.404Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/root/Downloads/workIrad/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-02T15:30:31.404Z"}
+{"level":"debug","message":"error:  \"16/02/02 10:30:33 ERROR pig.Main: ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-02T15:30:33.078Z"}
+{"level":"debug","message":"error:  \"16/02/02 10:30:33 WARN pig.Main: There is no log file to write to.\\n16/02/02 10:30:33 ERROR pig.Main: java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:246)\\n\\tat org.apache.pig.Main.main(Main.java:177)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-02T15:30:33.079Z"}
+{"level":"debug","message":"error:  \"16/02/02 10:30:33 INFO pig.Main: Pig script completed in 535 milliseconds (535 ms)\\n\"","timestamp":"2016-02-02T15:30:33.097Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-02T15:30:33.231Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-02T15:36:58.654Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/root/Downloads/workIrad/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-02T15:36:58.654Z"}
+{"level":"debug","message":"error:  \"16/02/02 10:37:00 ERROR pig.Main: ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-02T15:37:00.210Z"}
+{"level":"debug","message":"error:  \"16/02/02 10:37:00 WARN pig.Main: There is no log file to write to.\\n16/02/02 10:37:00 ERROR pig.Main: java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:246)\\n\\tat org.apache.pig.Main.main(Main.java:177)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-02T15:37:00.210Z"}
+{"level":"debug","message":"error:  \"16/02/02 10:37:00 INFO pig.Main: Pig script completed in 564 milliseconds (564 ms)\\n\"","timestamp":"2016-02-02T15:37:00.226Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-02T15:37:00.357Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-02T15:42:20.483Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-02T15:42:20.485Z"}
+{"level":"debug","message":" /api/pigs [Tue, 02 Feb 2016 15:42:20 GMT] 127.0.0.1 logged.","timestamp":"2016-02-02T15:42:20.488Z"}
+{"level":"debug","message":"/api/pigs [Tue, 02 Feb 2016 15:42:25 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-02T15:42:25.878Z"}

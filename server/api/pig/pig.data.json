@@ -1,7 +1,7 @@
 {
   "0": {
     "name": "Test",
-    "data": "A = LOAD 'file:/home/xadmin/Downloads/work/hog/datatest/test.data' AS (one:int,two:int,three:int);\nB = FILTER A BY one > 55;\nDUMP B;",
+    "data": "A = LOAD 'file:///root/Downloads/workIrad/data/test.data' USING PigStorage(',') AS (one:int,two:int,three:int);\nB = FILTER A BY one > 4;\nDUMP B;",
     "args": [
       {
         "arg": "-x",
