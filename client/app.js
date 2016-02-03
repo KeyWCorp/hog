@@ -22,7 +22,5 @@ angular.module('hog', [
   .config(function ( $urlRouterProvider , $locationProvider) {
     $urlRouterProvider
         .otherwise('/');
-
     $locationProvider.html5Mode(true);
-
   });

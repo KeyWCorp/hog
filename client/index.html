@@ -12,16 +12,15 @@
     <link rel="stylesheet" href="bower_components/angular-accordion/css/ang-accordion.css">
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
     <!-- endinject -->
+    <!-- main Styles        -->
     <link rel="stylesheet" href="styles/css/app.css">
     <!-- endbuild -->
   </head>
   <body>
     <div ui-view="header"></div>
     <md-content ui-view></md-content>
-
     <script src="socket.io/socket.io.js"></script>
     <!-- build:js app.js -->
-
     <!-- bower:js -->
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
@@ -41,10 +40,8 @@
     <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
     <!-- endinject -->
     <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
-
     <!-- inject:js -->
     <script src="app.js"></script>
-
     <script src="views/home/home.js"></script>
     <script src="views/home/home.controller.js"></script>
     <script src="views/home/header.controller.js"></script>
@@ -61,8 +58,8 @@
     <script src="views/complex/edit/edit.complex.controller.js"></script>
     <script src="services/runner/runner.js"></script>
     <script src="services/pig/pig.js"></script>
-
     <!-- endinject -->
+
     <!-- endbuild -->
     <script src="http://localhost:35729/livereload.js?snipver=1"></script>
   </body>
