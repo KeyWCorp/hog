@@ -8098,3 +8098,68 @@
 {"level":"debug","message":"in index function","timestamp":"2016-02-02T15:42:20.485Z"}
 {"level":"debug","message":" /api/pigs [Tue, 02 Feb 2016 15:42:20 GMT] 127.0.0.1 logged.","timestamp":"2016-02-02T15:42:20.488Z"}
 {"level":"debug","message":"/api/pigs [Tue, 02 Feb 2016 15:42:25 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-02T15:42:25.878Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-02T18:48:53.326Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-02T18:48:53.328Z"}
+{"level":"debug","message":" /api/pigs [Tue, 02 Feb 2016 18:48:53 GMT] 127.0.0.1 logged.","timestamp":"2016-02-02T18:48:53.330Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-02T18:48:53.396Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-02T18:48:53.397Z"}
+{"level":"debug","message":"/api/pigs [Tue, 02 Feb 2016 18:51:00 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-02T18:51:00.080Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-02T18:51:02.079Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-02T18:51:02.082Z"}
+{"level":"debug","message":" /api/pigs [Tue, 02 Feb 2016 18:51:02 GMT] 127.0.0.1 logged.","timestamp":"2016-02-02T18:51:02.082Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-02T18:51:02.140Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-02T18:51:02.141Z"}
+{"level":"debug","message":"/api/pigs [Tue, 02 Feb 2016 18:51:50 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-02T18:51:50.615Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-02T18:51:52.557Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-02T18:51:52.557Z"}
+{"level":"debug","message":" /api/pigs [Tue, 02 Feb 2016 18:51:52 GMT] 127.0.0.1 logged.","timestamp":"2016-02-02T18:51:52.557Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-02T18:51:52.627Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-02T18:51:52.628Z"}
+{"level":"debug","message":"/api/pigs [Tue, 02 Feb 2016 18:51:58 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-02T18:51:58.288Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-02T18:52:00.219Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-02T18:52:00.219Z"}
+{"level":"debug","message":" /api/pigs [Tue, 02 Feb 2016 18:52:00 GMT] 127.0.0.1 logged.","timestamp":"2016-02-02T18:52:00.219Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-02T18:52:00.291Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-02T18:52:00.292Z"}
+{"level":"debug","message":"/api/pigs [Tue, 02 Feb 2016 18:52:18 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-02T18:52:18.596Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-02T18:52:20.532Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-02T18:52:20.535Z"}
+{"level":"debug","message":" /api/pigs [Tue, 02 Feb 2016 18:52:20 GMT] 127.0.0.1 logged.","timestamp":"2016-02-02T18:52:20.535Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-02T18:52:20.601Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-02T18:52:20.601Z"}
+{"level":"debug","message":"/api/pigs [Tue, 02 Feb 2016 18:52:43 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-02T18:52:43.034Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-02T18:52:44.978Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-02T18:52:44.979Z"}
+{"level":"debug","message":" /api/pigs [Tue, 02 Feb 2016 18:52:44 GMT] 127.0.0.1 logged.","timestamp":"2016-02-02T18:52:44.979Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-02T18:52:45.054Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-02T18:52:45.055Z"}
+{"level":"debug","message":"/api/pigs [Tue, 02 Feb 2016 18:53:45 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-02T18:53:45.445Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-02T18:53:47.585Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-02T18:53:47.591Z"}
+{"level":"debug","message":" /api/pigs [Tue, 02 Feb 2016 18:53:47 GMT] 127.0.0.1 logged.","timestamp":"2016-02-02T18:53:47.591Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-02T18:53:47.659Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-02T18:53:47.659Z"}
+{"level":"debug","message":"/api/pigs [Tue, 02 Feb 2016 18:53:51 GMT] 127.0.0.1 disconnected.","timestamp":"2016-02-02T18:53:51.587Z"}
+{"level":"info","message":"initializing pig controller","timestamp":"2016-02-02T18:53:53.547Z"}
+{"level":"debug","message":"in index function","timestamp":"2016-02-02T18:53:53.547Z"}
+{"level":"debug","message":" /api/pigs [Tue, 02 Feb 2016 18:53:53 GMT] 127.0.0.1 logged.","timestamp":"2016-02-02T18:53:53.547Z"}
+{"level":"debug","message":"test on indx","timestamp":"2016-02-02T18:53:53.616Z"}
+{"level":"debug","message":"Index requested","timestamp":"2016-02-02T18:53:53.617Z"}
+{"level":"debug","message":"Running Pig Script:  0","timestamp":"2016-02-02T18:54:00.664Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"-t\",\"\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/Test.pig\"]","timestamp":"2016-02-02T18:54:00.665Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-02T18:54:00.715Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\"","timestamp":"2016-02-02T18:54:02.451Z"}
+{"level":"debug","message":"error:  \"\\nlog4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-02T18:54:02.452Z"}
+{"level":"debug","message":"data:  \"502  [main] ERROR org.apache.pig.Main  - ERROR 2999: Unexpected internal error. String index out of range: 0\\n\"","timestamp":"2016-02-02T18:54:02.954Z"}
+{"level":"debug","message":"data:  \"503  [main] WARN  org.apache.pig.Main  - There is no log file to write to.\\n503  [main] ERROR org.apache.pig.Main  - java.lang.StringIndexOutOfBoundsException: String index out of range: 0\\n\\tat java.lang.String.charAt(String.java:658)\\n\\tat org.apache.pig.tools.cmdline.CmdLineParser.getNextOpt(CmdLineParser.java:138)\\n\\tat org.apache.pig.Main.run(Main.java:227)\\n\\tat org.apache.pig.Main.main(Main.java:158)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\n\\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:497)\\n\\tat org.apache.hadoop.util.RunJar.run(RunJar.java:221)\\n\\tat org.apache.hadoop.util.RunJar.main(RunJar.java:136)\\n\\n\"","timestamp":"2016-02-02T18:54:02.954Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-02T18:54:03.223Z"}
+{"level":"debug","message":"Running Pig Script:  1","timestamp":"2016-02-02T18:54:05.628Z"}
+{"level":"debug","message":"Args:  [\"-x\",\"local\",\"object:42\",\"/home/xadmin/Downloads/work/hog/server/scripts/pig/.pig\"]","timestamp":"2016-02-02T18:54:05.628Z"}
+{"level":"debug","message":"error:  \"which: no hbase in (:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/xadmin/.local/bin:/home/xadmin/bin)\\n\"","timestamp":"2016-02-02T18:54:05.653Z"}
+{"level":"debug","message":"error:  \"log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).\\n\"","timestamp":"2016-02-02T18:54:07.421Z"}
+{"level":"debug","message":"error:  \"log4j:WARN Please initialize the log4j system properly.\\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.\\n\"","timestamp":"2016-02-02T18:54:07.422Z"}
+{"level":"debug","message":"error:  \"2016-02-02 13:54:07,986 [main] INFO  org.apache.pig.Main - Apache Pig version 0.12.0-cdh5.5.1 (rexported) compiled Dec 02 2015, 10:38:09\\n\"","timestamp":"2016-02-02T18:54:07.986Z"}
+{"level":"debug","message":"error:  \"2016-02-02 13:54:07,987 [main] INFO  org.apache.pig.Main - Logging error messages to: /home/xadmin/Downloads/work/hog/pig_1454439247961.log\\n\"","timestamp":"2016-02-02T18:54:07.986Z"}
+{"level":"debug","message":"error:  \"2016-02-02 13:54:08,018 [main] ERROR org.apache.pig.Main - ERROR 2999: Unexpected internal error. java.net.URISyntaxException: Relative path in absolute URI: object:42\\n\"","timestamp":"2016-02-02T18:54:08.018Z"}
+{"level":"debug","message":"error:  \"Details at logfile: /home/xadmin/Downloads/work/hog/pig_1454439247961.log\\n\"","timestamp":"2016-02-02T18:54:08.025Z"}
+{"level":"debug","message":"close:  8","timestamp":"2016-02-02T18:54:08.329Z"}

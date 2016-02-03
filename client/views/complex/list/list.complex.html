@@ -8,8 +8,15 @@
       <div class='md-padding' layout="row" layout-wrap>
          <md-card style="width: 350px;" ng-repeat="pig in vm.scripts">
            <md-card-content>
-             <h2>{{pig.name}} - {{pig.progress}}</h2>
-             <md-progress-circular md-mode="determinate" value="{{pig.progress}}"></md-progress-circular>
+             <div layout="row">
+                <div class="pull-left">
+                 <md-progress-circular md-mode="determinate" value="{{pig.progress}}"></md-progress-circular>
+               </div>
+               <div class="pull-right">
+                <h4>{{pig.name}}</h4>
+               </div>
+
+             </div>
       <!---  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,magna aliqua</p>   --->
            </md-card-content>
            <div class="md-actions" layout="row" layout-align="end center">
