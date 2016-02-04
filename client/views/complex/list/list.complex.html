@@ -7,18 +7,22 @@
 
       <div class='md-padding' layout="row" layout-wrap>
          <md-card style="width: 350px;" ng-repeat="pig in vm.scripts">
-           <md-card-content>
-             <div layout="row">
-                <div class="pull-left">
-                 <md-progress-circular md-mode="determinate" value="{{pig.progress}}"></md-progress-circular>
-               </div>
-               <div class="pull-right">
-                <h4>{{pig.name}}</h4>
-               </div>
-
+           <md-card-header>
+             <div layout="row" style="background-color:#e3e3e3;">
+              <div class="pull-left">
+               <md-progress-circular md-diameter="40"
+                                     md-mode="determinate"
+                                     value="{{pig.progress}}"
+                                     class="md-accent md-hue-4"></md-progress-circular>
              </div>
-      <!---  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,magna aliqua</p>   --->
-           </md-card-content>
+             <div class="pull-right">
+              <h4 style="font-color: #000000">{{pig.name}}</h4>
+             </div>
+
+           </div>  </md-card-header>
+           <md-card-content>
+             Description Goes here
+        </md-card-content>
            <div class="md-actions" layout="row" layout-align="end center">
                <md-button class="md-primary md-raised" ng-click="vm.run(pig.id)">Run</md-button>
                <md-button class="md-primary md-raised" ng-click="vm.edit(pig.id)">Edit</md-button>
