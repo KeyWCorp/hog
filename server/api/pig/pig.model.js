@@ -31,7 +31,7 @@ Pig.prototype.update = function(obj, cb)
     console.log('Pig: ', this.id, 'being updated');
     obj = JSON.parse(obj);
     console.log('to: ', obj);
-    
+
     this.args = obj.args;
     this.data = obj.data;
     if (this.name != obj.name)
@@ -223,10 +223,12 @@ exports.run = function(id, stdoutCB, stderrCB, errCB)
         {
             nArg.push(_.values(collection.instances[id].args[index]));
         }
-        nArg = _.flatten(nArg);
-
+        //nArg = _.flatten(nArg);
+        nArg = [];
         nArg.push(path.join(__dirname, '../../',  'scripts/pig/', collection.instances[id].name +  '.pig'));
         logger.debug('Args: ', JSON.stringify(nArg));
+
+
         var pig = spawn('pig', nArg);
         var prgs = 0;
         pig.stdout.on('data',

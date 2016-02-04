@@ -22,7 +22,9 @@
              <div layout="row">
                 <div layout="row" ng-repeat="item in vm.args">
 
-                 <div flex><md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
+                 <div flex>
+                   <!--- <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)"> --->
+                    <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
                       {{item.arg}}
                   </md-checkbox>
                  </div>
@@ -32,15 +34,23 @@
                    <input ng-model="vm.script.args[vm.index(vm.script.args, item.arg)].input" aria-label="arg {{item.arg}}">
                    </md-input-container>
                  </div>
-
                  </div>
              </div>
 
 
              <div ui-ace="vm.editorOptions" ng-model="vm.script.data"> </div>
              <md-progress-linear md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>
+             <md-list>
+                 <md-list-item ng-repeat="log in vm.log">
+                     {{log}}
+                     <md-divider ng-if="!$last"></md-divider>
+                 </md-list-item>
+             </md-list>
         </md-card-content>
         <md-card-footer>
+
+
+
           <ang-accordion>
                <collapsible-item one-at-a-time="true"   item-title="Click to view execution logs" style="width: 35%;">
                  <md-content md-scroll-y layout="column" flex ng-show="vm.log">
