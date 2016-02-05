@@ -38,7 +38,7 @@
              </div>
 
 
-             <div ui-ace="vm.editorOptions" ng-model="vm.script.data"> </div>
+         <div ui-ace="vm.editorOptions" ng-model="vm.script.data"> </div>
              <md-progress-linear md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>
              <md-list>
                  <md-list-item ng-repeat="log in vm.log">
@@ -48,10 +48,8 @@
              </md-list>
         </md-card-content>
         <md-card-footer>
-
-
-
-          <ang-accordion>
+<!---
+        <ang-accordion>
                <collapsible-item one-at-a-time="true"   item-title="Click to view execution logs" style="width: 35%;">
                  <md-content md-scroll-y layout="column" flex ng-show="vm.log">
                      <p>waiting for execution.....</p>
@@ -64,6 +62,7 @@
                  </md-content>
                 </collapsible-item>
            </ang-accordion>
+--->
         </md-card-footer>
       </md-card>
 

@@ -263,7 +263,8 @@ exports.run = function(id, stdoutCB, stderrCB, errCB)
                 logger.debug('close: ', code);
                 //Parse the log
                 var parsed = {type: 'close', data: code};
-                setImmediate(
+                logger.debug(parsed);
+            setImmediate(
                     function()
                     {
                         stdoutCB(parsed);
