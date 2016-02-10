@@ -1,7 +1,9 @@
 node_modules/
 client/bower_components/
-client/styles/css
+#client/styles/css
 .idea/
 dist/
 .sass-cache/
-/nbproject/private/
+nbproject
+*.log
+
