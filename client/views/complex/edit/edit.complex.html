@@ -1,24 +1,88 @@
+<!---
 <div>
   {{ vm.name }}
 </div>
+--->
+
+
 <md-content ><!--ng-show="vm.script">-->
-    {{vm.name}}
+<!---    {{vm.name}}  --->
     <section id="input">
+      <!--- Panel --->
+      <md-card>
+        <md-card-content>
+              <div layout="row">
+                <div flex><h4>Name:   {{vm.script.name}} </h4> </div>
+                <div flex layout-align="end" style="float:right;"><md-button  class="md-raised md-primary" ng-click="vm.run()">Execute</md-button>
+                          <md-button   class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+                              <md-button   class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
+              </div>
+              </div>
+
+             <div layout="row">
+                <div layout="row" ng-repeat="item in vm.args">
+
+                 <div flex>
+                   <!--- <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)"> --->
+                    <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
+                      {{item.arg}}
+                  </md-checkbox>
+                 </div>
+
+                 <div flex>
+                   <md-input-container ng-show="vm.exists(item, vm.script.args)">
+                   <input ng-model="vm.script.args[vm.index(vm.script.args, item.arg)].input" aria-label="arg {{item.arg}}">
+                   </md-input-container>
+                 </div>
+                 </div>
+             </div>
+
+
+         <div ui-ace="vm.editorOptions" ng-model="vm.script.data"> </div>
+             <md-progress-linear md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>
+             <md-list>
+                 <md-list-item ng-repeat="log in vm.log">
+                     {{log}}
+                     <md-divider ng-if="!$last"></md-divider>
+                 </md-list-item>
+             </md-list>
+        </md-card-content>
+        <md-card-footer>
+<!---
+        <ang-accordion>
+               <collapsible-item one-at-a-time="true"   item-title="Click to view execution logs" style="width: 35%;">
+                 <md-content md-scroll-y layout="column" flex ng-show="vm.log">
+                     <p>waiting for execution.....</p>
+                     <md-list>
+                         <md-list-item ng-repeat="log in vm.log">
+                             {{log}}
+                             <md-divider ng-if="!$last"></md-divider>
+                         </md-list-item>
+                     </md-list>
+                 </md-content>
+                </collapsible-item>
+           </ang-accordion>
+--->
+        </md-card-footer>
+      </md-card>
+
+
+<!---
         <md-input-container>
             <label>Name:</label>
             <input ng-model="vm.script.name">
         </md-input-container>
-        <div ui-ace="vm.editorOptions" ng-model="vm.script.data">
-
-        </div>
+        <div ui-ace="vm.editorOptions" ng-model="vm.script.data">      </div>
+-->
+<!---
         <md-input-container>
             <div layout="row">
                 <md-button  class="md-raised md-primary" ng-click="vm.run()">Execute</md-button>
                 <md-button   class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
                 <md-progress-linear md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>
-                
-                <!--<md-progress-circular layout-align="space-around" ng-show="vm.progress" md-diameter="10"  md-mode="determinate" value="{{vm.progress}}"></md-progress-circular>-->
-                
+--->
+              <!--<md-progress-circular layout-align="space-around" ng-show="vm.progress" md-diameter="10"  md-mode="determinate" value="{{vm.progress}}"></md-progress-circular>-->
+<!---
             </div>
             <section id="args" layout="row">
             <div layout="row" ng-repeat="item in vm.args">
@@ -31,7 +95,7 @@
             </div>
             </section>
         </md-input-container>
-        
+
     </section>
     <md-content id="output">
         <div layout="row">
@@ -48,17 +112,22 @@
         <md-content layout="row">
             <md-content md-scroll-y layout="column" flex ng-show="vm.log">
                 <p>logs go here</p>
+--->
                <!-- <pre ng-repeat="log in vm.log">{{log}}</pre>-->
-                <!--<div md-virtual-repeat="log in vm.log" class="repeated-item" flex>-->   
+                <!--<div md-virtual-repeat="log in vm.log" class="repeated-item" flex>-->
+<!---
                 <md-list>
                     <md-list-item ng-repeat="log in vm.log">
                         {{log}}
                         <md-divider ng-if="!$last"></md-divider>
                     </md-list-item>
                 </md-list>
+--->
                     <!--</md-virtual-repeat-container>-->
+<!---
             </md-content>
-            <!-- Graph the results -->
+
         </md-content>
     </md-content>
+--->
 </md-content>

@@ -7,7 +7,7 @@ angular.module('hog')
             $rootScope.$on('pig-error',
                 function(msg)
                 {
-                    console.log('error', msg);
+                    console.log('error-msg', msg);
             });
             var args = [];
             var processes = {};
@@ -27,7 +27,7 @@ angular.module('hog')
             };
 
             return service;
-                    
+
             function save(data)
             {
                 var deferred = $q.defer();
@@ -146,7 +146,9 @@ angular.module('hog')
                 Pig.on('run:end',
                     function(data)
                     {
-                        deferred.resolve(data);
+
+                       deferred.notify({type: 'end', data: data});
+                        //deferred.resolve(data);
                     });
                 Pig.on('run:progress',
                     function(percent)
@@ -161,9 +163,10 @@ angular.module('hog')
                 Pig.on('error',
                     function(err)
                     {
-                    deferred.notify({type: 'log', data: err});
+                    deferred.notify({type: 'error', data: err});
                         //deferred.reject(err);
                     });
+
                 return deferred.promise;
             }
             function createProc(args, data, procCB, updCB, endCB)

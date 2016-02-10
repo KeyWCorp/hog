@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hog')
-    .controller('EditComplexCtrl', function ($log, $stateParams, Runner, lodash)
+    .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash)
     {
         var vm = this;
         var _ = lodash;
@@ -57,6 +57,11 @@ angular.module('hog')
                     {
                         $log.error('error: ' +err);
                     });
+        }
+        vm.canceled = function(id) {
+            console.log('changing to list');
+            $state.go('home.complex.list');
+
         }
         vm.run = function()
         {

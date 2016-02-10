@@ -60,7 +60,7 @@ Pig.prototype.updateName = function(name, cb)
 exports.save = function(cb)
 {
     console.log('writting file', collection.raw);
-    
+
     fs.writeFile('server/api/pig/pig.data.json', JSON.stringify(collection.raw, null, 2), 'utf-8', cb);
 }
 exports.load = function(cb)
@@ -72,7 +72,7 @@ exports.load = function(cb)
             {
                 return cb(err);
             }
-        
+
             collection.raw = JSON.parse(data);
             for(var id in collection.raw)
             {
@@ -107,7 +107,7 @@ exports.create = function(obj, cb)
         {
             if(err)
                 return cb(err, obj);
-            
+
             this.save(
                 function(err)
                 {
@@ -223,10 +223,12 @@ exports.run = function(id, stdoutCB, stderrCB, errCB)
         {
             nArg.push(_.values(collection.instances[id].args[index]));
         }
-        nArg = _.flatten(nArg);
-       
+        //nArg = _.flatten(nArg);
+        nArg = [];
         nArg.push(path.join(__dirname, '../../',  'scripts/pig/', collection.instances[id].name +  '.pig'));
         logger.debug('Args: ', JSON.stringify(nArg));
+
+
         var pig = spawn('pig', nArg);
         var prgs = 0;
         pig.stdout.on('data',
@@ -261,7 +263,8 @@ exports.run = function(id, stdoutCB, stderrCB, errCB)
                 logger.debug('close: ', code);
                 //Parse the log
                 var parsed = {type: 'close', data: code};
-                setImmediate(
+                logger.debug(parsed);
+            setImmediate(
                     function()
                     {
                         stdoutCB(parsed);

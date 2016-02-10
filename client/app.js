@@ -12,13 +12,15 @@ angular.module('hog', [
     'ui.router',
     'ui.ace',
     'btford.socket-io',
-    'uuid4',
+    'uuid4','angAccordion',
     'ngLodash'
-])
+]).config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+    .primaryPalette('blue')
+    .accentPalette('orange');
+})
   .config(function ( $urlRouterProvider , $locationProvider) {
     $urlRouterProvider
         .otherwise('/');
-
     $locationProvider.html5Mode(true);
-
   });

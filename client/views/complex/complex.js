@@ -1,5 +1,5 @@
 'use strict';
-
+ 
 angular.module('hog')
   .config(function (  $stateProvider ) {
         $stateProvider
