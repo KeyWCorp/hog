@@ -155,6 +155,10 @@ exports.run = function (socket) {
             Pig.run(id,
                 function(data)
                 {
+                    if(data.type == 'output')
+                    {
+                      socket.emit('run:output', buildResponse(200, data.data));
+                    }
                     if(data.type == 'progress')
                     {
                         socket.emit('run:progress', buildResponse(200, data.data));

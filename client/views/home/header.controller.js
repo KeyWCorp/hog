@@ -11,26 +11,43 @@ angular.module('hog')
         function()
         {
             $mdSidenav('left').close();
-            console.log('closeing side menu');
+            console.log('closing side menu');
         });
     angular.extend(vm, {
-        name: 'Hog Application',
+        name: 'Hog',
         menu: [
-            {
-                name: 'Complex',
-                state: 'home.complex',
-                tooltip: 'Complex Section Information goes here'
-            },
-            {
-                name: 'Simple',
-                state: 'home.simple',
-                tooltip: 'Simple Section Information goes here'
-            },
-            {
+          {
+              name: 'Complex',
+              state: 'home.complex',
+              substates: [
+                {
+                  name: 'List',
+                  state: 'home.complex.list',
+                  tooltip: 'List Section will allow you the ability to run Pig command '
+                },
+                {
+                  name: 'New',
+                  state: 'home.complex.new',
+                  tooltip: 'Complex Section Information goes here'
+                }
+              ]
+          },
+          {
+            name: 'Simple',
+            state: 'home.simple',
+            substates: [
+              {
                 name: 'List',
-                state: 'home.complex.list',
+                state: 'home.simple.list',
                 tooltip: 'List Section will allow you the ability to run Pig command '
-            }
+              },
+              {
+                name: 'New',
+                state: 'home.simple.new',
+                tooltip: 'Simple Section Information goes here'
+              }
+            ]
+          }
         ],
         toggleNav: function()
         {
@@ -41,6 +58,12 @@ angular.module('hog')
                     {
                         $log.debug('slide');
                     });
+        },
+        originatorEv: null,
+        openMenu: function($mdOpenMenu, ev)
+        {
+          vm.originatorEv = ev;
+          $mdOpenMenu(ev);
         }
     });
 

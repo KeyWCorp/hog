@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hog')
-    .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash)
+    .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash, Settings)
     {
         var vm = this;
         var _ = lodash;
@@ -18,7 +18,13 @@ angular.module('hog')
         vm.themes = ['twilight', 'none'];
         vm.mode = vm.modes[0];
         vm.theme = vm.themes[0];
-        vm.args = [{arg: '-t', input: ""}, {arg: '-g', input: ""}, {arg: '-x', input: ""}];
+        vm.args = [];
+        Settings.get('args').forEach(
+          function(element)
+          {
+            vm.args.push({arg: element, input: ""});
+          })
+       // vm.args = [{arg: '-t', input: ""}, {arg: '-g', input: ""}, {arg: '-x', input: ""}];
         vm.selectedArgs = [];
         vm.editorModel = '';
         vm.progress = 0;
@@ -71,7 +77,7 @@ angular.module('hog')
                 .then(
                     function(out)
                     {
-                        vm.output = out.json;
+                       // vm.output = out;
                     },
                     function(err)
                     {
@@ -85,7 +91,19 @@ angular.module('hog')
                         }
                         else if (update.type == 'log')
                         {
-                            vm.log.push(update.data.json);
+                            if (update.data.json !== "null")
+                            {
+                              var parse = JSON.parse(update.data.json);
+                              vm.log.push(parse[0]);
+                            }
+                        }
+                        else if (update.type == 'output')
+                        {
+                          if (update.data.json !== "null")
+                          {
+                            var parse = JSON.parse(update.data.json);
+                            vm.output = parse;
+                          }
                         }
                     });
         };
@@ -106,7 +124,7 @@ angular.module('hog')
         {
             if(angular.isDefined(list) && angular.isDefined(item))
             {
-                var idx = list.indexOf(item);
+                var idx = _.findIndex(list, 'arg', item.arg);
                 if (idx > -1) list.splice(idx, 1);
                 else list.push(item);
             }
@@ -118,3 +136,4 @@ angular.module('hog')
             return indx;
         }
     });
+

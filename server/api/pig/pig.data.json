@@ -6,18 +6,6 @@
       {
         "arg": "-x",
         "input": "local"
-      },
-      {
-        "arg": "-t",
-        "input": ""
-      },
-      {
-        "arg": "-t",
-        "input": ""
-      },
-      {
-        "arg": "-x",
-        "input": ""
       }
     ],
     "id": 0
@@ -28,8 +16,7 @@
     "args": [
       {
         "arg": "-x",
-        "input": "local",
-        "$$hashKey": "object:42"
+        "input": "local"
       }
     ],
     "id": 1
@@ -40,8 +27,7 @@
     "args": [
       {
         "arg": "-x",
-        "input": "local",
-        "$$hashKey": "object:42"
+        "input": "local"
       }
     ],
     "id": 2
@@ -52,8 +38,7 @@
     "args": [
       {
         "arg": "-x",
-        "input": "local",
-        "$$hashKey": "object:42"
+        "input": "local"
       }
     ],
     "id": 3
@@ -75,8 +60,7 @@
     "args": [
       {
         "arg": "-x",
-        "input": "local",
-        "$$hashKey": "object:42"
+        "input": "local"
       }
     ],
     "id": "41"
@@ -87,11 +71,20 @@
     "args": [
       {
         "arg": "-x",
-        "input": "local",
-        "$$hashKey": "object:42"
+        "input": "local"
       }
     ],
     "id": 42
   },
-  "undefined": "{\"name\":\"Test\",\"data\":\"A = 'file:///Users/sdemmer/test.data' AS (one:int,two:int,three:int);\\nB = FILTER A BY one > 1;\\nDUMP B;\",\"args\":[{\"arg\":\"-x\",\"input\":\"local\"}],\"id\":0}"
+  "43": {
+    "name": "Steve_Test",
+    "data": "A = LOAD 'file:///Users/sdemmer/test.data' AS (one:int,two:int,three:int);\nB = FILTER A BY one > 1;\nDUMP B;",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local"
+      }
+    ],
+    "id": 43
+  }
 }

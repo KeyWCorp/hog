@@ -14,9 +14,22 @@
             <h5 class="md-toolbar-tools" ng-click="close()"> Navigation </h5>
         </md-toolbar>        
         <md-content layout-padding >
-             <md-button ng-click="close()" ng-repeat="nav in vm.menu" class="md-raised md-primary" ui-sref="{{nav.state}}">
-          <md-tooltip md-direction="right">{{nav.tooltip}}</md-tooltip> {{nav.name}}
-             </md-button>
-        </md-content>     
+            <section layout="column">
+                <md-menu ng-repeat="nav in vm.menu">
+                    <md-button ng-click="vm.openMenu($mdOpenMenu, $event)" class="md-flat md-secondary">
+                        {{nav.name}}
+                        <md-divider></md-divider>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item ng-repeat="sub in nav.substates">
+                            <section layout="column">
+                                <md-button ng-click="close()" class="md-flat md-accent" ui-sref="{{sub.state}}">{{sub.name}}</md-button>
+                                <md-tooltip md-direction="right">{{sub.tooltip}}</md-tooltip>
+                            </section>
+                        </md-menu-item>
+                    </md-menu-content>
+               </md-menu>
+            </section>
+        </md-content>
     </md-sidenav>
 </section>

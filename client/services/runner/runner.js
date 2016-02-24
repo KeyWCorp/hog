@@ -146,9 +146,8 @@ angular.module('hog')
                 Pig.on('run:end',
                     function(data)
                     {
-
-                       deferred.notify({type: 'end', data: data});
-                        //deferred.resolve(data);
+                        //deferred.notify({type: 'end', data: data});
+                        deferred.resolve({type: 'end', data: data});
                     });
                 Pig.on('run:progress',
                     function(percent)
@@ -159,6 +158,11 @@ angular.module('hog')
                     function(log)
                     {
                         deferred.notify({type: 'log', data: log});
+                    });
+                Pig.on('run:output',
+                    function(output)
+                    {
+                        deferred.notify({type: 'output', data: output});
                     });
                 Pig.on('error',
                     function(err)
