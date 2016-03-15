@@ -14,7 +14,7 @@ var toExclude  = require('./config/bowerFilesToExclude');
 
 module.exports = function () {
   return gulp.src('client/index.html')
-    .pipe(inject(gulp.src(bowerFiles(), { read: false }), {
+    .pipe(inject(gulp.src(bowerFiles(), {base: 'client/bower_components', read: false }), {
       name: 'bower',
       relative: 'true',
       ignorePath: toExclude

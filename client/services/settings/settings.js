@@ -4,7 +4,7 @@ angular.module('hog')
   .service('Settings',
     function ($log, lodash)
     {
-      var serivce = {
+      var service = {
         set: set,
         get: get,
       };
@@ -12,6 +12,9 @@ angular.module('hog')
         args: ['-x'],
         udfs: {},
       }
+      return service;
+
+      
       function set(setting, value)
       {
         if(!lodash.isUndefined(settings[setting]))

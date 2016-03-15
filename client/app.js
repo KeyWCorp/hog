@@ -14,7 +14,9 @@ angular.module('hog', [
     'btford.socket-io',
     'uuid4',
     'vAccordion',
-    'ngLodash'
+    'ngLodash',
+    'chart.js',
+    'mdDataTable'
 ]).config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')

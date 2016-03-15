@@ -38,7 +38,10 @@
 
 
           <div ui-ace="vm.editorOptions" ng-model="vm.script.data"> </div>
-          <md-progress-linear md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>
+          <!--<md-progress-linear md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>-->
+          <div class="container" ng-class="{'visible' : !vm.running}">
+            <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+          </div>
             <div class='md-padding' layout="row" layout-wrap layout-align="space-around">
           <v-accordion class="vAccordion--default" layout="column" flex="45">
             <v-pane>
@@ -72,19 +75,39 @@
                 Graph
               </v-pane-header>
               <v-pane-content><md-list>
-                 <md-list-item ng-repeat="log in vm.log">
-                     {{log}}
-                     <md-divider ng-if="!$last"></md-divider>
-                 </md-list-item>
-             </md-list>
+                <canvas id="line" class="chart chart-line" chart-data="vm.chartData" chart-labels="vm.chartLabels" chart-legend="true" chart-series="vm.chartSeries" chart-click="onClick" >
+                </canvas>
             </v-pane-content>
             </v-pane>
             <v-pane>
               <v-pane-header>
-                Output
+                Table
               </v-pane-header>
               <v-pane-content>
-              
+                <mdt-table >
+                 <mdt-header-row>
+                    <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
+                    <mdt-column align-rule="right">Calories</mdt-column>
+                    <mdt-column align-rule="right">Fat (g)</mdt-column>
+                    <mdt-column align-rule="right">Carbs (g)</mdt-column>
+                    <mdt-column align-rule="right">Protein (g)</mdt-column>
+                    <mdt-column align-rule="right">Sodium (mg)</mdt-column>
+                    <mdt-column align-rule="right">Calcium (%)</mdt-column>
+                    <mdt-column align-rule="right">Iron (%)</mdt-column>
+                  </mdt-header-row>
+                  <mdt-row ng-repeat="nutrition in vm.nutritionList">
+                    <mdt-cell editable-field="smallEditDialog" editable-field-max-length="25">
+                      {{nutrition.name}}
+                    </mdt-cell>
+                    <mdt-cell>{{nutrition.calories}}</mdt-cell>
+                    <mdt-cell>{{nutrition.fat}}</mdt-cell>
+                    <mdt-cell>{{nutrition.carbs}}</mdt-cell>
+                    <mdt-cell>{{nutrition.protein}}</mdt-cell>
+                    <mdt-cell>{{nutrition.sodium}}</mdt-cell>
+                    <mdt-cell>{{nutrition.calcium}}</mdt-cell>
+                    <mdt-cell>{{nutrition.iron}}</mdt-cell>
+                  </mdt-row>
+                </mdt-table>
               </v-pane-content>
             </v-pane>
           </v-accordion>
