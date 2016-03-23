@@ -12,11 +12,12 @@
     <md-sidenav class="md-sidenav-left md-whiteframe-z" md-component-id="left" style="width: 204px; min-width: 204px;">
         <md-toolbar  class="md-theme-dark">
             <h5 class="md-toolbar-tools" ng-click="close()"> Navigation </h5>
-        </md-toolbar>        
+        </md-toolbar>
         <md-content layout-padding >
             <section layout="column">
                 <md-menu ng-repeat="nav in vm.menu">
-                    <md-button ng-click="vm.openMenu($mdOpenMenu, $event)" class="md-flat md-secondary">
+                  <!--<div ng-if="nav.substates">-->
+                    <md-button ng-click="vm.clicked(nav, $mdOpenMenu, $event)" class="md-flat md-secondary">
                         {{nav.name}}
                         <md-divider></md-divider>
                     </md-button>
@@ -28,6 +29,17 @@
                             </section>
                         </md-menu-item>
                     </md-menu-content>
+                  <!--</div>-->
+                  <!--<div ng-if="!nav.substates">
+                    <md-menu-content>
+                      <md-menu-item>
+                        <md-button ui-sref="{{nav.state}}">
+                          {{nav.name}}
+                          <md-divider></md-divider>
+                        </md-button>
+                      </md-menu-item>
+                    </md-menu-content>
+                  </div>-->
                </md-menu>
             </section>
         </md-content>

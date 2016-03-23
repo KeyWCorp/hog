@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hog')
-  .controller('HeaderCtrl', function ($scope, $log, $mdSidenav) {
+  .controller('HeaderCtrl', function ($scope, $log, $mdSidenav, $state) {
 
     $scope.close = function (){
         $mdSidenav('left').close();
@@ -16,6 +16,10 @@ angular.module('hog')
     angular.extend(vm, {
         name: 'Hog',
         menu: [
+          {
+            name: 'Settings',
+            state: 'home.settings'
+          },
           {
               name: 'Complex',
               state: 'home.complex',
@@ -47,7 +51,8 @@ angular.module('hog')
                 tooltip: 'Simple Section Information goes here'
               }
             ]
-          }
+          },
+         
         ],
         toggleNav: function()
         {
@@ -64,6 +69,21 @@ angular.module('hog')
         {
           vm.originatorEv = ev;
           $mdOpenMenu(ev);
+        },
+        goState: function(state)
+        {
+          $state.go(state);
+        },
+        clicked: function(nav, $mdOpenMenu, ev)
+        {
+          if(nav.substates)
+          {
+            vm.openMenu($mdOpenMenu, ev);
+          }
+          else
+          {
+            vm.goState(nav.state);
+          }
         }
     });
 

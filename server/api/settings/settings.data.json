@@ -1,0 +1,53 @@
+{
+  "0": {
+    "name": "es",
+    "displayName": "ElasticSearch:",
+    "data": "10.1.10.1:9000",
+    "inputType": "string",
+    "id": 0
+  },
+  "1": {
+    "name": "udfs",
+    "displayName": "User Defined Functions (UDF):",
+    "data": [
+      {
+        "name": "test",
+        "file": ""
+      },
+      {
+        "name": "test2",
+        "file": ""
+      }
+    ],
+    "inputType": "chips",
+    "id": 1
+  },
+  "2": {
+    "name": "udfLocs",
+    "displayName": "UDF locations:",
+    "data": [
+      "./udf",
+      "./"
+    ],
+    "inputType": "string",
+    "id": 2
+  },
+  "3": {
+    "name": "pigArgs",
+    "displayName": "Pig Arguments:",
+    "data": [
+      {
+        "description": "Run mode",
+        "arg": "-x",
+        "default": "local"
+      },
+      {
+        "description": "Run mode2",
+        "arg": "-x2",
+        "default": "local23"
+      }
+    ],
+    "inputType": "form",
+    "id": 3
+  }
+}
