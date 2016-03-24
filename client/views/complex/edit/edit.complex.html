@@ -36,7 +36,7 @@
                    <tr ng-repeat="log in vm.log">
                        {{log}}
                    </tr>
-                
+
                 </td>
               </v-pane-content>
             </v-pane>
@@ -54,9 +54,9 @@
             <v-pane >
               <v-pane-header>
                 Graph
-                  
+
               </v-pane-header>
-                
+
               <v-pane-content>
                 <md-button ng-click="showLineGraph()"> Line Graph </md-button>
                 <md-button ng-click="showBarGraph()"> Bar Graph</md-button>
@@ -64,30 +64,30 @@
                 <md-button ng-click="showRadarChart()"> Radar Chart</md-button>
 
                 <canvas ng-show="line"
-                        id="line" 
-                        class="chart chart-line" 
+                        id="line"
+                        class="chart chart-line"
                         chart-data="chart.data"
-                        chart-labels="chart.labels" 
-                        chart-legend="true" 
+                        chart-labels="chart.labels"
+                        chart-legend="true"
                         chart-series="chart.series">
                 </canvas>
                   <canvas ng-show="radar"
-                        id="radar" 
+                        id="radar"
                         class="chart chart-radar"
-                        chart-data="chart.data" 
+                        chart-data="chart.data"
                         chart-labels="chart.labels">
-                </canvas> 
+                </canvas>
                   <canvas ng-show="bar"
-                        id="bar" 
+                        id="bar"
                         class="chart chart-bar"
                         chart-data="chart.data"
-                        chart-labels="chart.labels" 
+                        chart-labels="chart.labels"
                         chart-series="chart.series">
-                        
+
                     </canvas>
-                  <!--canvas id="pie" 
+                  <!--canvas id="pie"
                         class="chart chart-pie"
-                        chart-data="chart.data" 
+                        chart-data="chart.data"
                         chart-labels="chart.labels">
                 </canvas-->
 
@@ -102,8 +102,8 @@
                  <label for="data">Select Value: </label><br>
                     <table>
                         <tr ng-repeat="items in vm.pigList">
-\                           <td>
-                                <select  ng-model="newData" ng-change="getData(newData)" multiple>
+                            <td>
+                                <select  ng-model="newData" ng-click="getData(newData)" multiple>
                                     <option value="{{items}}" >{{items}}</option>
                                 </select><br-->
                             </td>
@@ -113,4 +113,4 @@
             </v-pane>
           </v-accordion>
           </div>
-        
+
