@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('hog', [
+	'ngTable',
     'ngRoute',
     'ngCookies',
     'ngResource',
@@ -15,8 +16,7 @@ angular.module('hog', [
     'uuid4',
     'vAccordion',
     'ngLodash',
-    'chart.js',
-    'mdDataTable'
+    'chart.js'
 ]).config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')

@@ -263,15 +263,15 @@ exports.run = function(id, stdoutCB, stderrCB, errCB)
                         stderrCB(parsed);
                     });
                 }
-                if (res[7].indexOf('%') > -1)
-                {
-                  parsed = { type: 'percent', data: res[7].match(/\%(d+)/)[1]}
-                  setImmediate(
-                    function()
-                    {
+ //if (res[7].indexOf('%') > -1)
+                //{
+//                  parsed = { type: 'percent', data: res[7].match(/\%(d+)/)[1]}
+                  //setImmediate(
+                    //function()
+                   // {
                         stderrCB(parsed);
-                    });
-                }
+                   // });
+                //}
                 //{type: 'progress', data: '95'};
             });
         pig.on('close',

@@ -1,9 +1,55 @@
 'use strict';
 
 angular.module('hog')
-    .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash, Settings, $mdToast)
+    .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash, Settings, $mdToast, NgTableParams, $scope)
     {
-        var vm = this;
+
+    var vm = this;
+ 
+    // Graphs are not displayed initially
+    $scope.line = false;
+    $scope.bar = false;
+    $scope.radar = false;
+
+    // Initialize chart values
+    $scope.chart=
+        {
+            labels : ["Value1", "Value2", "Value3"],
+            series : ['Series A'],
+            data : [[1, 7, 4]]
+        };
+
+    // Inject data from PIG script output to chart
+    $scope.getData = function(newData)
+        {
+            var t = JSON.parse(newData[0]);
+            $scope.chart.data[0] = t;
+        };
+    
+    // Display the Bar Graph
+    $scope.showBarGraph = function()
+        {
+            $scope.bar = true;
+            $scope.line = false;
+            $scope.radar = false;
+        };
+
+    // Display the Radar Chart
+    $scope.showRadarChart = function()
+        {
+            $scope.bar = false;
+            $scope.line = false;
+            $scope.radar = true;
+        };
+
+    // Display the Line Graph
+    $scope.showLineGraph = function()
+    {
+        $scope.line = true;
+        $scope.bar = false;
+        $scope.radar = false;
+    };
+
         var _ = lodash;
         console.log(Settings);
         angular.extend(this, {
@@ -17,118 +63,7 @@ angular.module('hog')
                     .hideDelay(3000)
             );
         };
-        vm.nutritionList = [
-            {
-                id: 601,
-                name: 'Frozen joghurt',
-                calories: 159,
-                fat: 6.0,
-                carbs: 24,
-                protein: 4.0,
-                sodium: 87,
-                calcium: '14%',
-                iron: '1%'
-            },
-            {
-                id: 602,
-                name: 'Ice cream sandwitch',
-                calories: 237,
-                fat: 9.0,
-                carbs: 37,
-                protein: 4.3,
-                sodium: 129,
-                calcium: '84%',
-                iron: '1%'
-            },
-            {
-                id: 603,
-                name: 'Eclair',
-                calories: 262,
-                fat: 16.0,
-                carbs: 24,
-                protein: 6.0,
-                sodium: 337,
-                calcium: '6%',
-                iron: '7%'
-            },
-            {
-                id: 604,
-                name: 'Cupkake',
-                calories: 305,
-                fat: 3.7,
-                carbs: 67,
-                protein: 4.3,
-                sodium: 413,
-                calcium: '3%',
-                iron: '8%'
-            },
-            {
-                id: 605,
-                name: 'Gingerbread',
-                calories: 356,
-                fat: 16.0,
-                carbs: 49,
-                protein: 2.9,
-                sodium: 327,
-                calcium: '7%',
-                iron: '16%'
-            },
-            {
-                id: 606,
-                name: 'Jelly bean',
-                calories: 375,
-                fat: 0.0,
-                carbs: 94,
-                protein: 0.0,
-                sodium: 50,
-                calcium: '0%',
-                iron: '0%'
-            },
-            {
-                id: 607,
-                name: 'Lollipop',
-                calories: 392,
-                fat: 0.2,
-                carbs: 98,
-                protein: 0,
-                sodium: 38,
-                calcium: '0%',
-                iron: '2%'
-            },
-            {
-                id: 608,
-                name: 'Honeycomb',
-                calories: 408,
-                fat: 3.2,
-                carbs: 87,
-                protein: 6.5,
-                sodium: 562,
-                calcium: '0%',
-                iron: '45%'
-            },
-            {
-                id: 609,
-                name: 'Donut',
-                calories: 452,
-                fat: 25.0,
-                carbs: 51,
-                protein: 4.9,
-                sodium: 326,
-                calcium: '2%',
-                iron: '22%'
-            },
-            {
-                id: 610,
-                name: 'KitKat',
-                calories: 518,
-                fat: 26.0,
-                carbs: 65,
-                protein: 7,
-                sodium: 54,
-                calcium: '12%',
-                iron: '6%'
-            }
-        ];
+    
   
         Runner.get($stateParams.id)
             .then(
@@ -222,7 +157,8 @@ angular.module('hog')
                             if (update.data.json !== "null")
                             {
                               var parse = JSON.parse(update.data.json);
-                              vm.log.push(parse[0]);
+                             // vm.log.push(parse[0]);
+                               // console.log('VM > LOG' + parse);
                             }
                         }
                         else if (update.type == 'output')
@@ -233,9 +169,9 @@ angular.module('hog')
                             var parse = JSON.parse(update.data.json);
                             var pi = parse.toString().match(reg);
                             console.log(parse, pi);
-                            
+                            vm.pigList = toList(pi);
+                            //vm.output = pigList;
                             vm.output = parse;
-                            console.log(typeof parse);
                             vm.chartData.push(pi);
                           }
                         }
@@ -269,5 +205,28 @@ angular.module('hog')
             //$log.debug('index of ', indx, item);
             return indx;
         }
+        
+    function toList (_input) 
+    {
+        var output = [];
+        var tmp_list = [];
+        var count = 0;
+            for (var i = 0; i < _input.length; i++) 
+            {
+                var item = _input[i];
+                if (item) 
+                {
+                    tmp_list.push(item);
+                    count++;
+                    if (count > 0 && count % 3 == 0)
+                    {
+                        output.push(tmp_list);
+                        tmp_list = [];
+                    }
+                }
+            }
+        return output;
+    }
+        
     });
 
