@@ -11,11 +11,12 @@ cp -p client/externals/ace.js client/bower_components/ace_builds/src-min-noconfl
 cp -p client/externals/mode-pig_latin.js client/bower_components/ace_builds/src-min-noconflicts/
 ```
 
-# This is not needed:
-Open a terminal and nagvigate to /hog/server/scripts/pig and run 'pig -x local'
-
 Open a second terminal, navigate to the hog/ directory and run 'gulp'
 
 
 A tab in your browser will automatically open to 'localhost:9000' with the script
 running. We find the program runs best using a Chrome web browser.
+
+# This is not needed:
+Open a terminal and nagvigate to /hog/server/scripts/pig and run 'pig -x local'
+
