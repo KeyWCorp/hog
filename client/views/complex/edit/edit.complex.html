@@ -1,16 +1,6 @@
-<!---
-<div>
-  {{ vm.name }}
-</div>
---->
 
 
-<md-content ><!--ng-show="vm.script">-->
-<!---    {{vm.name}}  --->
     <section id="input">
-      <!--- Panel --->
-      <md-card>
-        <md-card-content>
               <div layout="row">
                 <div flex><h4>Name:   {{vm.script.name}} </h4> </div>
                 <div flex layout-align="end" style="float:right;"><md-button  class="md-raised md-primary" ng-click="vm.run()">Execute</md-button>
@@ -22,23 +12,16 @@
              <div layout="row">
                 <div layout="row" ng-repeat="item in vm.args">
                  <div flex>
-                   <!--- <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)"> --->
-                    <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
-                      {{item.arg}}
-                  </md-checkbox>
+
                  </div>
 
                  <div flex>
-                   <md-input-container ng-show="vm.exists(item, vm.script.args)">
-                   <input ng-model="vm.script.args[vm.index(vm.script.args, item.arg)].input" aria-label="arg {{item.arg}}">
-                   </md-input-container>
                  </div>
                  </div>
              </div>
 
 
           <div ui-ace="vm.editorOptions" ng-model="vm.script.data"> </div>
-          <!--<md-progress-linear md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>-->
           <div class="container" ng-class="{'visible' : !vm.running}">
             <md-progress-linear md-mode="indeterminate"></md-progress-linear>
           </div>
@@ -49,14 +32,12 @@
                 Logs
               </v-pane-header>
               <v-pane-content >
-                <md-content style="height: 100px" layout-align="space-around">
-                  <md-list>
-                   <md-list-item ng-repeat="log in vm.log">
+                <td style="height: 100px" layout-align="space-around">
+                   <tr ng-repeat="log in vm.log">
                        {{log}}
-                       <md-divider ng-if="!$last"></md-divider>
-                   </md-list-item>
-                  </md-list>
-                </md-content>
+                   </tr>
+                
+                </td>
               </v-pane-content>
             </v-pane>
             <v-pane>
@@ -73,10 +54,44 @@
             <v-pane >
               <v-pane-header>
                 Graph
+                  
               </v-pane-header>
-              <v-pane-content><md-list>
-                <canvas id="line" class="chart chart-line" chart-data="vm.chartData" chart-labels="vm.chartLabels" chart-legend="true" chart-series="vm.chartSeries" chart-click="onClick" >
+                
+              <v-pane-content>
+                <md-button ng-click="showLineGraph()"> Line Graph </md-button>
+                <md-button ng-click="showBarGraph()"> Bar Graph</md-button>
+                <!--md-button> Pie Chart </md-button-->
+                <md-button ng-click="showRadarChart()"> Radar Chart</md-button>
+
+                <canvas ng-show="line"
+                        id="line" 
+                        class="chart chart-line" 
+                        chart-data="chart.data"
+                        chart-labels="chart.labels" 
+                        chart-legend="true" 
+                        chart-series="chart.series">
                 </canvas>
+                  <canvas ng-show="radar"
+                        id="radar" 
+                        class="chart chart-radar"
+                        chart-data="chart.data" 
+                        chart-labels="chart.labels">
+                </canvas> 
+                  <canvas ng-show="bar"
+                        id="bar" 
+                        class="chart chart-bar"
+                        chart-data="chart.data"
+                        chart-labels="chart.labels" 
+                        chart-series="chart.series">
+                        
+                    </canvas>
+                  <!--canvas id="pie" 
+                        class="chart chart-pie"
+                        chart-data="chart.data" 
+                        chart-labels="chart.labels">
+                </canvas-->
+
+
             </v-pane-content>
             </v-pane>
             <v-pane>
@@ -84,116 +99,18 @@
                 Table
               </v-pane-header>
               <v-pane-content>
-                <mdt-table >
-                 <mdt-header-row>
-                    <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
-                    <mdt-column align-rule="right">Calories</mdt-column>
-                    <mdt-column align-rule="right">Fat (g)</mdt-column>
-                    <mdt-column align-rule="right">Carbs (g)</mdt-column>
-                    <mdt-column align-rule="right">Protein (g)</mdt-column>
-                    <mdt-column align-rule="right">Sodium (mg)</mdt-column>
-                    <mdt-column align-rule="right">Calcium (%)</mdt-column>
-                    <mdt-column align-rule="right">Iron (%)</mdt-column>
-                  </mdt-header-row>
-                  <mdt-row ng-repeat="nutrition in vm.nutritionList">
-                    <mdt-cell editable-field="smallEditDialog" editable-field-max-length="25">
-                      {{nutrition.name}}
-                    </mdt-cell>
-                    <mdt-cell>{{nutrition.calories}}</mdt-cell>
-                    <mdt-cell>{{nutrition.fat}}</mdt-cell>
-                    <mdt-cell>{{nutrition.carbs}}</mdt-cell>
-                    <mdt-cell>{{nutrition.protein}}</mdt-cell>
-                    <mdt-cell>{{nutrition.sodium}}</mdt-cell>
-                    <mdt-cell>{{nutrition.calcium}}</mdt-cell>
-                    <mdt-cell>{{nutrition.iron}}</mdt-cell>
-                  </mdt-row>
-                </mdt-table>
+                 <label for="data">Select Value: </label><br>
+                    <table>
+                        <tr ng-repeat="items in vm.pigList">
+\                           <td>
+                                <select  ng-model="newData" ng-change="getData(newData)" multiple>
+                                    <option value="{{items}}" >{{items}}</option>
+                                </select><br-->
+                            </td>
+                        </tr>
+                    </table>
               </v-pane-content>
             </v-pane>
           </v-accordion>
           </div>
-        </md-card-content>
-        <md-card-footer>
-<!---
-        <ang-accordion>
-               <collapsible-item one-at-a-time="true"   item-title="Click to view execution logs" style="width: 35%;">
-                 <md-content md-scroll-y layout="column" flex ng-show="vm.log">
-                     <p>waiting for execution.....</p>
-                     <md-list>
-                         <md-list-item ng-repeat="log in vm.log">
-                             {{log}}
-                             <md-divider ng-if="!$last"></md-divider>
-                         </md-list-item>
-                     </md-list>
-                 </md-content>
-                </collapsible-item>
-           </ang-accordion>
---->
-        </md-card-footer>
-      </md-card>
-
-
-<!---
-        <md-input-container>
-            <label>Name:</label>
-            <input ng-model="vm.script.name">
-        </md-input-container>
-        <div ui-ace="vm.editorOptions" ng-model="vm.script.data">      </div>
--->
-<!---
-        <md-input-container>
-            <div layout="row">
-                <md-button  class="md-raised md-primary" ng-click="vm.run()">Execute</md-button>
-                <md-button   class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
-                <md-progress-linear md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>
---->
-              <!--<md-progress-circular layout-align="space-around" ng-show="vm.progress" md-diameter="10"  md-mode="determinate" value="{{vm.progress}}"></md-progress-circular>-->
-<!---
-            </div>
-            <section id="args" layout="row">
-            <div layout="row" ng-repeat="item in vm.args">
-                <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
-                    {{item.arg}}
-                </md-checkbox>
-                <md-input-container ng-show="vm.exists(item, vm.script.args)">
-                <input ng-model="vm.script.args[vm.index(vm.script.args, item.arg)].input" aria-label="arg {{item.arg}}">
-                </md-input-container>
-            </div>
-            </section>
-        </md-input-container>
-
-    </section>
-    <md-content id="output">
-        <div layout="row">
-            <div md- ng-show="vm.progress">
-                <md-progress-circular md-diameter="20" md-mode="determinate" value="{{vm.progress}}"></md-progress-circular>
-                <p>Progress: {{vm.progress}}%</p>
-            </div>
-             <md-divider></md-divider>
-            <div ng-show="vm.output">
-                <pre>Output: {{vm.output}}</pre>
-            </div>
-             <md-divider></md-divider>
-        </div>
-        <md-content layout="row">
-            <md-content md-scroll-y layout="column" flex ng-show="vm.log">
-                <p>logs go here</p>
---->
-               <!-- <pre ng-repeat="log in vm.log">{{log}}</pre>-->
-                <!--<div md-virtual-repeat="log in vm.log" class="repeated-item" flex>-->
-<!---
-                <md-list>
-                    <md-list-item ng-repeat="log in vm.log">
-                        {{log}}
-                        <md-divider ng-if="!$last"></md-divider>
-                    </md-list-item>
-                </md-list>
---->
-                    <!--</md-virtual-repeat-container>-->
-<!---
-            </md-content>
-
-        </md-content>
-    </md-content>
---->
-</md-content>
+        
