@@ -7,8 +7,11 @@ Clone Hog from the Gitlab repository
 cd into the 'hog' directory
 npm install - if asked to make a selection, choose the version that is 'required by hog'
 bower install - if asked to make a selection, choose the verion that is 'required by hog'
+cp -p client/externals/ace.js client/bower_components/ace_builds/src-min-noconflicts/
+cp -p client/externals/mode-pig_latin.js client/bower_components/ace_builds/src-min-noconflicts/
 ```
 
+# This is not needed:
 Open a terminal and nagvigate to /hog/server/scripts/pig and run 'pig -x local'
 
 Open a second terminal, navigate to the hog/ directory and run 'gulp'
