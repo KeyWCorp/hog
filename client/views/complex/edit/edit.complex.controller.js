@@ -76,11 +76,22 @@ angular.module('hog')
         vm.mode = vm.modes[0];
         vm.theme = vm.themes[0];
         vm.args = [];
-        Settings.get('args').forEach(
-          function(element)
-          {
-            vm.args.push({arg: element, input: ""});
-          })
+        Settings.getp('pigArgs')
+          .then(
+            function(data)
+            {
+              $log.info("pig args", data)
+              data.json.data.forEach(
+                function(element)
+                {
+                  vm.args.push({arg: element.arg, input: element.default});
+                });
+              $log.info('new args', vm.args)
+            },
+            function(err)
+            {
+              $log.error(err);
+            });
        // vm.args = [{arg: '-t', input: ""}, {arg: '-g', input: ""}, {arg: '-x', input: ""}];
         vm.selectedArgs = [];
         vm.editorModel = '';
@@ -157,7 +168,7 @@ angular.module('hog')
                             if (update.data.json !== "null")
                             {
                               var parse = JSON.parse(update.data.json);
-                             // vm.log.push(parse[0]);
+                              vm.log.push(parse[0]);
                                // console.log('VM > LOG' + parse);
                             }
                         }

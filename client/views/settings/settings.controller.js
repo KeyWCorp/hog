@@ -39,8 +39,6 @@ angular.module('hog')
                 });
           });
         $log.debug(goodCount);
-        
-       
       },
       showSavedToast: function() {
         /*$mdToast.show(
@@ -70,7 +68,6 @@ angular.module('hog')
         )
       },
       udfs: {displayName: 'User Defined Functions (UDFS):', data: []},
-      
     });
   vm.showSavedToast();
   Settings.list()

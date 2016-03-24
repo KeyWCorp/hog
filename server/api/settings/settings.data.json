@@ -44,7 +44,7 @@
       {
         "description": "Run mode2",
         "arg": "-x2",
-        "default": "local23"
+        "default": ""
       }
     ],
     "inputType": "form",
