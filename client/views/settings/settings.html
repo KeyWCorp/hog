@@ -1,0 +1,70 @@
+<md-content>
+  {{vm.name}}
+  <section id="section1">
+    <div class='md-padding' layout="row" layout-wrap layout-align="space-around">
+      <v-accordion class="vAccordion--default" layout="column" flex="45">
+        <v-pane>
+          <v-pane-header>
+            Settings
+          </v-pane-header>
+          <v-pane-content>
+            <md-input-container ng-repeat="input in vm.ins">
+              <section ng-show="input.inputType == 'string'">
+                <label>{{input.displayName}}</label>
+                <input ng-model="input.data">
+              </section>
+              <section ng-show="input.inputType == 'form'">
+                <label>{{input.displayName}}</label>
+                <md-input-container ng-repeat="opt in input.data track by $index">
+                  <label>{{opt.arg}}</label>
+                  <input ng-model="opt.default">
+                  <md-tooltip md-direction="right">{{opt.description}}</md-tooltip>
+                </md-input-container>
+              </section>
+            </md-input-container>
+            <md-button class="md-raised" ng-click="vm.save(vm.ins)">Save</md-button>
+          </v-pane-content>
+        </v-pane>
+      </v-accordion>
+    </div>
+  </section>
+  <section id="section2">
+    <div class='md-padding' layout="row" layout-wrap layout-align="space-around">
+      <v-accordion class="vAccordion--default" layout="column" flex="45">
+        <v-pane>
+          <v-pane-header>
+            {{vm.udfs.displayName}}
+          </v-pane-header>
+          <v-pane-content>
+            <section>
+              <!--{{vm.udfs}}-->
+              <md-chips ng-show="vm.udfs" class="custom-chips" ng-model="vm.udfs.data" readonly="false" placeholder="empty">
+                <md-chip-template>
+                  <strong>{{$chip.name}}</strong>
+                  <md-tooltip md-direction="right">{{$chip.file}}</md-tooltip>
+                </md-chip-template>
+              </md-chips>
+            </section>
+            <md-button class="md-raised" ng-click="vm.save(vm.udfs)">Save</md-button>
+          </v-pane-content>
+        </v-pane>
+      </v-accordion>
+    </div>
+  </section>
+  <!--<section id="section3">
+    <div class='md-padding' layout="row" layout-wrap layout-align="space-around">
+      <v-accordion class="vAccordion--default" layout="column" flex="45">
+        <v-pane>
+          <v-pane-header>
+            Section 3
+          </v-pane-header>
+          <v-pane-content>
+          </v-pane-content>
+        </v-pane>
+      </v-accordion>
+    </div>
+  </section>-->
+  <div>
+    <md-button class="md-raised" ng-click="vm.save()">Save</md-button>
+  </div>
+</md-content>
