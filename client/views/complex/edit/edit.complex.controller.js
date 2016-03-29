@@ -1,55 +1,80 @@
 'use strict';
 
 angular.module('hog')
-    .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash, Settings, $mdToast, NgTableParams, $scope)
+    .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams)
     {
 
+   
     var vm = this;
  
     // Graphs are not displayed initially
-    $scope.line = false;
-    $scope.bar = false;
-    $scope.radar = false;
+    vm.showLine = false;
+    vm.bar = false;
+    vm.radar = false;
+    vm.pie = false;
 
     // Initialize chart values
-    $scope.chart=
-        {
-            labels : ["Value1", "Value2", "Value3"],
-            series : ['Series A'],
-            data : [[1, 7, 4]]
-        };
-
+    vm.labels = ["Value1", "Value2", "Value3"];
+    vm.series = ['Series A'];
+    vm.data = [];
+    
     // Inject data from PIG script output to chart
-    $scope.getData = function(newData)
+    vm.getData = function(newData)
         {
-            var t = JSON.parse(newData[0]);
-            $scope.chart.data[0] = t;
+            console.log(JSON.parse(newData));
+            var t = JSON.parse(newData);
+            console.log(t);
+            vm.data[0] = t;
         };
     
     // Display the Bar Graph
-    $scope.showBarGraph = function()
+    vm.showBarGraph = function()
         {
-            $scope.bar = true;
-            $scope.line = false;
-            $scope.radar = false;
+            vm.bar = true;
+            vm.pie = false;
+            vm.showLine = false;
+            vm.radar = false;
         };
 
     // Display the Radar Chart
-    $scope.showRadarChart = function()
+    vm.showRadarChart = function()
         {
-            $scope.bar = false;
-            $scope.line = false;
-            $scope.radar = true;
+            vm.bar = false;
+            vm.pie = false;
+            vm.showLine = false;
+            vm.radar = true;
         };
 
     // Display the Line Graph
-    $scope.showLineGraph = function()
-    {
-        $scope.line = true;
-        $scope.bar = false;
-        $scope.radar = false;
-    };
-
+    vm.showLineGraph = function()
+        {
+            vm.showLine = true;
+            vm.pie = false;
+            vm.bar = false;
+            vm.radar = false;
+        };
+      // Display the Pie Graph
+    vm.showLPieChart = function()
+        {
+            vm.pie = true;
+            vm.showLine = false;
+            vm.bar = false;
+            vm.radar = false;
+        vm.pidata = [1,2,3];
+        };
+    
+    // User selects values from table, 
+    // set vm.data equal to the changes
+    vm.onChange = function()
+        {
+            vm.data = []; 
+            for(var i = 0; i < vm.testData.length; i++)
+                {
+                    var hold = JSON.stringify(vm.testData[i]).replace("(","[").replace(")","]").replace(/"/g, "");
+                    vm.data.push(JSON.parse(hold));
+                }
+        };
+ 
         var _ = lodash;
         console.log(Settings);
         angular.extend(this, {
@@ -167,9 +192,10 @@ angular.module('hog')
                           {
                             var reg = /(?:(\d+)*)/g
                             var parse = JSON.parse(update.data.json);
+                            var tem = JSON.parse(update.data.json).split("\n");
+                            console.log('tem ' + tem + ' ' + typeof(tem));
                             var pi = parse.toString().match(reg);
-                            console.log(parse, pi);
-                            vm.pigList = toList(pi);
+                            vm.pigList = tem; //toList(pi);
                             //vm.output = pigList;
                             vm.output = parse;
                             vm.chartData.push(pi);
