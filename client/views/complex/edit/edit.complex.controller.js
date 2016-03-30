@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hog')
-    .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams)
+    .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval)
     {
 
    
@@ -17,6 +17,10 @@ angular.module('hog')
     vm.labels = ["Value1", "Value2", "Value3"];
     vm.series = ['Series A'];
     vm.data = [];
+    
+    // Progress Bar Variables
+    vm.start = false;
+    
     
     // Inject data from PIG script output to chart
     vm.getData = function(newData)
@@ -74,6 +78,9 @@ angular.module('hog')
                     vm.data.push(JSON.parse(hold));
                 }
         };
+    
+   
+    
  
         var _ = lodash;
         console.log(Settings);
@@ -167,6 +174,9 @@ angular.module('hog')
         }
         vm.run = function()
         {
+           // start progress bar
+            vm.start = true;
+            
             $log.debug('running: ', vm.script.id);
             vm.log = [];
             Runner.run(vm.script.id)
@@ -201,10 +211,13 @@ angular.module('hog')
                         {
                           if (update.data.json !== "null")
                           {
+                              console.log(update.data.json);
                             var reg = /(?:(\d+)*)/g
                             var parse = JSON.parse(update.data.json);
                             var tem = JSON.parse(update.data.json).split("\n");
                             console.log('tem ' + tem + ' ' + typeof(tem));
+                             // Stop progress bar
+                              vm.start = (false);
                             var pi = parse.toString().match(reg);
                             vm.pigList = tem; //toList(pi);
                             //vm.output = pigList;
@@ -242,28 +255,6 @@ angular.module('hog')
             //$log.debug('index of ', indx, item);
             return indx;
         }
-        
-    function toList (_input) 
-    {
-        var output = [];
-        var tmp_list = [];
-        var count = 0;
-            for (var i = 0; i < _input.length; i++) 
-            {
-                var item = _input[i];
-                if (item) 
-                {
-                    tmp_list.push(item);
-                    count++;
-                    if (count > 0 && count % 3 == 0)
-                    {
-                        output.push(tmp_list);
-                        tmp_list = [];
-                    }
-                }
-            }
-        return output;
-    }
-        
+
     });
 

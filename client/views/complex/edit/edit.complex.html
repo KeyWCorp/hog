@@ -35,7 +35,7 @@
 
           <div ui-ace="vm.editorOptions" ng-model="vm.script.data"> </div>
           <div class="container" ng-class="{'visible' : !vm.running}">
-            <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+            <md-progress-linear ng-if="vm.start" md-mode="indeterminate"></md-progress-linear>
           </div>
             <div class='md-padding' layout="row" layout-wrap layout-align="space-around">
           <v-accordion class="vAccordion--default" layout="column" flex="45">
