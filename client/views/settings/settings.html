@@ -1,5 +1,4 @@
 <md-content>
-  {{vm.name}}
   <section id="section1">
     <div class='md-padding' layout="row" layout-wrap layout-align="space-around">
       <v-accordion class="vAccordion--default" layout="column" flex="45">
@@ -10,16 +9,40 @@
           <v-pane-content>
             <md-input-container ng-repeat="input in vm.ins">
               <section ng-show="input.inputType == 'string'">
-                <label>{{input.displayName}}</label>
-                <input ng-model="input.data">
-              </section>
-              <section ng-show="input.inputType == 'form'">
-                <label>{{input.displayName}}</label>
-                <md-input-container ng-repeat="opt in input.data track by $index">
-                  <label>{{opt.arg}}</label>
-                  <input ng-model="opt.default">
-                  <md-tooltip md-direction="right">{{opt.description}}</md-tooltip>
+                <md-input-container>
+                  <label>{{input.displayName}}</label>
+                  <input ng-model="input.data">
                 </md-input-container>
+              </section>
+              <section ng-show="input.inputType == 'form'" layout="row">
+                
+                <md-input-container class="md-icon-float md-block" layout="row">
+                  <!--<md-button class="md-icon-button" aria-label="Add Arg" ng-click="vm.addArg(temp)">
+                    <ng-md-icon icon="add" size="20"></ng-md-icon>
+                  </md-button>-->
+                  <label>
+                    {{input.displayName}}
+                  </label>
+                   
+                    <md-icon  ng-click="vm.addArg(input.id,temp)" ng-md-icon icon="add" size="20"></md-icon>
+                 
+                  <input ng-model="temp">
+                 
+                </md-input-container>
+
+                  <md-input-container ng-repeat="opt in input.data track by $index" >
+                    <!--<md-button class="md-icon-button" aria-label="Remove arg" ng-click="vm.removeArg(input.id, $index)">-->
+                    <!--</md-button>-->
+                    
+                    <label >{{opt.arg}}</label>
+ <md-icon ng-click="vm.removeArg(input.id, $index)" ng-md-icon icon="clear" size="20"></md-icon>
+                    <input ng-model="opt.default" >
+                    
+                    <md-tooltip md-direction="right">{{opt.description}}</md-tooltip>
+                   
+
+                  </md-input-container>
+               
               </section>
             </md-input-container>
             <md-button class="md-raised" ng-click="vm.save(vm.ins)">Save</md-button>
@@ -51,6 +74,7 @@
       </v-accordion>
     </div>
   </section>
+  <!-- Not Sure yet if there will be a section 3 -->
   <!--<section id="section3">
     <div class='md-padding' layout="row" layout-wrap layout-align="space-around">
       <v-accordion class="vAccordion--default" layout="column" flex="45">
@@ -64,7 +88,4 @@
       </v-accordion>
     </div>
   </section>-->
-  <div>
-    <md-button class="md-raised" ng-click="vm.save()">Save</md-button>
-  </div>
 </md-content>

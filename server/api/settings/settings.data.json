@@ -40,11 +40,6 @@
         "description": "Run mode",
         "arg": "-x",
         "default": "local"
-      },
-      {
-        "description": "Run mode2",
-        "arg": "-x2",
-        "default": ""
       }
     ],
     "inputType": "form",
