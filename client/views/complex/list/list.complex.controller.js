@@ -146,7 +146,7 @@ angular.module('hog')
  '   </md-dialog-content>'+
 '  </form>'+
 '</md-dialog>',
-     parent: angular.element(document.body),
+     //parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose:true,
     })
