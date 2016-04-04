@@ -14,7 +14,7 @@ angular.module('hog')
     vm.pie = false;
 
     // Initialize chart values
-    vm.labels = ["Value1", "Value2", "Value3"];
+    vm.labels = [];
     vm.series = ['Series A'];
     vm.data = [];
     
@@ -71,17 +71,42 @@ angular.module('hog')
     // set vm.data equal to the changes
     vm.onChange = function()
         {
-            vm.data = []; 
-            for(var i = 0; i < vm.testData.length; i++)
-                {
-                    var hold = JSON.stringify(vm.testData[i]).replace("(","[").replace(")","]").replace(/"/g, "");
-                    vm.data.push(JSON.parse(hold));
-                }
-        };
-    
-   
-    
- 
+        vm.data = [[]]; 
+        vm.labels = [];
+       
+        var temp = JSON.stringify(vm.testData);
+       
+        //var tem = temp.split(",");
+        var temp2 = temp.replace(/["'\(\)]/g, "").replace("[","").replace("]","").replace(/"/g, "");
+        var tem = temp2.split(",");
+          console.log(tem.length);
+        if(tem.length == 2)
+        {
+            vm.labels[0] = (tem[0]);
+            vm.data[0].push(parseFloat(tem[1]));
+        }
+        else
+        {
+            var j = 0;
+            var x = 0;
+             //vm.data = [[2], [5]];
+            for(var i = 0; i < tem.length; i+=2 )
+            {
+                
+                vm.labels[j] = tem[i];
+              //  vm.series[j] = i;
+                vm.data[0].push(parseFloat(tem[i+1]));
+                j++;
+                
+                
+                                 console.log(vm.data);
+            }
+            console.log(typeof(vm.data[1]));
+        }
+        
+        
+         };
+        
         var _ = lodash;
         console.log(Settings);
         angular.extend(this, {
@@ -129,9 +154,9 @@ angular.module('hog')
         vm.editorModel = '';
         vm.progress = 0;
         vm.log = [];
-        vm.chartLabels = [ 'label 1','label2'];
-        vm.chartSeries = ['series 1','series 2'];
-        vm.chartData = [];
+        //vm.chartLabels = [ 'label 1','label2'];
+        //vm.chartSeries = ['series 1','series 2'];
+       // vm.chartData = [];
         vm.onEditorLoad = function(_ace)
         {
             vm.modeChanged = function () {
@@ -197,6 +222,7 @@ angular.module('hog')
                         if (update.type == 'progress')
                         {
                             vm.progress = update.data.json;
+                                                          //console.log('SCURYVY ' + update.data.json + typeof(update.data.json));
                         }
                         else if (update.type == 'log')
                         {
@@ -204,6 +230,7 @@ angular.module('hog')
                             {
                               var parse = JSON.parse(update.data.json);
                               vm.log.push(parse[0]);
+                                
                                 //console.log('VM > LOG' + parse);
                             }
                         }
@@ -218,11 +245,12 @@ angular.module('hog')
                             console.log('tem ' + tem + ' ' + typeof(tem));
                              // Stop progress bar
                               vm.start = (false);
+
                             var pi = parse.toString().match(reg);
                             vm.pigList = tem; //toList(pi);
                             //vm.output = pigList;
                             vm.output = parse;
-                            vm.chartData.push(pi);
+                        //    vm.chartData.push(pi);
                           }
                         }
                     });

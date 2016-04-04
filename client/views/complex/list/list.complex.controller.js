@@ -149,16 +149,19 @@ angular.module('hog')
      //parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose:true,
+      //      locals: {data: vm.output}
+        //}
     })
   };
 
     });
 
 // Controller for Modal
-function DialogController( $mdDialog, $scope) {
+function DialogController( $mdDialog, $scope, data) {
      $scope.items = [1,2,3];
     $scope.labels= ["Value1", "Value2", "Value3"];
     $scope.series = ['Series A', 'Series B'];
+   // $scope.data = data;
     $scope.data = [[1,2,3,],[2,7,1]];
    /* var vm = this;
      console.log('sdfsdf');
