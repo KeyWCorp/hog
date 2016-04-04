@@ -1,10 +1,11 @@
-<md-content>
+
+   
   <section id="List">
      <!--<md-grid-list
         md-cols-gt-md="12" md-cols="3" md-cols-md="8"
         md-row-height-gt-md="1:1" md-row-height="4:3"
         md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="4px"-->
-    <div class='md-padding' layout="row" layout-wrap>
+    <div class='md-padding' layout="row" layout-wrap  >
       <md-card flex ng-repeat="pig in vm.scripts">
       <v-accordion class="vAccordion--default">
       <v-pane >
@@ -41,7 +42,30 @@
             <md-card ng-show="pig.output.length > 0">
               <md-card-header >
              Output:
-              <ng-md-icon class="pull-right" icon="open_in_new" ng-click="openLog()"></ng-md-icon>
+                
+              <ng-md-icon  class="pull-right" icon="open_in_new" lass="md-primary md-raised" ng-click="vm.showTabDialog($event)">
+
+
+                  </ng-md-icon>
+                      
+                  
+        <!--/md-tab>
+      </md-tabs>
+    </md-dialog-content-->
+    <!--md-dialog-actions layout="row">
+      <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
+        More on Wikipedia
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="answer('not useful')" >
+        Not Useful
+      </md-button>
+      <md-button ng-click="answer('useful')" style="margin-right:20px;" >
+        Useful
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog-->
              </md-card-header>
                 <md-card-content>
                   <md-content style="height: 100px">

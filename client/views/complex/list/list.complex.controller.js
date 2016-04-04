@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hog')
-    .controller('ListComplexCtrl', function ($log, $state, Runner)
+    .controller('ListComplexCtrl', function ($log, $state, Runner, $mdDialog, $mdMedia, $scope,$mdToast,  NgTableParams, $interval)
     {
         var vm = this;
         angular.extend(vm, {
@@ -60,7 +60,7 @@ angular.module('hog')
                       }
                       else
                       {
-                        console.log('json is null: ', update.data.json)
+                      //  console.log('json is null: ', update.data.json)
                       }
                     }
                     else if (update.type == 'output')
@@ -98,4 +98,77 @@ angular.module('hog')
               vm.scripts = data.json;
             });
 
+
+    vm.showTabDialog = function(ev) {
+        //$scope.data = pig.output
+
+    $mdDialog.show(
+        {
+        fullscreen: false,
+        targetEvent: ev,
+        controller: DialogController,
+        template:
+
+'<md-dialog >'+
+ ' <form >'+
+  '  <md-toolbar >'+
+   '   <div class="md-toolbar-tools" >'+
+    '    <h2> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Choose a Graph to View Output&emsp;&emsp; &emsp;&emsp;&emsp; &emsp;</h2>'+
+     '   <span flex></span>'+
+      '  <md-button class="md-icon-button" ng-click="vm.cancel()">'+
+       '   <md-icon icon="open_in_new" aria-label="Close dialog"></md-icon>'+
+        '</md-button>'+
+'      </div>'+
+ '   </md-toolbar>'+
+  '  <md-dialog-content style="max-width:100%;max-height:100%; ">'+
+   '   <md-tabs md-dynamic-height md-border-bottom>'+
+    '    <md-tab label="Line">'+
+     '     <md-content class="md-padding" >'+
+
+      '       <canvas  class="chart chart-line" chart-data="data" chart-labels="labels"   chart-legend="true" chart-series="series"> ' +
+                '</canvas>' + 
+  
+        '  </md-content>'+
+'        </md-tab>'+
+ '       <md-tab label="Bar">'+
+  '        <md-content class="md-padding">'+
+         '       <canvas class="chart chart-bar" chart-data="data" chart-labels="labels"   chart-legend="true" chart-series="series"> ' +
+                '</canvas>' +
+'          </md-content>'+
+ '       </md-tab>'+
+  '      <md-tab class="warn" label="Radar">'+
+   '       <md-content class="md-padding">'+
+     '   <canvas class="chart chart-radar" chart-data="data" chart-labels="labels"   chart-legend="true" chart-series="series"> ' +
+                '</canvas>' +
+      '   </md-content>'+
+       ' </md-tab>'+
+'      </md-tabs>'+
+ '   </md-dialog-content>'+
+'  </form>'+
+'</md-dialog>',
+     //parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+    })
+  };
+
     });
+
+// Controller for Modal
+function DialogController( $mdDialog, $scope) {
+     $scope.items = [1,2,3];
+    $scope.labels= ["Value1", "Value2", "Value3"];
+    $scope.series = ['Series A', 'Series B'];
+    $scope.data = [[1,2,3,],[2,7,1]];
+   /* var vm = this;
+     console.log('sdfsdf');
+  vm.hide = function() {
+    $mdDialog.hide();
+  };
+  vm.cancel = function() {
+    $mdDialog.cancel();
+  };
+  vm.answer = function(answer) {
+    $mdDialog.hide(answer);
+  };*/
+}
