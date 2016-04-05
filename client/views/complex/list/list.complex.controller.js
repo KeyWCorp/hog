@@ -107,7 +107,6 @@ console.log('IN HWEREWR ' , vm.output);
     $mdDialog.show(
         {
         fullscreen: false,
-        targetEvent: ev,
         controller: DialogController,
         template:
 
