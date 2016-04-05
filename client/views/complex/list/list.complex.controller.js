@@ -18,7 +18,9 @@ angular.module('hog')
                 .then(
                   function(out)
                   {
+                      console.log('OUT '  + out);
                     vm.output = out;
+                      console.log(vm.output);
                   },
                   function(err)
                   {
@@ -28,11 +30,11 @@ angular.module('hog')
                   {
                     if (angular.isUndefined(vm.scripts[idx]))
                     {
-                      console.log(vm.scripts);
+                 //     console.log(vm.scripts);
                       console.error('Id ',idx,' not found');
                       return;
                     }
-                    console.log(update.type);
+                   // console.log(update.type);
 
                     if (update.type == 'end')
                     {
@@ -50,13 +52,13 @@ angular.module('hog')
                     {
                       processPercent = percent_data(processPercent);
                       vm.scripts[idx].progress = processPercent;
-                      console.log('Json: ', update.data.json == null ? "null" : "not null");
-                      console.log(typeof update.data.json);
+                     // console.log('Json: ', update.data.json == null ? "null" : "not null");
+                      //console.log(typeof update.data.json);
                       if (update.data.json !== "null")
                       {
                         var parse = JSON.parse(update.data.json);
                         vm.scripts[idx].logs.push(parse[0]);
-                        console.log(parse[0]);
+                        //console.log(parse[0]);
                       }
                       else
                       {
@@ -79,10 +81,10 @@ angular.module('hog')
         {
           var currentPer = current;
           var top = 95;
-          console.log(currentPer);
+//console.log(currentPer);
           if (currentPer < top)
           {
-            currentPer = currentPer + 5
+            currentPer = currentPer + 3;
           }
           else
           {
@@ -101,7 +103,7 @@ angular.module('hog')
 
     vm.showTabDialog = function(ev) {
         //$scope.data = pig.output
-
+console.log('IN HWEREWR ' , vm.output);
     $mdDialog.show(
         {
         fullscreen: false,
@@ -146,24 +148,30 @@ angular.module('hog')
  '   </md-dialog-content>'+
 '  </form>'+
 '</md-dialog>',
-     //parent: angular.element(document.body),
+     parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose:true,
-      //      locals: {data: vm.output}
-        //}
+            locals: {data: vm.output}
+        
     })
+    console.log('scurvyVM ' + vm.output);
   };
 
     });
 
 // Controller for Modal
+// inject data into here
 function DialogController( $mdDialog, $scope, data) {
      $scope.items = [1,2,3];
-    $scope.labels= ["Value1", "Value2", "Value3"];
-    $scope.series = ['Series A', 'Series B'];
+    $scope.labels= ["193.0.9.1", "65.22.8.1", "130.57.2.4","129.79.1.8","128.59.1.1"];
+    $scope.series = ['Series A'];
    // $scope.data = data;
-    $scope.data = [[1,2,3,],[2,7,1]];
-   /* var vm = this;
+    $scope.data = [[[0.647934],[0.074285716],[0.0670727],[0.059859693],[0.05745536]]];
+
+
+    console.log('SCURVY' + JSON.stringify($scope.data, null, 4));
+    //$scope.data = [[1,2,3,],[2,7,1]];
+  /*  var vm = this;
      console.log('sdfsdf');
   vm.hide = function() {
     $mdDialog.hide();

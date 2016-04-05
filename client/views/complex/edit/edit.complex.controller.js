@@ -97,9 +97,7 @@ angular.module('hog')
               //  vm.series[j] = i;
                 vm.data[0].push(parseFloat(tem[i+1]));
                 j++;
-                
-                
-                                 console.log(vm.data);
+                console.log(vm.data);
             }
             console.log(typeof(vm.data[1]));
         }
