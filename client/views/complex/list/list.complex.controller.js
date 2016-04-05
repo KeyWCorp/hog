@@ -128,8 +128,8 @@ console.log('IN HWEREWR ' , vm.output);
      '     <md-content class="md-padding" >'+
 
       '       <canvas  class="chart chart-line" chart-data="data" chart-labels="labels"   chart-legend="true" chart-series="series"> ' +
-                '</canvas>' + 
-  
+                '</canvas>' +
+
         '  </md-content>'+
 '        </md-tab>'+
  '       <md-tab label="Bar">'+
@@ -152,7 +152,7 @@ console.log('IN HWEREWR ' , vm.output);
       targetEvent: ev,
       clickOutsideToClose:true,
             locals: {data: vm.output}
-        
+
     })
     console.log('scurvyVM ' + vm.output);
   };
