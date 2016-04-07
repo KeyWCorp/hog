@@ -46,7 +46,7 @@
               <v-pane-content >
                  <md-content style="height: 100px" layout-align="space-around">
                   <md-list>
-                   <md-list-item ng-repeat="log in vm.log">
+                   <md-list-item ng-repeat="log in vm.log track by $index">
                        {{log}}
                        <md-divider ng-if="!$last"></md-divider>
                    </md-list-item>
@@ -59,7 +59,7 @@
                 Output
               </v-pane-header>
               <v-pane-content>
-                  <span ng-repeat="output in vm.output">{{ output }}</span>
+                  <span ng-repeat="output in vm.output track by $index">{{ output }}</span>
               </v-pane-content>
             </v-pane>
           </v-accordion>
