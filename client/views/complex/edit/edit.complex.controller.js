@@ -30,9 +30,9 @@ angular.module('hog')
     // Inject data from PIG script output to chart
     vm.getData = function(newData)
         {
-            console.log(JSON.parse(newData));
+            //console.log(JSON.parse(newData));
             var t = JSON.parse(newData);
-            console.log(t);
+            //console.log(t);
             vm.data[0] = t;
         };
 
@@ -112,9 +112,6 @@ angular.module('hog')
     // set vm.data equal to the changes
     vm.onChange = function()
     {
-
-        console.log("data_before: " + vm.data);
-        console.log("labels_before: " + vm.labels);
 
         vm.data = [[]];
         vm.labels = [];
@@ -283,7 +280,7 @@ angular.module('hog')
                         {
                           if (update.data.json !== "null")
                           {
-                              console.log(update.data.json);
+                              //console.log(update.data.json);
                             //var reg = /(?:(\d+)*)/g
                             //var parse = JSON.parse(update.data.json);
                             //var tem = JSON.parse(update.data.json).split("\n");
