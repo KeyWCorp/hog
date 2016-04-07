@@ -4,24 +4,28 @@ angular.module('hog')
     .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval)
     {
 
-   
+
     var vm = this;
- 
+
+    var ctx;
+    var myNewChart;
+
     // Graphs are not displayed initially
+    vm.showGraph = false;
     vm.showLine = false;
     vm.bar = false;
     vm.radar = false;
     vm.pie = false;
 
     // Initialize chart values
-    vm.labels = ["Value1", "Value2", "Value3"];
+    vm.labels = [];
     vm.series = ['Series A'];
     vm.data = [];
-    
+
     // Progress Bar Variables
     vm.start = false;
-    
-    
+
+
     // Inject data from PIG script output to chart
     vm.getData = function(newData)
         {
@@ -30,58 +34,169 @@ angular.module('hog')
             console.log(t);
             vm.data[0] = t;
         };
-    
+
     // Display the Bar Graph
     vm.showBarGraph = function()
         {
-            vm.bar = true;
-            vm.pie = false;
-            vm.showLine = false;
-            vm.radar = false;
+            if (myNewChart) {
+                myNewChart.destroy();
+            }
+
+            vm.showGraph = true;
+            ctx = document.getElementById("myChart").getContext("2d");
+
+            //vm.bar = true;
+            //vm.pie = false;
+            //vm.showLine = false;
+            //vm.radar = false;
+            myNewChart = new Chart(ctx).Bar(vm.total_data);
+            myNewChart.resize();
         };
 
     // Display the Radar Chart
     vm.showRadarChart = function()
         {
-            vm.bar = false;
-            vm.pie = false;
-            vm.showLine = false;
-            vm.radar = true;
+            if (myNewChart) {
+                myNewChart.destroy();
+            }
+
+            vm.showGraph = true;
+            ctx = document.getElementById("myChart").getContext("2d");
+
+            //vm.bar = false;
+            //vm.pie = false;
+            //vm.showLine = false;
+            //vm.radar = true;
+            myNewChart = new Chart(ctx).Radar(vm.total_data);
+            myNewChart.resize();
         };
 
     // Display the Line Graph
     vm.showLineGraph = function()
         {
-            vm.showLine = true;
-            vm.pie = false;
-            vm.bar = false;
-            vm.radar = false;
+            if (myNewChart) {
+                myNewChart.destroy();
+            }
+
+            vm.showGraph = true;
+            ctx = document.getElementById("myChart").getContext("2d");
+
+            //vm.showLine = true;
+            //vm.pie = false;
+            //vm.bar = false;
+            //vm.radar = false;
+            myNewChart = new Chart(ctx).Line(vm.total_data);
+            myNewChart.resize();
         };
       // Display the Pie Graph
     vm.showLPieChart = function()
         {
-            vm.pie = true;
-            vm.showLine = false;
-            vm.bar = false;
-            vm.radar = false;
-        vm.pidata = [1,2,3];
+            if (myNewChart) {
+                myNewChart.destroy();
+            }
+
+            vm.showGraph = true;
+            ctx = document.getElementById("myChart").getContext("2d");
+
+            //vm.pie = true;
+            //vm.showLine = false;
+            //vm.bar = false;
+            //vm.radar = false;
+            //vm.pidata = [1,2,3];
+            myNewChart = new Chart(ctx).Pie(vm.total_data);
+            myNewChart.resize();
         };
-    
-    // User selects values from table, 
+
+    // User selects values from table,
     // set vm.data equal to the changes
     vm.onChange = function()
+    {
+
+        console.log("data_before: " + vm.data);
+        console.log("labels_before: " + vm.labels);
+
+        vm.data = [[]];
+        vm.labels = [];
+
+        var temp = JSON.stringify(vm.testData);
+
+        //var tem = temp.split(",");
+        console.log(JSON.stringify(temp));
+        var temp2 = temp.replace(/["'\(\)]/g, "").replace("[","").replace("]","").replace(/"/g, "");
+
+
+        var tem = temp2.split(",");
+        console.log(tem.length);
+
+        console.log("----------------------------");
+        var striped_data = JSON.stringify(vm.testData).replace(/(?:\"|\[|\]|\\)/g, "");
+        striped_data = striped_data.replace(/\),\s*\(/g, ")\n(");
+        console.log(striped_data);
+        console.log("----------------------------");
+        striped_data.split("\n").forEach(function (pair) {
+            var match = pair.match(/\(((?:[\d+|\.])+),((?:[\d+|\.])+)\)/);
+            if (match) {
+                var k = {
+                    x: match[1],
+                    y: match[2]
+                };
+
+                vm.labels.push(match[1]);
+                vm.data[0].push(parseFloat(match[2]));
+                console.log(JSON.stringify(k, null, 2));
+            }
+        });
+        console.log("----------------------------");
+
+        console.log("data_after: " + vm.data);
+        console.log("labels_after: " + vm.labels);
+
+
+        /*if(tem.length == 2)
         {
-            vm.data = []; 
-            for(var i = 0; i < vm.testData.length; i++)
+            vm.labels[0] = (tem[0]);
+            vm.data[0].push(parseFloat(tem[1]));
+        }
+        else
+        {
+            var j = 0;
+            var x = 0;
+                //vm.data = [[2], [5]];
+            for(var i = 0; i < tem.length; i+=2 )
+            {
+
+                vm.labels[j] = tem[i];
+                //  vm.series[j] = i;
+                vm.data[0].push(parseFloat(tem[i+1]));
+                j++;
+                console.log(vm.data);
+            }
+            console.log(typeof(vm.data[1]));
+        }*/
+
+        if (myNewChart) {
+            myNewChart.destroy();
+        }
+
+       vm.total_data = {
+            labels: vm.labels,
+            datasets: [
                 {
-                    var hold = JSON.stringify(vm.testData[i]).replace("(","[").replace(")","]").replace(/"/g, "");
-                    vm.data.push(JSON.parse(hold));
+                    labels: "kevins",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: vm.data[0]
                 }
-        };
-    
-   
-    
- 
+            ]
+       };
+        vm.showGraph = true;
+
+    };
+
         var _ = lodash;
         console.log(Settings);
         angular.extend(this, {
@@ -95,8 +210,8 @@ angular.module('hog')
                     .hideDelay(3000)
             );
         };
-    
-  
+
+
         Runner.get($stateParams.id)
             .then(
                 function(data)
@@ -129,9 +244,9 @@ angular.module('hog')
         vm.editorModel = '';
         vm.progress = 0;
         vm.log = [];
-        vm.chartLabels = [ 'label 1','label2'];
-        vm.chartSeries = ['series 1','series 2'];
-        vm.chartData = [];
+        //vm.chartLabels = [ 'label 1','label2'];
+        //vm.chartSeries = ['series 1','series 2'];
+       // vm.chartData = [];
         vm.onEditorLoad = function(_ace)
         {
             vm.modeChanged = function () {
@@ -176,7 +291,7 @@ angular.module('hog')
         {
            // start progress bar
             vm.start = true;
-            
+
             $log.debug('running: ', vm.script.id);
             vm.log = [];
             Runner.run(vm.script.id)
@@ -197,6 +312,7 @@ angular.module('hog')
                         if (update.type == 'progress')
                         {
                             vm.progress = update.data.json;
+                                                          //console.log('SCURYVY ' + update.data.json + typeof(update.data.json));
                         }
                         else if (update.type == 'log')
                         {
@@ -204,6 +320,7 @@ angular.module('hog')
                             {
                               var parse = JSON.parse(update.data.json);
                               vm.log.push(parse[0]);
+
                                 //console.log('VM > LOG' + parse);
                             }
                         }
@@ -218,11 +335,12 @@ angular.module('hog')
                             console.log('tem ' + tem + ' ' + typeof(tem));
                              // Stop progress bar
                               vm.start = (false);
+
                             var pi = parse.toString().match(reg);
                             vm.pigList = tem; //toList(pi);
                             //vm.output = pigList;
                             vm.output = parse;
-                            vm.chartData.push(pi);
+                        //    vm.chartData.push(pi);
                           }
                         }
                     });

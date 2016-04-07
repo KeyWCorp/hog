@@ -1,98 +1,7 @@
 {
-  "0": {
-    "name": "Test",
-    "data": "A = LOAD 'file:///home/xadmin/Downloads/work/datatest/test.data' USING PigStorage(',') AS (one:int,two:int,three:int);\nB = FILTER A BY one > 1;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": 0,
-    "logs": [],
-    "output": []
-  },
-  "1": {
-    "name": "",
-    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": 1,
-    "logs": [],
-    "output": []
-  },
-  "2": {
-    "name": "Test",
-    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": 2,
-    "logs": [],
-    "output": []
-  },
-  "3": {
-    "name": "test",
-    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": 3,
-    "logs": [],
-    "output": []
-  },
-  "4": {
-    "name": "test_steve",
-    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": 4,
-    "logs": [],
-    "output": []
-  },
-  "41": {
-    "name": "teste",
-    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": "41",
-    "logs": [],
-    "output": []
-  },
-  "42": {
-    "name": "mytest",
-    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": 42,
-    "logs": [],
-    "output": []
-  },
   "43": {
     "name": "Steve_Test",
-    "data": "A = LOAD 'file:///Users/sdemmer/test.data' AS (one:int,two:int,three:int);\nB = FILTER A BY one > 1;\nDUMP B;",
+    "data": "A = LOAD 'file:///Users/rick/Desktop/HOG/hog2/hog/test.data' AS (one:int,two:int,three:int);\nB = FILTER A BY one > 1;\nDUMP B;",
     "args": [
       {
         "arg": "-x",
@@ -105,7 +14,7 @@
   },
   "44": {
     "name": "Kevin_Test",
-    "data": "A = LOAD 'file:///Users/kmcoxe/Projects/hog/test.data' AS (one:int,two:int,three:int);\nB = FILTER A BY one > 1;\nDUMP B;",
+    "data": "REGISTER /home/maparco/jars/datafu.jar\nREGISTER /home/maparco/jars/parquet-pig-bundle-1.6.0.jar\nDEFINE PageRank datafu.pig.linkanalysis.PageRank('alpha','0.87','dangling_nodes','true');\n\n--Load tcpdump sensor data with geo enrichment\ndata = LOAD 'hdfs://10.1.10.26:8020/test/netflow_parquet/*.parquet' USING parquet.pig.ParquetLoader();\ndata = FILTER data BY direction MATCHES 'INBOUND';\ndata = FOREACH data GENERATE '0' AS topic, srcIP AS source, destIP AS dest, 1.0 AS weight:double;\ndata = FILTER data BY (source IS NOT NULL) OR (dest IS NOT NULL);\ntopic_edges = DISTINCT data;\n\nsource = FOREACH topic_edges GENERATE source;\ndest = FOREACH topic_edges GENERATE dest;\nsource = DISTINCT source;\ndest = DISTINCT dest;\nsource = RANK source;\ndest = RANK dest;\n\ntopic_edges_source = JOIN topic_edges BY source, source BY source;\ntopic_edges_source = FOREACH topic_edges_source GENERATE topic_edges::topic AS topic, source::rank_source AS source, topic_edges::weight AS weight, topic_edges::source AS ipSrc, topic_edges::dest AS ipDest;\ntopic_edges_dest = JOIN topic_edges_source BY ipDest, dest BY dest;\ntopic_edges_dest = FOREACH topic_edges_dest GENERATE topic_edges_source::topic AS topic, topic_edges_source::source AS source, dest::rank_dest AS dest, topic_edges_source::weight AS weight, topic_edges_source::ipSrc AS ipSrc, dest::dest AS ipDest;\n\ntopic_edges = FOREACH topic_edges_dest GENERATE (chararray)topic,(int)source,(int)dest,(double)weight,(chararray)ipSrc,(chararray)ipDest;\ntopic_edges_grouped = FOREACH (GROUP topic_edges BY (topic,source)) GENERATE group.topic AS topic, group.source AS source, topic_edges.(dest,weight) AS edges;\n\ntopic_ranks = FOREACH (GROUP topic_edges_grouped BY topic) GENERATE group AS topic,FLATTEN(PageRank(topic_edges_grouped.(source,edges))) AS (source,rank);\n\ntopic_ranks = FOREACH topic_ranks GENERATE topic, source, (rank*100) AS rank;\ntopic_ranks = JOIN topic_ranks BY source, source BY rank_source;\ntopic_ranks = FOREACH topic_ranks GENERATE source::source AS ipSrc, topic_ranks::rank AS rank;\ntopic_ranks = ORDER topic_ranks BY rank DESC;\nDUMP topic_ranks;",
     "args": [
       {
         "arg": "-x",
@@ -118,7 +27,7 @@
   },
   "45": {
     "name": "Rick_Test",
-    "data": "A = LOAD 'file:///Users/rick/Desktop/HOG/hog2/hog/test.data' AS (one:int,two:int,three:int);\nB = FILTER A BY one > 1;\nDUMP B;",
+    "data": "A = LOAD 'file:///opt/kevins/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\nDUMP A;",
     "args": [
       {
         "arg": "-x",

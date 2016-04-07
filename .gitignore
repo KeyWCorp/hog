@@ -6,4 +6,5 @@ dist/
 .sass-cache/
 nbproject
 **/*.log
+*.swp
 
