@@ -27,7 +27,7 @@
   },
   "45": {
     "name": "Rick_Test",
-    "data": "A = LOAD 'file:///Users/kmcoxe/Documents/IPI/new/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\nDUMP A;",
+    "data": "A = LOAD 'file:///opt/kevins/new/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\nDUMP A;",
     "args": [
       {
         "arg": "-x",

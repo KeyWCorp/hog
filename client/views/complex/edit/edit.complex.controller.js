@@ -119,72 +119,14 @@ angular.module('hog')
         vm.data = [[]];
         vm.labels = [];
 
-        //var temp = JSON.stringify(vm.testData);
+	var keys = Object.keys(vm.testData[0]);
+	keys = keys.slice(0, keys.length - 1);
 
-        ////var tem = temp.split(",");
-        //console.log(JSON.stringify(temp));
-        //var temp2 = temp.replace(/["'\(\)]/g, "").replace("[","").replace("]","").replace(/"/g, "");
-
-
-        //var tem = temp2.split(",");
-        //console.log(tem.length);
-
-        //console.log("----------------------------");
-        //var striped_data = JSON.stringify(vm.testData).replace(/(?:\"|\[|\]|\\)/g, "");
-        //striped_data = striped_data.replace(/\),\s*\(/g, ")\n(");
-        //console.log(striped_data);
-        //console.log("----------------------------");
-        //striped_data.split("\n").forEach(function (pair) {
-        //    var match = pair.match(/\(((?:[\d+|\.])+),((?:[\d+|\.])+)\)/);
-        //    if (match) {
-        //        var k = {
-        //            x: match[1],
-        //            y: match[2]
-        //        };
-
-        //        vm.labels.push(match[1]);
-        //        vm.data[0].push(parseFloat(match[2]));
-        //        console.log(JSON.stringify(k, null, 2));
-        //    }
-        //});
-        //console.log("----------------------------");
-
-        var keys = Object.keys(vm.testData[0]);
-
-        vm.testData.forEach(function (data) {
-            console.log(data);
-            //var parsed_data = JSON.parse(data);
-            //console.log(JSON.parse(data))
-            vm.labels.push(data.one);
-            vm.data[0].push(parseFloat(data.two));
-        });
-
-
-        console.log("data_after: " + vm.data);
-        console.log("labels_after: " + vm.labels);
-
-
-        /*if(tem.length == 2)
-        {
-            vm.labels[0] = (tem[0]);
-            vm.data[0].push(parseFloat(tem[1]));
-        }
-        else
-        {
-            var j = 0;
-            var x = 0;
-                //vm.data = [[2], [5]];
-            for(var i = 0; i < tem.length; i+=2 )
-            {
-
-                vm.labels[j] = tem[i];
-                //  vm.series[j] = i;
-                vm.data[0].push(parseFloat(tem[i+1]));
-                j++;
-                console.log(vm.data);
-            }
-            console.log(typeof(vm.data[1]));
-        }*/
+	for (var i = 0; i < vm.testData.length; i++) {
+            var data = vm.testData[i];
+            vm.labels.push(data[keys[0]]);
+            vm.data[0].push(parseFloat(data[keys[1]]));
+        };
 
         if (myNewChart) {
             myNewChart.destroy();
@@ -239,13 +181,13 @@ angular.module('hog')
           .then(
             function(data)
             {
-              $log.info("pig args", data)
+              //$log.info("pig args", data)
               data.json.data.forEach(
                 function(element)
                 {
                   vm.args.push({arg: element.arg, input: element.default});
                 });
-              $log.info('new args', vm.args)
+              //$log.info('new args', vm.args)
             },
             function(err)
             {
