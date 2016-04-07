@@ -59,7 +59,7 @@
                 Output
               </v-pane-header>
               <v-pane-content>
-                {{vm.output }}
+                  <span ng-repeat="output in vm.output">{{ output }}</span>
               </v-pane-content>
             </v-pane>
           </v-accordion>

@@ -16,6 +16,7 @@ angular.module('hog')
     vm.bar = false;
     vm.radar = false;
     vm.pie = false;
+    vm.output = [];
 
     // Initialize chart values
     vm.labels = [];
@@ -118,35 +119,46 @@ angular.module('hog')
         vm.data = [[]];
         vm.labels = [];
 
-        var temp = JSON.stringify(vm.testData);
+        //var temp = JSON.stringify(vm.testData);
 
-        //var tem = temp.split(",");
-        console.log(JSON.stringify(temp));
-        var temp2 = temp.replace(/["'\(\)]/g, "").replace("[","").replace("]","").replace(/"/g, "");
+        ////var tem = temp.split(",");
+        //console.log(JSON.stringify(temp));
+        //var temp2 = temp.replace(/["'\(\)]/g, "").replace("[","").replace("]","").replace(/"/g, "");
 
 
-        var tem = temp2.split(",");
-        console.log(tem.length);
+        //var tem = temp2.split(",");
+        //console.log(tem.length);
 
-        console.log("----------------------------");
-        var striped_data = JSON.stringify(vm.testData).replace(/(?:\"|\[|\]|\\)/g, "");
-        striped_data = striped_data.replace(/\),\s*\(/g, ")\n(");
-        console.log(striped_data);
-        console.log("----------------------------");
-        striped_data.split("\n").forEach(function (pair) {
-            var match = pair.match(/\(((?:[\d+|\.])+),((?:[\d+|\.])+)\)/);
-            if (match) {
-                var k = {
-                    x: match[1],
-                    y: match[2]
-                };
+        //console.log("----------------------------");
+        //var striped_data = JSON.stringify(vm.testData).replace(/(?:\"|\[|\]|\\)/g, "");
+        //striped_data = striped_data.replace(/\),\s*\(/g, ")\n(");
+        //console.log(striped_data);
+        //console.log("----------------------------");
+        //striped_data.split("\n").forEach(function (pair) {
+        //    var match = pair.match(/\(((?:[\d+|\.])+),((?:[\d+|\.])+)\)/);
+        //    if (match) {
+        //        var k = {
+        //            x: match[1],
+        //            y: match[2]
+        //        };
 
-                vm.labels.push(match[1]);
-                vm.data[0].push(parseFloat(match[2]));
-                console.log(JSON.stringify(k, null, 2));
-            }
+        //        vm.labels.push(match[1]);
+        //        vm.data[0].push(parseFloat(match[2]));
+        //        console.log(JSON.stringify(k, null, 2));
+        //    }
+        //});
+        //console.log("----------------------------");
+
+        var keys = Object.keys(vm.testData[0]);
+
+        vm.testData.forEach(function (data) {
+            console.log(data);
+            //var parsed_data = JSON.parse(data);
+            //console.log(JSON.parse(data))
+            vm.labels.push(data.one);
+            vm.data[0].push(parseFloat(data.two));
         });
-        console.log("----------------------------");
+
 
         console.log("data_after: " + vm.data);
         console.log("labels_after: " + vm.labels);
@@ -291,6 +303,7 @@ angular.module('hog')
         {
            // start progress bar
             vm.start = true;
+            vm.pigList = [];
 
             $log.debug('running: ', vm.script.id);
             vm.log = [];
@@ -318,8 +331,8 @@ angular.module('hog')
                         {
                             if (update.data.json !== "null")
                             {
-                              var parse = JSON.parse(update.data.json);
-                              vm.log.push(parse[0]);
+                              //var parse = JSON.parse(update.data.json);
+                              vm.log.push(update.data.json);
 
                                 //console.log('VM > LOG' + parse);
                             }
@@ -329,17 +342,30 @@ angular.module('hog')
                           if (update.data.json !== "null")
                           {
                               console.log(update.data.json);
-                            var reg = /(?:(\d+)*)/g
-                            var parse = JSON.parse(update.data.json);
-                            var tem = JSON.parse(update.data.json).split("\n");
-                            console.log('tem ' + tem + ' ' + typeof(tem));
+                            //var reg = /(?:(\d+)*)/g
+                            //var parse = JSON.parse(update.data.json);
+                            //var tem = JSON.parse(update.data.json).split("\n");
+                            //console.log('tem ' + tem + ' ' + typeof(tem));
                              // Stop progress bar
                               vm.start = (false);
 
-                            var pi = parse.toString().match(reg);
-                            vm.pigList = tem; //toList(pi);
-                            //vm.output = pigList;
-                            vm.output = parse;
+                              var tmp_output = "(";
+                              for (var i = 0; i < Object.keys(update.data.json).length; i++) {
+                                  var key = Object.keys(update.data.json)[i];
+                                  tmp_output += update.data.json[key];
+                                  if (i + 1 < Object.keys(update.data.json).length) {
+                                      tmp_output += ", ";
+                                  }
+                              }
+                              tmp_output += ")\n";
+
+                            vm.output.push(tmp_output);
+                            vm.pigList.push(update.data.json);
+
+                            //var pi = parse.toString().match(reg);
+                            //vm.pigList = tem; //toList(pi);
+                            ////vm.output = pigList;
+                            //vm.output = parse;
                         //    vm.chartData.push(pi);
                           }
                         }

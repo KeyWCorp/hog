@@ -1,5 +1,5 @@
 'use strict';
-
+var pigParser = require('pig-parser');
 var fs      = require('fs');
 var _       = require('lodash');
 var spawn   = require('child_process').spawn;
@@ -227,65 +227,67 @@ exports.run = function(id, stdoutCB, stderrCB, errCB)
         }
         nArg = _.flatten(nArg);
         //nArg = [];
-        nArg.push(path.join(__dirname, '../../',  'scripts/pig/', collection.instances[id].name +  '.pig'));
+        var script_location = path.join(__dirname, '../../',  'scripts/pig/', collection.instances[id].name +  '.pig');
+        nArg.push(script_location);
         logger.debug('Args: ', JSON.stringify(nArg));
 
+        pigParser.run(script_location, stdoutCB, stderrCB, stderrCB);
 
-        var pig = spawn('pig', nArg);
-        var prgs = 0;
-        pig.stdout.on('data',
-            function(d)
-            {
-                logger.debug('data: ', JSON.stringify(d.toString(), null, 2));
-                //Parse the log
-                var parsed = {type: 'output', data: JSON.stringify(d.toString(), null, 2)};
-                setImmediate(
-                    function()
-                    {
-                        stdoutCB(parsed);
-                    });
-            });
-        pig.stderr.on('data',
-            function(d)
-            {
-                var parser = /(\d+-\d+-\d+)\s(\d+:\d+:\d+),(\d+)\s\[([a-z]*)\]\s([A-Z]+)\s*((?:[a-zA-Z]|\d|\.)+)\s-\s((?:\w|\W)+)/;
-                var res = d.toString().match(parser);
-                logger.info('parse: ', res)
-                logger.debug('error: ', JSON.stringify(d.toString(), null, 2));
-                //Parse the log
-                var log = JSON.stringify(res, null, 2);
-                if (log != null)
-                {
-                  var parsed = {type: 'log', data: log};
-                  setImmediate(
-                    function()
-                    {
-                        stderrCB(parsed);
-                    });
-                }
-                if (res[7].indexOf('%') > -1)
-                {
-                  parsed = { type: 'percent', data: res[7].match(/\%(d+)/)[1]}
-                  setImmediate(
-                    function()
-                    {
-                      stderrCB(parsed);
-                    });
-                }
-                //{type: 'progress', data: '95'};
-            });
-        pig.on('close',
-            function(code)
-            {
-                logger.debug('close: ', code);
-                //Parse the log
-                var parsed = {type: 'close', data: code};
-                logger.debug(parsed);
-            setImmediate(
-                    function()
-                    {
-                        stdoutCB(parsed);
-                    });
-            });
+        //var pig = spawn('pig', nArg);
+        //var prgs = 0;
+        //pig.stdout.on('data',
+        //    function(d)
+        //    {
+        //        logger.debug('data: ', JSON.stringify(d.toString(), null, 2));
+        //        //Parse the log
+        //        var parsed = {type: 'output', data: JSON.stringify(d.toString(), null, 2)};
+        //        setImmediate(
+        //            function()
+        //            {
+        //                stdoutCB(parsed);
+        //            });
+        //    });
+        //pig.stderr.on('data',
+        //    function(d)
+        //    {
+        //        var parser = /(\d+-\d+-\d+)\s(\d+:\d+:\d+),(\d+)\s\[([a-z]*)\]\s([A-Z]+)\s*((?:[a-zA-Z]|\d|\.)+)\s-\s((?:\w|\W)+)/;
+        //        var res = d.toString().match(parser);
+        //        logger.info('parse: ', res)
+        //        logger.debug('error: ', JSON.stringify(d.toString(), null, 2));
+        //        //Parse the log
+        //        var log = JSON.stringify(res, null, 2);
+        //        if (log != null)
+        //        {
+        //          var parsed = {type: 'log', data: log};
+        //          setImmediate(
+        //            function()
+        //            {
+        //                stderrCB(parsed);
+        //            });
+        //        }
+        //        if (res[7].indexOf('%') > -1)
+        //        {
+        //          parsed = { type: 'percent', data: res[7].match(/\%(d+)/)[1]}
+        //          setImmediate(
+        //            function()
+        //            {
+        //              stderrCB(parsed);
+        //            });
+        //        }
+        //        //{type: 'progress', data: '95'};
+        //    });
+        //pig.on('close',
+        //    function(code)
+        //    {
+        //        logger.debug('close: ', code);
+        //        //Parse the log
+        //        var parsed = {type: 'close', data: code};
+        //        logger.debug(parsed);
+        //    setImmediate(
+        //            function()
+        //            {
+        //                stdoutCB(parsed);
+        //            });
+        //    });
     }
 };

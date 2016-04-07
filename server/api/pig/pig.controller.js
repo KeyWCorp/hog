@@ -171,6 +171,7 @@ exports.run = function (socket) {
                     {
                         socket.emit('run:end', buildResponse(200, data.data));
                     }
+                    socket.emit('run:output', buildResponse(200, data));
                 },
                 function(data)
                 {
@@ -186,6 +187,7 @@ exports.run = function (socket) {
                     {
                         socket.emit('run:end', buildResponse(200, data.data));
                     }
+                    socket.emit('run:log', buildResponse(200, data));
                 },
                 function(err)
                 {
