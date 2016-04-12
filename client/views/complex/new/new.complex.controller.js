@@ -65,10 +65,27 @@ angular.module('hog')
                         });
             }
         }
+        
+         vm.save = function()
+        {
+            
+            Runner.save(vm.script)
+                .then(
+                    function(data)
+                    {
+                        $log.debug('saved: ' + data);
+                    },
+                    function(err)
+                    {
+                        $log.error('error: ' +err);
+                    });
+        }
         vm.run = function()
         {
+            console.log('vm.script.id ' + vm.script.id );
             if (angular.isDefined(vm.script.id))
             {
+                
                 $log.debug('running: ', vm.script.id);
                 Runner.run(vm.script.id)
                     .then(

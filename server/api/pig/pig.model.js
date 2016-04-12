@@ -19,7 +19,9 @@ var Pig = function(obj)
 
     this.id = obj.id;
     this.name = obj.name;
-    this.args = obj.args;
+	this.settings = obj.settings;
+//	this.graph = obj.graph;
+   this.args = obj.args;
     this.data = obj.data;
     obj.logs = [];
     obj.output = [];
@@ -35,6 +37,7 @@ Pig.prototype.update = function(obj, cb)
     console.log('to: ', obj);
 
     this.args = obj.args;
+	this.settings = obj.settings
     this.data = obj.data;
     if (this.name != obj.name)
         this.updateName(obj.name, cb);
@@ -53,6 +56,7 @@ Pig.prototype.remove = function(obj)
 Pig.prototype.save = function(cb)
 {
     fs.writeFile('server/scripts/pig/' + this.name + '.pig', this.data, 'utf-8', cb);
+	console.log(this.name);
 }
 Pig.prototype.updateName = function(name, cb)
 {

@@ -10,6 +10,7 @@
         </div>
         <md-input-container>
             <md-button class="md-raised md-primary" ng-click="vm.run()">Execute</md-button>
+            <md-button   class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
             <div flex="50" ng-repeat="item in vm.args">
                 <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
                     {{item.arg}}

@@ -56,7 +56,8 @@ angular.module('hog')
                       //console.log(typeof update.data.json);
                       if (update.data.json !== "null")
                       {
-                        var parse = JSON.parse(update.data.json);
+                        console.log(update.data.json);
+                          var parse = JSON.parse(update.data.json);
                         vm.scripts[idx].logs.push(parse[0]);
                         //console.log(parse[0]);
                       }
@@ -104,6 +105,7 @@ angular.module('hog')
     vm.showTabDialog = function(ev) {
         //$scope.data = pig.output
 console.log('IN HWEREWR ' , vm.output);
+        
     $mdDialog.show(
         {
         fullscreen: false,
@@ -156,7 +158,15 @@ console.log('IN HWEREWR ' , vm.output);
     console.log('scurvyVM ' + vm.output);
   };
 
+    
+
+   
+    
     });
+
+
+
+
 
 // Controller for Modal
 // inject data into here
@@ -169,16 +179,17 @@ function DialogController( $mdDialog, $scope, data) {
 
 
     console.log('SCURVY' + JSON.stringify($scope.data, null, 4));
-    //$scope.data = [[1,2,3,],[2,7,1]];
-  /*  var vm = this;
-     console.log('sdfsdf');
-  vm.hide = function() {
-    $mdDialog.hide();
-  };
-  vm.cancel = function() {
-    $mdDialog.cancel();
-  };
-  vm.answer = function(answer) {
-    $mdDialog.hide(answer);
-  };*/
+ 
 }
+
+/*'<md-dialog >'+
+ ' <form >'+
+  '  <md-toolbar >'+
+            '<h2> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Choose a Graph to View Output&emsp;&emsp; &emsp;&emsp;&emsp; &emsp;</h2>'+
+'<input type="checkbox" name="vehicle" value="Bike">Bar Graph<br>'+
+'<input type="checkbox" name="vehicle" value="Car">Line Graph '+
+'<input type="checkbox" name="vehicle" value="Car">Radar Graph '+
+'</form>'+
+           '</md-dialog>',
+
+*/
