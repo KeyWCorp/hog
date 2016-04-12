@@ -231,7 +231,7 @@ exports.run = function(id, stdoutCB, stderrCB, errCB)
         nArg.push(script_location);
         logger.debug('Args: ', JSON.stringify(nArg));
 
-        pigParser.run(script_location, stdoutCB, stderrCB, stderrCB);
+        pigParser.runForOutput(script_location, stdoutCB, stderrCB, stderrCB);
 
         //var pig = spawn('pig', nArg);
         //var prgs = 0;
