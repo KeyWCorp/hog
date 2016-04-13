@@ -20,14 +20,6 @@ angular.module('hog')
 
     vm.taskList = [];
     vm.running = false;
-    //vm.taskList = [
-    //  {id: 1, name: "test1", status: "FINISHED", parent: 0},
-    //  {id: 2, name: "test2", status: "RUNNING", parent: 1},
-    //  {id: 3, name: "test3", status: "FAILED", parent: 1},
-    //  {id: 4, name: "test4", status: "pending", parent: 2},
-    //  {id: 5, name: "test5", status: "RUNNING", parent: 1},
-    //  {id: 6, name: "test6", status: "pending", parent: 2}
-    //];
 
     Pig.on('tracker:update', function (data)
         {
