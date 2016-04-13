@@ -153,6 +153,7 @@ exports.run = function (socket) {
         {
             // Pig Run (id, stdoutCB, stderrCB)
             Pig.run(id,
+                // stdoutCB
                 function(data)
                 {
                     if(data.type == 'output')
@@ -173,6 +174,7 @@ exports.run = function (socket) {
                     }
                     socket.emit('run:output', buildResponse(200, data));
                 },
+                // stderrCB
                 function(data)
                 {
                     if(data.type == 'progress')
@@ -189,9 +191,20 @@ exports.run = function (socket) {
                     }
                     socket.emit('run:log', buildResponse(200, data));
                 },
+                // errCB
                 function(err)
                 {
                     if (err) { return handleError(socket, err); }
+                },
+                // trackerCB
+                function(data)
+                {
+                  socket.emit('tracker:update', data);
+                },
+                // finishedCB
+                function(data)
+                {
+                  socket.emit('run:finished');
                 });
         });
 };

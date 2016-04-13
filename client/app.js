@@ -17,6 +17,7 @@ angular.module('hog', [
     'vAccordion',
     'ngLodash',
     'chart.js',
+    'md.data.table',
     'hog.hog-tracker'
 ]).config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')

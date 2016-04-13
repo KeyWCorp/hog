@@ -6,14 +6,14 @@
           <div flex>
             <h4>Name:   {{vm.script.name}} </h4> </div>
           <div flex layout-align="end" style="float:right;">
-            <md-button class="md-raised md-primary" ng-click="vm.run()">Execute</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="vm.run()">Execute</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
           </div>
         </div>
 
         <div layout="row">
-          <div layout="row" ng-repeat="item in vm.args">
+          <div layout="row" ng-repeat="item in vm.args track by $index">
             <div flex>
 
             </div>
@@ -35,9 +35,6 @@
 
 
         <div ui-ace="vm.editorOptions" ng-model="vm.script.data"> </div>
-        <div class="container" ng-class="{'visible' : !vm.running}">
-          <md-progress-linear ng-if="vm.start" md-mode="indeterminate"></md-progress-linear>
-        </div>
         <div flex>
           <div hog-tracker task-string="vm.ots(vm.taskList)" tracker-id="'myTracker'" title="'My Task List'"></div>
         </div>
