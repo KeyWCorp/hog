@@ -265,6 +265,7 @@ angular.module('hog')
         vm.run = function()
         {
             vm.taskList = [];
+            vm.output = [];
            // start progress bar
             vm.pigList = [];
             vm.running = true;
