@@ -6,9 +6,20 @@ angular.module('hog')
 
 
     var vm = this;
+   vm.script =  Runner.getData();
+    ///console.log('STSTT ' + vm.script);
 
     var ctx;
     var myNewChart;
+    
+  /*  Runner.list()
+          .then(
+            function(data)
+            {
+              // Might Need to Parse it
+              vm.script = data.json;
+               // console.log(JSON.stringify(vm.script));
+            });*/
 
     // Graphs are not displayed initially
     vm.showGraph = false;
@@ -17,6 +28,8 @@ angular.module('hog')
     vm.radar = false;
     vm.pie = false;
     vm.output = [];
+    
+   
 
     // Initialize chart values
     vm.labels = [];
@@ -168,8 +181,7 @@ angular.module('hog')
                 function(data)
                 {
                     vm.script = data.json;
-                  //  vm.script.push(data.json);
-                    //console.log(vm.script);
+                 
 
                 });
         vm.modes = ['Pig_Latin'];
@@ -223,13 +235,37 @@ angular.module('hog')
             firstLineNumber: 1,
             onChange: vm.onEditorChange()
         };
-        vm.save = function()
-        {
+        vm.save = function(graph, numOutput)
+        {   
+            console.log('in vm .save', graph);
+            vm.script.numOutput = numOutput;
+           
+                if(graph == 'bar')
+                {
+                    vm.script.bar = true;
+                    vm.script.line = false;
+                    vm.script.radar = false;
+                }
+            if(graph == 'line')
+                {
+                    vm.script.bar = false;
+                    vm.script.line = true;
+                    vm.script.radar = false;
+                }
+            if(graph == 'radar')
+                {
+                    vm.script.bar = false;
+                    vm.script.line = false;
+                    vm.script.radar = true;
+                }
+            console.log('SCRPIT ' + JSON.stringify(vm.script));
+            
             Runner.save(vm.script)
                 .then(
                     function(data)
                     {
-                        console.log(data);
+                        console.log( ' iN RUNNER SAVE EDIT Controller')
+                            console.log(JSON.stringify( data));
                         $log.debug('saved: ' + data);
                     },
                     function(err)
@@ -343,40 +379,16 @@ angular.module('hog')
             return indx;
         }
         
-        vm.checkTrue = function(dat)
-        {
-            // clear var's
-                vm.barT = false;
-                vm.lineT = false;
-                vm.radarT = false;
-            console.log('in check true');
-            if(dat == 'var')
-            {
-                vm.barT = true;
-                vm.lineT = false;
-                vm.radarT = false;
-            }
-             if(dat == 'line')
-            {
-                vm.barT = false;
-                vm.lineT = true;
-                vm.radarT = false;
-            }
-             if(dat == 'radar')
-            {
-                vm.barT = false;
-                vm.lineT = false;
-                vm.radarT = true;
-            }
-            
-        }
-       
-       // vm.ME = function(){console.log('ME');}
+      
         
         vm.openSettings = function(ev)
         {
-            vm.script.graph = 'bar';
+           
+            //vm.script.settings = [];
+          //  vm.script.settings.radar = [];
             
+                
+
        $mdDialog.show({
            controller: SettingsController,
       template: '<md-dialog  ng-cloak>'+
@@ -389,101 +401,123 @@ angular.module('hog')
     '</md-toolbar>'+
     '<md-dialog-content>'+
       '<div class="md-dialog-content">'+
-           
-       ' <legend>How would you like to view your output?</legend>'+
+           ' <legend>How would you like to view your output?</legend>'+
     
-    ' <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">'+
-            '  Bar Graph'+
-           '<span ng-if="exists(item, selected)"></span>'+
-              '</md-checkbox>'+
-
+      /* '<md-radio-group ng-model="data.graph">'+
+    ' <md-radio-button value="bar"   aria-label="Bar Graph" md-no-ink="true" >'+
+           ' Bar Graph'+
+           
+              '</md-radio-button>'+
+            ' <md-radio-button    value="line" aria-label="Line Graph"md-no-ink="true" >'+
+            ' Line Graph'+
+           
+              '</md-radio-button>'+
+            ' <md-radio-button value="radar" aria-label="Radar Graph"md-no-ink="true" >'+
+            'Radar Graph'+
+              '</md-radio-button>'+
+           
+'</md-radio-group>'+*/
+           ' <div layout="column" layout-align="center start">'+
+              ' <md-checkbox ng-disabled="vm.script.line || vm.script.radar"  ng-model="vm.script.bar" >'+
+                '    Bar Graph '+
+                '</md-checkbox>'+
+               ' <md-checkbox ng-disabled="vm.script.bar || vm.script.radar"  ng-model="vm.script.line" >'+
+                '    Line Graph '+
+                '</md-checkbox>'+
+                '<md-checkbox ng-disabled="vm.script.bar || vm.script.line"  ng-model="vm.script.radar">'+
+                 '   Radar Graph'+ 
+                '</md-checkbox>'+
+              '</div>'+
        
    '   </div>'+
+          '  <md-input-container class="md-block">'+
+         '  <div required > ' +
+           ' <label>Enter the number of desired outputs</label>'+
+            '<input ng-model="vm.script.numOutput">'+
+           '</div>'+
+        '</md-input-container>'+
+           
            '<md-button class="md-raised md-primary" ng-click="cancel()">Close</md-button>' +
+            '<md-button class="md-raised md-primary" ng-click="save(vm.script)">Save</md-button>' +
+           
   '  </md-dialog-content>'+
   '</form>'+
 '</md-dialog>',
         clickOutsideToClose: true,
            parent: angular.element(document.body),
       targetEvent: ev,
-           locals:{parent:vm},
+           locals:{vm:vm},
             
        });
-            
-      
-      
-          
+
    }
-    
-           // Code for Drop Down Menu
-        /*
-    var originatorEv;
-    vm.notificationsEnabled = true;
-
-    
-    vm.openMenu = function($mdOpenMenu, ev) 
-    {
-        console.log('in list button');
-        originatorEv = ev;
-        $mdOpenMenu(ev);
-    };
-    
-    vm.toggleNotifications = function() 
-    {
-        vm.notificationsEnabled = !vm.notificationsEnabled;
-    };
-
-    vm.redial = function() {
-      $mdDialog.show(
-        $mdDialog.alert()
-            .targetEvent(originatorEv)
-            .clickOutsideToClose(true)
-            .parent('body')
-            .title('Script Name')
-          //.textContent('You just called a friend;')
-            .ok('That was easy')
-      );
-      originatorEv = null;
-    };
-    
-    vm.checkVoicemail = function()
-    {
-        console.log('make me do something');
-    };
-    */
 
     });
 
 
-function SettingsController( $mdDialog, $scope) {
+// Controller for Settings Modal
+function SettingsController( $mdDialog, $scope, vm) {
     console.log('in settings controller');
     
-    $scope.items = [1,2,3,4,5];
-      $scope.selected = [];
-      $scope.toggle = function (item, list) {
-        var idx = list.indexOf(item);
-        if (idx > -1) {
-          list.splice(idx, 1);
-        }
-        else {
-          list.push(item);
-        }
-      };
-      $scope.exists = function (item, list) {
-        return list.indexOf(item) > -1;
-      };
+      $scope.vm = vm;  
+  //  console.log(vm);
+   
+   //$scope.data = {graph:'bar'};
+   // console.log('settings : ' + $scope.vm.script.settings);
+   // $scope.data = $scope.vm.settings;
+    
+    /*var setData = function(data)
+            {
+               // console.log(data);
+                if(data == null)
+                {
+                $scope.data = {graph:''};
+                }
+                if(data == 'bar')
+                {
+                    console.log('in HERE');
+                    $scope.data = {graph:'bar'};
+                }
+            }*/
+    
+    $scope.cancel = function() 
+    {
+        $mdDialog.cancel();
+    };
+
+    $scope.save = function(script)
+    {
         
-     //$scope.items = [1,2,3];
-    //$scope.labels= ["193.0.9.1", "65.22.8.1", "130.57.2.4","129.79.1.8","128.59.1.1"];
-    //$scope.series = ['Series A'];
-   // $scope.data = data;
-    //$scope.data = [[[0.647934],[0.074285716],[0.0670727],[0.059859693],[0.05745536]]];
-$scope.cancel = function() {
-    $mdDialog.cancel();
-  };
+        //console.log(vm.script.numOutput);
+      if(script.bar == true)                                                      {
+            $scope.vm.save('bar', script.numOutput);
+        }
+        if(script.line == true)                                                  {
+            $scope.vm.save('line', script.numOutput);
+        }
+        if(script.radar == true)                                                  {
+            $scope.vm.save('radar', script.numOutput);
+        }
+        $scope.cancel();
+    }
 
  
 }
+
+/* '</md-radio-button>'+
+            ' <md-radio-button  ng-click="toggle(item, selected)"  value="line" md-no-ink="true" >'+
+            ' Line Graph'+
+           '<span ng-if="exists(item, selected)"></span>'+
+           
+              '</md-radio-button>'+
+            ' <md-radio-button value="radar" ng-click="toggle(item, selected)"   md-no-ink="true" >'+
+            'Radar Graph'+
+           '<span ng-if="exists(item, selected)"></span>'+
+              '</md-radio-button>'+
+           
+'</md-radio-group>'+*/
+
+
 
 /*'<input type="checkbox" ng-click="vm.checkTrue(line)" ng-checked="vm.lineT" >Line Graph<br> '+
 '<input type="checkbox"  ng-click="vm.checkTrue(radar)" ng-checked="vm.radar">Radar Graph<br> '+

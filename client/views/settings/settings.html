@@ -39,14 +39,48 @@
                     <input ng-model="opt.default" >
                     
                     <md-tooltip md-direction="right">{{opt.description}}</md-tooltip>
-                   
 
                   </md-input-container>
-               
               </section>
             </md-input-container>
-            <md-button class="md-raised" ng-click="vm.save(vm.ins)">Save</md-button>
+              <md-input-container>
+            <label>Choose a Script{{vm.script.name}}</label>
+         <md-select  ng-model="vm.myModel" md-on-close="vm.scriptSelect(vm.myModel)">
+             <md-opt-group label="Script">
+        <md-option ng-value="item" ng-repeat="item in vm.script"> {{item.name}}</md-option>
+                 </md-opt-group>
+        
+      </md-select>
+      <!--div class="errors" ng-messages="myForm.myModel.$error" ng-if="myForm.$dirty">
+        <div ng-message="required">Required</div>
+      </div-->
+      </md-input-container>
+              
+              <div layout="row" layout-align="space-between center">
+                <md-checkbox   ng-disabled="vm.script.line || vm.script.radar" ng-model="vm.script.bar" >
+                    Bar Graph 
+                </md-checkbox>
+                <md-checkbox ng-disabled="vm.script.bar || vm.script.radar" ng-model="vm.script.line">
+                    Line Graph
+                </md-checkbox>
+                <md-checkbox  ng-disabled="vm.script.line || vm.script.bar" ng-model="vm.script.radar">
+                    Radar Graph
+                </md-checkbox>
+              </div>
+              
+        <md-input-container>
+            <label>Number of Outputs</label>
+            <input ng-model="vm.script.numOutput">
+        </md-input-container>
+
+            
+              
+              <!--md-button ng-click="vm.clearValue()" ng-disabled="!myModel" style="margin-right: 20px;">Clear</md-button-->
+              
+           
+              <md-button class="md-raised" ng-click="vm.save(vm.ins, vm.myModel)">Save</md-button>
           </v-pane-content>
+
         </v-pane>
       </v-accordion>
     </div>

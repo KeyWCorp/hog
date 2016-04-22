@@ -10,7 +10,11 @@
     ],
     "id": 43,
     "logs": [],
-    "output": []
+    "output": [],
+    "bar": true,
+    "numOutput": "123",
+    "line": false,
+    "radar": false
   },
   "44": {
     "name": "Kevin_Test",
@@ -26,8 +30,8 @@
     "output": []
   },
   "45": {
-    "name": "Rick_Test",
-    "data": "A = LOAD 'file:///opt/kevins/new/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\nDUMP A;",
+    "name": "ScurvyyySCallyWAG",
+    "data": "A = LOAD 'file:///Users/rick/Desktop/HOG/hog3/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\nDUMP A;",
     "args": [
       {
         "arg": "-x",
@@ -36,6 +40,52 @@
     ],
     "id": 45,
     "logs": [],
-    "output": []
+    "output": [],
+    "graph": "bar",
+    "setting": {
+      "graph": []
+    },
+    "setings": [
+      null
+    ],
+    "settings": [],
+    "radar": false,
+    "bar": false,
+    "line": true,
+    "numOutput": "4"
+  },
+  "451": {
+    "name": "toss mags",
+    "data": "SCRITP TO ANALYSIZE ",
+    "args": [
+      {
+        "arg": "-x",
+        "input": ""
+      }
+    ],
+    "id": "451",
+    "logs": [],
+    "output": [],
+    "bar": true,
+    "numOutput": "5432",
+    "line": false,
+    "radar": false
+  },
+  "452": {
+    "name": "DOES THIS WORK",
+    "data": "NOT SURE",
+    "args": [
+      {
+        "arg": "-x",
+        "input": ""
+      }
+    ],
+    "id": 452,
+    "logs": [],
+    "output": [],
+    "line": false,
+    "radar": true,
+    "numOutput": "5",
+    "bar": false
   }
 }

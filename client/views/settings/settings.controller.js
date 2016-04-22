@@ -1,9 +1,31 @@
 'use strict';
 
 angular.module('hog')
-  .controller('SettingsCtrl', function ($mdToast, $log, Settings, lodash) {
+  .controller('SettingsCtrl', function ($mdToast, $log, Settings, lodash, Runner) {
 
     var vm = this;
+    //vm.script =  Runner.getData();
+   
+    // This may not be needed
+    Runner.list()
+          .then(
+            function(data)
+            {
+              // Might Need to Parse it
+              vm.script= data.json;
+              //  console.log(vm.script[2].name);
+               // console.log(JSON.stringify(vm.script));
+            });
+    
+    
+   // var empty = {};
+    //e/mpty = Runner.update(vm.script);
+ 
+   // vm.items = ['harry', 'dic', 'coxe' ];
+   // console.log('Emptuy ' + JSON.stringify(empty));
+       // console.log('STSTT ' + JSON.stringify(vm.script.name));
+
+//    vm.script = {};
     var priv = {
       removedArgs: [],
       getToastPosition: function()
@@ -19,9 +41,74 @@ angular.module('hog')
     angular.extend(vm, {
       name: 'SettingsCtrl',
       ins: Settings.list(),
-      save: function(data)
+      save: function(data, script)
       {
-        //TODO: save the settings to the server
+          
+          console.log('Does this ' + JSON.stringify(script));
+          
+          runLoop();
+          
+         vm.script.numOutput = script.numOutput;
+                if(script.bar == true)
+                {
+                    script.bar = true;
+                script.line = false;
+                    script.radar = false;
+                }
+            if(script.line == true)
+                {
+                    console.log('in the line if statement');
+                    script.bar = false;
+                    script.line = true;
+                    script.radar = false;
+                }
+            if(script.radar == true)
+                {
+                    script.bar = false;
+                    script.line = false;
+                    script.radar = true;
+                }
+         //console.log('TEST TEST ESTSTES' + JSON.stringify(vm.script));
+          console.log(typeof(vm.script.length));
+          /*for(var g = 0; g < 5; g+=1)
+          {
+                                console.log('we ahve a amth');
+
+           //   if(script.name =- vm.script[i].name)
+            //  {
+              //    console.log('we ahve a amth');
+            //  }
+          }*/
+          
+           Runner.save(vm.script)
+                .then(
+                    function(data)
+                    {
+                        console.log( 'DATAAA ' +  data);
+                        $log.debug('saved: ' + data);
+                    },
+                    function(err)
+                    {
+                        $log.error('error: ' +err);
+                    })
+           
+           // console.log(Runner.getData());
+           
+                
+          
+        function runLoop(){
+             for(var g = 0; g < 50; g++)
+          {
+            console.log('we ahve a amth');
+
+           //   if(script.name =- vm.script[i].name)
+            //  {
+              //    console.log('we ahve a amth');
+            //  }
+          };
+          
+        }
+        //TODO:save the settings to the server
         $log.debug(data);
         var goodCount = 0;
         var badCount = [];
@@ -139,4 +226,32 @@ angular.module('hog')
       {
         vm.udfs = data.json;
       });
+    
+  /* vm.clearValue = function() {
+   vm.myModel = undefined;
+  };*/
+    vm.scriptSelect = function(script)
+    {
+//console.log('asdfasd' + JSON.stringify(script));
+        vm.script.line = script.line;
+        vm.script.bar = script.bar;
+        vm.script.radar = script.radar;
+        vm.script.numOutput = script.numOutput;
+    }
+  //  
+    //function getScript(name)
+    //{
+       /*  $scope.tempScript = {};
+    
+    for(var i = 0; i < vm.scripts.length; i++)
+    {
+       // console.log(vm.scripts[i].id)
+        if(vm.scripts[i].id == id)
+        {
+            $scope.tempScript = vm.scripts[i];
+        }
+        //console.log(id);
+    }*/
+//    }
+  
 });

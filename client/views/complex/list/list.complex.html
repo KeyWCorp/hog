@@ -1,27 +1,44 @@
 
    
   <section id="List">
+      
+        <div layout="row" layout-align="end center"><md-autocomplete
+          ng-disabled="vm.isDisabled"
+          md-no-cache="vm.noCache"
+          md-selected-item="vm.selectedItem"
+          md-search-text-change="vm.searchTextChange(vm.searchText)"
+          md-search-text="vm.searchText"
+          md-selected-item-change="vm.selectedItemChange(item)"
+          md-items="item in vm.querySearch(vm.searchText)"
+          md-item-text="item.name"
+          md-min-length="0"
+          placeholder="Filter">
+        <md-item-template>
+          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+            </md-item-template>
+            </md-autocomplete>
+      </div>
      <!--<md-grid-list
         md-cols-gt-md="12" md-cols="3" md-cols-md="8"
         md-row-height-gt-md="1:1" md-row-height="4:3"
         md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="4px"-->
-    <div class='md-padding' layout="row" layout-wrap  >
-      <md-card flex ng-repeat="pig in vm.scripts">
+    <div class='md-padding' layout="column" layout-align="center center" >
+      <md-card ng-model="vm.scripts" flex ng-repeat="pig in vm.scripts">
       <v-accordion class="vAccordion--default">
-      <v-pane >
+      <v-pane   style="width:900px" >
       
           <v-pane-header>
           <md-card-header>
-            <div layout="row" style="background-color:#e3e3e3; height: 40px" layout-align="start center">
+            <div layout="row" layout-align="start center" style="background-color:#e3e3e3; height: 40px" layout-align="start center">
               <div layout-align="start center">
                 <md-progress-circular md-diameter="20px" md-mode="determinate" value="{{pig.progress}}" class="md-accent md-hue-4">
                 </md-progress-circular>
               </div>
-              <div >
-                <h4 style="font-color: #000000">{{pig.name}}
-            </h4>
-                  
-              </div>
+              
+                
+    
+                  <h4>{{pig.name}}</h4>
+
                 
             </div>
           </md-card-header>
@@ -46,29 +63,13 @@
               <md-card-header >
              Output:
                 
-              <ng-md-icon  class="pull-right" icon="open_in_new" lass="md-primary md-raised" ng-click="vm.showTabDialog($event)">
+              <ng-md-icon  ng-disable="true" class="pull-right" icon="open_in_new" lass="md-primary md-raised" ng-click="vm.showTabDialog($event, pig.id )">
 
 
                   </ng-md-icon>
                       
                   
-        <!--/md-tab>
-      </md-tabs>
-    </md-dialog-content-->
-    <!--md-dialog-actions layout="row">
-      <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
-        More on Wikipedia
-      </md-button>
-      <span flex></span>
-      <md-button ng-click="answer('not useful')" >
-        Not Useful
-      </md-button>
-      <md-button ng-click="answer('useful')" style="margin-right:20px;" >
-        Useful
-      </md-button>
-    </md-dialog-actions>
-  </form>
-</md-dialog-->
+        
              </md-card-header>
                 <md-card-content>
                   <md-content style="height: 100px">
@@ -96,9 +97,30 @@
         </div>
         </v-pane>
         </v-accordion>
-      </md-card>
+     
+
+
+
+<!--
+
+
+  <div >
+                   <md-input-container>
+                 
+          <div>
+            <label>Choose A Script</label>
+          </div>
+         <md-select name="vm.script" ng-model="vm.script" required>
+        <md-option ng-value="item" ng-repeat="item in vm.script"> {{item.name}}</md-option>
         
-    </div>
+      </md-select>
+    
+      </md-input-container>
+  
+                <!--h4 style="font-color: #000000">Saved Scripts<!--{{pig.name}}>
+            </h4>
+                  
+              </div-->
 
 
 

@@ -19,7 +19,7 @@ var Pig = function(obj)
 
     this.id = obj.id;
     this.name = obj.name;
-	this.settings = obj.settings;
+	//this.settings = obj.settings;
 //	this.graph = obj.graph;
    this.args = obj.args;
     this.data = obj.data;
@@ -37,7 +37,7 @@ Pig.prototype.update = function(obj, cb)
     console.log('to: ', obj);
 
     this.args = obj.args;
-	this.settings = obj.settings
+	//this.settings = obj.settings
     this.data = obj.data;
     if (this.name != obj.name)
         this.updateName(obj.name, cb);
@@ -55,6 +55,7 @@ Pig.prototype.remove = function(obj)
 }
 Pig.prototype.save = function(cb)
 {
+    console.log('IN PIG PROTOTYPE SAVE' + this.name);
     fs.writeFile('server/scripts/pig/' + this.name + '.pig', this.data, 'utf-8', cb);
 	console.log(this.name);
 }
@@ -95,34 +96,39 @@ exports.load = function(cb)
 
 exports.create = function(obj, cb)
 {
+    exports.save(obj);
+    var temp = JSON.parse(obj);
+   // console.log('in exports create args' , temp.id );
     /* Local ID */
-    obj.id = nextId;
-    if (_.find(collection.raw, { name: obj.name}) != undefined)
+    temp.id = nextId;
+    temp.id = nextId
+    if (_.find(collection.raw, { name: temp.name}) != undefined)
     {
         setImmediate(
             function()
             {
-                cb('name alread exists', obj);
+                cb('name alread exists', temp);
             });
         return;
     }
-    var inst = new Pig(obj);
+    var inst = new Pig(temp);
+    console.log(temp);
     collection.instances[inst.id] = inst;
     inst.save(
         function(err)
         {
             if(err)
-                return cb(err, obj);
+                return cb(err, temp);
 
             this.save(
                 function(err)
                 {
-                    cb(err, obj);
+                    cb(err, temp);
                 });
         });
 
     /* Local ID */
-    nextId++;
+   nextId++;
 
 }
 exports.list = function(cb)
@@ -187,6 +193,8 @@ exports.update = function(id, changes, cb)
                 up.save(
                     function(err)
                     {
+                            console.log('IN PIG export.update');
+
                         console.log('finished saving');
                         cb(err, raw);
                     });

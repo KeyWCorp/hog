@@ -4,43 +4,16 @@
     <md-card>
         <md-card-content>
               <div layout="row">
-                <div flex>Name:   <!--{{vm.script.name}}--> 
+                <div flex>Name:   <!--{{vm.script.name}}-->
                   <input ng-model="vm.script.name">
                   </div>
                 <div flex layout-align="end" style="float:right;"><md-button  class="md-raised md-primary" ng-click="vm.run()">Execute</md-button>
                           <md-button   class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
                               <md-button   class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
              <md-button   class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
-                    
-
-                    
-                  <!--md-menu>
-      <md-button class="md-raised md-primary" ng-click="vm.openMenu($mdOpenMenu, $event)">
-        Scripts
-      </md-button>
-      <md-menu-content width="4">
-        <md-menu-item>
-          <md-button ng-click="vm.redial($event)">
-            
-            Redial
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button ng-click="vm.checkVoicemail()">
-            
-            Check voicemail
-          </md-button>
-        </md-menu-item-->
+  
           </div>
-        <!--md-menu-divider></md-menu-divider>
-        <md-menu-item>
-          <md-button ng-click="ctrl.toggleNotifications()">
-            <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
-            {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu-->
+       
               </div>
 
              <div layout="row">

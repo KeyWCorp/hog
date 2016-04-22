@@ -4,6 +4,9 @@ angular.module('hog')
   .service('Runner',
         function (Pig, $rootScope, $log, $q, uuid4)
         {
+        
+            var holdData = {};        
+    
             $rootScope.$on('pig-error',
                 function(msg)
                 {
@@ -20,6 +23,7 @@ angular.module('hog')
                 list: list,
                 create: create,
                 get: get,
+                getData: getData,
                 update: update,
                 destroy: destroy,
                 run: run,
@@ -27,9 +31,24 @@ angular.module('hog')
             };
 
             return service;
-
+    
+            //Added by Rick to try and pass object
+            function getData()
+            {
+             var temp =   list()
+                .then(
+                    function(data)
+            {
+              // Might Need to Parse it
+              var script = data.json;
+          ////      console.log(script);
+            });
+                return temp;
+            }
+    
             function save(data)
             {
+              console.log(' IN RUNNER SAVE FUNCTION');
                 var deferred = $q.defer();
                 Pig.emit('save', data);
                 Pig.on('saved',
@@ -49,6 +68,7 @@ angular.module('hog')
             }
             function list()
             {
+                //console.log('LSDJFLSDJFLSDKfj');
                 var deferred = $q.defer();
                 Pig.emit('index');
                 $log.debug('requested index data');
@@ -56,6 +76,8 @@ angular.module('hog')
                     function(data)
                     {
                         $log.debug('returned index with data: ', data);
+                    
+                     deferred.notify({type: 'list', data: data});
                         deferred.resolve(data);
                     });
                 Pig.on('error',
@@ -68,6 +90,8 @@ angular.module('hog')
             }
             function create(procData)
             {
+                console.log('in create ' + JSON.stringify(procData));
+                console.log(typeof(procData));
                 var deferred = $q.defer();
                 /*var id = uuid4.generate();
                 processes[id] = {
@@ -93,6 +117,8 @@ angular.module('hog')
             }
             function update(procData)
             {
+            //    console.log(' in UPDATET' + JSON.stringify(procData));
+                holdData = procData;
                 var deferred = $q.defer();
                 Pig.emit('update', {id: procData.id, obj: angular.toJson(procData)});
                 Pig.on('update',
@@ -175,6 +201,7 @@ angular.module('hog')
             }
             function createProc(args, data, procCB, updCB, endCB)
             {
+                console.log('in createProc');
                 var id = uuid4.generate();
                 processes[id] = {
                     args: args,
