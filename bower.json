@@ -26,7 +26,8 @@
     "angular-material-data-table": "^0.9.15",
     "ace-builds": "^1.2.3",
     "lodash": "~3.10.1",
-    "hog-tracker": "https://gitlab.com/ccis-irad/hog-tracker.git"
+    "hog-tracker": "https://gitlab.com/ccis-irad/hog-tracker.git",
+    "pig-flow-demo": "https://gitlab.com/ccis-irad/pig-flow.git"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.7",
