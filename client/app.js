@@ -18,7 +18,9 @@ angular.module('hog', [
     'ngLodash',
     'chart.js',
     'md.data.table',
-    'hog.hog-tracker'
+    'hog.hog-tracker',
+    'pig.pig-flow',
+    'pig.pig-flow-templates'
 ]).config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')

@@ -3,13 +3,13 @@
 angular.module('hog')
 .config(function (  $stateProvider ) {
   $stateProvider
-    .state('home.complex.new',
+    .state('home.simple.list',
         {
-          url: '/new',
+          url: '/list',
           views:{
-            new: {
-              templateUrl: '/views/complex/new/new.complex.html',
-              controller: 'NewComplexCtrl',
+            list: {
+              templateUrl: '/views/simple/list/list.simple.html',
+              controller: 'ListSimpleCtrl',
               controllerAs: 'vm'
             }
           }
