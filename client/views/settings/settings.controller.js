@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hog')
-  .controller('SettingsCtrl', function ($mdToast, $log, Settings, lodash, Runner) {
+  .controller('SettingsCtrl', function ($mdToast, $log, Settings, lodash, Runner, $q) {
 
     var vm = this;
     //vm.script =  Runner.getData();
@@ -38,76 +38,45 @@ angular.module('hog')
         };
       }
     }
+    
+    
+          
+            
+    
     angular.extend(vm, {
       name: 'SettingsCtrl',
       ins: Settings.list(),
       save: function(data, script)
       {
-          
-          console.log('Does this ' + JSON.stringify(script));
-          
-          runLoop();
-          
-         vm.script.numOutput = script.numOutput;
-                if(script.bar == true)
-                {
-                    script.bar = true;
-                script.line = false;
-                    script.radar = false;
-                }
-            if(script.line == true)
-                {
-                    console.log('in the line if statement');
-                    script.bar = false;
-                    script.line = true;
-                    script.radar = false;
-                }
-            if(script.radar == true)
-                {
-                    script.bar = false;
-                    script.line = false;
-                    script.radar = true;
-                }
-         //console.log('TEST TEST ESTSTES' + JSON.stringify(vm.script));
-          console.log(typeof(vm.script.length));
-          /*for(var g = 0; g < 5; g+=1)
+         
+        //  console.log(script.name); 
+          //console.log(vm.script[2].name);
+        
+          for(var i = 0; i < vm.script.length; i++)
           {
-                                console.log('we ahve a amth');
+                
 
-           //   if(script.name =- vm.script[i].name)
-            //  {
-              //    console.log('we ahve a amth');
-            //  }
-          }*/
+              if(script.name == vm.script[i].name)
+              {
+                  vm.script[i].name = script.name;
+               //   console.log(vm.script[i].name);
+
+              }
+          }
           
-           Runner.save(vm.script)
+           Runner.save(script)
                 .then(
                     function(data)
                     {
-                        console.log( 'DATAAA ' +  data);
-                        $log.debug('saved: ' + data);
+                      
+                        $log.debug('saved: ' + JSON.stringify(data));
                     },
                     function(err)
                     {
                         $log.error('error: ' +err);
                     })
-           
-           // console.log(Runner.getData());
-           
-                
+       
           
-        function runLoop(){
-             for(var g = 0; g < 50; g++)
-          {
-            console.log('we ahve a amth');
-
-           //   if(script.name =- vm.script[i].name)
-            //  {
-              //    console.log('we ahve a amth');
-            //  }
-          };
-          
-        }
         //TODO:save the settings to the server
         $log.debug(data);
         var goodCount = 0;
@@ -238,20 +207,6 @@ angular.module('hog')
         vm.script.radar = script.radar;
         vm.script.numOutput = script.numOutput;
     }
-  //  
-    //function getScript(name)
-    //{
-       /*  $scope.tempScript = {};
     
-    for(var i = 0; i < vm.scripts.length; i++)
-    {
-       // console.log(vm.scripts[i].id)
-        if(vm.scripts[i].id == id)
-        {
-            $scope.tempScript = vm.scripts[i];
-        }
-        //console.log(id);
-    }*/
-//    }
-  
+ 
 });

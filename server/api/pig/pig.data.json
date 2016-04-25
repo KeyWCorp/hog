@@ -30,7 +30,7 @@
     "output": []
   },
   "45": {
-    "name": "ScurvyyySCallyWAG",
+    "name": "SCUVRY",
     "data": "A = LOAD 'file:///Users/rick/Desktop/HOG/hog3/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\nDUMP A;",
     "args": [
       {
@@ -50,8 +50,9 @@
     ],
     "settings": [],
     "radar": false,
-    "bar": false,
-    "line": true,
+    "bar": true,
+    "line": false,
+    "numbOutput": "1344",
     "numOutput": "4"
   },
   "451": {
