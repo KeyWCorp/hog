@@ -245,6 +245,7 @@ $scope.vm = vm;
         return $scope.sliderNum;
     },
     function() {
+        $scope.data[0] = [[]];
        for(var j = 0; j < $scope.sliderNum; j++)
     {
         
