@@ -1,171 +1,171 @@
 
-   
-  <section id="List">
-      
-        <div layout="row" layout-align="end center"><md-autocomplete
-          ng-disabled="vm.isDisabled"
-          md-no-cache="vm.noCache"
-          md-selected-item="vm.selectedItem"
-          md-search-text-change="vm.searchTextChange(vm.searchText)"
-          md-search-text="vm.searchText"
-          md-selected-item-change="vm.selectedItemChange(item)"
-          md-items="item in vm.querySearch(vm.searchText)"
-          md-item-text="item.name"
-          md-min-length="0"
-          placeholder="Filter">
-        <md-item-template>
-          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
-            </md-item-template>
-            </md-autocomplete>
-      </div>
-     <!--<md-grid-list
-        md-cols-gt-md="12" md-cols="3" md-cols-md="8"
-        md-row-height-gt-md="1:1" md-row-height="4:3"
-        md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="4px"-->
-    <div class='md-padding' layout="column" layout-align="center center" >
-      <md-card ng-model="vm.scripts" flex ng-repeat="pig in vm.scripts">
-      <v-accordion class="vAccordion--default">
-      <v-pane   style="width:900px" >
-      
-          <v-pane-header>
-          <md-card-header>
-            <div layout="row" layout-align="start center" style="background-color:#e3e3e3; height: 40px" layout-align="start center">
-              <div layout-align="start center">
-                <md-progress-circular md-diameter="20px" md-mode="determinate" value="{{pig.progress}}" class="md-accent md-hue-4">
-                </md-progress-circular>
-              </div>
-              
-                
-    
-                  <h4>{{pig.name}}</h4>
 
-                
-            </div>
-          </md-card-header>
-        </v-pane-header>
-        <v-pane-content>
-          <md-card-content>
-            <md-card ng-hide="pig.logs.length == 0 || pig.output.length > 0">
-              <md-card-header >
-             Logs:
-              <ng-md-icon class="pull-right" icon="open_in_new" ng-click="openLog()"></ng-md-icon>
-             </md-card-header>
+<section id="List">
+
+  <div layout="row" layout-align="end center"><md-autocomplete
+                    ng-disabled="vm.isDisabled"
+                    md-no-cache="vm.noCache"
+                    md-selected-item="vm.selectedItem"
+                    md-search-text-change="vm.searchTextChange(vm.searchText)"
+                    md-search-text="vm.searchText"
+                    md-selected-item-change="vm.selectedItemChange(item)"
+                    md-items="item in vm.querySearch(vm.searchText)"
+                    md-item-text="item.name"
+                    md-min-length="0"
+                    placeholder="Filter">
+      <md-item-template>
+        <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+      </md-item-template>
+    </md-autocomplete>
+  </div>
+  <!--<md-grid-list
+    md-cols-gt-md="12" md-cols="3" md-cols-md="8"
+    md-row-height-gt-md="1:1" md-row-height="4:3"
+    md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="4px"-->
+  <div class='md-padding' layout="column" layout-align="center center" >
+    <md-card ng-model="vm.scripts" flex ng-repeat="pig in vm.scripts">
+      <v-accordion class="vAccordion--default">
+        <v-pane   style="width:900px" >
+
+          <v-pane-header>
+            <md-card-header>
+              <div layout="row" layout-align="start center" style="background-color:#e3e3e3; height: 40px" layout-align="start center">
+                <div layout-align="start center">
+                  <md-progress-circular md-diameter="20px" ng-show="vm.running" md-mode="determinate" value="{{pig.progress}}" class="md-accent md-hue-4">
+                  </md-progress-circular>
+                </div>
+
+
+
+    <h4>{{pig.name}}</h4>
+
+
+              </div>
+            </md-card-header>
+          </v-pane-header>
+          <v-pane-content>
+            <md-card-content>
+              <md-card ng-hide="pig.logs.length == 0 || pig.output.length > 0">
+                <md-card-header >
+                  Logs:
+                  <ng-md-icon class="pull-right" icon="open_in_new" ng-click="openLog()"></ng-md-icon>
+                </md-card-header>
                 <md-card-content>
                   <md-content style="height: 100px">
-                  <div ng-repeat="log in pig.logs">
-                  {{log}}
-                  <md-divider></md-divider>
-                  </div>
-                    </md-content>
+                    <div ng-repeat="log in pig.logs">
+                      {{log}}
+                      <md-divider></md-divider>
+                    </div>
+                  </md-content>
                 </md-card-content>
-            </md-card>
-            <md-card ng-show="pig.output.length > 0">
-              <md-card-header >
-             Output:
-                
-              <ng-md-icon  ng-disable="true" class="pull-right" icon="open_in_new" lass="md-primary md-raised" ng-click="vm.showTabDialog($event, pig.id )">
+              </md-card>
+              <md-card ng-show="pig.output.length > 0">
+                <md-card-header >
+                  Output:
+
+                  <ng-md-icon  ng-disable="true" class="pull-right" icon="open_in_new" lass="md-primary md-raised" ng-click="vm.showTabDialog($event, pig.id )">
 
 
                   </ng-md-icon>
-                      
-                  
-        
-             </md-card-header>
+
+
+
+                </md-card-header>
                 <md-card-content>
                   <md-content style="height: 100px">
-                  {{pig.output}}
+                    {{pig.output}}
                   </md-content>
-              </md-card-content>
-            </md-card>
-            <md-card ng-show="pig.data" ng-hide="pig.logs.length > 0" ng-hide="pig.output.length >0">
+                </md-card-content>
+              </md-card>
+              <md-card ng-show="pig.data" ng-hide="pig.logs.length > 0" ng-hide="pig.output.length >0">
                 <md-card-content>
                   <md-content style="height: 100px">
                     {{pig.data}}
                   </md-content>
-              </md-card-content>
-            </md-card>
-          </md-card-content>
-        </v-pane-content>
-        
-        <div class="md-actions" layout="row" layout-align="end center">
-          <md-button class="md-primary md-raised" ng-click="vm.run(pig.id, $index)">
-            Run
-          </md-button>
-          <md-button class="md-primary md-raised" ng-click="vm.edit(pig.id)">
-            Edit
-          </md-button>
-        </div>
-        </v-pane>
-        </v-accordion>
-     
-
-
-
-<!--
-
-
-  <div >
-                   <md-input-container>
-                 
-          <div>
-            <label>Choose A Script</label>
-          </div>
-         <md-select name="vm.script" ng-model="vm.script" required>
-        <md-option ng-value="item" ng-repeat="item in vm.script"> {{item.name}}</md-option>
-        
-      </md-select>
-    
-      </md-input-container>
-  
-                <!--h4 style="font-color: #000000">Saved Scripts<!--{{pig.name}}>
-            </h4>
-                  
-              </div-->
-
-
-
-
-<!---
-    <md-list>
-        <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
-            <md-card flex-gt-sm="100" flex-gt-md="80">
-                <md-card-header> <h4>{{pig.name}} - {{pig.progress}}</h4></md-card-header>
-                <md-card-content>
-            <md-progress-circular md-mode="determinate" value="{{pig.progress}}  "></md-progress-circular>
-                   <div  layout-sm="column" layout-align="space-around left">
-                      <div layout="row">
-                                         <div layout="row" layout-sm="column" layout-align="space-around">
-                                               <md-button class="md-primary md-raised" ng-click="vm.run(pig.id)">Run</md-button>
-                                         </div>
-                                         <div layout="row" layout-sm="column" layout-align="space-around">
-                                               <md-button class="md-primary md-raised" ng-click="vm.edit(pig.id)">Edit</md-button>
-                                         </div>
-                      </div>
-                   <md-divider></md-divider>
-                   </div>
                 </md-card-content>
-             </md-card>
-        </md-list-item>
-    </md-list>
-    </section>
-</md-content>
---->
-<!--
-<md-list>
+              </md-card>
+            </md-card-content>
+          </v-pane-content>
+
+          <div class="md-actions" layout="row" layout-align="end center">
+            <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(pig.id, $index)">
+              Run
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="vm.edit(pig.id)">
+              Edit
+            </md-button>
+          </div>
+        </v-pane>
+      </v-accordion>
+
+
+
+
+      <!--
+
+
+        <div >
+        <md-input-container>
+
+        <div>
+        <label>Choose A Script</label>
+        </div>
+        <md-select name="vm.script" ng-model="vm.script" required>
+        <md-option ng-value="item" ng-repeat="item in vm.script"> {{item.name}}</md-option>
+
+        </md-select>
+
+        </md-input-container>
+
+        <!--h4 style="font-color: #000000">Saved Scripts<!--{{pig.name}}>
+          </h4>
+
+          </div-->
+
+
+
+
+          <!---
+            <md-list>
             <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
-                <div layout="row" layout-sm="column" layout-align="space-around">
-                    <md-progress-circular md-mode="determinate" value="{{pig.progress}}"></md-progress-circular>
-                </div>
-                <h3>{{pig.name}}</h3>
-                <h4>{{pig.interval}}</h4>
-                <p>{{pig.isRandom}}</p>
-                <div layout="row" layout-sm="column" layout-align="space-around">
-                    <md-button class="md-primary md-raised" ng-click="vm.run(pig.id)">Run</md-button>
-                </div>
-                <div layout="row" layout-sm="column" layout-align="space-around">
-                    <md-button class="md-primary md-raised" ng-click="vm.edit(pig.id)">Edit</md-button>
-                </div>
-                <md-divider></md-divider>
+            <md-card flex-gt-sm="100" flex-gt-md="80">
+            <md-card-header> <h4>{{pig.name}} - {{pig.progress}}</h4></md-card-header>
+            <md-card-content>
+            <md-progress-circular md-mode="determinate" value="{{pig.progress}}  "></md-progress-circular>
+            <div  layout-sm="column" layout-align="space-around left">
+            <div layout="row">
+            <div layout="row" layout-sm="column" layout-align="space-around">
+            <md-button class="md-primary md-raised" ng-click="vm.run(pig.id)">Run</md-button>
+            </div>
+            <div layout="row" layout-sm="column" layout-align="space-around">
+            <md-button class="md-primary md-raised" ng-click="vm.edit(pig.id)">Edit</md-button>
+            </div>
+            </div>
+            <md-divider></md-divider>
+            </div>
+            </md-card-content>
+            </md-card>
             </md-list-item>
-        </md-list>
--->
+            </md-list>
+            </section>
+            </md-content>
+            --->
+            <!--
+              <md-list>
+              <md-list-item class="md-3-line" ng-repeat="pig in vm.scripts">
+              <div layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular md-mode="determinate" value="{{pig.progress}}"></md-progress-circular>
+              </div>
+              <h3>{{pig.name}}</h3>
+              <h4>{{pig.interval}}</h4>
+              <p>{{pig.isRandom}}</p>
+              <div layout="row" layout-sm="column" layout-align="space-around">
+              <md-button class="md-primary md-raised" ng-click="vm.run(pig.id)">Run</md-button>
+              </div>
+              <div layout="row" layout-sm="column" layout-align="space-around">
+              <md-button class="md-primary md-raised" ng-click="vm.edit(pig.id)">Edit</md-button>
+              </div>
+              <md-divider></md-divider>
+              </md-list-item>
+              </md-list>
+            -->
