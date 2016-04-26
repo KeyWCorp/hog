@@ -22,10 +22,11 @@
     "v-accordion": "^1.4.2",
     "angular-chart.js": "^0.8.8",
     "jquery": "^2.2.1",
-    "lodash": "^4.6.1",
     "ng-table": "^0.8.3",
     "angular-material-data-table": "^0.9.15",
-    "ace-builds": "^1.2.3"
+    "ace-builds": "^1.2.3",
+    "lodash": "~3.10.1",
+    "hog-tracker": "https://gitlab.com/ccis-irad/hog-tracker.git"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.7",
@@ -33,6 +34,11 @@
   },
   "resolutions": {
     "angular": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "angular-sanitize": "~1.4.7",
+    "angular-animate": "~1.4.7",
+    "angular-material-data-table": "^0.9.15",
+    "lodash": "~3.10.1",
     "angular-material": "~0.11.4"
   }
 }

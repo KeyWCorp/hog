@@ -219,7 +219,7 @@ exports.delete = function(id, cb)
         this.save(cb);
     }
 }
-exports.run = function(id, stdoutCB, stderrCB, errCB)
+exports.run = function(id, stdoutCB, stderrCB, errCB, trackerCB, finishedCB)
 {
     logger.debug('Running Pig Script: ', id);
      if (_.isUndefined(collection.instances[id]) || _.isUndefined(collection.raw[id]))
@@ -243,63 +243,8 @@ exports.run = function(id, stdoutCB, stderrCB, errCB)
         nArg.push(script_location);
         logger.debug('Args: ', JSON.stringify(nArg));
 
-        pigParser.run(script_location, stdoutCB, stderrCB, stderrCB);
+        //pigParser.runForOutput(script_location, stdoutCB, stderrCB, stderrCB);
+        pigParser.trackTasks(script_location, stdoutCB, stderrCB, stderrCB, trackerCB, finishedCB);
 
-        //var pig = spawn('pig', nArg);
-        //var prgs = 0;
-        //pig.stdout.on('data',
-        //    function(d)
-        //    {
-        //        logger.debug('data: ', JSON.stringify(d.toString(), null, 2));
-        //        //Parse the log
-        //        var parsed = {type: 'output', data: JSON.stringify(d.toString(), null, 2)};
-        //        setImmediate(
-        //            function()
-        //            {
-        //                stdoutCB(parsed);
-        //            });
-        //    });
-        //pig.stderr.on('data',
-        //    function(d)
-        //    {
-        //        var parser = /(\d+-\d+-\d+)\s(\d+:\d+:\d+),(\d+)\s\[([a-z]*)\]\s([A-Z]+)\s*((?:[a-zA-Z]|\d|\.)+)\s-\s((?:\w|\W)+)/;
-        //        var res = d.toString().match(parser);
-        //        logger.info('parse: ', res)
-        //        logger.debug('error: ', JSON.stringify(d.toString(), null, 2));
-        //        //Parse the log
-        //        var log = JSON.stringify(res, null, 2);
-        //        if (log != null)
-        //        {
-        //          var parsed = {type: 'log', data: log};
-        //          setImmediate(
-        //            function()
-        //            {
-        //                stderrCB(parsed);
-        //            });
-        //        }
-        //        if (res[7].indexOf('%') > -1)
-        //        {
-        //          parsed = { type: 'percent', data: res[7].match(/\%(d+)/)[1]}
-        //          setImmediate(
-        //            function()
-        //            {
-        //              stderrCB(parsed);
-        //            });
-        //        }
-        //        //{type: 'progress', data: '95'};
-        //    });
-        //pig.on('close',
-        //    function(code)
-        //    {
-        //        logger.debug('close: ', code);
-        //        //Parse the log
-        //        var parsed = {type: 'close', data: code};
-        //        logger.debug(parsed);
-        //    setImmediate(
-        //            function()
-        //            {
-        //                stdoutCB(parsed);
-        //            });
-        //    });
     }
 };

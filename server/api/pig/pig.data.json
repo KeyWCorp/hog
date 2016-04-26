@@ -30,6 +30,7 @@
     "output": []
   },
   "45": {
+
     "name": "SCUVRY",
     "data": "A = LOAD 'file:///Users/rick/Desktop/HOG/hog3/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\nDUMP A;",
     "args": [

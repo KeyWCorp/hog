@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('hog')
-    .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, $mdDialog)
+
+    .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig)
+
     {
 
 
@@ -31,13 +33,29 @@ angular.module('hog')
     
    
 
+    vm.taskList = [];
+    vm.running = false;
+
+    Pig.on('tracker:update', function (data)
+        {
+          //console.log("\n\nUPDATE\n\t" + JSON.stringify(data, null, 2));
+          vm.taskList = data;
+        });
+
+    Pig.on('run:finished', function ()
+        {
+          vm.running = false;
+        });
+
+    vm.ots = function (o)
+    {
+      return JSON.stringify(o);
+    }
+
     // Initialize chart values
     vm.labels = [];
     vm.series = ['Series A'];
     vm.data = [];
-
-    // Progress Bar Variables
-    vm.start = false;
 
 
     // Inject data from PIG script output to chart
@@ -280,9 +298,11 @@ angular.module('hog')
         }
         vm.run = function()
         {
+            vm.taskList = [];
+            vm.output = [];
            // start progress bar
-            vm.start = true;
             vm.pigList = [];
+            vm.running = true;
 
             $log.debug('running: ', vm.script.id);
             vm.log = [];
@@ -291,16 +311,13 @@ angular.module('hog')
                     function(out)
                     {
                        // vm.output = out;
-                      vm.running = false;
                     },
                     function(err)
                     {
                         vm.outError = err.json;
-                      vm.running = false;
                     },
                     function(update)
                     {
-                      vm.running = true;
                         if (update.type == 'progress')
                         {
                             vm.progress = update.data.json;
@@ -326,7 +343,6 @@ angular.module('hog')
                             //var tem = JSON.parse(update.data.json).split("\n");
                             //console.log('tem ' + tem + ' ' + typeof(tem));
                              // Stop progress bar
-                              vm.start = (false);
 
                               var tmp_output = "(";
                               for (var i = 0; i < Object.keys(update.data.json).length; i++) {
