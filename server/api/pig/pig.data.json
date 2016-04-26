@@ -33,7 +33,7 @@
   },
   "45": {
     "name": "SCUVRY",
-    "data": "A = LOAD 'file:///Users/kmcoxe/Documents/IPI/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\nDUMP A;",
+    "data": "A = LOAD 'file:///opt/kevins/hogDemo/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\nDUMP A;",
     "args": [
       {
         "arg": "-x",
@@ -54,8 +54,7 @@
     "radar": true,
     "bar": false,
     "line": false,
-    "numbOutput": "1344",
-    "numOutput": "8"
+    "numbOutput": "1344"
   },
   "451": {
     "name": "toss mags",
