@@ -33,7 +33,7 @@
   },
   "45": {
     "name": "SCUVRY",
-    "data": "--Kevins computer\nA = LOAD 'file:///Users/kmcoxe/Documents/IPI/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\nDUMP A;\n\n--Ricks Computer\n--A = LOAD 'file:///Users/rick/Desktop/HOG/hog3/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\n--DUMP A;",
+    "data": "A = LOAD 'file:///Users/kmcoxe/Documents/IPI/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\nDUMP A;",
     "args": [
       {
         "arg": "-x",

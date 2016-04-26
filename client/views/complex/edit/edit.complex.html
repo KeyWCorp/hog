@@ -135,7 +135,7 @@
                       <div>
                         <md-input-container>
 
-                          <md-select multiple ng-model="vm.testData" md-on-close="vm.onChange()" placeholder="Select one or more Values">
+                          <md-select ng-disabled="vm.running" multiple ng-model="vm.testData" md-on-close="vm.onChange()" placeholder="Select one or more Values">
 
                             <md-option ng-value="items" ng-repeat="items in vm.pigList track by $index">{{items}}</md-option>
                           </md-select>
