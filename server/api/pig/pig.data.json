@@ -51,10 +51,11 @@
       null
     ],
     "settings": [],
-    "radar": false,
-    "bar": true,
+    "radar": true,
+    "bar": false,
     "line": false,
-    "numbOutput": "1344"
+    "numbOutput": "1344",
+    "numOutput": "8"
   },
   "451": {
     "name": "toss mags",
@@ -89,5 +90,21 @@
     "radar": true,
     "numOutput": "5",
     "bar": false
+  },
+  "4521": {
+    "name": "myTest",
+    "data": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);\nDUMP load0;",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local"
+      }
+    ],
+    "id": "4521",
+    "logs": [],
+    "output": [],
+    "bar": true,
+    "line": false,
+    "radar": false
   }
 }

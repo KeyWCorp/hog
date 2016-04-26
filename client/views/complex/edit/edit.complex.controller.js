@@ -337,13 +337,6 @@ angular.module('hog')
                         {
                           if (update.data.json !== "null")
                           {
-                              //console.log(update.data.json);
-                            //var reg = /(?:(\d+)*)/g
-                            //var parse = JSON.parse(update.data.json);
-                            //var tem = JSON.parse(update.data.json).split("\n");
-                            //console.log('tem ' + tem + ' ' + typeof(tem));
-                             // Stop progress bar
-
                               var tmp_output = "(";
                               for (var i = 0; i < Object.keys(update.data.json).length; i++) {
                                   var key = Object.keys(update.data.json)[i];
@@ -356,12 +349,6 @@ angular.module('hog')
 
                             vm.output.push(tmp_output);
                             vm.pigList.push(update.data.json);
-
-                            //var pi = parse.toString().match(reg);
-                            //vm.pigList = tem; //toList(pi);
-                            ////vm.output = pigList;
-                            //vm.output = parse;
-                        //    vm.chartData.push(pi);
                           }
                         }
                     });

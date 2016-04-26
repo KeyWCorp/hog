@@ -158,7 +158,7 @@ exports.run = function (socket) {
                 {
                     if(data.type == 'output')
                     {
-                      socket.emit('run:output', buildResponse(200, data.data));
+                      //socket.emit('run:output', buildResponse(200, data.data));
                     }
                     if(data.type == 'progress')
                     {
