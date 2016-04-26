@@ -11,9 +11,9 @@
                           <md-button   class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
                               <md-button   class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
              <md-button   class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
-  
+
           </div>
-       
+
               </div>
 
              <div layout="row">
@@ -42,41 +42,6 @@
           <div class="container" ng-class="{'visible' : !vm.running}">
             <md-progress-linear ng-if="vm.start" md-mode="indeterminate"></md-progress-linear>
 
-      <!--md-card-content>
-        <div layout="row">
-          <div flex>
-            <h4>Name:   {{vm.script.name}} </h4> </div>
-          <div flex layout-align="end" style="float:right;">
-            <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="vm.run()">Execute</md-button>
-            <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
-            <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button-->
-
-          </div>
-        <!--/div-->
-
-        <div layout="row">
-          <div layout="row" ng-repeat="item in vm.args track by $index">
-            <div flex>
-
-            </div>
-
-            <div flex>
-              <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
-                {{item.arg}}
-              </md-checkbox>
-            </div>
-
-            <div flex>
-              <md-input-container ng-show="vm.exists(item, vm.script.args)">
-                <input ng-model="vm.script.args[vm.index(vm.script.args, item.arg)].input" aria-label="arg {{item.arg}}">
-              </md-input-container>
-            </div>
-          </div>
-        </div>
-
-
-
-        <div ui-ace="vm.editorOptions" ng-model="vm.script.data"> </div>
         <div flex>
           <div hog-tracker task-string="vm.ots(vm.taskList)" tracker-id="'myTracker'" title="'My Task List'"></div>
         </div>

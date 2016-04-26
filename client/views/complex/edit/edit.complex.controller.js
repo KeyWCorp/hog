@@ -2,7 +2,7 @@
 
 angular.module('hog')
 
-    .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig)
+    .controller('EditComplexCtrl', function ($log, $state,$stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog)
 
     {
 
@@ -13,7 +13,7 @@ angular.module('hog')
 
     var ctx;
     var myNewChart;
-    
+
   /*  Runner.list()
           .then(
             function(data)
@@ -30,8 +30,8 @@ angular.module('hog')
     vm.radar = false;
     vm.pie = false;
     vm.output = [];
-    
-   
+
+
 
     vm.taskList = [];
     vm.running = false;
@@ -199,7 +199,7 @@ angular.module('hog')
                 function(data)
                 {
                     vm.script = data.json;
-                 
+
 
                 });
         vm.modes = ['Pig_Latin'];
@@ -254,10 +254,10 @@ angular.module('hog')
             onChange: vm.onEditorChange()
         };
         vm.save = function(graph, numOutput)
-        {   
+        {
             console.log('in vm .save', graph);
             vm.script.numOutput = numOutput;
-           
+
                 if(graph == 'bar')
                 {
                     vm.script.bar = true;
@@ -277,7 +277,7 @@ angular.module('hog')
                     vm.script.radar = true;
                 }
             console.log('SCRPIT ' + JSON.stringify(vm.script));
-            
+
             Runner.save(vm.script)
                 .then(
                     function(data)
@@ -394,16 +394,16 @@ angular.module('hog')
             //$log.debug('index of ', indx, item);
             return indx;
         }
-        
-      
-        
+
+
+
         vm.openSettings = function(ev)
         {
-           
+
             //vm.script.settings = [];
           //  vm.script.settings.radar = [];
-            
-                
+
+
 
        $mdDialog.show({
            controller: SettingsController,
@@ -418,20 +418,20 @@ angular.module('hog')
     '<md-dialog-content>'+
       '<div class="md-dialog-content">'+
            ' <legend>How would you like to view your output?</legend>'+
-    
+
       /* '<md-radio-group ng-model="data.graph">'+
     ' <md-radio-button value="bar"   aria-label="Bar Graph" md-no-ink="true" >'+
            ' Bar Graph'+
-           
+
               '</md-radio-button>'+
             ' <md-radio-button    value="line" aria-label="Line Graph"md-no-ink="true" >'+
             ' Line Graph'+
-           
+
               '</md-radio-button>'+
             ' <md-radio-button value="radar" aria-label="Radar Graph"md-no-ink="true" >'+
             'Radar Graph'+
               '</md-radio-button>'+
-           
+
 '</md-radio-group>'+*/
            ' <div layout="column" layout-align="center start">'+
               ' <md-checkbox ng-disabled="vm.script.line || vm.script.radar"  ng-model="vm.script.bar" >'+
@@ -441,10 +441,10 @@ angular.module('hog')
                 '    Line Graph '+
                 '</md-checkbox>'+
                 '<md-checkbox ng-disabled="vm.script.bar || vm.script.line"  ng-model="vm.script.radar">'+
-                 '   Radar Graph'+ 
+                 '   Radar Graph'+
                 '</md-checkbox>'+
               '</div>'+
-       
+
    '   </div>'+
           '  <md-input-container class="md-block">'+
          '  <div required > ' +
@@ -452,10 +452,10 @@ angular.module('hog')
             '<input ng-model="vm.script.numOutput">'+
            '</div>'+
         '</md-input-container>'+
-           
+
            '<md-button class="md-raised md-primary" ng-click="cancel()">Close</md-button>' +
             '<md-button class="md-raised md-primary" ng-click="save(vm.script)">Save</md-button>' +
-           
+
   '  </md-dialog-content>'+
   '</form>'+
 '</md-dialog>',
@@ -463,7 +463,7 @@ angular.module('hog')
            parent: angular.element(document.body),
       targetEvent: ev,
            locals:{vm:vm},
-            
+
        });
 
    }
@@ -474,14 +474,14 @@ angular.module('hog')
 // Controller for Settings Modal
 function SettingsController( $mdDialog, $scope, vm) {
     console.log('in settings controller');
-    
-      $scope.vm = vm;  
+
+      $scope.vm = vm;
   //  console.log(vm);
-   
+
    //$scope.data = {graph:'bar'};
    // console.log('settings : ' + $scope.vm.script.settings);
    // $scope.data = $scope.vm.settings;
-    
+
     /*var setData = function(data)
             {
                // console.log(data);
@@ -495,15 +495,15 @@ function SettingsController( $mdDialog, $scope, vm) {
                     $scope.data = {graph:'bar'};
                 }
             }*/
-    
-    $scope.cancel = function() 
+
+    $scope.cancel = function()
     {
         $mdDialog.cancel();
     };
 
     $scope.save = function(script)
     {
-        
+
         //console.log(vm.script.numOutput);
       if(script.bar == true)                                                      {
             $scope.vm.save('bar', script.numOutput);
@@ -517,20 +517,20 @@ function SettingsController( $mdDialog, $scope, vm) {
         $scope.cancel();
     }
 
- 
+
 }
 
 /* '</md-radio-button>'+
             ' <md-radio-button  ng-click="toggle(item, selected)"  value="line" md-no-ink="true" >'+
             ' Line Graph'+
            '<span ng-if="exists(item, selected)"></span>'+
-           
+
               '</md-radio-button>'+
             ' <md-radio-button value="radar" ng-click="toggle(item, selected)"   md-no-ink="true" >'+
             'Radar Graph'+
            '<span ng-if="exists(item, selected)"></span>'+
               '</md-radio-button>'+
-           
+
 '</md-radio-group>'+*/
 
 

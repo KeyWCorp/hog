@@ -27,12 +27,13 @@
     ],
     "id": 44,
     "logs": [],
-    "output": []
+    "output": [],
+    "bar": true,
+    "numOutput": "4"
   },
   "45": {
-
     "name": "SCUVRY",
-    "data": "A = LOAD 'file:///Users/rick/Desktop/HOG/hog3/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\nDUMP A;",
+    "data": "A = LOAD 'file:///Users/kmcoxe/Documents/IPI/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\nDUMP A;\n\n--A = LOAD 'file:///Users/rick/Desktop/HOG/hog3/hog/test.data' USING PigStorage(',') AS (one:chararray,two:float);\n--DUMP A;",
     "args": [
       {
         "arg": "-x",
@@ -53,8 +54,7 @@
     "radar": false,
     "bar": true,
     "line": false,
-    "numbOutput": "1344",
-    "numOutput": "4"
+    "numbOutput": "1344"
   },
   "451": {
     "name": "toss mags",
