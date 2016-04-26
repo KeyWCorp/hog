@@ -127,18 +127,21 @@ angular.module('hog')
         //targetEvent: ev,
         controller: DialogController,
         template:
-
-'<md-dialog flex="80%">'+
+  '<div layout="column" flex="50%">'+
+'<md-dialog flex="60%">'+
  ' <form >'+
   '  <md-toolbar >'+
-   '   <div class="md-toolbar-tools" >'+
+          
+   '   <div class="md-toolbar-tools" flex>'+
     '    <h2> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Choose a Graph to View Output&emsp;&emsp; &emsp;&emsp;&emsp; &emsp;</h2>'+
     // '   <span flex></span>'+
       '  <md-button class="md-icon-button" ng-click="vm.cancel()">'+
        '   <md-icon icon="open_in_new" aria-label="Close dialog"></md-icon>'+
         '</md-button>'+
 '      </div>'+
- '   </md-toolbar>'+
+         
+            '   </md-toolbar>'+
+              '<div flex>'+
   '  <md-dialog-content >'+
    '   <md-tabs  md-selected="mySelection" md-theme="green" md-dynamic-height md-border-bottom>'+
     
@@ -163,17 +166,20 @@ angular.module('hog')
        ' </md-tab>'+
 '      </md-tabs>'+
  '   </md-dialog-content>'+
+          '</div>'+
 '  </form>'+
-            ' <div layout layout-align="center center">' + 
+            ' <div layout layout-align="center center" flex>' + 
     '  <span class="md-body-1">Number of Outputs</span>' + 
    '   </div>' + 
-    '  <md-slider md-discrete flex min="0" max="255" ng-model="sliderNum" aria-label="red" id="red-slider" class>'+ 
-     ' </md-slider>'+
-            '<div flex="20" layout layout-align="center center">'+
+   // '  <md-slider md-discrete flex min="0" max="255" ng-model="sliderNum" aria-label="red" id="red-slider" class>'+ 
+     //' </md-slider>'+
+            //'<div flex="20" layout layout-align="center center">'+
+            '<div flex>'+
         '<input flex type="number" min="0" ng-model="sliderNum" aria-label="red" ng-click="slider()" aria-controls="red-slider">'+
       '</div>'+
-    '</div>'+
-'</md-dialog>',
+   // '</div>'+
+'</md-dialog>'+
+            '</div>',
      parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose:true,
