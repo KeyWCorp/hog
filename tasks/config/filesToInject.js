@@ -12,5 +12,7 @@ module.exports = [
   'client/views/**/*.js', '!client/views/**/*.spec.js',
   '!client/views/**/*.e2e.js',
   'client/bower_components/t/t.js',
-  'client/bower_components/list-to-tree/dist/list-to-tree.js'
+  'client/bower_components/list-to-tree/dist/list-to-tree.js',
+  'client/bower_components/pig-flow-demo/src/pig-flow.directive.js',
+  'client/bower_components/pig-flow-demo/src/pig-flow.templates.js'
 ];
