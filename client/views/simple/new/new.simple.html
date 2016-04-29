@@ -1,7 +1,12 @@
-<md-content>
+<md-content layout='column' layout-padding>
+  <md-input-container ng-show="vm.outputData.script" flex>
+    <label>Script</label>
+    <textarea ng-model="vm.outputData.script"></textarea>
+  </md-input-container>
+
   <div layout="column" layout-margin>
     <div flex>
-      <div pig-flow input-data="vm.ots(vm.data)" update="vm.update" id="pig-flow"></div>
+      <div pig-flow layout="column" input-data-string="vm.ots(vm.data)" output-data="vm.outputData" id="pig-flow"></div>
     </div>
   </div>
 </md-content>

@@ -10,6 +10,8 @@ angular.module('hog')
     links: []
   };
 
+  vm.outputData = {};
+
   vm.update = function (d)
   {
     console.log(JSON.stringify(d, null, 2));
