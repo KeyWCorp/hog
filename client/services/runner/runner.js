@@ -103,7 +103,7 @@ angular.module('hog')
           id: id
           };*/
         Pig.emit('create', angular.toJson(procData));
-        Pig.on('create',
+        Pig.on('server:create',
             function(data)
             {
               deferred.resolve(data);

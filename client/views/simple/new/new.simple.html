@@ -1,12 +1,16 @@
 <md-content layout='column' layout-padding>
-  <md-input-container ng-show="vm.outputData.script" flex>
-    <label>Script</label>
-    <textarea ng-model="vm.outputData.script"></textarea>
+  <md-input-container flex>
+    <label>Name:</label>
+    <input ng-model="vm.script.name">
+  </md-input-container>
+
+  <md-input-container flex>
+    <md-button ng-disabled="!vm.script.data" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
   </md-input-container>
 
   <div layout="column" layout-margin>
     <div flex>
-      <div pig-flow layout="column" input-data-string="vm.ots(vm.data)" output-data="vm.outputData" id="pig-flow"></div>
+      <div pig-flow layout="column" input-data-string="vm.ots(vm.data)" output-data="vm.output_data" id="pig-flow"></div>
     </div>
   </div>
 </md-content>

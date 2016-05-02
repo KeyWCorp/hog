@@ -10,32 +10,32 @@ function handleError (socket, err) {
 }
 function buildResponse (statusCode, data)
 {
-    return {status: statusCode, json: data};
+  return {status: statusCode, json: data};
 }
 
 /* Load the objects */
-Pig.load(
-    function(err)
-    {
+  Pig.load(
+      function(err)
+      {
         logger.error('Failed to load Pig collection with error [%s]', err);
-    });
+      });
 
 /* Set up messages */
 exports.init = function (socket)
 {
-    logger.info('initializing pig controller')
+  logger.info('initializing pig controller')
     Pig.created = function(obj)
     {
-        socket.emit('Pig:created', obj);
+      socket.emit('Pig:created', obj);
     }
-    Pig.updated = function(obj)
-    {
-        socket.emit('Pig:updated', obj);
-    }
-    Pig.removed = function(obj)
-    {
-        socket.emit('Pig:removed', obj);
-    }
+  Pig.updated = function(obj)
+  {
+    socket.emit('Pig:updated', obj);
+  }
+  Pig.removed = function(obj)
+  {
+    socket.emit('Pig:removed', obj);
+  }
 }
 /**
  * Get list of Pig
@@ -44,19 +44,19 @@ exports.init = function (socket)
  * @param res
  */
 exports.index = function (socket) {
-    logger.debug('in index function')
+  logger.debug('in index function')
     socket.on('index',
         function()
         {
-            console.log('Index requested');
-            logger.debug('Index requested');
-            Pig.list(
-                function (err, pigs)
-                {
-                    if (err) { return handleError(socket, err); }
-                    console.log('index sent')
-                    socket.emit('index', buildResponse(200, pigs));
-                });
+          console.log('Index requested');
+          logger.debug('Index requested');
+          Pig.list(
+              function (err, pigs)
+              {
+                if (err) { return handleError(socket, err); }
+                console.log('index sent')
+                  socket.emit('index', buildResponse(200, pigs));
+              });
         });
 };
 
@@ -68,16 +68,16 @@ exports.index = function (socket) {
  * @param res
  */
 exports.show = function (socket) {
-    socket.on('show',
-        function(id)
-        {
-           Pig.find(id,
-                function(err, obj)
-                {
-                    if (err) { return handleError(socket, err); }
-                    socket.emit('show', buildResponse(200, obj));
-                });
-        });
+  socket.on('show',
+      function(id)
+      {
+        Pig.find(id,
+            function(err, obj)
+            {
+              if (err) { return handleError(socket, err); }
+              socket.emit('show', buildResponse(200, obj));
+            });
+      });
 };
 
 
@@ -88,17 +88,17 @@ exports.show = function (socket) {
  * @param res
  */
 exports.create = function (socket) {
-    socket.on('create',
-        function(data)
-        {
-            Pig.create(data,
-                function(err, obj)
-                {
-                    console.log('obj', obj);
-                    if (err) { return handleError(socket, err); }
-                    socket.emit('create', buildResponse(201, obj));
-                });
-        });
+  socket.on('create',
+      function(data)
+      {
+        Pig.create(data,
+            function(err, obj)
+            {
+              console.log('\n\n\nobj:', obj);
+              if (err) { return handleError(socket, err); }
+              socket.emit('server:create', buildResponse(201, obj));
+            });
+      });
 };
 
 
@@ -110,18 +110,18 @@ exports.create = function (socket) {
  */
 exports.update = function (socket)
 {
-    socket.on('update',
-        function(data)
-        {
-            Pig.update(data.id, data.obj,
-                function(err, obj)
-                {
-                    console.log('finished updating', err, obj);
-                    if (err) { return handleError(socket, err); }
-                    socket.emit('update', buildResponse(200, obj));
-                });
-        });
- };
+  socket.on('update',
+      function(data)
+      {
+        Pig.update(data.id, data.obj,
+            function(err, obj)
+            {
+              console.log('finished updating', err, obj);
+              if (err) { return handleError(socket, err); }
+              socket.emit('update', buildResponse(200, obj));
+            });
+      });
+};
 
 /**
  * Deletes a Pig from the DB.
@@ -130,16 +130,16 @@ exports.update = function (socket)
  * @param res
  */
 exports.destroy = function (socket) {
-    socket.on('destroy',
-        function(id)
-        {
-            Pig.remove(id,
-                function(err)
-                {
-                    if (err) { return handleError(socket, err); }
-                    socket.emit('destroy', buildResponse(204, {}));
-                });
-        });
+  socket.on('destroy',
+      function(id)
+      {
+        Pig.remove(id,
+            function(err)
+            {
+              if (err) { return handleError(socket, err); }
+              socket.emit('destroy', buildResponse(204, {}));
+            });
+      });
 };
 
 /**
@@ -148,63 +148,63 @@ exports.destroy = function (socket) {
  * @param socket
  */
 exports.run = function (socket) {
-    socket.on('run',
-        function(id)
+  socket.on('run',
+      function(id)
+      {
+        // Pig Run (id, stdoutCB, stderrCB)
+        Pig.run(id,
+            // stdoutCB
+            function(data)
+            {
+              if(data.type == 'output')
+              {
+                //socket.emit('run:output', buildResponse(200, data.data));
+              }
+              if(data.type == 'progress')
+              {
+                socket.emit('run:progress', buildResponse(200, data.data));
+              }
+              else if(data.type == 'log')
+              {
+                socket.emit('run:log', buildResponse(200, data.data));
+              }
+              else if(data.type == 'close')
+              {
+                socket.emit('run:end', buildResponse(200, data.data));
+              }
+              socket.emit('run:output', buildResponse(200, data));
+            },
+        // stderrCB
+        function(data)
         {
-            // Pig Run (id, stdoutCB, stderrCB)
-            Pig.run(id,
-                // stdoutCB
-                function(data)
-                {
-                    if(data.type == 'output')
-                    {
-                      //socket.emit('run:output', buildResponse(200, data.data));
-                    }
-                    if(data.type == 'progress')
-                    {
-                        socket.emit('run:progress', buildResponse(200, data.data));
-                    }
-                    else if(data.type == 'log')
-                    {
-                        socket.emit('run:log', buildResponse(200, data.data));
-                    }
-                    else if(data.type == 'close')
-                    {
-                        socket.emit('run:end', buildResponse(200, data.data));
-                    }
-                    socket.emit('run:output', buildResponse(200, data));
-                },
-                // stderrCB
-                function(data)
-                {
-                    if(data.type == 'progress')
-                    {
-                        socket.emit('run:progress', buildResponse(200, data.data));
-                    }
-                    else if(data.type == 'log')
-                    {
-                        socket.emit('run:log', buildResponse(200, data.data));
-                    }
-                    else if(data.type == 'close')
-                    {
-                        socket.emit('run:end', buildResponse(200, data.data));
-                    }
-                    socket.emit('run:log', buildResponse(200, data));
-                },
-                // errCB
-                function(err)
-                {
-                    if (err) { return handleError(socket, err); }
-                },
-                // trackerCB
-                function(data)
-                {
-                  socket.emit('tracker:update', data);
-                },
-                // finishedCB
-                function(data)
-                {
-                  socket.emit('run:finished');
-                });
+          if(data.type == 'progress')
+          {
+            socket.emit('run:progress', buildResponse(200, data.data));
+          }
+          else if(data.type == 'log')
+          {
+            socket.emit('run:log', buildResponse(200, data.data));
+          }
+          else if(data.type == 'close')
+          {
+            socket.emit('run:end', buildResponse(200, data.data));
+          }
+          socket.emit('run:log', buildResponse(200, data));
+        },
+        // errCB
+        function(err)
+        {
+          if (err) { return handleError(socket, err); }
+        },
+        // trackerCB
+        function(data)
+        {
+          socket.emit('tracker:update', data);
+        },
+        // finishedCB
+        function(data)
+        {
+          socket.emit('run:finished');
         });
+      });
 };
