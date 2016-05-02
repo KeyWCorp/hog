@@ -2,53 +2,71 @@
 
 angular.module('hog')
 .controller('NewSimpleCtrl', function ($scope, $state, $log, Runner, $mdToast)
-{
-  var vm = this;
+    {
+      var vm = this;
 
-  vm.data = {
-    nodes: [],
-    links: []
-  };
+      vm.data = {
+        nodes: [],
+        links: []
+      };
 
-  vm.output_data = {};
-  vm.script = {
-    name: "",
-    data: "",
-    args: [{arg: '-x', input: "local"}],
-    bar: true,
-    line: false,
-    radar: false
-  };
+      vm.output_data = {};
+      vm.script = {
+        name: "",
+        data: "",
+        args: [{arg: '-x', input: "local"}],
+        bar: true,
+        line: false,
+        radar: false
+      };
 
-  $scope.$watch('vm.output_data', function()
-  {
-    vm.script.data = vm.output_data.script;
-    vm.script.nodes = vm.output_data.nodes;
-    vm.script.links = vm.output_data.links;
-  });
-
-  vm.update = function (d)
-  {
-    console.log(JSON.stringify(d, null, 2));
-  };
-
-  vm.save = function ()
-  {
-    Runner.create(vm.script)
-      .then(
-          function(data)
+      $scope.$watch('vm.output_data', function()
           {
-            vm.script = data.json;
-            $state.go('home.complex.edit', {id: vm.script.id});
+            vm.script.data = vm.output_data.script;
           });
-  };
 
-  vm.ots = function (d)
-  {
-    return JSON.stringify(d);
-  };
+      vm.update = function (d)
+      {
+        console.log(JSON.stringify(d, null, 2));
+      };
 
-  angular.extend(vm, {
-    name: 'NewSimpleCtrl'
-  });
-});
+      vm.save = function ()
+      {
+        vm.script.name = vm.script.name.replace(/\s/, '_');
+        if (angular.isDefined(vm.script.id))
+        {
+          Runner.save(vm.script)
+            .then(
+                function(data)
+                {
+                  $mdToast.show(
+                      $mdToast.simple()
+                      .content('Settings Saved!')
+                      .position('top right')
+                      .hideDelay(3000)
+                      );
+                  vm.script = data.json;
+                });
+        }
+        else
+        {
+          Runner.create(vm.script)
+            .then(
+                function(data)
+                {
+                  vm.script = data.json;
+                  console.log("ID: " + vm.script.id);
+                  $state.go('home.complex.edit', {id: vm.script.id});
+                });
+        }
+      };
+
+      vm.ots = function (d)
+      {
+        return JSON.stringify(d);
+      };
+
+      angular.extend(vm, {
+        name: 'NewSimpleCtrl'
+      });
+    });

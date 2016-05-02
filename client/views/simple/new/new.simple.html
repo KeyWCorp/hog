@@ -1,12 +1,14 @@
 <md-content layout='column' layout-padding>
-  <md-input-container flex>
-    <label>Name:</label>
-    <input ng-model="vm.script.name">
-  </md-input-container>
+  <form name="scriptForm">
+    <md-input-container flex>
+      <label>Name:</label>
+      <input required ng-model="vm.script.name">
+    </md-input-container>
 
-  <md-input-container flex>
-    <md-button ng-disabled="!vm.script.data" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
-  </md-input-container>
+    <md-input-container flex>
+      <md-button ng-disabled="!vm.script.data || scriptForm.$invalid" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+    </md-input-container>
+  </form>
 
   <div layout="column" layout-margin>
     <div flex>
