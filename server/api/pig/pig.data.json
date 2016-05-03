@@ -39,23 +39,7 @@
     "numbOutput": "1344"
   },
   "451": {
-    "name": "Simple_Test",
-    "data": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);\nDUMP load0;\n",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "bar": true,
-    "line": false,
-    "radar": false,
-    "id": "451",
-    "logs": [],
-    "output": []
-  },
-  "452": {
-    "name": "Another_simple test",
+    "name": "Simple_Script",
     "data": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);\nDUMP load0;\n",
     "args": [
       {
@@ -68,8 +52,8 @@
     "radar": false,
     "nodes": [
       {
-        "x": 260.5,
-        "y": 72.89999999999998,
+        "x": 335.5,
+        "y": 47.89999999999998,
         "width": 300,
         "height": 124,
         "name": "new node 0",
@@ -98,12 +82,12 @@
         "fixed": 1,
         "index": 0,
         "weight": 1,
-        "px": 260.5,
-        "py": 72.89999999999998,
+        "px": 335.5,
+        "py": 47.89999999999998,
         "output_node": 1
       },
       {
-        "x": 355.5,
+        "x": 352.5,
         "y": 289.9,
         "width": 300,
         "height": 124,
@@ -121,7 +105,7 @@
         "fixed": true,
         "index": 1,
         "weight": 1,
-        "px": 355.5,
+        "px": 352.5,
         "py": 289.9,
         "input_node": 0,
         "input": "load0"
@@ -130,8 +114,8 @@
     "links": [
       {
         "source": {
-          "x": 260.5,
-          "y": 72.89999999999998,
+          "x": 335.5,
+          "y": 47.89999999999998,
           "width": 300,
           "height": 124,
           "name": "new node 0",
@@ -160,12 +144,12 @@
           "fixed": 1,
           "index": 0,
           "weight": 1,
-          "px": 260.5,
-          "py": 72.89999999999998,
+          "px": 335.5,
+          "py": 47.89999999999998,
           "output_node": 1
         },
         "target": {
-          "x": 355.5,
+          "x": 352.5,
           "y": 289.9,
           "width": 300,
           "height": 124,
@@ -183,112 +167,254 @@
           "fixed": true,
           "index": 1,
           "weight": 1,
-          "px": 355.5,
+          "px": 352.5,
           "py": 289.9,
           "input_node": 0,
           "input": "load0"
         }
       }
     ],
+    "type": "simple",
+    "id": "451",
+    "logs": [],
+    "output": []
+  },
+  "452": {
+    "name": "Another_simple_script",
+    "data": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);\nsum1group = GROUP load0 BY x;\nsum1 = FOREACH sum1group GENERATE SUM(load0.x) AS x;\nDUMP sum1;\n",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local"
+      }
+    ],
+    "bar": true,
+    "line": false,
+    "radar": false,
+    "nodes": [
+      {
+        "x": 42.5,
+        "y": 40.89999999999998,
+        "width": 300,
+        "height": 124,
+        "name": "new node 0",
+        "category": "input",
+        "type": "load",
+        "params": [
+          {
+            "name": "source",
+            "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
+          },
+          {
+            "name": "format",
+            "value": "(x:int, y:int)"
+          }
+        ],
+        "script": {
+          "input_var": false,
+          "output_var": true,
+          "variables": [
+            "source",
+            "format"
+          ],
+          "content": "<output_var> = LOAD '<source>' USING PigStorage(' ') AS <format>;"
+        },
+        "output": "load0",
+        "fixed": 1,
+        "index": 0,
+        "weight": 1,
+        "px": 42.5,
+        "py": 40.89999999999998,
+        "output_node": 1
+      },
+      {
+        "x": 509.5,
+        "y": 236.89999999999998,
+        "width": 300,
+        "height": 124,
+        "name": "new node 1",
+        "category": "function",
+        "type": "sum",
+        "params": [
+          {
+            "name": "type",
+            "value": "x"
+          }
+        ],
+        "script": {
+          "input_var": true,
+          "output_var": true,
+          "variables": [
+            "type"
+          ],
+          "content": "<output_var>group = GROUP <input_var> BY <type>;\n<output_var> = FOREACH <output_var>group GENERATE SUM(<input_var>.<type>) AS <type>;"
+        },
+        "output": "sum1",
+        "fixed": 1,
+        "index": 1,
+        "weight": 2,
+        "px": 509.5,
+        "py": 236.89999999999998,
+        "input_node": 0,
+        "input": "load0",
+        "output_node": 2
+      },
+      {
+        "x": 151.5,
+        "y": 430.9,
+        "width": 300,
+        "height": 124,
+        "name": "new node 2",
+        "category": "output",
+        "type": "dump",
+        "params": [],
+        "script": {
+          "input_var": true,
+          "output_var": false,
+          "variables": [],
+          "content": "DUMP <input_var>;"
+        },
+        "output": "dump2",
+        "fixed": 1,
+        "index": 2,
+        "weight": 1,
+        "px": 151.5,
+        "py": 430.9,
+        "input_node": 1,
+        "input": "sum1"
+      }
+    ],
+    "links": [
+      {
+        "source": {
+          "x": 42.5,
+          "y": 40.89999999999998,
+          "width": 300,
+          "height": 124,
+          "name": "new node 0",
+          "category": "input",
+          "type": "load",
+          "params": [
+            {
+              "name": "source",
+              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
+            },
+            {
+              "name": "format",
+              "value": "(x:int, y:int)"
+            }
+          ],
+          "script": {
+            "input_var": false,
+            "output_var": true,
+            "variables": [
+              "source",
+              "format"
+            ],
+            "content": "<output_var> = LOAD '<source>' USING PigStorage(' ') AS <format>;"
+          },
+          "output": "load0",
+          "fixed": 1,
+          "index": 0,
+          "weight": 1,
+          "px": 42.5,
+          "py": 40.89999999999998,
+          "output_node": 1
+        },
+        "target": {
+          "x": 509.5,
+          "y": 236.89999999999998,
+          "width": 300,
+          "height": 124,
+          "name": "new node 1",
+          "category": "function",
+          "type": "sum",
+          "params": [
+            {
+              "name": "type",
+              "value": "x"
+            }
+          ],
+          "script": {
+            "input_var": true,
+            "output_var": true,
+            "variables": [
+              "type"
+            ],
+            "content": "<output_var>group = GROUP <input_var> BY <type>;\n<output_var> = FOREACH <output_var>group GENERATE SUM(<input_var>.<type>) AS <type>;"
+          },
+          "output": "sum1",
+          "fixed": 1,
+          "index": 1,
+          "weight": 2,
+          "px": 509.5,
+          "py": 236.89999999999998,
+          "input_node": 0,
+          "input": "load0",
+          "output_node": 2
+        }
+      },
+      {
+        "source": {
+          "x": 509.5,
+          "y": 236.89999999999998,
+          "width": 300,
+          "height": 124,
+          "name": "new node 1",
+          "category": "function",
+          "type": "sum",
+          "params": [
+            {
+              "name": "type",
+              "value": "x"
+            }
+          ],
+          "script": {
+            "input_var": true,
+            "output_var": true,
+            "variables": [
+              "type"
+            ],
+            "content": "<output_var>group = GROUP <input_var> BY <type>;\n<output_var> = FOREACH <output_var>group GENERATE SUM(<input_var>.<type>) AS <type>;"
+          },
+          "output": "sum1",
+          "fixed": 1,
+          "index": 1,
+          "weight": 2,
+          "px": 509.5,
+          "py": 236.89999999999998,
+          "input_node": 0,
+          "input": "load0",
+          "output_node": 2
+        },
+        "target": {
+          "x": 151.5,
+          "y": 430.9,
+          "width": 300,
+          "height": 124,
+          "name": "new node 2",
+          "category": "output",
+          "type": "dump",
+          "params": [],
+          "script": {
+            "input_var": true,
+            "output_var": false,
+            "variables": [],
+            "content": "DUMP <input_var>;"
+          },
+          "output": "dump2",
+          "fixed": 1,
+          "index": 2,
+          "weight": 1,
+          "px": 151.5,
+          "py": 430.9,
+          "input_node": 1,
+          "input": "sum1"
+        }
+      }
+    ],
+    "type": "simple",
     "id": 452,
-    "logs": [],
-    "output": []
-  },
-  "453": {
-    "name": "uhh",
-    "data": "DUMP <input_var>;\n",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "bar": true,
-    "line": false,
-    "radar": false,
-    "nodes": [
-      {
-        "x": 355.5,
-        "y": 289.9,
-        "width": 300,
-        "height": 124,
-        "name": "new node 0",
-        "category": "output",
-        "type": "dump",
-        "params": [],
-        "script": {
-          "input_var": true,
-          "output_var": false,
-          "variables": [],
-          "content": "DUMP <input_var>;"
-        },
-        "output": "dump0",
-        "fixed": true,
-        "index": 0,
-        "weight": 0,
-        "px": 355.5,
-        "py": 289.9
-      }
-    ],
-    "links": [],
-    "id": 453,
-    "logs": [],
-    "output": []
-  },
-  "454": {
-    "name": "l",
-    "data": "DUMP <input_var>;\n",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "bar": true,
-    "line": false,
-    "radar": false,
-    "nodes": [
-      {
-        "x": 355.5,
-        "y": 289.9,
-        "width": 300,
-        "height": 124,
-        "name": "new node 0",
-        "category": "output",
-        "type": "dump",
-        "params": [],
-        "script": {
-          "input_var": true,
-          "output_var": false,
-          "variables": [],
-          "content": "DUMP <input_var>;"
-        },
-        "output": "dump0",
-        "fixed": true,
-        "index": 0,
-        "weight": 0,
-        "px": 355.5,
-        "py": 289.9
-      }
-    ],
-    "links": [],
-    "id": 454,
-    "logs": [],
-    "output": []
-  },
-  "455": {
-    "name": "ls",
-    "data": "DUMP <input_var>;\n",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "bar": true,
-    "line": false,
-    "radar": false,
-    "id": 455,
     "logs": [],
     "output": []
   }

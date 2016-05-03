@@ -107,6 +107,7 @@ angular.module('hog')
             function(data)
             {
               deferred.resolve(data);
+              deferred.notify({type: 'create', data: data});
             });
         Pig.on('error',
             function(err)

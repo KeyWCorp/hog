@@ -1,0 +1,53 @@
+<md-content>
+  <form name="scriptForm" layout='column' layout-padding>
+    <md-input-container flex>
+      <label>Name:</label>
+      <input required ng-model="vm.script.name">
+    </md-input-container>
+
+    <v-accordion class="vAccordion--default" layout="column" layout-padding flex="45">
+      <v-pane expanded="true">
+        <v-pane-header>
+          Editor
+        </v-pane-header>
+        <v-pane-content>
+          <div layout="column" layout-margin ng-if="vm.data_ready">
+            <div flex>
+              <div pig-flow layout="column" input-data-string="vm.ots(vm.data)" output-data="vm.output_data" id="pig-flow{{ vm.script.id }}"></div>
+            </div>
+          </div>
+        </v-pane-content>
+      </v-pane>
+    </v-accordion>
+
+    <md-card>
+      <md-card-content>
+        <h2 class="md-title">Output</h2>
+        <md-progress-linear
+          ng-show="vm.running"
+          md-mode="indeterminate">
+        </md-progress-linear>
+        <hr ng-show="!vm.running">
+        <md-list>
+          <md-content style="height: 300px;" ng-show="!vm.running && vm.output" flex layout-padding>
+            <md-list-item ng-repeat="output in vm.output track by $index">
+              {{ output }}
+            </md-list-item>
+          </md-content>
+        </md-list>
+      </md-card-content>
+    </md-card>
+
+    <div layout="row" flex>
+      <md-input-container flex>
+        <md-button ng-disabled="!vm.script.data || scriptForm.$invalid" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+      </md-input-container>
+
+      <md-input-container flex>
+        <md-button ng-disabled="!vm.script.data || scriptForm.$invalid || vm.running" class="md-raised md-primary" ng-click="vm.run()">Run</md-button>
+      </md-input-container>
+    </div>
+
+  </form>
+
+</md-content>

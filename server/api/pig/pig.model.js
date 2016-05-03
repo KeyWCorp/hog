@@ -119,7 +119,9 @@ exports.create = function(obj, cb)
       function(err)
       {
         if(err)
+        {
           return cb(err, temp);
+        }
 
         self.save(
             function(err)

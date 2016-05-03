@@ -23,6 +23,9 @@ angular.module('hog')
       $scope.$watch('vm.output_data', function()
           {
             vm.script.data = vm.output_data.script;
+            vm.script.nodes = vm.output_data.nodes;
+            vm.script.links = vm.output_data.links;
+            vm.script.type = "simple";
           });
 
       vm.update = function (d)
@@ -32,33 +35,19 @@ angular.module('hog')
 
       vm.save = function ()
       {
-        if (angular.isDefined(vm.script.id))
-        {
-          console.log("HAS IT!!!")
-          Runner.save(vm.script)
-            .then(
-                function(data)
-                {
-                  $mdToast.show(
-                      $mdToast.simple()
-                      .content('Settings Saved!')
-                      .position('top right')
-                      .hideDelay(3000)
-                      );
-                  vm.script = data.json;
-                });
-        }
-        else
-        {
-          Runner.create(vm.script)
-            .then(
-                function(data)
-                {
-                  vm.script = data.json;
-                  console.log("ID: " + vm.script.id);
-                });
-        }
-                  $state.go('home.complex.edit', {id: vm.script.id});
+        vm.script.name = vm.script.name.replace(/\s/g, "_");
+        Runner.create(vm.script)
+          .then(
+              function(data)
+              {
+                vm.script = data.json;
+                $state.go('^.edit', {id: vm.script.id});
+                $mdToast.show(
+                    $mdToast.simple()
+                    .content('Script Saved!')
+                    .hideDelay(3000)
+                    );
+              });
       };
 
       vm.ots = function (d)

@@ -94,7 +94,6 @@ exports.create = function (socket) {
         Pig.create(data,
             function(err, obj)
             {
-              console.log('\n\n\nobj:', obj);
               if (err) { return handleError(socket, err); }
               socket.emit('server:create', buildResponse(201, obj));
             });

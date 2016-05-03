@@ -1,6 +1,6 @@
 <section id="List">
   <div class='md-padding' layout="column" layout-align="center center" >
-    <md-card flex ng-repeat="script in vm.scripts">
+    <md-card flex ng-repeat="script in vm.scripts track by $index">
       <v-accordion class="vAccordion--default">
         <v-pane   style="width:900px" >
           <v-pane-header>
@@ -13,19 +13,33 @@
 
                 <h4>{{ script.name }}</h4>
               </div>
+              <md-progress-linear
+                ng-show="vm.running && vm.isRunning[script.id]"
+                md-mode="indeterminate">
+              </md-progress-linear>
             </md-card-header>
           </v-pane-header>
           <v-pane-content>
-            <md-card-content>
-              {{ script }}
-            </md-card-content>
+            <md-card>
+              <md-card-content>
+                <h2 class="md-title">Output</h2>
+                <hr>
+                <md-list>
+                  <md-content style="height: 300px;" ng-show="vm.output[script.id]" flex layout-padding>
+                    <md-list-item ng-repeat="output in vm.output[script.id] track by $index">
+                      {{ output }}
+                    </md-list-item>
+                  </md-content>
+                </md-list>
+              </md-card-content>
+            </md-card>
           </v-pane-content>
 
           <div class="md-actions" layout="row" layout-align="end center">
-            <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(pig.id, $index)">
+            <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(script.id, $index)">
               Run
             </md-button>
-            <md-button class="md-primary md-raised" ng-click="vm.edit(pig.id)">
+            <md-button class="md-primary md-raised" ng-click="vm.edit(script.id)">
               Edit
             </md-button>
           </div>
