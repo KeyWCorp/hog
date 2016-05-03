@@ -1,7 +1,36 @@
-<md-content>
-  <div layout="column" layout-margin>
-    <div flex>
-      <div pig-flow input-data="vm.ots(vm.data)" update="vm.update" id="pig-flow"></div>
-    </div>
+<section id="List">
+  <div class='md-padding' layout="column" layout-align="center center" >
+    <md-card flex ng-repeat="script in vm.scripts">
+      <v-accordion class="vAccordion--default">
+        <v-pane   style="width:900px" >
+          <v-pane-header>
+            <md-card-header>
+              <div
+                layout="row"
+                layout-padding
+                style="background-color:#e3e3e3; height: 40px"
+                layout-align="start center">
+
+                <h4>{{ script.name }}</h4>
+              </div>
+            </md-card-header>
+          </v-pane-header>
+          <v-pane-content>
+            <md-card-content>
+              {{ script }}
+            </md-card-content>
+          </v-pane-content>
+
+          <div class="md-actions" layout="row" layout-align="end center">
+            <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(pig.id, $index)">
+              Run
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="vm.edit(pig.id)">
+              Edit
+            </md-button>
+          </div>
+        </v-pane>
+      </v-accordion>
+    </md-card>
   </div>
-</md-content>
+</section>

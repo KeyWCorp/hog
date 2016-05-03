@@ -37,5 +37,259 @@
     "bar": false,
     "line": false,
     "numbOutput": "1344"
+  },
+  "451": {
+    "name": "Simple_Test",
+    "data": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);\nDUMP load0;\n",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local"
+      }
+    ],
+    "bar": true,
+    "line": false,
+    "radar": false,
+    "id": "451",
+    "logs": [],
+    "output": []
+  },
+  "452": {
+    "name": "Another_simple test",
+    "data": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);\nDUMP load0;\n",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local"
+      }
+    ],
+    "bar": true,
+    "line": false,
+    "radar": false,
+    "nodes": [
+      {
+        "x": 260.5,
+        "y": 72.89999999999998,
+        "width": 300,
+        "height": 124,
+        "name": "new node 0",
+        "category": "input",
+        "type": "load",
+        "params": [
+          {
+            "name": "source",
+            "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
+          },
+          {
+            "name": "format",
+            "value": "(x:int, y:int)"
+          }
+        ],
+        "script": {
+          "input_var": false,
+          "output_var": true,
+          "variables": [
+            "source",
+            "format"
+          ],
+          "content": "<output_var> = LOAD '<source>' USING PigStorage(' ') AS <format>;"
+        },
+        "output": "load0",
+        "fixed": 1,
+        "index": 0,
+        "weight": 1,
+        "px": 260.5,
+        "py": 72.89999999999998,
+        "output_node": 1
+      },
+      {
+        "x": 355.5,
+        "y": 289.9,
+        "width": 300,
+        "height": 124,
+        "name": "new node 1",
+        "category": "output",
+        "type": "dump",
+        "params": [],
+        "script": {
+          "input_var": true,
+          "output_var": false,
+          "variables": [],
+          "content": "DUMP <input_var>;"
+        },
+        "output": "dump1",
+        "fixed": true,
+        "index": 1,
+        "weight": 1,
+        "px": 355.5,
+        "py": 289.9,
+        "input_node": 0,
+        "input": "load0"
+      }
+    ],
+    "links": [
+      {
+        "source": {
+          "x": 260.5,
+          "y": 72.89999999999998,
+          "width": 300,
+          "height": 124,
+          "name": "new node 0",
+          "category": "input",
+          "type": "load",
+          "params": [
+            {
+              "name": "source",
+              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
+            },
+            {
+              "name": "format",
+              "value": "(x:int, y:int)"
+            }
+          ],
+          "script": {
+            "input_var": false,
+            "output_var": true,
+            "variables": [
+              "source",
+              "format"
+            ],
+            "content": "<output_var> = LOAD '<source>' USING PigStorage(' ') AS <format>;"
+          },
+          "output": "load0",
+          "fixed": 1,
+          "index": 0,
+          "weight": 1,
+          "px": 260.5,
+          "py": 72.89999999999998,
+          "output_node": 1
+        },
+        "target": {
+          "x": 355.5,
+          "y": 289.9,
+          "width": 300,
+          "height": 124,
+          "name": "new node 1",
+          "category": "output",
+          "type": "dump",
+          "params": [],
+          "script": {
+            "input_var": true,
+            "output_var": false,
+            "variables": [],
+            "content": "DUMP <input_var>;"
+          },
+          "output": "dump1",
+          "fixed": true,
+          "index": 1,
+          "weight": 1,
+          "px": 355.5,
+          "py": 289.9,
+          "input_node": 0,
+          "input": "load0"
+        }
+      }
+    ],
+    "id": 452,
+    "logs": [],
+    "output": []
+  },
+  "453": {
+    "name": "uhh",
+    "data": "DUMP <input_var>;\n",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local"
+      }
+    ],
+    "bar": true,
+    "line": false,
+    "radar": false,
+    "nodes": [
+      {
+        "x": 355.5,
+        "y": 289.9,
+        "width": 300,
+        "height": 124,
+        "name": "new node 0",
+        "category": "output",
+        "type": "dump",
+        "params": [],
+        "script": {
+          "input_var": true,
+          "output_var": false,
+          "variables": [],
+          "content": "DUMP <input_var>;"
+        },
+        "output": "dump0",
+        "fixed": true,
+        "index": 0,
+        "weight": 0,
+        "px": 355.5,
+        "py": 289.9
+      }
+    ],
+    "links": [],
+    "id": 453,
+    "logs": [],
+    "output": []
+  },
+  "454": {
+    "name": "l",
+    "data": "DUMP <input_var>;\n",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local"
+      }
+    ],
+    "bar": true,
+    "line": false,
+    "radar": false,
+    "nodes": [
+      {
+        "x": 355.5,
+        "y": 289.9,
+        "width": 300,
+        "height": 124,
+        "name": "new node 0",
+        "category": "output",
+        "type": "dump",
+        "params": [],
+        "script": {
+          "input_var": true,
+          "output_var": false,
+          "variables": [],
+          "content": "DUMP <input_var>;"
+        },
+        "output": "dump0",
+        "fixed": true,
+        "index": 0,
+        "weight": 0,
+        "px": 355.5,
+        "py": 289.9
+      }
+    ],
+    "links": [],
+    "id": 454,
+    "logs": [],
+    "output": []
+  },
+  "455": {
+    "name": "ls",
+    "data": "DUMP <input_var>;\n",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local"
+      }
+    ],
+    "bar": true,
+    "line": false,
+    "radar": false,
+    "id": 455,
+    "logs": [],
+    "output": []
   }
 }

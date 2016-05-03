@@ -32,9 +32,9 @@ angular.module('hog')
 
       vm.save = function ()
       {
-        vm.script.name = vm.script.name.replace(/\s/, '_');
         if (angular.isDefined(vm.script.id))
         {
+          console.log("HAS IT!!!")
           Runner.save(vm.script)
             .then(
                 function(data)
@@ -56,9 +56,9 @@ angular.module('hog')
                 {
                   vm.script = data.json;
                   console.log("ID: " + vm.script.id);
-                  $state.go('home.complex.edit', {id: vm.script.id});
                 });
         }
+                  $state.go('home.complex.edit', {id: vm.script.id});
       };
 
       vm.ots = function (d)
