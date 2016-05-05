@@ -54,7 +54,7 @@ angular.module('hog')
         Pig.on('saved',
             function(indata)
             {
-              if(indata.id == data.id)
+              if(indata._id == data._id)
                 $log.debug('Script saved', data.name);
               deferred.resolve(indata);
             });
@@ -121,7 +121,7 @@ angular.module('hog')
         //    console.log(' in UPDATET' + JSON.stringify(procData));
         holdData = procData;
         var deferred = $q.defer();
-        Pig.emit('update', {id: procData.id, obj: angular.toJson(procData)});
+        Pig.emit('update', {id: procData._id, obj: angular.toJson(procData)});
         Pig.on('update',
             function(data)
             {

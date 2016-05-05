@@ -278,7 +278,7 @@ angular.module('hog')
         }
         console.log('SCRPIT ' + JSON.stringify(vm.script));
 
-        Runner.save(vm.script)
+        Runner.update(vm.script)
           .then(
               function(data)
               {
@@ -304,9 +304,9 @@ angular.module('hog')
         vm.pigList = [];
         vm.running = true;
 
-        $log.debug('running: ', vm.script.id);
+        $log.debug('running: ', vm.script._id);
         vm.log = [];
-        Runner.run(vm.script.id)
+        Runner.run(vm.script._id)
           .then(
               function(out)
               {
