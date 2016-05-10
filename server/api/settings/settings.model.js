@@ -3,20 +3,22 @@
 var fs      = require('fs');
 var _       = require('lodash');
 var logger  = require('../../config/logger.js');
-var path   = require('path');
+var path    = require('path');
+var ds      = require('nedb');
 // if you want to track ids locally uncomment below.
 /* Local ID */
-var nextId = 0;
+//var nextId = 0;
+var collection = new ds({filename: 'server/api/settings/settings.data.db', autoload: true, onload: function (err) { if(err) { logger.error('Error on load: ', err) }}});
 
-var collection = {
+/*var collection = {
     raw: {},
     instances: {}
-}
-var Setting = function(obj)
-{
+}*/
+/*var Setting = function(obj)
+{*/
     /* Preform creation logic. */
 
-  this.id = obj.id;
+/*  this.id = obj.id;
   this.name = obj.name;
   this.data = obj.data;
   this.inputType = obj.inputType;
@@ -25,10 +27,10 @@ var Setting = function(obj)
    // exports.created(obj);
 }
 Setting.prototype.update = function(obj, cb)
-{
+{*/
     /* Preform update logic */
 
-    logger.info('Setting: ', this.id, 'being updated');
+/*    logger.info('Setting: ', this.id, 'being updated');
     obj = JSON.parse(obj);
 
     this.inputType = obj.inputType;
@@ -44,20 +46,20 @@ Setting.prototype.update = function(obj, cb)
     //exports.updated(obj);
 }
 Setting.prototype.remove = function(obj)
-{
+{*/
     /* Preform remove logic. */
     //exports.removed(obj);
-}
+/*}
 Setting.prototype.save = function(cb)
-{
+{*/
    // fs.writeFile('server/scripts/pig/' + this.name + '.pig', this.data, 'utf-8', cb);
-}
-Setting.prototype.updateName = function(name, cb)
-{
+//}
+/*Setting.prototype.updateName = function(name, cb)
+{*/
    // fs.writeFile('server/scripts/pig/' + name + '.pig', this.data, 'utf-8', cb);
-}
+//}
 
-exports.save = function(cb)
+/*exports.save = function(cb)
 {
     logger.debug('writting file', collection.raw);
 
@@ -76,22 +78,100 @@ exports.load = function(cb)
             collection.raw = JSON.parse(data);
             for(var id in collection.raw)
             {
-                collection.instances[id] = new Setting(collection.raw[id]);
+                collection.instances[id] = new Setting(collection.raw[id]);*/
                 /* Local ID */
 
-                if (nextId < id)
+                /*if (nextId < id)
                 {
                     nextId = id + 1;
                 }
             }
       logger.debug('read in collection', collection);
     })
-}
-
+}*/
+/*var obj1 = {
+    "name": "es",
+    "displayName": "ElasticSearch:",
+    "data": "10.1.10.1:9000",
+    "inputType": "string",
+   
+  };
+var obj2 = {
+    "name": "udfs",
+    "displayName": "User Defined Functions (UDF):",
+    "data": [
+      {
+        "name": "test",
+        "file": ""
+      },
+      {
+        "name": "test2",
+        "file": ""
+      }
+    ],
+    "inputType": "chips",
+    
+  };
+  var obj3 = {
+    "name": "udfLocs",
+    "displayName": "UDF locations:",
+    "data": [
+      "./udf",
+      "./"
+    ],
+    "inputType": "string",
+    
+  };
+  var obj4 = {
+    "name": "pigArgs",
+    "displayName": "Pig Arguments:",
+    "data": [
+      {
+        "description": "Run mode",
+        "arg": "-x",
+        "default": "local"
+      }
+    ],
+    "inputType": "form",
+    
+  };
+collection.insert(obj1, function(err, doc)
+    {
+      logger.debug('Document Inserted: ', doc, err);
+      if(err)
+      {
+        logger.error('Error on creation: ', err)
+      }
+});
+collection.insert(obj2, function(err, doc)
+    {
+      logger.debug('Document Inserted: ', doc, err);
+      if(err)
+      {
+        logger.error('Error on creation: ', err)
+      }
+});
+collection.insert(obj3, function(err, doc)
+    {
+      logger.debug('Document Inserted: ', doc, err);
+      if(err)
+      {
+        logger.error('Error on creation: ', err)
+      }
+});
+collection.insert(obj4, function(err, doc)
+    {
+      logger.debug('Document Inserted: ', doc, err);
+      if(err)
+      {
+        logger.error('Error on creation: ', err)
+      }
+});*/
 exports.create = function(obj, cb)
 {
     /* Local ID */
-    obj.id = nextId;
+    collection.insert(JSON.parse(obj),cb);
+   /* obj.id = nextId;
     if (_.find(collection.raw, { name: obj.name}) != undefined)
     {
         setImmediate(
@@ -114,20 +194,15 @@ exports.create = function(obj, cb)
                 {
                     cb(err, obj);
                 });
-        });
+        });*/
 
     /* Local ID */
-    nextId++;
+   // nextId++;
 
 }
 exports.list = function(cb)
 {
-    setImmediate(
-        function()
-        {
-          //logger.info('collection: ', collection.raw);
-          cb(null, _.values(collection.raw));
-        });
+    collection.find({}, cb);
 }
 exports.find = function(id, cb)
 {
@@ -142,118 +217,28 @@ exports.find = function(id, cb)
 }
 exports.findByName = function(name, cb)
 {
-  var obj = _.find(collection.raw, function(o) { return o.name == name;});
-  if (_.isUndefined(obj))
-    {
-        var err = 'Id ' + name + ' was not found in Settings collection';
-        if (_.isUndefined(cb) )
-        {
-            return err;
-        }
-        else
-        {
-            setImmediate(
-                function()
-                {
-                    cb(err);
-                });
-        }
-    }
-    else
-    {
-        if (_.isUndefined(cb) )
-        {
-            return obj;
-        }
-        else
-        {
-            setImmediate(
-                function()
-                {
-                    cb(null, obj);
-                });
-        }
-    }
+  
+   collection.findOne({name: name}, cb);
 }
 exports.findById = function(id, cb)
 {
-    if (_.isUndefined(collection.raw[id]))
-    {
-        var err = 'Id ' + id + ' was not found in Settings collection';
-        if (_.isUndefined(cb) )
-        {
-            return err;
-        }
-        else
-        {
-            setImmediate(
-                function()
-                {
-                    cb(err);
-                });
-        }
-    }
-    else
-    {
-        if (_.isUndefined(cb) )
-        {
-            return collection.raw[id];
-        }
-        else
-        {
-            setImmediate(
-                function()
-                {
-                    cb(null, collection.raw[id]);
-                });
-        }
-    }
+  collection.findOne({_id: id}, cb);
 }
 exports.update = function(id, changes, cb)
 {
-  
-      if (_.isUndefined(collection.instances[id]) || _.isUndefined(collection.raw[id]))
-      {
-          setImmediate(
-              function()
-              {
-                  cb('Id ' + id + ' was not found in Settings collection');
-              });
-      }
-      else
-      {
-          var up = this;
-          logger.info('Instance of id: ', id, 'data : ', collection.instances[id], 'changes: ', changes);
-          collection.instances[id].update(changes,
-              function(err, raw)
-              {
-                  up.save(
-                      function(err)
-                      {
-                          console.log('finished saving');
-                          cb(err, raw);
-                      });
-              });
-      }
-   
-    
+  collection.update({_id: id}, JSON.parse(changes), {upsert: true}, function(err, numAffected, affectedDocuments, upsert)
+  {
+        if(err)
+          {
+            logger.error(err);
+            return cb(err);
+          }
+        logger.debug('doc: ', doc, 'Changes: ', changes, 'affected Documents: ', affectedDocuments, 'Error', err, ' num affected: ', numAffected, 'upsert: ', upsert);
+        cb(err, upsert);
+  });
 }
 exports.delete = function(id, cb)
 {
-    if (_.isUndefined(collection.instances[id]) || _.isUndefined(collection.raw[id]))
-    {
-        setImmediate(
-            function()
-            {
-                cb('Id ' + id + ' was not found in Settings collection');
-            });
-    }
-    else
-    {
-        collection.instances[id].remove();
-        delete collection.instances[id];
-        delete collection.raw[id];
-        this.save(cb);
-    }
+  collection.remove({_id: id}, cb);
 }
 

@@ -1,0 +1,4 @@
+{"name":"udfLocs","displayName":"UDF locations:","data":["./udf","./"],"inputType":"string","_id":"J5AEwn5OOerOU0IG"}
+{"name":"es","displayName":"ElasticSearch:","data":"10.1.10.1:9000","inputType":"string","_id":"QluOZAN5DFK0iJcP"}
+{"name":"pigArgs","displayName":"Pig Arguments:","data":[{"description":"Run mode","arg":"-x","default":"local"}],"inputType":"form","_id":"hMMROUbOyKCJHrlD"}
+{"name":"udfs","displayName":"User Defined Functions (UDF):","data":[{"name":"test","file":""},{"name":"test2","file":""}],"inputType":"chips","_id":"pw0cP7SJpTNhGuq4"}

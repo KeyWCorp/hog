@@ -14,16 +14,16 @@ function buildResponse (statusCode, data)
 }
 
 /* Load the objects */
-Settings.load(
+/*Settings.load(
     function(err)
     {
         logger.error('Failed to load Settings collection with error [%s]', err);
-    });
+    });*/
 
 /* Set up messages */
 exports.init = function (socket)
 {
-    logger.info('initializing pig controller')
+    logger.info('initializing settings controller')
     Settings.created = function(obj)
     {
         socket.emit('Settings:created', obj);
