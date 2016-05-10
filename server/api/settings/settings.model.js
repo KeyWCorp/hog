@@ -37,7 +37,7 @@ exports.findById = function(id, cb)
 }
 exports.update = function(id, changes, cb)
 {
-  collection.update({_id: id}, JSON.parse(changes), {upsert: true},
+  collection.update({_id: id}, JSON.parse(changes), {upsert: true, returnUpdatedDocs: true},
     function(err, numAffected, affectedDocuments, upsert)
     {
       if(err)
@@ -46,7 +46,7 @@ exports.update = function(id, changes, cb)
         return cb(err);
       }
       //logger.debug('doc: ', doc, 'Changes: ', changes, 'affected Documents: ', affectedDocuments, 'Error', err, ' num affected: ', numAffected, 'upsert: ', upsert);
-      cb(err, upsert);
+      cb(err, affectedDocuments);
     });
 }
 exports.delete = function(id, cb)

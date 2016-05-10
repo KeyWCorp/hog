@@ -22,7 +22,7 @@ exports.create = function(obj, cb)
       }
       else
       {
-        fs.writeFile('server/scripts/pig/' + doc["name"] + '.pig', doc.data, 'utf-8',
+        fs.writeFile(path.join(__dirname, '../../scripts/pig/' + doc["name"] + '.pig'), doc.data, 'utf-8',
           function(err)
           {
             if(err) { logger.error('Error on creation: ', err) }
@@ -50,7 +50,7 @@ exports.update = function(id, changes, cb)
         logger.error(err);
         return cb(err);
       }
-      collection.update({_id: id}, changes, {upsert: true},
+      collection.update({_id: id}, changes, {upsert: true, returnUpdatedDocs: true},
         function(err, numAffected, affectedDocuments, upsert)
         {
           if(err)
