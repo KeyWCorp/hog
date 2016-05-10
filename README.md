@@ -29,11 +29,23 @@ brew install git
 git config --global credential.helper osxkeychain
 ```
 
+# Installing files
+You will need to install node_modules and bower_conponents
+```
+npm install
+bower install
+```
 
-#	There are 2 files in the externals/ directory (ace.js and mode-pi_latin.js). Those need to be copied
-#	into bower_components/ace_builds/src-min-noconflicts/ directory
-#   Open a second terminal, navigate to the hog/ directory and run 'gulp'
+# Copying extra files
+```
+cp client/externals/mode-pig_latin.js client/bower_components/ace-builds/src-min-noconflict/.
+```
 
-
-# A tab in your browser will automatically open to 'localhost:9000' with the script
-# running. We find the program runs best using a Chrome web browser.
+# Running Hog
+Open a second terminal
+```
+cd /path/to/hog
+gulp
+```
+A tab in your browser will automatically open to 'localhost:9000' with the script
+running. We find the program runs best using a Chrome web browser.
