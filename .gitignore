@@ -8,3 +8,4 @@ nbproject
 **/*.log
 *.swp
 pig-parser/
+client/index.html

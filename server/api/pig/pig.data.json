@@ -15,7 +15,7 @@
   },
   "45": {
     "name": "Hog_Tracker",
-    "data": "A = LOAD 'file:///Users/kmcoxe/Documents/IPI/hog/node_modules/pig-parser/src/test.data' AS (numbers:int);\nB = GROUP A ALL;\nC = FOREACH B GENERATE SUM(A.numbers) AS count, MIN(A.numbers) as minimum;\nD = FOREACH B GENERATE MIN(A.numbers) as count, MAX(A.numbers) AS minimum;\nE = FOREACH B GENERATE SUM(A.numbers) AS count, AVG(A.numbers) AS minimum;\n\nEXPLAIN C;\nEXPLAIN D;\n\nDESCRIBE C;\nDESCRIBE D;\nDESCRIBE E;\n\nDUMP C;\nDUMP D;\nDUMP E;",
+    "data": "A = LOAD 'file:///Users/kmcoxe/Documents/IPI/hog/node_modules/pig-parser/src/test.data' AS (x:int);\nB = GROUP A ALL;\nC = FOREACH B GENERATE SUM(A.x) AS count, MIN(A.x) as minimum;\nD = FOREACH B GENERATE MIN(A.x) as count, MAX(A.x) AS minimum;\nE = FOREACH B GENERATE SUM(A.x) AS count, AVG(A.x) AS minimum;\n\nEXPLAIN C;\nEXPLAIN D;\n\nDESCRIBE C;\nDESCRIBE D;\nDESCRIBE E;\n\nDUMP C;\nDUMP D;\nDUMP E;",
     "args": [
       {
         "arg": "-x",
