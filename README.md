@@ -13,7 +13,21 @@ cp -p client/externals/mode-pig_latin.js client/bower_components/ace_builds/src-
 
 #	brew install apache piglatin
 
-#	There are 2 files in the externals/ directory (ace.js and mode-pi_latin.js). Those need to be copied 
+# Save your git credentials
+[Saving email](https://help.github.com/articles/set-up-git/) and [caching your
+password](https://help.github.com/articles/caching-your-github-password-in-git/).
+```
+git config --global user.name "YOUR NAME"
+git config --global user.email "YOUR EMAIL ADDRESS"
+
+git credential-osxkeychain
+git credential-osxkeychain
+brew install git
+git config --global credential.helper osxkeychain
+```
+
+
+#	There are 2 files in the externals/ directory (ace.js and mode-pi_latin.js). Those need to be copied
 #	into bower_components/ace_builds/src-min-noconflicts/ directory
 #   Open a second terminal, navigate to the hog/ directory and run 'gulp'
 
