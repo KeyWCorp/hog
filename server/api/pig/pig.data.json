@@ -15,7 +15,7 @@
   },
   "45": {
     "name": "Hog_Tracker",
-    "data": "A = LOAD 'file:///Users/kmcoxe/Documents/IPI/hog/node_modules/pig-parser/src/test.data' AS (numbers:int);\nB = GROUP A ALL;\nC = FOREACH B GENERATE SUM(A.numbers) AS count, MIN(A.numbers) as minimum;\nD = FOREACH B GENERATE MIN(A.numbers) as count, MAX(A.numbers) AS minimum;\nE = FOREACH B GENERATE SUM(A.numbers) AS count, AVG(A.numbers) AS minimum;\n\nEXPLAIN C;\nEXPLAIN D;\n\nDESCRIBE C;\nDESCRIBE D;\nDESCRIBE E;\n\nDUMP C;\nDUMP D;\nDUMP E;",
+    "data": "A = LOAD 'file:///home/HOG/hog/node_modules/pig-parser/src/test.data' AS (numbers:int);\nB = GROUP A ALL;\nC = FOREACH B GENERATE SUM(A.numbers) AS count, MIN(A.numbers) as minimum;\nD = FOREACH B GENERATE MIN(A.numbers) as count, MAX(A.numbers) AS minimum;\nE = FOREACH B GENERATE SUM(A.numbers) AS count, AVG(A.numbers) AS minimum;\n\nEXPLAIN C;\nEXPLAIN D;\n\nDESCRIBE C;\nDESCRIBE D;\nDESCRIBE E;\n\nDUMP C;\nDUMP D;\nDUMP E;",
     "args": [
       {
         "arg": "-x",
@@ -40,7 +40,7 @@
   },
   "451": {
     "name": "Simple_Script",
-    "data": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);\nDUMP load0;\n",
+    "data": "load0 = LOAD 'file:///home/HOG/hog/t.data' USING PigStorage(' ') AS (x:int);\nDUMP load0;\n",
     "args": [
       {
         "arg": "-x",
@@ -415,6 +415,19 @@
     ],
     "type": "simple",
     "id": 452,
+    "logs": [],
+    "output": []
+  },
+  "4521": {
+    "name": "test",
+    "data": "/*\n Author: Michael Parco (mparco)\n Date: 05/03/2016\n Company: The KeyW Corporation\n Organization: CCIS IRaD\n\n Description: Analytic to detect advanced persistent threats in network traffic. Analytic calculates the Log Likelihood Ratio of cooccurance for given A and B fields. Examples of these fields could be (srcIP,destIP), (srcPort, destPort), (srcIP, srcPort), (destIP, destPort) etc. The Mahout Math library is utilized to calculate the actual LLR, this is the only dependency on external JARS.\n Use: This analytic accepts 3 paramers dataset, A, and B field. to run input paramters as such\" pig -param dataset= -param A= -param B= SequenceStats.pig\n*/\n\n--REGISTER JARS and DEFINE functions\nREGISTER '/home/maparco/spark-analytics/jars/mahout-math-0.12.0.jar'\nREGISTER '/home/maparco/spark-analytics/jars/elasticsearch-hadoop-pig-2.2.0-rc1.jar'\nDEFINE LLR InvokeForString('org.apache.mahout.math.stats.LogLikelihood.logLikelihoodRatio', 'long long long long');\nDEFINE EsStorage org.elasticsearch.hadoop.pig.EsStorage('es.nodes=10.1.10.26','es.port=9200');\n\n--Load various data inputs from HDFS into script\n$dataset = LOAD '/in/$dataset/2016/*/*/*' USING AvroStorage();\n\n--Calculate counts for pairs and uniques\nk11 = FOREACH (GROUP $dataset BY ($A,$B)) GENERATE FLATTEN(group) AS ($A,$B), COUNT($dataset) AS k11;\nk1x = FOREACH (GROUP $dataset BY $A) GENERATE FLATTEN(group) AS $A, COUNT($dataset) AS k1x;\nkx2 = FOREACH (GROUP $dataset BY $B) GENERATE FLATTEN(group) AS $B, COUNT($dataset) AS kx2;\nkxx = FOREACH (GROUP $dataset ALL) GENERATE COUNT($dataset) AS kxx;\n\n--JOIN k11, k1x, kx2\nk11_k1x = JOIN k11 BY $A, k1x BY $A;\nk11_kx2 = JOIN k11 BY $B, kx2 BY $B;\n\n\n--Count k12 and k21\nk12 = FOREACH k11_k1x GENERATE k11::$A AS $A, k11::$B AS $B, k11::k11 AS k11, (k1x::k1x - k11::k11) AS k12;\nk21 = FOREACH k11_kx2 GENERATE k11::$A AS $A, k11::$B AS $B, k11::k11 AS k11, (kx2::kx2 - k11::k11) AS k21;\n\n--UNION kxx, k11, k12, and k21\nk11_k12_k21 = JOIN k12 BY ($A, $B), k21 BY ($A, $B);\nk11_k12_k21 = FOREACH k11_k12_k21 GENERATE k12::$A AS $A, k12::$B AS $B, k12::k11 AS k11, k12::k12 AS k12, k21::k21 AS k21;\nk11_k12_k21_kxx = CROSS k11_k12_k21, kxx;\nk11_k12_k21_kxx = FOREACH k11_k12_k21_kxx GENERATE k11_k12_k21::$A AS $A, k11_k12_k21::$B AS $B, k11_k12_k21::k11 AS k11, k11_k12_k21::k12 AS k12, k11_k12_k21::k21 AS k21, kxx::kxx AS kxx;\n\n--Count k22\nk22 = FOREACH k11_k12_k21_kxx GENERATE $A, $B, k11, k12, k21, (kxx - k11 - k12 - k21) AS k22;\n\n--Calculate LLR\nllr = FOREACH k22 GENERATE $A, $B, LLR(k11,k12,k21,k22) AS llr;\nllr = ORDER llr BY llr DESC;\n\n--STORE $A, $B, llr\ntest = LIMIT llr 25;\nDUMP test;",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "tez"
+      }
+    ],
+    "id": "4521",
     "logs": [],
     "output": []
   }

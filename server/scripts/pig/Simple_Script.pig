@@ -1,2 +1,2 @@
-load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);
+load0 = LOAD 'file:///home/HOG/hog/t.data' USING PigStorage(' ') AS (x:int);
 DUMP load0;
