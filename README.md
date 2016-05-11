@@ -2,14 +2,6 @@
 
 # To begin the progam:
 
-Clone Hog from the Gitlab repository
-```
-cd into the 'hog' directory
-npm install - if asked to make a selection, choose the version that is 'required by hog'
-bower install - if asked to make a selection, choose the verion that is 'required by hog'
-cp -p client/externals/ace.js client/bower_components/ace_builds/src-min-noconflicts/
-cp -p client/externals/mode-pig_latin.js client/bower_components/ace_builds/src-min-noconflicts/
-```
 # Install Pig, (if you have a mac)
 ```
 brew install pig
@@ -28,9 +20,15 @@ git credential-osxkeychain
 brew install git
 git config --global credential.helper osxkeychain
 ```
+# Clone Hog from the Gitlab repository
+```
+git clone https://gitlab.com/ccis-irad/hog.git
+cd hog
+```
 
 # Installing files
 You will need to install node_modules and bower_conponents
+(If prompted to choose a version choose the option that coorisponds to hog)
 ```
 npm install
 bower install
