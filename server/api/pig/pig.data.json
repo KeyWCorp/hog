@@ -419,8 +419,8 @@
     "output": []
   },
   "4521": {
-    "name": "another_test",
-    "data": "\nload0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);\ngroup2 = GROUP load0 BY y;\nsum4 = FOREACH group2 GENERATE SUM(load0.y) AS y;\nDUMP sum4;\ngroup1 = GROUP load0 BY x;\nsum3 = FOREACH group1 GENERATE SUM(load0.x) AS x;\nDUMP sum3;",
+    "name": "KevinsSimpleTest",
+    "data": "\nload0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);\ngroup1 = GROUP load0 BY x;\nsum2 = FOREACH group1 GENERATE SUM(load0.x) AS x;\nDUMP sum2;\nDUMP load0;",
     "args": [
       {
         "arg": "-x",
@@ -432,8 +432,8 @@
     "radar": false,
     "nodes": [
       {
-        "x": 267.5,
-        "y": 11.899999999999977,
+        "x": 497,
+        "y": 5.899999999999977,
         "width": 330,
         "height": 124,
         "name": "new node 0",
@@ -474,14 +474,14 @@
         "output": "load0",
         "fixed": 1,
         "index": 0,
-        "weight": 8,
-        "px": 267.5,
-        "py": 11.899999999999977,
-        "output_node": 2
+        "weight": 3,
+        "px": 497,
+        "py": 5.899999999999977,
+        "output_node": 4
       },
       {
-        "x": 21.039236314636298,
-        "y": 181.89595391501524,
+        "x": 192,
+        "y": 177.89999999999998,
         "width": 330,
         "height": 124,
         "name": "new node 1",
@@ -518,65 +518,19 @@
         "output": "group1",
         "fixed": 1,
         "index": 1,
-        "weight": 4,
-        "px": 21.039236314636298,
-        "py": 181.89595391501524,
+        "weight": 2,
+        "px": 192,
+        "py": 177.89999999999998,
         "input_node": 0,
         "input": "load0",
-        "output_node": 3
+        "output_node": 2
       },
       {
-        "x": 512.0333921984254,
-        "y": 183.23016717185118,
-        "width": 330,
-        "height": 124,
-        "name": "new node 2",
-        "category": "input",
-        "type": "group",
-        "params": [
-          {
-            "name": "type",
-            "value": "y"
-          }
-        ],
-        "script": {
-          "input_var": true,
-          "output_var": true,
-          "variables": [
-            "type"
-          ],
-          "content": "<output_variable> = GROUP <input_source> BY <type>;",
-          "output": "group2 = GROUP load0 BY y;"
-        },
-        "inputs": [
-          {
-            "label": "source",
-            "category": "input",
-            "value": "load0"
-          }
-        ],
-        "outputs": [
-          {
-            "label": "variable",
-            "value": ""
-          }
-        ],
-        "output": "group2",
-        "fixed": 1,
-        "index": 2,
-        "weight": 4,
-        "px": 512.0333921984254,
-        "py": 183.23016717185118,
-        "input_node": 0,
-        "input": "load0",
-        "output_node": 4
-      },
-      {
-        "x": 63.734350450378486,
-        "y": 364.6844976161871,
+        "x": 423,
+        "y": 368.6723388671875,
         "width": 360,
         "height": 124,
-        "name": "new node 3",
+        "name": "new node 2",
         "category": "function",
         "type": "sum",
         "params": [
@@ -592,7 +546,7 @@
             "type"
           ],
           "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-          "output": "sum3 = FOREACH group1 GENERATE SUM(load0.x) AS x;"
+          "output": "sum2 = FOREACH group1 GENERATE SUM(load0.x) AS x;"
         },
         "inputs": [
           {
@@ -612,137 +566,86 @@
             "value": ""
           }
         ],
-        "output": "sum3",
+        "output": "sum2",
         "fixed": 1,
-        "index": 3,
-        "weight": 6,
-        "px": 63.734350450378486,
-        "py": 364.6844976161871,
-        "input_node": 1,
-        "input": "group1",
-        "output_node": 5
+        "index": 2,
+        "weight": 3,
+        "px": 423,
+        "py": 368.6723388671875,
+        "input": "load0",
+        "input_node": 0,
+        "output_node": 3
       },
       {
-        "x": 446.65640855584724,
-        "y": 364.6844976161871,
-        "width": 360,
+        "x": 285.9049943655165,
+        "y": 558.6512714403013,
+        "width": 330,
         "height": 124,
-        "name": "new node 4",
-        "category": "function",
-        "type": "sum",
-        "params": [
-          {
-            "name": "type",
-            "value": "y"
-          }
-        ],
+        "name": "new node 3",
+        "category": "output",
+        "type": "dump",
+        "params": [],
         "script": {
           "input_var": true,
-          "output_var": true,
-          "variables": [
-            "type"
-          ],
-          "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-          "output": "sum4 = FOREACH group2 GENERATE SUM(load0.y) AS y;"
+          "output_var": false,
+          "variables": [],
+          "content": "DUMP <input_variable>;",
+          "output": "DUMP sum2;"
         },
         "inputs": [
           {
-            "label": "grouping",
-            "type": "group",
-            "value": "group2"
-          },
+            "label": "variable",
+            "value": "sum2"
+          }
+        ],
+        "outputs": [],
+        "output": "dump3",
+        "fixed": 1,
+        "index": 3,
+        "weight": 1,
+        "px": 285.9049943655165,
+        "py": 558.6512714403013,
+        "input_node": 2,
+        "input": "sum2"
+      },
+      {
+        "x": 700,
+        "y": 197.89999999999998,
+        "width": 330,
+        "height": 124,
+        "name": "new node 4",
+        "category": "output",
+        "type": "dump",
+        "params": [],
+        "script": {
+          "input_var": true,
+          "output_var": false,
+          "variables": [],
+          "content": "DUMP <input_variable>;",
+          "output": "DUMP load0;"
+        },
+        "inputs": [
           {
-            "label": "source",
-            "category": "input",
+            "label": "variable",
             "value": "load0"
           }
         ],
-        "outputs": [
-          {
-            "label": "variable",
-            "value": ""
-          }
-        ],
-        "output": "sum4",
+        "outputs": [],
+        "output": "dump4",
         "fixed": 1,
         "index": 4,
-        "weight": 6,
-        "px": 446.65640855584724,
-        "py": 364.6844976161871,
-        "input": "group2",
-        "input_node": 2,
-        "output_node": 6
-      },
-      {
-        "x": 26.37616563592536,
-        "y": 543.4703862880622,
-        "width": 330,
-        "height": 124,
-        "name": "new node 5",
-        "category": "output",
-        "type": "dump",
-        "params": [],
-        "script": {
-          "input_var": true,
-          "output_var": false,
-          "variables": [],
-          "content": "DUMP <input_variable>;",
-          "output": "DUMP sum3;"
-        },
-        "inputs": [
-          {
-            "label": "variable",
-            "value": "sum3"
-          }
-        ],
-        "outputs": [],
-        "output": "dump5",
-        "fixed": 1,
-        "index": 5,
-        "weight": 2,
-        "px": 26.37616563592536,
-        "py": 543.4703862880622,
-        "input_node": 3,
-        "input": "sum3"
-      },
-      {
-        "x": 459.998632676941,
-        "y": 550.1415593837653,
-        "width": 330,
-        "height": 124,
-        "name": "new node 6",
-        "category": "output",
-        "type": "dump",
-        "params": [],
-        "script": {
-          "input_var": true,
-          "output_var": false,
-          "variables": [],
-          "content": "DUMP <input_variable>;",
-          "output": "DUMP sum4;"
-        },
-        "inputs": [
-          {
-            "label": "variable",
-            "value": "sum4"
-          }
-        ],
-        "outputs": [],
-        "output": "dump6",
-        "fixed": 1,
-        "index": 6,
-        "weight": 2,
-        "px": 459.998632676941,
-        "py": 550.1415593837653,
-        "input_node": 4,
-        "input": "sum4"
+        "weight": 1,
+        "px": 700,
+        "py": 197.89999999999998,
+        "input_node": 0,
+        "input": "load0"
       }
     ],
     "links": [
       {
         "source": {
-          "x": 267.5,
-          "y": 11.899999999999977,
+          "x": 497,
+          "y": 5.899999999999977,
           "width": 330,
           "height": 124,
           "name": "new node 0",
@@ -783,411 +686,14 @@
           "output": "load0",
           "fixed": 1,
           "index": 0,
-          "weight": 8,
-          "px": 267.5,
-          "py": 11.899999999999977,
-          "output_node": 2
-        },
-        "target": {
-          "x": 512.0333921984254,
-          "y": 183.23016717185118,
-          "width": 330,
-          "height": 124,
-          "name": "new node 2",
-          "category": "input",
-          "type": "group",
-          "params": [
-            {
-              "name": "type",
-              "value": "y"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = GROUP <input_source> BY <type>;",
-            "output": "group2 = GROUP load0 BY y;"
-          },
-          "inputs": [
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "group2",
-          "fixed": 1,
-          "index": 2,
-          "weight": 4,
-          "px": 512.0333921984254,
-          "py": 183.23016717185118,
-          "input_node": 0,
-          "input": "load0",
-          "output_node": 4
-        }
-      },
-      {
-        "source": {
-          "x": 267.5,
-          "y": 11.899999999999977,
-          "width": 330,
-          "height": 124,
-          "name": "new node 0",
-          "category": "input",
-          "type": "load",
-          "params": [
-            {
-              "name": "source",
-              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
-            },
-            {
-              "name": "format",
-              "value": "(x:int, y:int)"
-            },
-            {
-              "name": "seperator",
-              "value": " "
-            }
-          ],
-          "script": {
-            "input_var": false,
-            "output_var": true,
-            "variables": [
-              "source",
-              "format",
-              "seperator"
-            ],
-            "content": "<output_variable> = LOAD '<source>' USING PigStorage('<seperator>') AS <format>;",
-            "output": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);"
-          },
-          "inputs": [],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "load0",
-          "fixed": 1,
-          "index": 0,
-          "weight": 8,
-          "px": 267.5,
-          "py": 11.899999999999977,
-          "output_node": 2
-        },
-        "target": {
-          "x": 446.65640855584724,
-          "y": 364.6844976161871,
-          "width": 360,
-          "height": 124,
-          "name": "new node 4",
-          "category": "function",
-          "type": "sum",
-          "params": [
-            {
-              "name": "type",
-              "value": "y"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-            "output": "sum4 = FOREACH group2 GENERATE SUM(load0.y) AS y;"
-          },
-          "inputs": [
-            {
-              "label": "grouping",
-              "type": "group",
-              "value": "group2"
-            },
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "sum4",
-          "fixed": 1,
-          "index": 4,
-          "weight": 6,
-          "px": 446.65640855584724,
-          "py": 364.6844976161871,
-          "input": "group2",
-          "input_node": 2,
-          "output_node": 6
-        }
-      },
-      {
-        "source": {
-          "x": 512.0333921984254,
-          "y": 183.23016717185118,
-          "width": 330,
-          "height": 124,
-          "name": "new node 2",
-          "category": "input",
-          "type": "group",
-          "params": [
-            {
-              "name": "type",
-              "value": "y"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = GROUP <input_source> BY <type>;",
-            "output": "group2 = GROUP load0 BY y;"
-          },
-          "inputs": [
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "group2",
-          "fixed": 1,
-          "index": 2,
-          "weight": 4,
-          "px": 512.0333921984254,
-          "py": 183.23016717185118,
-          "input_node": 0,
-          "input": "load0",
+          "weight": 3,
+          "px": 497,
+          "py": 5.899999999999977,
           "output_node": 4
         },
         "target": {
-          "x": 446.65640855584724,
-          "y": 364.6844976161871,
-          "width": 360,
-          "height": 124,
-          "name": "new node 4",
-          "category": "function",
-          "type": "sum",
-          "params": [
-            {
-              "name": "type",
-              "value": "y"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-            "output": "sum4 = FOREACH group2 GENERATE SUM(load0.y) AS y;"
-          },
-          "inputs": [
-            {
-              "label": "grouping",
-              "type": "group",
-              "value": "group2"
-            },
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "sum4",
-          "fixed": 1,
-          "index": 4,
-          "weight": 6,
-          "px": 446.65640855584724,
-          "py": 364.6844976161871,
-          "input": "group2",
-          "input_node": 2,
-          "output_node": 6
-        }
-      },
-      {
-        "source": {
-          "x": 267.5,
-          "y": 11.899999999999977,
-          "width": 330,
-          "height": 124,
-          "name": "new node 0",
-          "category": "input",
-          "type": "load",
-          "params": [
-            {
-              "name": "source",
-              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
-            },
-            {
-              "name": "format",
-              "value": "(x:int, y:int)"
-            },
-            {
-              "name": "seperator",
-              "value": " "
-            }
-          ],
-          "script": {
-            "input_var": false,
-            "output_var": true,
-            "variables": [
-              "source",
-              "format",
-              "seperator"
-            ],
-            "content": "<output_variable> = LOAD '<source>' USING PigStorage('<seperator>') AS <format>;",
-            "output": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);"
-          },
-          "inputs": [],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "load0",
-          "fixed": 1,
-          "index": 0,
-          "weight": 8,
-          "px": 267.5,
-          "py": 11.899999999999977,
-          "output_node": 2
-        },
-        "target": {
-          "x": 63.734350450378486,
-          "y": 364.6844976161871,
-          "width": 360,
-          "height": 124,
-          "name": "new node 3",
-          "category": "function",
-          "type": "sum",
-          "params": [
-            {
-              "name": "type",
-              "value": "x"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-            "output": "sum3 = FOREACH group1 GENERATE SUM(load0.x) AS x;"
-          },
-          "inputs": [
-            {
-              "label": "grouping",
-              "type": "group",
-              "value": "group1"
-            },
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "sum3",
-          "fixed": 1,
-          "index": 3,
-          "weight": 6,
-          "px": 63.734350450378486,
-          "py": 364.6844976161871,
-          "input_node": 1,
-          "input": "group1",
-          "output_node": 5
-        }
-      },
-      {
-        "source": {
-          "x": 267.5,
-          "y": 11.899999999999977,
-          "width": 330,
-          "height": 124,
-          "name": "new node 0",
-          "category": "input",
-          "type": "load",
-          "params": [
-            {
-              "name": "source",
-              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
-            },
-            {
-              "name": "format",
-              "value": "(x:int, y:int)"
-            },
-            {
-              "name": "seperator",
-              "value": " "
-            }
-          ],
-          "script": {
-            "input_var": false,
-            "output_var": true,
-            "variables": [
-              "source",
-              "format",
-              "seperator"
-            ],
-            "content": "<output_variable> = LOAD '<source>' USING PigStorage('<seperator>') AS <format>;",
-            "output": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);"
-          },
-          "inputs": [],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "load0",
-          "fixed": 1,
-          "index": 0,
-          "weight": 8,
-          "px": 267.5,
-          "py": 11.899999999999977,
-          "output_node": 2
-        },
-        "target": {
-          "x": 21.039236314636298,
-          "y": 181.89595391501524,
+          "x": 192,
+          "y": 177.89999999999998,
           "width": 330,
           "height": 124,
           "name": "new node 1",
@@ -1224,386 +730,12 @@
           "output": "group1",
           "fixed": 1,
           "index": 1,
-          "weight": 4,
-          "px": 21.039236314636298,
-          "py": 181.89595391501524,
-          "input_node": 0,
-          "input": "load0",
-          "output_node": 3
-        }
-      },
-      {
-        "source": {
-          "x": 21.039236314636298,
-          "y": 181.89595391501524,
-          "width": 330,
-          "height": 124,
-          "name": "new node 1",
-          "category": "input",
-          "type": "group",
-          "params": [
-            {
-              "name": "type",
-              "value": "x"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = GROUP <input_source> BY <type>;",
-            "output": "group1 = GROUP load0 BY x;"
-          },
-          "inputs": [
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "group1",
-          "fixed": 1,
-          "index": 1,
-          "weight": 4,
-          "px": 21.039236314636298,
-          "py": 181.89595391501524,
-          "input_node": 0,
-          "input": "load0",
-          "output_node": 3
-        },
-        "target": {
-          "x": 63.734350450378486,
-          "y": 364.6844976161871,
-          "width": 360,
-          "height": 124,
-          "name": "new node 3",
-          "category": "function",
-          "type": "sum",
-          "params": [
-            {
-              "name": "type",
-              "value": "x"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-            "output": "sum3 = FOREACH group1 GENERATE SUM(load0.x) AS x;"
-          },
-          "inputs": [
-            {
-              "label": "grouping",
-              "type": "group",
-              "value": "group1"
-            },
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "sum3",
-          "fixed": 1,
-          "index": 3,
-          "weight": 6,
-          "px": 63.734350450378486,
-          "py": 364.6844976161871,
-          "input_node": 1,
-          "input": "group1",
-          "output_node": 5
-        }
-      },
-      {
-        "source": {
-          "x": 63.734350450378486,
-          "y": 364.6844976161871,
-          "width": 360,
-          "height": 124,
-          "name": "new node 3",
-          "category": "function",
-          "type": "sum",
-          "params": [
-            {
-              "name": "type",
-              "value": "x"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-            "output": "sum3 = FOREACH group1 GENERATE SUM(load0.x) AS x;"
-          },
-          "inputs": [
-            {
-              "label": "grouping",
-              "type": "group",
-              "value": "group1"
-            },
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "sum3",
-          "fixed": 1,
-          "index": 3,
-          "weight": 6,
-          "px": 63.734350450378486,
-          "py": 364.6844976161871,
-          "input_node": 1,
-          "input": "group1",
-          "output_node": 5
-        },
-        "target": {
-          "x": 26.37616563592536,
-          "y": 543.4703862880622,
-          "width": 330,
-          "height": 124,
-          "name": "new node 5",
-          "category": "output",
-          "type": "dump",
-          "params": [],
-          "script": {
-            "input_var": true,
-            "output_var": false,
-            "variables": [],
-            "content": "DUMP <input_variable>;",
-            "output": "DUMP sum3;"
-          },
-          "inputs": [
-            {
-              "label": "variable",
-              "value": "sum3"
-            }
-          ],
-          "outputs": [],
-          "output": "dump5",
-          "fixed": 1,
-          "index": 5,
           "weight": 2,
-          "px": 26.37616563592536,
-          "py": 543.4703862880622,
-          "input_node": 3,
-          "input": "sum3"
-        }
-      },
-      {
-        "source": {
-          "x": 446.65640855584724,
-          "y": 364.6844976161871,
-          "width": 360,
-          "height": 124,
-          "name": "new node 4",
-          "category": "function",
-          "type": "sum",
-          "params": [
-            {
-              "name": "type",
-              "value": "y"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-            "output": "sum4 = FOREACH group2 GENERATE SUM(load0.y) AS y;"
-          },
-          "inputs": [
-            {
-              "label": "grouping",
-              "type": "group",
-              "value": "group2"
-            },
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "sum4",
-          "fixed": 1,
-          "index": 4,
-          "weight": 6,
-          "px": 446.65640855584724,
-          "py": 364.6844976161871,
-          "input": "group2",
-          "input_node": 2,
-          "output_node": 6
-        },
-        "target": {
-          "x": 459.998632676941,
-          "y": 550.1415593837653,
-          "width": 330,
-          "height": 124,
-          "name": "new node 6",
-          "category": "output",
-          "type": "dump",
-          "params": [],
-          "script": {
-            "input_var": true,
-            "output_var": false,
-            "variables": [],
-            "content": "DUMP <input_variable>;",
-            "output": "DUMP sum4;"
-          },
-          "inputs": [
-            {
-              "label": "variable",
-              "value": "sum4"
-            }
-          ],
-          "outputs": [],
-          "output": "dump6",
-          "fixed": 1,
-          "index": 6,
-          "weight": 2,
-          "px": 459.998632676941,
-          "py": 550.1415593837653,
-          "input_node": 4,
-          "input": "sum4"
-        }
-      },
-      {
-        "source": {
-          "x": 267.5,
-          "y": 11.899999999999977,
-          "width": 330,
-          "height": 124,
-          "name": "new node 0",
-          "category": "input",
-          "type": "load",
-          "params": [
-            {
-              "name": "source",
-              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
-            },
-            {
-              "name": "format",
-              "value": "(x:int, y:int)"
-            },
-            {
-              "name": "seperator",
-              "value": " "
-            }
-          ],
-          "script": {
-            "input_var": false,
-            "output_var": true,
-            "variables": [
-              "source",
-              "format",
-              "seperator"
-            ],
-            "content": "<output_variable> = LOAD '<source>' USING PigStorage('<seperator>') AS <format>;",
-            "output": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);"
-          },
-          "inputs": [],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "load0",
-          "fixed": 1,
-          "index": 0,
-          "weight": 8,
-          "px": 267.5,
-          "py": 11.899999999999977,
-          "output_node": 2
-        },
-        "target": {
-          "x": 21.039236314636298,
-          "y": 181.89595391501524,
-          "width": 330,
-          "height": 124,
-          "name": "new node 1",
-          "category": "input",
-          "type": "group",
-          "params": [
-            {
-              "name": "type",
-              "value": "x"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = GROUP <input_source> BY <type>;",
-            "output": "group1 = GROUP load0 BY x;"
-          },
-          "inputs": [
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "group1",
-          "fixed": 1,
-          "index": 1,
-          "weight": 4,
-          "px": 21.039236314636298,
-          "py": 181.89595391501524,
+          "px": 192,
+          "py": 177.89999999999998,
           "input_node": 0,
           "input": "load0",
-          "output_node": 3
-        },
-        "output_data": {
-          "label": "variable",
-          "value": ""
-        },
-        "input_data": {
-          "label": "source",
-          "category": "input",
-          "value": "load0"
+          "output_node": 2
         },
         "x1": 165,
         "y1": 124,
@@ -1612,457 +744,8 @@
       },
       {
         "source": {
-          "x": 267.5,
-          "y": 11.899999999999977,
-          "width": 330,
-          "height": 124,
-          "name": "new node 0",
-          "category": "input",
-          "type": "load",
-          "params": [
-            {
-              "name": "source",
-              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
-            },
-            {
-              "name": "format",
-              "value": "(x:int, y:int)"
-            },
-            {
-              "name": "seperator",
-              "value": " "
-            }
-          ],
-          "script": {
-            "input_var": false,
-            "output_var": true,
-            "variables": [
-              "source",
-              "format",
-              "seperator"
-            ],
-            "content": "<output_variable> = LOAD '<source>' USING PigStorage('<seperator>') AS <format>;",
-            "output": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);"
-          },
-          "inputs": [],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "load0",
-          "fixed": 1,
-          "index": 0,
-          "weight": 8,
-          "px": 267.5,
-          "py": 11.899999999999977,
-          "output_node": 2
-        },
-        "target": {
-          "x": 63.734350450378486,
-          "y": 364.6844976161871,
-          "width": 360,
-          "height": 124,
-          "name": "new node 3",
-          "category": "function",
-          "type": "sum",
-          "params": [
-            {
-              "name": "type",
-              "value": "x"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-            "output": "sum3 = FOREACH group1 GENERATE SUM(load0.x) AS x;"
-          },
-          "inputs": [
-            {
-              "label": "grouping",
-              "type": "group",
-              "value": "group1"
-            },
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "sum3",
-          "fixed": 1,
-          "index": 3,
-          "weight": 6,
-          "px": 63.734350450378486,
-          "py": 364.6844976161871,
-          "input_node": 1,
-          "input": "group1",
-          "output_node": 5
-        },
-        "output_data": {
-          "label": "variable",
-          "value": ""
-        },
-        "input_data": {
-          "label": "source",
-          "category": "input",
-          "value": "load0"
-        },
-        "x1": 165,
-        "y1": 124,
-        "x2": 192.5,
-        "y2": 0
-      },
-      {
-        "source": {
-          "x": 267.5,
-          "y": 11.899999999999977,
-          "width": 330,
-          "height": 124,
-          "name": "new node 0",
-          "category": "input",
-          "type": "load",
-          "params": [
-            {
-              "name": "source",
-              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
-            },
-            {
-              "name": "format",
-              "value": "(x:int, y:int)"
-            },
-            {
-              "name": "seperator",
-              "value": " "
-            }
-          ],
-          "script": {
-            "input_var": false,
-            "output_var": true,
-            "variables": [
-              "source",
-              "format",
-              "seperator"
-            ],
-            "content": "<output_variable> = LOAD '<source>' USING PigStorage('<seperator>') AS <format>;",
-            "output": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);"
-          },
-          "inputs": [],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "load0",
-          "fixed": 1,
-          "index": 0,
-          "weight": 8,
-          "px": 267.5,
-          "py": 11.899999999999977,
-          "output_node": 2
-        },
-        "target": {
-          "x": 446.65640855584724,
-          "y": 364.6844976161871,
-          "width": 360,
-          "height": 124,
-          "name": "new node 4",
-          "category": "function",
-          "type": "sum",
-          "params": [
-            {
-              "name": "type",
-              "value": "y"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-            "output": "sum4 = FOREACH group2 GENERATE SUM(load0.y) AS y;"
-          },
-          "inputs": [
-            {
-              "label": "grouping",
-              "type": "group",
-              "value": "group2"
-            },
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "sum4",
-          "fixed": 1,
-          "index": 4,
-          "weight": 6,
-          "px": 446.65640855584724,
-          "py": 364.6844976161871,
-          "input": "group2",
-          "input_node": 2,
-          "output_node": 6
-        },
-        "output_data": {
-          "label": "variable",
-          "value": ""
-        },
-        "input_data": {
-          "label": "source",
-          "category": "input",
-          "value": "load0"
-        },
-        "x1": 165,
-        "y1": 124,
-        "x2": 192.50000000000006,
-        "y2": 0
-      },
-      {
-        "source": {
-          "x": 267.5,
-          "y": 11.899999999999977,
-          "width": 330,
-          "height": 124,
-          "name": "new node 0",
-          "category": "input",
-          "type": "load",
-          "params": [
-            {
-              "name": "source",
-              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
-            },
-            {
-              "name": "format",
-              "value": "(x:int, y:int)"
-            },
-            {
-              "name": "seperator",
-              "value": " "
-            }
-          ],
-          "script": {
-            "input_var": false,
-            "output_var": true,
-            "variables": [
-              "source",
-              "format",
-              "seperator"
-            ],
-            "content": "<output_variable> = LOAD '<source>' USING PigStorage('<seperator>') AS <format>;",
-            "output": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);"
-          },
-          "inputs": [],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "load0",
-          "fixed": 1,
-          "index": 0,
-          "weight": 8,
-          "px": 267.5,
-          "py": 11.899999999999977,
-          "output_node": 2
-        },
-        "target": {
-          "x": 512.0333921984254,
-          "y": 183.23016717185118,
-          "width": 330,
-          "height": 124,
-          "name": "new node 2",
-          "category": "input",
-          "type": "group",
-          "params": [
-            {
-              "name": "type",
-              "value": "y"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = GROUP <input_source> BY <type>;",
-            "output": "group2 = GROUP load0 BY y;"
-          },
-          "inputs": [
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "group2",
-          "fixed": 1,
-          "index": 2,
-          "weight": 4,
-          "px": 512.0333921984254,
-          "py": 183.23016717185118,
-          "input_node": 0,
-          "input": "load0",
-          "output_node": 4
-        },
-        "output_data": {
-          "label": "variable",
-          "value": ""
-        },
-        "input_data": {
-          "label": "source",
-          "category": "input",
-          "value": "load0"
-        },
-        "x1": 165,
-        "y1": 124,
-        "x2": 165,
-        "y2": 0
-      },
-      {
-        "source": {
-          "x": 512.0333921984254,
-          "y": 183.23016717185118,
-          "width": 330,
-          "height": 124,
-          "name": "new node 2",
-          "category": "input",
-          "type": "group",
-          "params": [
-            {
-              "name": "type",
-              "value": "y"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = GROUP <input_source> BY <type>;",
-            "output": "group2 = GROUP load0 BY y;"
-          },
-          "inputs": [
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "group2",
-          "fixed": 1,
-          "index": 2,
-          "weight": 4,
-          "px": 512.0333921984254,
-          "py": 183.23016717185118,
-          "input_node": 0,
-          "input": "load0",
-          "output_node": 4
-        },
-        "target": {
-          "x": 446.65640855584724,
-          "y": 364.6844976161871,
-          "width": 360,
-          "height": 124,
-          "name": "new node 4",
-          "category": "function",
-          "type": "sum",
-          "params": [
-            {
-              "name": "type",
-              "value": "y"
-            }
-          ],
-          "script": {
-            "input_var": true,
-            "output_var": true,
-            "variables": [
-              "type"
-            ],
-            "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-            "output": "sum4 = FOREACH group2 GENERATE SUM(load0.y) AS y;"
-          },
-          "inputs": [
-            {
-              "label": "grouping",
-              "type": "group",
-              "value": "group2"
-            },
-            {
-              "label": "source",
-              "category": "input",
-              "value": "load0"
-            }
-          ],
-          "outputs": [
-            {
-              "label": "variable",
-              "value": ""
-            }
-          ],
-          "output": "sum4",
-          "fixed": 1,
-          "index": 4,
-          "weight": 6,
-          "px": 446.65640855584724,
-          "py": 364.6844976161871,
-          "input": "group2",
-          "input_node": 2,
-          "output_node": 6
-        },
-        "output_data": {
-          "label": "variable",
-          "value": ""
-        },
-        "input_data": {
-          "label": "grouping",
-          "type": "group",
-          "value": "group2"
-        },
-        "x1": 165,
-        "y1": 124,
-        "x2": 167.50000000000006,
-        "y2": 0
-      },
-      {
-        "source": {
-          "x": 21.039236314636298,
-          "y": 181.89595391501524,
+          "x": 192,
+          "y": 177.89999999999998,
           "width": 330,
           "height": 124,
           "name": "new node 1",
@@ -2099,19 +782,19 @@
           "output": "group1",
           "fixed": 1,
           "index": 1,
-          "weight": 4,
-          "px": 21.039236314636298,
-          "py": 181.89595391501524,
+          "weight": 2,
+          "px": 192,
+          "py": 177.89999999999998,
           "input_node": 0,
           "input": "load0",
-          "output_node": 3
+          "output_node": 2
         },
         "target": {
-          "x": 63.734350450378486,
-          "y": 364.6844976161871,
+          "x": 423,
+          "y": 368.6723388671875,
           "width": 360,
           "height": 124,
-          "name": "new node 3",
+          "name": "new node 2",
           "category": "function",
           "type": "sum",
           "params": [
@@ -2127,7 +810,7 @@
               "type"
             ],
             "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-            "output": "sum3 = FOREACH group1 GENERATE SUM(load0.x) AS x;"
+            "output": "sum2 = FOREACH group1 GENERATE SUM(load0.x) AS x;"
           },
           "inputs": [
             {
@@ -2147,24 +830,15 @@
               "value": ""
             }
           ],
-          "output": "sum3",
+          "output": "sum2",
           "fixed": 1,
-          "index": 3,
-          "weight": 6,
-          "px": 63.734350450378486,
-          "py": 364.6844976161871,
-          "input_node": 1,
-          "input": "group1",
-          "output_node": 5
-        },
-        "output_data": {
-          "label": "variable",
-          "value": ""
-        },
-        "input_data": {
-          "label": "grouping",
-          "type": "group",
-          "value": "group1"
+          "index": 2,
+          "weight": 3,
+          "px": 423,
+          "py": 368.6723388671875,
+          "input": "load0",
+          "input_node": 0,
+          "output_node": 3
         },
         "x1": 165,
         "y1": 124,
@@ -2173,11 +847,59 @@
       },
       {
         "source": {
-          "x": 63.734350450378486,
-          "y": 364.6844976161871,
+          "x": 497,
+          "y": 5.899999999999977,
+          "width": 330,
+          "height": 124,
+          "name": "new node 0",
+          "category": "input",
+          "type": "load",
+          "params": [
+            {
+              "name": "source",
+              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
+            },
+            {
+              "name": "format",
+              "value": "(x:int, y:int)"
+            },
+            {
+              "name": "seperator",
+              "value": " "
+            }
+          ],
+          "script": {
+            "input_var": false,
+            "output_var": true,
+            "variables": [
+              "source",
+              "format",
+              "seperator"
+            ],
+            "content": "<output_variable> = LOAD '<source>' USING PigStorage('<seperator>') AS <format>;",
+            "output": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "label": "variable",
+              "value": ""
+            }
+          ],
+          "output": "load0",
+          "fixed": 1,
+          "index": 0,
+          "weight": 3,
+          "px": 497,
+          "py": 5.899999999999977,
+          "output_node": 4
+        },
+        "target": {
+          "x": 423,
+          "y": 368.6723388671875,
           "width": 360,
           "height": 124,
-          "name": "new node 3",
+          "name": "new node 2",
           "category": "function",
           "type": "sum",
           "params": [
@@ -2193,7 +915,7 @@
               "type"
             ],
             "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-            "output": "sum3 = FOREACH group1 GENERATE SUM(load0.x) AS x;"
+            "output": "sum2 = FOREACH group1 GENERATE SUM(load0.x) AS x;"
           },
           "inputs": [
             {
@@ -2213,74 +935,34 @@
               "value": ""
             }
           ],
-          "output": "sum3",
+          "output": "sum2",
           "fixed": 1,
-          "index": 3,
-          "weight": 6,
-          "px": 63.734350450378486,
-          "py": 364.6844976161871,
-          "input_node": 1,
-          "input": "group1",
-          "output_node": 5
+          "index": 2,
+          "weight": 3,
+          "px": 423,
+          "py": 368.6723388671875,
+          "input": "load0",
+          "input_node": 0,
+          "output_node": 3
         },
-        "target": {
-          "x": 26.37616563592536,
-          "y": 543.4703862880622,
-          "width": 330,
-          "height": 124,
-          "name": "new node 5",
-          "category": "output",
-          "type": "dump",
-          "params": [],
-          "script": {
-            "input_var": true,
-            "output_var": false,
-            "variables": [],
-            "content": "DUMP <input_variable>;",
-            "output": "DUMP sum3;"
-          },
-          "inputs": [
-            {
-              "label": "variable",
-              "value": "sum3"
-            }
-          ],
-          "outputs": [],
-          "output": "dump5",
-          "fixed": 1,
-          "index": 5,
-          "weight": 2,
-          "px": 26.37616563592536,
-          "py": 543.4703862880622,
-          "input_node": 3,
-          "input": "sum3"
-        },
-        "output_data": {
-          "label": "variable",
-          "value": ""
-        },
-        "input_data": {
-          "label": "variable",
-          "value": "sum3"
-        },
-        "x1": 180,
+        "x1": 165,
         "y1": 124,
-        "x2": 165,
+        "x2": 192.5,
         "y2": 0
       },
       {
         "source": {
-          "x": 446.65640855584724,
-          "y": 364.6844976161871,
+          "x": 423,
+          "y": 368.6723388671875,
           "width": 360,
           "height": 124,
-          "name": "new node 4",
+          "name": "new node 2",
           "category": "function",
           "type": "sum",
           "params": [
             {
               "name": "type",
-              "value": "y"
+              "value": "x"
             }
           ],
           "script": {
@@ -2290,13 +972,13 @@
               "type"
             ],
             "content": "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;",
-            "output": "sum4 = FOREACH group2 GENERATE SUM(load0.y) AS y;"
+            "output": "sum2 = FOREACH group1 GENERATE SUM(load0.x) AS x;"
           },
           "inputs": [
             {
               "label": "grouping",
               "type": "group",
-              "value": "group2"
+              "value": "group1"
             },
             {
               "label": "source",
@@ -2310,22 +992,22 @@
               "value": ""
             }
           ],
-          "output": "sum4",
+          "output": "sum2",
           "fixed": 1,
-          "index": 4,
-          "weight": 6,
-          "px": 446.65640855584724,
-          "py": 364.6844976161871,
-          "input": "group2",
-          "input_node": 2,
-          "output_node": 6
+          "index": 2,
+          "weight": 3,
+          "px": 423,
+          "py": 368.6723388671875,
+          "input": "load0",
+          "input_node": 0,
+          "output_node": 3
         },
         "target": {
-          "x": 459.998632676941,
-          "y": 550.1415593837653,
+          "x": 285.9049943655165,
+          "y": 558.6512714403013,
           "width": 330,
           "height": 124,
-          "name": "new node 6",
+          "name": "new node 3",
           "category": "output",
           "type": "dump",
           "params": [],
@@ -2334,23 +1016,109 @@
             "output_var": false,
             "variables": [],
             "content": "DUMP <input_variable>;",
-            "output": "DUMP sum4;"
+            "output": "DUMP sum2;"
           },
           "inputs": [
             {
               "label": "variable",
-              "value": "sum4"
+              "value": "sum2"
             }
           ],
           "outputs": [],
-          "output": "dump6",
+          "output": "dump3",
           "fixed": 1,
-          "index": 6,
-          "weight": 2,
-          "px": 459.998632676941,
-          "py": 550.1415593837653,
-          "input_node": 4,
-          "input": "sum4"
+          "index": 3,
+          "weight": 1,
+          "px": 285.9049943655165,
+          "py": 558.6512714403013,
+          "input_node": 2,
+          "input": "sum2"
+        },
+        "x1": 180,
+        "y1": 124,
+        "x2": 165,
+        "y2": 0
+      },
+      {
+        "source": {
+          "x": 497,
+          "y": 5.899999999999977,
+          "width": 330,
+          "height": 124,
+          "name": "new node 0",
+          "category": "input",
+          "type": "load",
+          "params": [
+            {
+              "name": "source",
+              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
+            },
+            {
+              "name": "format",
+              "value": "(x:int, y:int)"
+            },
+            {
+              "name": "seperator",
+              "value": " "
+            }
+          ],
+          "script": {
+            "input_var": false,
+            "output_var": true,
+            "variables": [
+              "source",
+              "format",
+              "seperator"
+            ],
+            "content": "<output_variable> = LOAD '<source>' USING PigStorage('<seperator>') AS <format>;",
+            "output": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "label": "variable",
+              "value": ""
+            }
+          ],
+          "output": "load0",
+          "fixed": 1,
+          "index": 0,
+          "weight": 3,
+          "px": 497,
+          "py": 5.899999999999977,
+          "output_node": 4
+        },
+        "target": {
+          "x": 700,
+          "y": 197.89999999999998,
+          "width": 330,
+          "height": 124,
+          "name": "new node 4",
+          "category": "output",
+          "type": "dump",
+          "params": [],
+          "script": {
+            "input_var": true,
+            "output_var": false,
+            "variables": [],
+            "content": "DUMP <input_variable>;",
+            "output": "DUMP load0;"
+          },
+          "inputs": [
+            {
+              "label": "variable",
+              "value": "load0"
+            }
+          ],
+          "outputs": [],
+          "output": "dump4",
+          "fixed": 1,
+          "index": 4,
+          "weight": 1,
+          "px": 700,
+          "py": 197.89999999999998,
+          "input_node": 0,
+          "input": "load0"
         },
         "output_data": {
           "label": "variable",
@@ -2358,11 +1126,11 @@
         },
         "input_data": {
           "label": "variable",
-          "value": "sum4"
+          "value": "load0"
         },
-        "x1": 180.00000000000006,
+        "x1": 165,
         "y1": 124,
-        "x2": 165.00000000000006,
+        "x2": 165,
         "y2": 0
       }
     ],

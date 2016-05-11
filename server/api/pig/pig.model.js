@@ -243,11 +243,11 @@ exports.run = function(id, stdoutCB, stderrCB, errCB, trackerCB, finishedCB)
     nArg = _.flatten(nArg);
     //nArg = [];
     var script_location = path.join(__dirname, '../../',  'scripts/pig/', collection.instances[id].name +  '.pig');
-    nArg.push(script_location);
+    //nArg.push(script_location);
     logger.debug('Args: ', JSON.stringify(nArg));
 
     //pigParser.runForOutput(script_location, stdoutCB, stderrCB, stderrCB);
-    pigParser.trackTasks(script_location, stdoutCB, stderrCB, stderrCB, trackerCB, finishedCB);
+    pigParser.trackTasks(nArg, script_location, stdoutCB, stderrCB, stderrCB, trackerCB, finishedCB);
 
   }
 };
