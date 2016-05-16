@@ -14,11 +14,11 @@ function buildResponse (statusCode, data)
 }
 
 /* Load the objects */
-  Pig.load(
+ /* Pig.load(
       function(err)
       {
         logger.error('Failed to load Pig collection with error [%s]', err);
-      });
+      });*/
 
 /* Set up messages */
 exports.init = function (socket)
