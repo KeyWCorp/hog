@@ -276,14 +276,13 @@ angular.module('hog')
           vm.script.line = false;
           vm.script.radar = true;
         }
-        console.log('SCRPIT ' + JSON.stringify(vm.script));
 
         Runner.update(vm.script)
           .then(
               function(data)
               {
-                console.log( ' iN RUNNER SAVE EDIT Controller')
-                  console.log(JSON.stringify( data));
+                console.log( ' iN RUNNER SAVE EDIT Controller');
+                console.log(JSON.stringify( data));
                 $log.debug('saved: ' + data);
               },
               function(err)
@@ -306,7 +305,7 @@ angular.module('hog')
 
         $log.debug('running: ', vm.script._id);
         vm.log = [];
-        Runner.run(vm.script._id)
+        Runner.runAndTrack(vm.script._id)
           .then(
               function(out)
               {

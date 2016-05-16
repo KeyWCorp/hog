@@ -41,20 +41,6 @@ function run(input_args, script_location, stdOut, stdError, stdLog, finishedCall
           {
             stdOut(data)
           }
-          //if (re)
-          //{
-          //  var match = data.match(re);
-          //  if (match)
-          //  {
-          //    var tmp_output = {};
-          //    for (var i = 1; i < match.length; i++)
-          //    {
-          //      tmp_output[variable_info.matches[i - 1].label] = match[i];
-          //    }
-          //    stdOut(tmp_output);
-          //    output_list.push(tmp_output);
-          //  }
-          //}
         });
     });
 
@@ -86,48 +72,6 @@ function run(input_args, script_location, stdOut, stdError, stdLog, finishedCall
             if (info_match)
             {
               stdLog(data);
-
-              //if (task_list)
-              //{
-              //  var task_match = data.match(task_re);
-              //  if (task_match)
-              //  {
-              //    var task_name = task_match[6];
-              //    var task_status = task_match[7];
-              //    var map_match = task_name.match(/((?:[a-zA-Z]|\d|\.)+\.MapReduceLauncher)/);
-              //    var tmp_status = "pending";
-              //    var task_percent;
-              //    if (task_status.match(/\s*(?:success|complete|fail|%)\s*/i))
-              //    {
-              //      if (task_status.match(/\%/))
-              //      {
-              //        var percentage_match = task_status.match(/(\d{1,3})\%[\s\S]*/);
-              //        task_percent = Number(percentage_match[1])
-              //        tmp_status = "RUNNING";
-              //      }
-              //      else if (task_status.match(/(?:success|complete)/i))
-              //      {
-              //        tmp_status = "FINISHED";
-              //      }
-              //      else
-              //      {
-              //        tmp_status = "FAILED";
-              //      }
-              //      task_list.forEach(
-              //        function (task_item, i)
-              //        {
-              //          if (task_item.variable == variable_info.variable)
-              //          {
-              //            var t = task_item;
-              //            t.status = tmp_status;
-              //            t.percentage = task_percent;
-              //            task_list[i] = t;
-              //          }
-              //        });
-              //      taskTracker(task_list);
-              //    }
-              //  }
-              //}
             }
 
           }

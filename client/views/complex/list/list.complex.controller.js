@@ -29,7 +29,7 @@ angular.module('hog')
           //console.log(id);
           var processPercent = 0;
 
-          Runner.run(id)
+          Runner.runAndTrack(id)
             .then(
                 function(out)
                 {

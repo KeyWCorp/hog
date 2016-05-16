@@ -19,7 +19,6 @@ angular.module('hog')
             {
               angular.copy(data.json, vm.script);
               angular.copy(data.json, vm.data);
-              console.log("DATA: " + JSON.stringify(data.json, null, 2));
               vm.data_ready = true;
             });
 
@@ -57,9 +56,9 @@ angular.module('hog')
         vm.output = [];
         vm.running = true;
 
-        $log.debug('running: ', vm.script.id);
+        $log.debug('running: ', vm.script._id);
         vm.log = [];
-        Runner.run(vm.script.id)
+        Runner.run(vm.script._id)
           .then(
               function(out)
               {
@@ -85,17 +84,7 @@ angular.module('hog')
                 {
                   if (update.data.json !== "null")
                   {
-                    var tmp_output = "(";
-                    for (var i = 0; i < Object.keys(update.data.json).length; i++) {
-                      var key = Object.keys(update.data.json)[i];
-                      tmp_output += update.data.json[key];
-                      if (i + 1 < Object.keys(update.data.json).length) {
-                        tmp_output += ", ";
-                      }
-                    }
-                    tmp_output += ")\n";
-
-                    vm.output.push(tmp_output);
+                    vm.output.push(update.data.json);
                   }
                 }
               });
