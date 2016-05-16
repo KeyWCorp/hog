@@ -1,5 +1,5 @@
 'use strict';
-var pigParser = require('pig-parser');
+var pigParser = require('../pig-parser/index.js');
 var fs      = require('fs');
 var _       = require('lodash');
 var spawn   = require('child_process').spawn;
