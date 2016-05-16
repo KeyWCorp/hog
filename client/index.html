@@ -8,8 +8,9 @@
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
     <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
     <link href="bower_components/hog-tracker/src/hog-tracker.css" rel="stylesheet" type="text/css"/>
-    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <!-- build:css app.css -->
+
+
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css">
     <link rel="stylesheet" href="bower_components/angular-accordion/css/ang-accordion.css">
@@ -19,9 +20,10 @@
     <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
     <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css">
     <!-- endinject -->
+
     <!-- main Styles        -->
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="styles/css/app.css">
-    <link rel="stylesheet" href="bower_components/pig-flow-demo/src/pig-flow.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- endbuild -->
   </head>
@@ -44,6 +46,7 @@
     <script src="bower_components/angular-socket-io/socket.js"></script>
     <script src="bower_components/angular-uuid4/angular-uuid4.js"></script>
     <script src="bower_components/ng-lodash/build/ng-lodash.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
     <script src="bower_components/angular-accordion/js/ang-accordion.js"></script>
     <script src="bower_components/material-design-icons/index.js"></script>
     <script src="bower_components/v-accordion/dist/v-accordion.js"></script>
@@ -52,7 +55,6 @@
     <script src="bower_components/ng-table/dist/ng-table.min.js"></script>
     <script src="bower_components/lodash/lodash.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/d3/d3.js"></script>
     <script src="bower_components/list-to-tree/dist/list-to-tree.js"></script>
     <script src="bower_components/t/t.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
@@ -75,20 +77,7 @@
     </script>
 
     <!-- inject:js -->
-    <script src="bower_components/pig-flow-demo/src/pig-flow.templates.js"></script>
-    <script src="bower_components/pig-flow-demo/src/pig-flow.directive.js"></script>
-    <script src="bower_components/list-to-tree/dist/list-to-tree.js"></script>
-    <script src="bower_components/t/t.js"></script>
     <script src="app.js"></script>
-    <script src="views/simple/simple.js"></script>
-    <script src="views/simple/simple.controller.js"></script>
-    <script src="views/settings/settings.js"></script>
-    <script src="views/settings/settings.controller.js"></script>
-    <script src="views/home/home.js"></script>
-    <script src="views/home/home.controller.js"></script>
-    <script src="views/home/header.controller.js"></script>
-    <script src="views/complex/complex.js"></script>
-    <script src="views/complex/complex.controller.js"></script>
     <script src="views/simple/new/new.simple.js"></script>
     <script src="views/simple/new/new.simple.controller.js"></script>
     <script src="views/simple/list/list.simple.js"></script>
@@ -97,18 +86,30 @@
     <script src="views/simple/edit/edit.simple.controller.js"></script>
     <script src="views/complex/testview/testview.js"></script>
     <script src="views/complex/testview/testview.complex.controller.js"></script>
+    <script src="views/complex/states/complex.new.controller.js"></script>
     <script src="views/complex/new/new.complex.js"></script>
     <script src="views/complex/new/new.complex.controller.js"></script>
-    <script src="views/complex/states/complex.new.controller.js"></script>
     <script src="views/complex/edit/edit.complex.js"></script>
     <script src="views/complex/edit/edit.complex.controller.js"></script>
     <script src="views/complex/list/list.complex.js"></script>
     <script src="views/complex/list/list.complex.controller.js"></script>
+    <script src="views/settings/settings.js"></script>
+    <script src="views/settings/settings.controller.js"></script>
+    <script src="views/simple/simple.js"></script>
+    <script src="views/simple/simple.controller.js"></script>
+    <script src="views/home/home.js"></script>
+    <script src="views/home/home.controller.js"></script>
+    <script src="views/home/header.controller.js"></script>
+    <script src="views/complex/complex.js"></script>
+    <script src="views/complex/complex.controller.js"></script>
+    <script src="services/pig-flow/src/pig-flow.templates.js"></script>
+    <script src="services/pig-flow/src/pig-flow.directive.js"></script>
     <script src="services/settings/settings.js"></script>
     <script src="services/settings/setting.js"></script>
     <script src="services/runner/runner.js"></script>
     <script src="services/pig/pig.js"></script>
     <!-- endinject -->
+
     <script src="bower_components/hog-tracker/src/hog-tracker.directive.js"></script>
 
 
