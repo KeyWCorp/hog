@@ -9,3 +9,4 @@ nbproject
 *.swp
 *.pig
 pig-parser/
+parser_table.py
