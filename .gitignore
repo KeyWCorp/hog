@@ -7,5 +7,7 @@ dist/
 nbproject
 **/*.log
 *.swp
+*.pig
 pig-parser/
 client/index.html
+parser_table.py

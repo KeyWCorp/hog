@@ -17,7 +17,7 @@ module.exports = function(done)
   function migrate(value, key, cb)
   {
     console.log('migrating :', key);
-    var db = new ds({filename: path.join(__dirname, config[key], key + 'data.db.mig'), autoload: true, onload: cb});
+    var db = new ds({filename: path.join(__dirname, config[key], key + '.data.db.mig'), autoload: true, onload: cb});
     fs.readFile(path.join(__dirname, value, key + '.data.json'), "utf8",
       function(err, data)
       {
@@ -31,7 +31,7 @@ module.exports = function(done)
             v.id = undefined;
             return v
           });
-        
+
         db.insert(d,
           function(err, docs)
           {
