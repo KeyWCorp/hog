@@ -12,12 +12,16 @@ module.exports = [
   'client/views/**/*.js', '!client/views/**/*.spec.js',
   '!client/views/**/*.e2e.js',
 
+  // pig-flow
   '!client/services/pig-flow/server.js',
   '!client/services/pig-flow/app.js',
   '!client/services/pig-flow/pages/**/*.js',
-  '!client/services/pig-flow/w.js'
+  '!client/services/pig-flow/w.js',
+
+  // hog-tracker
+  '!client/services/hog-tracker/server.js',
+  '!client/services/hog-tracker/app.js',
+  '!client/services/hog-tracker/Gruntfile.js',
+  '!client/services/hog-tracker/cker.js',
+  '!client/services/hog-tracker/pages/**/*.js'
 ];
-/*
-  'client/bower_components/t/t.js',
-  'client/bower_components/list-to-tree/dist/list-to-tree.js',
-*/
