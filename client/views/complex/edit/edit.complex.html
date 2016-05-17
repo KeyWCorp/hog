@@ -4,9 +4,11 @@
 
       <md-card-content>
         <div layout="row">
-          <div flex>Name:   <!--{{vm.script.name}}-->
-            <input ng-model="vm.script.name">
-          </div>
+          <md-input-container flex>
+              <label>Name:</label>
+              <input ng-model="vm.script.name">
+          </md-input-container>
+
           <div flex layout-align="end" style="float:right;">
             <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="vm.run()">Execute</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
@@ -16,20 +18,10 @@
 
         </div>
 
-          <div layout="row" layout-align="start center" ng-repeat="item in vm.args">
-              <md-input-container flex layout="row" ng-show="vm.exists(item, vm.script.args)">
-                <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
-                  {{item.arg}}
-                </md-checkbox>
-
-                <input ng-model="vm.script.args[vm.index(vm.script.args, item.arg)].input" aria-label="arg {{item.arg}}">
-              </md-input-container>
-          </div>
-
-          <div layout="row" layout-align="start center" ng-repeat="item in vm.args">
-              <md-input-container flex ng-show="vm.exists(item, vm.script.args)">
+          <div layout="row" layout-align="start center">
+              <md-input-container flex>
                 <label>Pig Arguments</label>
-                <input ng-model="vm.script.args[vm.index(vm.script.args, item.arg)].input" aria-label="arg {{item.arg}}">
+                <input ng-model="vm.args" aria-label="Pig Arguments">
               </md-input-container>
           </div>
 
