@@ -37,7 +37,7 @@ angular.module('hog')
 
       vm.save = function ()
       {
-        vm.script.args = vm.args.join(" ");
+        vm.script.args = vm.args.split(" ");
         if (!vm.script.args)
         {
           vm.script.args = ["-x", "local"];

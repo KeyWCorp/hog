@@ -15,7 +15,7 @@ var decoder = new StringDecoder('utf8');
 function run(input_args, script_location, stdOut, stdError, stdLog, finishedCallback)
 {
   var pig_args = input_args;
-  pig_args.push.apply(pig_args, [script_location]);
+  pig_args.push(script_location);
 
   var pig = spawn('pig', pig_args,
   {
@@ -204,7 +204,7 @@ function trackTasks(input_args, script_location, stdOut, stdError, stdLog, taskT
       {
         if (command_lines[j])
         {
-          writeAndRun(end_lines, command_lines[j],
+          writeAndRun(input_args, end_lines, command_lines[j],
             function ()
             {
               j++;
@@ -283,7 +283,7 @@ function pigGetTasks(input_args, script_location, callback, stdOut, stdError, st
   var map_count = 0;
 
   var pig_args = input_args;
-  pig_args.push.apply(pig_args, [script_location]);
+  pig_args.push(script_location);
 
   var pig = spawn('pig', pig_args,
   {
@@ -374,7 +374,7 @@ function pigGetTasks(input_args, script_location, callback, stdOut, stdError, st
  * delete the file
  *
  */
-function writeAndRun(output_list, command, callback, stdOut, stdError, stdLog, taskTracker, task_list)
+function writeAndRun(input_args, output_list, command, callback, stdOut, stdError, stdLog, taskTracker, task_list)
 {
   var final_regex = {};
 
@@ -396,7 +396,7 @@ function writeAndRun(output_list, command, callback, stdOut, stdError, stdLog, t
   stream.once("close",
     function ()
     {
-      pigGetOutput([new_file_name],
+      pigGetOutput(input_args, new_file_name,
         function (output_obj)
         {
           fs.unlink(new_file_name,
@@ -416,15 +416,15 @@ function writeAndRun(output_list, command, callback, stdOut, stdError, stdLog, t
  * Function to run the pig script
  *
  */
-function pigGetOutput(input_args, callback, stdOut, stdError, stdLog, taskTracker, task_list)
+function pigGetOutput(input_args, script_location, callback, stdOut, stdError, stdLog, taskTracker, task_list)
 {
 
   var output_list = [];
   var describeList = [];
   var describe_re = /^(\S+):\s*(\{(?:[\s\S]+:)+[\s\S]+\})$/;
 
-  var pig_args = ['-x', 'local'];
-  pig_args.push.apply(pig_args, input_args);
+  var pig_args = input_args;
+  pig_args.push(script_location);
 
   var pig = spawn('pig', pig_args,
   {

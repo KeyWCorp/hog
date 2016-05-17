@@ -5,6 +5,11 @@
       <input required ng-model="vm.script.name">
     </md-input-container>
 
+    <md-input-container flex>
+      <label>Pig Arguments</label>
+      <input ng-model="vm.args" aria-label="Pig Arguments">
+    </md-input-container>
+
     <v-accordion class="vAccordion--default" layout="column" layout-padding flex="45">
       <v-pane expanded="true">
         <v-pane-header>

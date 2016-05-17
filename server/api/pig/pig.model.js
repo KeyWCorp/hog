@@ -76,7 +76,7 @@ exports.delete = function(id, cb)
 exports.run = function(id, stdoutCB, stderrCB, errCB, finishedCB)
 {
   logger.debug('Running Pig Script: ', id);
-  var nArg = [];
+  var nArgs = ["-x", "local"];
 
   collection.findOne({_id: id},
     function(err, doc)
@@ -86,23 +86,21 @@ exports.run = function(id, stdoutCB, stderrCB, errCB, finishedCB)
         return errCB(err);
       }
 
-      for( var index in doc.args)
+      if (doc.args)
       {
-        nArg.push(_.values(doc.args[index]));
+        nArgs = doc.args;
       }
-
-      nArg = _.flatten(nArg);
 
       var script_location = path.join(__dirname, '../../',  'scripts/pig/', doc.name +  '.pig');
 
-      pigParser.run(nArg, script_location, stdoutCB, stderrCB, stderrCB, finishedCB);
+      pigParser.run(nArgs, script_location, stdoutCB, stderrCB, stderrCB, finishedCB);
     });
 
 }
 exports.runAndTrack = function(id, stdoutCB, stderrCB, errCB, trackerCB, finishedCB)
 {
   logger.debug('Running Pig Script: ', id);
-  var nArg = [];
+  var nArgs = ["-x", "local"];
 
   collection.findOne({_id: id},
     function(err, doc)
@@ -112,16 +110,14 @@ exports.runAndTrack = function(id, stdoutCB, stderrCB, errCB, trackerCB, finishe
         return errCB(err);
       }
 
-      for( var index in doc.args)
+      if (doc.args)
       {
-        nArg.push(_.values(doc.args[index]));
+        nArgs = doc.args;
       }
-
-      nArg = _.flatten(nArg);
 
       var script_location = path.join(__dirname, '../../',  'scripts/pig/', doc.name +  '.pig');
 
-      pigParser.trackTasks(nArg, script_location, stdoutCB, stderrCB, stderrCB, trackerCB, finishedCB);
+      pigParser.trackTasks(nArgs, script_location, stdoutCB, stderrCB, stderrCB, trackerCB, finishedCB);
     });
 
 };

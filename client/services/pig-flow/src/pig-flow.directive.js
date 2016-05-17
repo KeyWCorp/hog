@@ -358,20 +358,23 @@ angular.module("pig.pig-flow", [])
               var input_list = [];
               vm.nodes.map(function (n,j)
               {
-                n.inputs.map(function (input, i)
+                if (n.inputs)
                 {
-                  var middle = (n.x + n.width * 0.5);
-                  var offset = middle - ((n.inputs.length - 1) * 25) * 0.5;
-                  var tmp_obj = {
-                    data: input,
-                    p: n,
-                    x: offset + i * 25,
-                    y: n.y,
-                    index: i,
-                    length: n.inputs.length
-                  };
-                  input_list.push(tmp_obj);
-                });
+                  n.inputs.map(function (input, i)
+                  {
+                    var middle = (n.x + n.width * 0.5);
+                    var offset = middle - ((n.inputs.length - 1) * 25) * 0.5;
+                    var tmp_obj = {
+                      data: input,
+                      p: n,
+                      x: offset + i * 25,
+                      y: n.y,
+                      index: i,
+                      length: n.inputs.length
+                    };
+                    input_list.push(tmp_obj);
+                  });
+                }
               });
               return input_list;
             });
@@ -419,94 +422,29 @@ angular.module("pig.pig-flow", [])
             });
           vm.node_inputs.exit()
             .remove();
-          // ====================================================
-
-
-          // input button
-          //vm.node_input = vm.node_input
-          //  .data(vm.nodes);
-          //vm.node_input
-          //  .attr("r", 10)
-          //  .attr("class", "node_input")
-          //  .attr("visibility", function (d)
-          //  {
-          //    var t = vm.types.input.filter(function (i)
-          //    {
-          //      return d.type === i.name;
-          //    });
-          //    return t.length > 0 ? "hidden" : "visible";
-          //  })
-          //  .attr("cx", function (d, i)
-          //  {
-          //    return d.x + d.width * 0.5;
-          //  })
-          //  .attr("cy", function (d, i)
-          //  {
-          //    return d.y;
-          //  });
-          //vm.node_input.enter()
-          //  .append("circle")
-          //  .attr("r", 10)
-          //  .attr("class", "node_input")
-          //  .attr("visibility", function (d)
-          //  {
-          //    var t = vm.types.input.filter(function (i)
-          //    {
-          //      return d.type === i.name;
-          //    });
-          //    return t.length > 0 ? "hidden" : "visible";
-          //  })
-          //  .attr("cx", function (d, i)
-          //  {
-          //    return d.x + d.width * 0.5;
-          //  })
-          //  .attr("cy", function (d, i)
-          //  {
-          //    return d.y;
-          //  });
-          //vm.node_input
-          //  .on("mouseover", function (d)
-          //  {
-          //    d3.event.stopPropagation();
-          //    d3.select(this)
-          //      .style("cursor", "pointer");
-          //  })
-          //  .on("mouseleave", function (d)
-          //  {
-          //    d3.event.stopPropagation();
-          //    d3.select(this)
-          //      .style("cursor", "none");
-          //  });
-          //vm.node_input
-          //  .on("click", function (d)
-          //  {
-          //    d3.event.stopPropagation();
-          //    endConnection(this, d);
-          //  });
-          //vm.node_input.exit()
-          //  .remove();
-
-          // ===============================================
           vm.node_outputs = vm.node_outputs
             .data(function (d)
             {
               var output_list = [];
               vm.nodes.map(function (n,j)
               {
-                n.outputs.map(function (output, i)
+                if (n.outputs)
                 {
-                  var middle = (n.x + n.width * 0.5);
-                  var offset = middle - ((n.outputs.length - 1) * 25) * 0.5;
-                  var tmp_obj = {
-                    data: output,
-                    p: n,
-                    x: offset + i * 25,
-                    y: n.y + n.height,
-                    index: i,
-                    length: n.outputs.length
-                  };
-                  output_list.push(tmp_obj);
-                });
+                  n.outputs.map(function (output, i)
+                  {
+                    var middle = (n.x + n.width * 0.5);
+                    var offset = middle - ((n.outputs.length - 1) * 25) * 0.5;
+                    var tmp_obj = {
+                      data: output,
+                      p: n,
+                      x: offset + i * 25,
+                      y: n.y + n.height,
+                      index: i,
+                      length: n.outputs.length
+                    };
+                    output_list.push(tmp_obj);
+                  });
+                }
               });
               return output_list;
             });
@@ -554,72 +492,6 @@ angular.module("pig.pig-flow", [])
             });
           vm.node_outputs.exit()
             .remove();
-
-          // ===============================================
-
-          // output button
-          //vm.node_output = vm.node_output
-          //  .data(vm.nodes);
-          //vm.node_output
-          //  .attr("r", 10)
-          //  .attr("class", "node_output")
-          //  .attr("visibility", function (d)
-          //  {
-          //    var t = vm.types.output.filter(function (i)
-          //    {
-          //      return d.type === i.name;
-          //    });
-          //    return t.length > 0 ? "hidden" : "visible";
-          //  })
-          //  .attr("cx", function (d, i)
-          //  {
-          //    return d.x + d.width * 0.5;
-          //  })
-          //  .attr("cy", function (d, i)
-          //  {
-          //    return d.y + d.height;
-          //  });
-          //vm.node_output.enter()
-          //  .append("circle")
-          //  .attr("r", 10)
-          //  .attr("class", "node_output")
-          //  .attr("visibility", function (d)
-          //  {
-          //    var t = vm.types.output.filter(function (i)
-          //    {
-          //      return d.type === i.name;
-          //    });
-          //    return t.length > 0 ? "hidden" : "visible";
-          //  })
-          //  .attr("cx", function (d, i)
-          //  {
-          //    return d.x + d.width * 0.5;
-          //  })
-          //  .attr("cy", function (d, i)
-          //  {
-          //    return d.y + d.height;
-          //  });
-          //vm.node_output
-          //  .on("mouseover", function (d)
-          //  {
-          //    d3.event.stopPropagation();
-          //    d3.select(this)
-          //      .style("cursor", "pointer");
-          //  })
-          //  .on("mouseleave", function (d)
-          //  {
-          //    d3.event.stopPropagation();
-          //    d3.select(this)
-          //      .style("cursor", "none");
-          //  });
-          //vm.node_output
-          //  .on("click", function (d)
-          //  {
-          //    d3.event.stopPropagation();
-          //    startConnection(this, d);
-          //  });
-          //vm.node_output.exit()
-          //  .remove();
 
           // add type label to node
           vm.node_type_label = vm.node_type_label
