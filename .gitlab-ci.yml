@@ -1,5 +1,10 @@
 image: node:latest
 
+before_script:
+ - npm install
+ - npm install -g bower gulp
+ - bower install --allow-root
+
 stages:
 - build
 - test
@@ -7,9 +12,6 @@ stages:
 build_job:
   stage: build
   script:
-  - npm install
-  - npm install -g bower gulp
-  - bower install --allow-root
   - gulp build
 
 test_job:
