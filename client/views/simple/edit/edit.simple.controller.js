@@ -20,6 +20,29 @@ angular.module('hog')
               angular.copy(data.json, vm.script);
               angular.copy(data.json, vm.data);
               vm.data_ready = true;
+
+              vm.args = vm.script.args.join(" ");
+              if (!vm.args)
+              {
+                vm.args = [];
+                Settings.getp('pigArgs')
+                  .then(
+                      function(data)
+                      {
+                        data.json.data.forEach(
+                            function(element)
+                            {
+                              //vm.args.push({arg: element.arg, input: element.default});
+                              vm.args.push(element.arg);
+                              vm.args.push(element.default);
+                            });
+                        vm.args = vm.args.join(" ");
+                      },
+                      function(err)
+                      {
+                        $log.error(err);
+                      });
+              }
             });
 
 
@@ -33,6 +56,7 @@ angular.module('hog')
 
       vm.save = function ()
       {
+        vm.script.args = vm.args.split(" ");
         vm.script.name = vm.script.name.replace(/\s/g, "_");
         Runner.save(vm.script)
           .then(
@@ -58,6 +82,7 @@ angular.module('hog')
 
         $log.debug('running: ', vm.script._id);
         vm.log = [];
+        console.log("ARGS: " + JSON.stringify(vm.script.args));
         Runner.run(vm.script._id)
           .then(
               function(out)
