@@ -8,7 +8,7 @@ build_job:
   stage: build
   script:
   - npm install
-  - npm install -g bower
+  - npm install -g bower gulp
   - bower install --allow-root
   - gulp build
 
