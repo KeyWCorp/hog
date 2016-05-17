@@ -148,7 +148,7 @@ angular.module('hog')
                 + '    </md-toolbar>'
                 + '    <div>'
                 + '      <md-dialog-content >'
-                + '        <md-tabs  md-selected="mySelection" md-theme="green" md-dynamic-height md-border-bottom>'
+                + '        <md-tabs  md-selected="mySelection" class="md-primary" md-theme="green" md-dynamic-height md-border-bottom>'
                 + '          <md-tab  label="Bar">'
                 + '            <md-content class="md-padding">'
                 + '              <canvas class="chart chart-bar" chart-data="data" chart-labels="labels"   chart-legend="true" chart-series="series">'

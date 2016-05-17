@@ -41,7 +41,7 @@ angular.module('hog')
               function(data)
               {
                 vm.script = data.json;
-                $state.go('^.edit', {id: vm.script.id});
+                $state.go('^.edit', {id: vm.script._id});
                 $mdToast.show(
                     $mdToast.simple()
                     .content('Script Saved!')
