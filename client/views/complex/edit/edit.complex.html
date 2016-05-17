@@ -16,27 +16,22 @@
 
         </div>
 
-        <div layout="row">
-          <div layout="row" ng-repeat="item in vm.args">
-            <div flex>
+          <div layout="row" layout-align="start center" ng-repeat="item in vm.args">
+              <md-input-container flex layout="row" ng-show="vm.exists(item, vm.script.args)">
+                <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
+                  {{item.arg}}
+                </md-checkbox>
 
-            </div>
-
-            <div flex>
-              <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
-                {{item.arg}}
-              </md-checkbox>
-            </div>
-
-            <div flex>
-              <md-input-container ng-show="vm.exists(item, vm.script.args)">
                 <input ng-model="vm.script.args[vm.index(vm.script.args, item.arg)].input" aria-label="arg {{item.arg}}">
               </md-input-container>
-            </div>
           </div>
-        </div>
 
-
+          <div layout="row" layout-align="start center" ng-repeat="item in vm.args">
+              <md-input-container flex ng-show="vm.exists(item, vm.script.args)">
+                <label>Pig Arguments</label>
+                <input ng-model="vm.script.args[vm.index(vm.script.args, item.arg)].input" aria-label="arg {{item.arg}}">
+              </md-input-container>
+          </div>
 
         <div ui-ace="vm.editorOptions" ng-model="vm.script.data"> </div>
         <div class="container" ng-class="{'visible' : !vm.running}">

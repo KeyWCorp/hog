@@ -211,26 +211,22 @@ angular.module('hog')
         .then(
             function(data)
             {
-              //$log.info("pig args", data)
               data.json.data.forEach(
                   function(element)
                   {
-                    vm.args.push({arg: element.arg, input: element.default});
+                    //vm.args.push({arg: element.arg, input: element.default});
+                    vm.args.push(element.arg);
+                    vm.args.push(element.default);
                   });
-              //$log.info('new args', vm.args)
             },
             function(err)
             {
               $log.error(err);
             });
-      // vm.args = [{arg: '-t', input: ""}, {arg: '-g', input: ""}, {arg: '-x', input: ""}];
       vm.selectedArgs = [];
       vm.editorModel = '';
       vm.progress = 0;
       vm.log = [];
-      //vm.chartLabels = [ 'label 1','label2'];
-      //vm.chartSeries = ['series 1','series 2'];
-      // vm.chartData = [];
       vm.onEditorLoad = function(_ace)
       {
         vm.modeChanged = function () {
