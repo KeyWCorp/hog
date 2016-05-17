@@ -23,7 +23,7 @@ angular.module('hog')
       }
       return service;
 
-      
+
       function set(setting, value)
       {
         if(!lodash.isUndefined(settings[setting]))
@@ -78,7 +78,7 @@ angular.module('hog')
             function create(procData)
             {
                 var deferred = $q.defer();
-                
+
                 Setting.emit('create', angular.toJson(procData));
                 Setting.on('create',
                     function(data)
