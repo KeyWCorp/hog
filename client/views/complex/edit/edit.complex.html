@@ -10,7 +10,16 @@
           </md-input-container>
 
           <div flex layout-align="end" style="float:right;">
-            <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="vm.run()">Execute</md-button>
+            <md-menu>
+              <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Execute</md-button>
+              <md-menu-content width="4">
+                <md-menu-item>
+                  <md-button ng-disabled="vm.running" ng-click="vm.run()">Execute</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-disabled="vm.running" ng-click="vm.runAndTrack()">Execute and Track</md-button>
+                </md-menu-item>
+            </md-menu>
             <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
@@ -29,7 +38,7 @@
         <div class="container" ng-class="{'visible' : !vm.running}">
           <md-progress-linear ng-if="vm.start" md-mode="indeterminate"></md-progress-linear>
 
-          <div flex>
+          <div flex ng-show="vm.taskList.length > 0">
             <div hog-tracker task-string="vm.ots(vm.taskList)" tracker-id="'myTracker'" title="'My Task List'"></div>
           </div>
           <div class='md-padding' layout="row" layout-wrap layout-align="space-around">
@@ -59,8 +68,8 @@
               </v-pane>
             </v-accordion>
             <md-divider layout="row"></md-divider>
-            <v-accordion class="vAccordion--default" layout="column" layout-align="space-around" flex="45">
-              <v-pane>
+            <v-accordion class="vAccordion--default" layout="column" layout-align="space-around" flex="45" control="vm.graph_panes">
+              <v-pane ng-disabled="!vm.graph_data">
                 <v-pane-header>
                   Graph
 
@@ -70,69 +79,28 @@
 
                   <md-button ng-click="vm.showLineGraph()"> Line Graph </md-button>
                   <md-button ng-click="vm.showBarGraph()"> Bar Graph</md-button>
-                  <!--md-button ng-click="vm.showPieChart()"> Pie Chart </md-button-->
+
                   <md-button ng-click="vm.showRadarChart()"> Radar Chart</md-button>
-
-                  <!--
-                    <canvas ng-show="vm.showLine"
-                    id="showLine"
-                    class="chart chart-line"
-                    chart-data="vm.data"
-                    chart-labels="vm.labels"
-                    chart-legend="true"
-                    chart-series="vm.series">
-                    </canvas>
-
-                    <canvas ng-show="vm.radar"
-                    id="radar"
-                    class="chart chart-radar"
-                    chart-data="vm.data"
-                    chart-labels="vm.labels">
-                    </canvas>
-                    <canvas ng-show="vm.bar"
-                    id="bar"
-                    class="chart chart-bar"
-                    chart-data="vm.data"
-                    chart-labels="vm.labels"
-                    chart-series="vm.series">
-
-                    </canvas>
-                    <canvas ng-show="vm.pie"
-                    id="pie"
-                    class="chart chart-pie"
-                    chart-data="vm.pidata"
-                    chart-labels="vm.labels">
-                    </canvas> -->
-
-                    <canvas ng-if="vm.showGraph" id="myChart" width="400" height="400">
-                    </canvas>
-
+                    <canvas ng-if="vm.showGraph" id="myChart" width="400" height="400"></canvas>
                 </v-pane-content>
               </v-pane>
 
-              <v-pane>
+              <v-pane ng-disabled="!vm.graph_data">
                 <v-pane-header>
                   Table
                 </v-pane-header>
                 <v-pane-content>
                   <md-table-container>
-
                     <head>
-
                       <div>
                         <md-input-container>
-
                           <md-select ng-disabled="vm.running" multiple ng-model="vm.testData" md-on-close="vm.onChange()" placeholder="Select one or more Values">
-
                             <md-option ng-value="items" ng-repeat="items in vm.pigList track by $index">{{items}}</md-option>
                           </md-select>
-
                         </md-input-container>
                       </div>
-
                     </head>
                   </md-table-container>
-
                 </v-pane-content>
               </v-pane>
             </v-accordion>

@@ -14,7 +14,7 @@
                 <h4>{{ script.name }}</h4>
               </div>
               <md-progress-linear
-                ng-show="vm.running && vm.isRunning[script.id]"
+                ng-show="vm.running && vm.isRunning[script._id]"
                 md-mode="indeterminate">
               </md-progress-linear>
             </md-card-header>
@@ -25,8 +25,8 @@
                 <h2 class="md-title">Output</h2>
                 <hr>
                 <md-list>
-                  <md-content style="height: 300px;" ng-show="vm.output[script.id]" flex layout-padding>
-                    <md-list-item ng-repeat="output in vm.output[script.id] track by $index">
+                  <md-content style="height: 300px;" ng-show="vm.output[script._id]" flex layout-padding>
+                    <md-list-item ng-repeat="output in vm.output[script._id] track by $index">
                       {{ output }}
                     </md-list-item>
                   </md-content>
@@ -36,10 +36,10 @@
           </v-pane-content>
 
           <div class="md-actions" layout="row" layout-align="end center">
-            <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(script.id, $index)">
+            <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(script._id, $index)">
               Run
             </md-button>
-            <md-button class="md-primary md-raised" ng-click="vm.edit(script.id)">
+            <md-button class="md-primary md-raised" ng-click="vm.edit(script._id)">
               Edit
             </md-button>
           </div>

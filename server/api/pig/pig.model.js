@@ -73,7 +73,33 @@ exports.delete = function(id, cb)
 {
   collection.remove({_id: id},cb);
 }
-exports.run = function(id, stdoutCB, stderrCB, errCB, trackerCB, finishedCB)
+exports.run = function(id, stdoutCB, stderrCB, errCB, finishedCB)
+{
+  logger.debug('Running Pig Script: ', id);
+  var nArg = [];
+
+  collection.findOne({_id: id},
+    function(err, doc)
+    {
+      if(err)
+      {
+        return errCB(err);
+      }
+
+      for( var index in doc.args)
+      {
+        nArg.push(_.values(doc.args[index]));
+      }
+
+      nArg = _.flatten(nArg);
+
+      var script_location = path.join(__dirname, '../../',  'scripts/pig/', doc.name +  '.pig');
+
+      pigParser.run(nArg, script_location, stdoutCB, stderrCB, stderrCB, finishedCB);
+    });
+
+}
+exports.runAndTrack = function(id, stdoutCB, stderrCB, errCB, trackerCB, finishedCB)
 {
   logger.debug('Running Pig Script: ', id);
   var nArg = [];

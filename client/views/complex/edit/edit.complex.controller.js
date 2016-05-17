@@ -17,6 +17,7 @@ angular.module('hog')
       vm.radar = false;
       vm.pie = false;
       vm.output = [];
+      vm.graph_data = false;
 
 
 
@@ -143,7 +144,6 @@ angular.module('hog')
       };
 
       var _ = lodash;
-      console.log(Settings);
       angular.extend(this, {
         name: 'EditComplexCtrl',
         running: false
@@ -244,7 +244,6 @@ angular.module('hog')
           .then(
               function(data)
               {
-                console.log( ' iN RUNNER SAVE EDIT Controller');
                 console.log(JSON.stringify( data));
                 $log.debug('saved: ' + data);
               },
@@ -254,7 +253,6 @@ angular.module('hog')
               });
       }
       vm.canceled = function(id) {
-        console.log('changing to list');
         $state.go('home.complex.list');
 
       }
@@ -265,10 +263,55 @@ angular.module('hog')
         // start progress bar
         vm.pigList = [];
         vm.running = true;
+        vm.graph_data = false;
+        vm.graph_panes.collapseAll();
 
         $log.debug('running: ', vm.script._id);
         vm.log = [];
         Runner.run(vm.script._id)
+          .then(
+              function(out)
+              {
+                // vm.output = out;
+              },
+              function(err)
+              {
+                vm.outError = err.json;
+              },
+              function(update)
+              {
+                if (update.type == 'progress')
+                {
+                  vm.progress = update.data.json;
+                }
+                else if (update.type == 'log')
+                {
+                  if (update.data.json !== "null")
+                  {
+                    vm.log.push(update.data.json);
+                  }
+                }
+                else if (update.type == 'output')
+                {
+                  if (update.data.json !== "null")
+                  {
+                    vm.output.push(update.data.json);
+                  }
+                }
+              });
+      };
+      vm.runAndTrack = function()
+      {
+        vm.taskList = [];
+        vm.output = [];
+        // start progress bar
+        vm.pigList = [];
+        vm.running = true;
+        vm.graph_data = false;
+
+        $log.debug('running: ', vm.script._id);
+        vm.log = [];
+        Runner.runAndTrack(vm.script._id)
           .then(
               function(out)
               {
@@ -307,6 +350,7 @@ angular.module('hog')
 
                     vm.output.push(tmp_output);
                     vm.pigList.push(update.data.json);
+                    vm.graph_data = true;
                   }
                 }
               });
@@ -395,7 +439,6 @@ angular.module('hog')
 
 // Controller for Settings Modal
 function SettingsController( $mdDialog, $scope, vm) {
-  console.log('in settings controller');
 
   $scope.vm = vm;
 
@@ -407,9 +450,7 @@ function SettingsController( $mdDialog, $scope, vm) {
   $scope.save = function(script)
   {
 
-    //console.log(vm.script.numOutput);
-    if(script.bar == true)
-    {
+    if(script.bar == true)                                                      {
       $scope.vm.save('bar', script.numOutput);
     }
     if(script.line == true)

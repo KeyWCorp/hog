@@ -163,6 +163,7 @@ angular.module("hog.hog-tracker", [])
             $scope.my_tree = ltt.GetTree();
             $scope.update($scope.my_tree[0]);
           } else if ($scope.taskList.length > 0) {
+            $scope.has_data = false;
             init_tree();
           }
 

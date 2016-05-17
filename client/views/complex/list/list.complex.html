@@ -18,7 +18,7 @@
     </md-autocomplete>
   </div>
   <div class='md-padding' layout="column" layout-align="center center" >
-    <md-card ng-model="vm.scripts" flex ng-repeat="pig in vm.scripts">
+    <md-card ng-model="vm.scripts" flex ng-repeat="pig in vm.scripts track by $index">
       <v-accordion class="vAccordion--default">
         <v-pane   style="width:900px" >
           <v-pane-header>
@@ -51,7 +51,7 @@
                 </md-card-header>
                 <md-card-content>
                   <md-content style="height: 100px">
-                    <div ng-repeat="log in pig.logs">
+                    <div ng-repeat="log in pig.logs track by $index">
                       {{log}}
                       <md-divider></md-divider>
                     </div>
