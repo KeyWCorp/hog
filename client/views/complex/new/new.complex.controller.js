@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hog')
-.controller('NewComplexCtrl', function ($log, Runner, $mdToast)
+.controller('NewComplexCtrl', function ($log, Runner, $mdToast, $state)
     {
       var vm = this;
       angular.extend(vm, {
@@ -11,9 +11,7 @@ angular.module('hog')
       vm.themes = ['twilight', 'none'];
       vm.mode = vm.modes[0];
       vm.theme = vm.themes[0];
-      vm.args = [{arg: '-t', input: ""}, {arg: '-g', input: ""}, {arg: '-x', input: ""}];
-      //vm.selectedArgs = [];
-      //vm.editorModel = '';
+      vm.args = "";
       vm.firstTime = true;
       vm.script = {
         name: '',
@@ -45,43 +43,24 @@ angular.module('hog')
       };
       vm.save = function()
       {
-        // vm.script.id = 2;
-        // if (vm.firstTime)
-        //{
-        //  vm.firstTime = false;
+        vm.script.args = vm.args.split(" ");
+        if (!vm.script.args)
+        {
+          vm.script.args = ["-x", "local"];
+        }
+
+        vm.script.name = vm.script.name.replace(/[\s]/g, "_");
         Runner.create(vm.script)
           .then(
               function(data)
               {
+                vm.script = data.json;
                 // Place pop up for saved
                 $mdToast.showSimple('Settings Saved!');
+                $state.go('^.edit', {id: vm.script._id});
               });
-        //    }
-        /*  else
-            {
-            Runner.save(vm.script)
-            .then(
-            function(data)
-            {
-        // Place save popup
-        });
-        }*/
       }
 
-      /* vm.save = function()
-         {
-
-         Runner.save(vm.script)
-         .then(
-         function(data)
-         {
-         $log.debug('saved: ' + data);
-         },
-         function(err)
-         {
-         $log.error('error: ' +err);
-         });
-         }*/
       vm.run = function()
       {
         console.log('vm.script.id ' + vm.script._id );

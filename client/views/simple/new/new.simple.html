@@ -6,6 +6,11 @@
     </md-input-container>
 
     <md-input-container flex>
+      <label>Pig Arguments:</label>
+      <input ng-model="vm.args">
+    </md-input-container>
+
+    <md-input-container flex>
       <md-button ng-disabled="!vm.script.data || scriptForm.$invalid" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
     </md-input-container>
   </form>

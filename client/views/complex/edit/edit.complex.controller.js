@@ -3,10 +3,7 @@
 angular.module('hog')
 
 .controller('EditComplexCtrl', function ($log, $state, $stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog)
-
     {
-
-
       var vm = this;
       vm.script =  Runner.getData();
 
@@ -64,11 +61,6 @@ angular.module('hog')
 
         vm.showGraph = true;
         ctx = document.getElementById("myChart").getContext("2d");
-
-        //vm.bar = true;
-        //vm.pie = false;
-        //vm.showLine = false;
-        //vm.radar = false;
         myNewChart = new Chart(ctx).Bar(vm.total_data);
         myNewChart.resize();
       };
@@ -82,11 +74,6 @@ angular.module('hog')
 
         vm.showGraph = true;
         ctx = document.getElementById("myChart").getContext("2d");
-
-        //vm.bar = false;
-        //vm.pie = false;
-        //vm.showLine = false;
-        //vm.radar = true;
         myNewChart = new Chart(ctx).Radar(vm.total_data);
         myNewChart.resize();
       };
@@ -100,11 +87,6 @@ angular.module('hog')
 
         vm.showGraph = true;
         ctx = document.getElementById("myChart").getContext("2d");
-
-        //vm.showLine = true;
-        //vm.pie = false;
-        //vm.bar = false;
-        //vm.radar = false;
         myNewChart = new Chart(ctx).Line(vm.total_data);
         myNewChart.resize();
       };
@@ -117,12 +99,6 @@ angular.module('hog')
 
         vm.showGraph = true;
         ctx = document.getElementById("myChart").getContext("2d");
-
-        //vm.pie = true;
-        //vm.showLine = false;
-        //vm.bar = false;
-        //vm.radar = false;
-        //vm.pidata = [1,2,3];
         myNewChart = new Chart(ctx).Pie(vm.total_data);
         myNewChart.resize();
       };
@@ -186,38 +162,37 @@ angular.module('hog')
             function(data)
             {
               vm.script = data.json;
-
-
+              vm.args = vm.script.args.join(" ");
+              if (!vm.args)
+              {
+                vm.args = [];
+                Settings.getp('pigArgs')
+                  .then(
+                      function(data)
+                      {
+                        data.json.data.forEach(
+                            function(element)
+                            {
+                              //vm.args.push({arg: element.arg, input: element.default});
+                              vm.args.push(element.arg);
+                              vm.args.push(element.default);
+                            });
+                        vm.args = vm.args.join(" ");
+                      },
+                      function(err)
+                      {
+                        $log.error(err);
+                      });
+              }
             });
       vm.modes = ['Pig_Latin'];
       vm.themes = ['twilight', 'none'];
       vm.mode = vm.modes[0];
       vm.theme = vm.themes[0];
-      vm.args = [];
-      Settings.getp('pigArgs')
-        .then(
-            function(data)
-            {
-              //$log.info("pig args", data)
-              data.json.data.forEach(
-                  function(element)
-                  {
-                    vm.args.push({arg: element.arg, input: element.default});
-                  });
-              //$log.info('new args', vm.args)
-            },
-            function(err)
-            {
-              $log.error(err);
-            });
-      // vm.args = [{arg: '-t', input: ""}, {arg: '-g', input: ""}, {arg: '-x', input: ""}];
       vm.selectedArgs = [];
       vm.editorModel = '';
       vm.progress = 0;
       vm.log = [];
-      //vm.chartLabels = [ 'label 1','label2'];
-      //vm.chartSeries = ['series 1','series 2'];
-      // vm.chartData = [];
       vm.onEditorLoad = function(_ace)
       {
         vm.modeChanged = function () {
@@ -244,6 +219,7 @@ angular.module('hog')
       {
         console.log('in vm .save', graph);
         vm.script.numOutput = numOutput;
+        vm.script.args = vm.args.split(" ");
 
         if(graph == 'bar')
         {
@@ -383,8 +359,6 @@ angular.module('hog')
       {
         if(angular.isDefined(list) && angular.isDefined(item))
         {
-          //$log.debug('Item, list', item, list);
-          //return list.indexOf(item) > -1;
           return _.findIndex(list, 'arg', item.arg) > -1;
         }
         else
@@ -403,20 +377,14 @@ angular.module('hog')
       };
       vm.index = function(list, item)
       {
-        var indx = _.findIndex(list, 'arg', item)
-          //$log.debug('index of ', indx, item);
-          return indx;
+        var indx = _.findIndex(list, 'arg', item);
+        return indx;
       }
 
 
 
       vm.openSettings = function(ev)
       {
-
-        //vm.script.settings = [];
-        //  vm.script.settings.radar = [];
-
-
 
         $mdDialog.show({
           controller: SettingsController,
@@ -431,21 +399,6 @@ angular.module('hog')
             '<md-dialog-content>'+
             '<div class="md-dialog-content">'+
             ' <legend>How would you like to view your output?</legend>'+
-
-            /* '<md-radio-group ng-model="data.graph">'+
-               ' <md-radio-button value="bar"   aria-label="Bar Graph" md-no-ink="true" >'+
-               ' Bar Graph'+
-
-               '</md-radio-button>'+
-               ' <md-radio-button    value="line" aria-label="Line Graph"md-no-ink="true" >'+
-               ' Line Graph'+
-
-               '</md-radio-button>'+
-               ' <md-radio-button value="radar" aria-label="Radar Graph"md-no-ink="true" >'+
-               'Radar Graph'+
-               '</md-radio-button>'+
-
-               '</md-radio-group>'+*/
             ' <div layout="column" layout-align="center start">'+
             ' <md-checkbox ng-disabled="vm.script.line || vm.script.radar"  ng-model="vm.script.bar" >'+
             '    Bar Graph '+
@@ -500,10 +453,12 @@ function SettingsController( $mdDialog, $scope, vm) {
     if(script.bar == true)                                                      {
       $scope.vm.save('bar', script.numOutput);
     }
-    if(script.line == true)                                                  {
+    if(script.line == true)
+    {
       $scope.vm.save('line', script.numOutput);
     }
-    if(script.radar == true)                                                  {
+    if(script.radar == true)
+    {
       $scope.vm.save('radar', script.numOutput);
     }
     $scope.cancel();
@@ -512,22 +467,3 @@ function SettingsController( $mdDialog, $scope, vm) {
 
 }
 
-/* '</md-radio-button>'+
-   ' <md-radio-button  ng-click="toggle(item, selected)"  value="line" md-no-ink="true" >'+
-   ' Line Graph'+
-   '<span ng-if="exists(item, selected)"></span>'+
-
-   '</md-radio-button>'+
-   ' <md-radio-button value="radar" ng-click="toggle(item, selected)"   md-no-ink="true" >'+
-   'Radar Graph'+
-   '<span ng-if="exists(item, selected)"></span>'+
-   '</md-radio-button>'+
-
-   '</md-radio-group>'+*/
-
-
-
-/*'<input type="checkbox" ng-click="vm.checkTrue(line)" ng-checked="vm.lineT" >Line Graph<br> '+
-  '<input type="checkbox"  ng-click="vm.checkTrue(radar)" ng-checked="vm.radar">Radar Graph<br> '+
-
-  ' <md-checkbox  ng-click="vm.checkTrue(\'line\')"><span>Bar Graph</span>'+*/
