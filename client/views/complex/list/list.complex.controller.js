@@ -224,7 +224,7 @@ function DialogController( $mdDialog, $scope, Runner, vm, id) {
 
   $scope.tempScript = vm.scripts.filter(function (script)
   {
-    if (script.id === id)
+    if (script._id === id)
     {
       return script;
     }
