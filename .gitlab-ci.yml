@@ -18,4 +18,3 @@ test_job:
   stage: test
   script:
   - gulp test --server
-  - gulp test --client
