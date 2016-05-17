@@ -18,7 +18,7 @@
     </md-autocomplete>
   </div>
   <div class='md-padding' layout="column" layout-align="center center" >
-    <md-card ng-model="vm.scripts" flex ng-repeat="pig in vm.scripts">
+    <md-card ng-model="vm.scripts" flex ng-repeat="pig in vm.scripts track by $index">
       <v-accordion class="vAccordion--default">
         <v-pane   style="width:900px" >
           <v-pane-header>
@@ -33,7 +33,7 @@
                 <div layout-align="start center">
                   <md-progress-circular
                     md-diameter="20px"
-                    ng-show="vm.isRunning[pig.id] && vm.running"
+                    ng-show="vm.isRunning[pig._id] && vm.running"
                     md-mode="determinate"
                     value="{{pig.progress}}"
                     class="md-accent md-hue-4">
@@ -51,7 +51,7 @@
                 </md-card-header>
                 <md-card-content>
                   <md-content style="height: 100px">
-                    <div ng-repeat="log in pig.logs">
+                    <div ng-repeat="log in pig.logs track by $index">
                       {{log}}
                       <md-divider></md-divider>
                     </div>
@@ -61,7 +61,7 @@
               <md-card ng-show="pig.output.length > 0">
                 <md-card-header >
                   Output:
-                  <ng-md-icon  ng-disable="true" class="pull-right" icon="open_in_new" lass="md-primary md-raised" ng-click="vm.showTabDialog($event, pig.id )">
+                  <ng-md-icon  ng-disable="true" class="pull-right" icon="open_in_new" lass="md-primary md-raised" ng-click="vm.showTabDialog($event, pig._id )">
                   </ng-md-icon>
                 </md-card-header>
                 <md-card-content>
@@ -81,10 +81,10 @@
           </v-pane-content>
 
           <div class="md-actions" layout="row" layout-align="end center">
-            <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(pig.id, $index)">
+            <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(pig._id, $index)">
               Run
             </md-button>
-            <md-button class="md-primary md-raised" ng-click="vm.edit(pig.id)">
+            <md-button class="md-primary md-raised" ng-click="vm.edit(pig._id)">
               Edit
             </md-button>
           </div>

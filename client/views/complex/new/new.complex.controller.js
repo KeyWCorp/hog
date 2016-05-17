@@ -84,12 +84,12 @@ angular.module('hog')
          }*/
       vm.run = function()
       {
-        console.log('vm.script.id ' + vm.script.id );
-        if (angular.isDefined(vm.script.id))
+        console.log('vm.script.id ' + vm.script._id );
+        if (angular.isDefined(vm.script._id))
         {
 
-          $log.debug('running: ', vm.script.id);
-          Runner.run(vm.script.id)
+          $log.debug('running: ', vm.script._id);
+          Runner.run(vm.script._id)
             .then(
                 function(out)
                 {

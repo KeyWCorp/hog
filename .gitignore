@@ -8,4 +8,6 @@ nbproject
 **/*.log
 *.swp
 *.pig
-pig-parser/
+parser_table.py
+server/api/pig/pig.data.db
+client/index.html

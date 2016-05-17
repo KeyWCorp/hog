@@ -27,6 +27,7 @@ angular.module('hog')
         update: update,
         destroy: destroy,
         run: run,
+        runAndTrack: runAndTrack,
         save: update
       };
 
@@ -54,7 +55,7 @@ angular.module('hog')
         Pig.on('saved',
             function(indata)
             {
-              if(indata.id == data.id)
+              if(indata._id == data._id)
                 $log.debug('Script saved', data.name);
               deferred.resolve(indata);
             });
@@ -121,7 +122,7 @@ angular.module('hog')
         //    console.log(' in UPDATET' + JSON.stringify(procData));
         holdData = procData;
         var deferred = $q.defer();
-        Pig.emit('update', {id: procData.id, obj: angular.toJson(procData)});
+        Pig.emit('update', {id: procData._id, obj: angular.toJson(procData)});
         Pig.on('update',
             function(data)
             {
@@ -170,6 +171,38 @@ angular.module('hog')
       {
         var deferred = $q.defer();
         Pig.emit('run', id);
+        Pig.on('run:end',
+            function(data)
+            {
+              deferred.resolve({type: 'end', data: data});
+            });
+        Pig.on('run:progress',
+            function(percent)
+            {
+              deferred.notify({type: 'progress', data: percent});
+            });
+        Pig.on('run:log',
+            function(log)
+            {
+              deferred.notify({type: 'log', data: log});
+            });
+        Pig.on('run:output',
+            function(output)
+            {
+              deferred.notify({type: 'output', data: output});
+            });
+        Pig.on('error',
+            function(err)
+            {
+              deferred.notify({type: 'error', data: err});
+            });
+
+        return deferred.promise;
+      }
+      function runAndTrack(id)
+      {
+        var deferred = $q.defer();
+        Pig.emit('run:track', id);
         Pig.on('run:end',
             function(data)
             {

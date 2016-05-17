@@ -66,17 +66,7 @@ angular.module('hog')
                 {
                   if (update.data.json !== "null")
                   {
-                    var tmp_output = "(";
-                    for (var i = 0; i < Object.keys(update.data.json).length; i++) {
-                      var key = Object.keys(update.data.json)[i];
-                      tmp_output += update.data.json[key];
-                      if (i + 1 < Object.keys(update.data.json).length) {
-                        tmp_output += ", ";
-                      }
-                    }
-                    tmp_output += ")\n";
-
-                    vm.output[id].push(tmp_output);
+                    vm.output[id].push(update.data.json);
                   }
                 }
               });

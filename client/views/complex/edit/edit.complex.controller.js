@@ -9,19 +9,9 @@ angular.module('hog')
 
       var vm = this;
       vm.script =  Runner.getData();
-      ///console.log('STSTT ' + vm.script);
 
       var ctx;
       var myNewChart;
-
-      /*  Runner.list()
-          .then(
-          function(data)
-          {
-      // Might Need to Parse it
-      vm.script = data.json;
-      // console.log(JSON.stringify(vm.script));
-      });*/
 
       // Graphs are not displayed initially
       vm.showGraph = false;
@@ -30,6 +20,7 @@ angular.module('hog')
       vm.radar = false;
       vm.pie = false;
       vm.output = [];
+      vm.graph_data = false;
 
 
 
@@ -38,7 +29,6 @@ angular.module('hog')
 
       Pig.on('tracker:update', function (data)
           {
-            //console.log("\n\nUPDATE\n\t" + JSON.stringify(data, null, 2));
             vm.taskList = data;
           });
 
@@ -61,9 +51,7 @@ angular.module('hog')
       // Inject data from PIG script output to chart
       vm.getData = function(newData)
       {
-        //console.log(JSON.parse(newData));
         var t = JSON.parse(newData);
-        //console.log(t);
         vm.data[0] = t;
       };
 
@@ -180,7 +168,6 @@ angular.module('hog')
       };
 
       var _ = lodash;
-      console.log(Settings);
       angular.extend(this, {
         name: 'EditComplexCtrl',
         running: false
@@ -276,14 +263,12 @@ angular.module('hog')
           vm.script.line = false;
           vm.script.radar = true;
         }
-        console.log('SCRPIT ' + JSON.stringify(vm.script));
 
-        Runner.save(vm.script)
+        Runner.update(vm.script)
           .then(
               function(data)
               {
-                console.log( ' iN RUNNER SAVE EDIT Controller')
-                  console.log(JSON.stringify( data));
+                console.log(JSON.stringify( data));
                 $log.debug('saved: ' + data);
               },
               function(err)
@@ -292,7 +277,6 @@ angular.module('hog')
               });
       }
       vm.canceled = function(id) {
-        console.log('changing to list');
         $state.go('home.complex.list');
 
       }
@@ -303,10 +287,12 @@ angular.module('hog')
         // start progress bar
         vm.pigList = [];
         vm.running = true;
+        vm.graph_data = false;
+        vm.graph_panes.collapseAll();
 
-        $log.debug('running: ', vm.script.id);
+        $log.debug('running: ', vm.script._id);
         vm.log = [];
-        Runner.run(vm.script.id)
+        Runner.run(vm.script._id)
           .then(
               function(out)
               {
@@ -321,16 +307,55 @@ angular.module('hog')
                 if (update.type == 'progress')
                 {
                   vm.progress = update.data.json;
-                  //console.log('SCURYVY ' + update.data.json + typeof(update.data.json));
                 }
                 else if (update.type == 'log')
                 {
                   if (update.data.json !== "null")
                   {
-                    //var parse = JSON.parse(update.data.json);
                     vm.log.push(update.data.json);
+                  }
+                }
+                else if (update.type == 'output')
+                {
+                  if (update.data.json !== "null")
+                  {
+                    vm.output.push(update.data.json);
+                  }
+                }
+              });
+      };
+      vm.runAndTrack = function()
+      {
+        vm.taskList = [];
+        vm.output = [];
+        // start progress bar
+        vm.pigList = [];
+        vm.running = true;
+        vm.graph_data = false;
 
-                    //console.log('VM > LOG' + parse);
+        $log.debug('running: ', vm.script._id);
+        vm.log = [];
+        Runner.runAndTrack(vm.script._id)
+          .then(
+              function(out)
+              {
+                // vm.output = out;
+              },
+              function(err)
+              {
+                vm.outError = err.json;
+              },
+              function(update)
+              {
+                if (update.type == 'progress')
+                {
+                  vm.progress = update.data.json;
+                }
+                else if (update.type == 'log')
+                {
+                  if (update.data.json !== "null")
+                  {
+                    vm.log.push(update.data.json);
                   }
                 }
                 else if (update.type == 'output')
@@ -349,6 +374,7 @@ angular.module('hog')
 
                     vm.output.push(tmp_output);
                     vm.pigList.push(update.data.json);
+                    vm.graph_data = true;
                   }
                 }
               });
@@ -460,28 +486,8 @@ angular.module('hog')
 
 // Controller for Settings Modal
 function SettingsController( $mdDialog, $scope, vm) {
-  console.log('in settings controller');
 
   $scope.vm = vm;
-  //  console.log(vm);
-
-  //$scope.data = {graph:'bar'};
-  // console.log('settings : ' + $scope.vm.script.settings);
-  // $scope.data = $scope.vm.settings;
-
-  /*var setData = function(data)
-    {
-  // console.log(data);
-  if(data == null)
-  {
-  $scope.data = {graph:''};
-  }
-  if(data == 'bar')
-  {
-  console.log('in HERE');
-  $scope.data = {graph:'bar'};
-  }
-  }*/
 
   $scope.cancel = function()
   {
@@ -491,7 +497,6 @@ function SettingsController( $mdDialog, $scope, vm) {
   $scope.save = function(script)
   {
 
-    //console.log(vm.script.numOutput);
     if(script.bar == true)                                                      {
       $scope.vm.save('bar', script.numOutput);
     }

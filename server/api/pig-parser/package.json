@@ -1,0 +1,27 @@
+{
+  "name": "pig-parser",
+  "version": "1.0.0",
+  "description": "Node module for parsing pig output to get task list",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ccis-irad/pig-parser.git"
+  },
+  "keywords": [
+    "Node.js",
+    "Pig"
+  ],
+  "author": "Kevin Coxe <kcoxe@keywcorp.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/ccis-irad/pig-parser/issues"
+  },
+  "homepage": "https://gitlab.com/ccis-irad/pig-parser#README",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "child-process-promise": "^1.1.0"
+  }
+}
