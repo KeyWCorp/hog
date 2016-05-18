@@ -25,72 +25,72 @@ angular.module('hog')
         {
           vm.isRunning[id] = true;
           vm.running = true;
-          vm.scripts[idx].output = [];
-          //console.log(id);
+
+          vm.scripts[idx].info_outputs = [];
+          vm.scripts[idx].outputs = [];
+          vm.scripts[idx].logs = [];
+          vm.scripts[idx].warnings = [];
+          vm.scripts[idx].errors = [];
+
           var processPercent = 0;
 
           Runner.runAndTrack(id)
             .then(
-                function(out)
+              function(end)
+              {
+                console.log("END");
+              },
+              function(error)
+              {
+                console.log("ERROR: " + JSON.stringify(error));
+              },
+              function(update)
+              {
+                if (update.type == 'progress')
                 {
-                  //  console.log('OUT '  + out);
-                  //   vm.output = out;
-                  //     console.log(vm.output);
-                },
-                function(err)
+                  vm.scripts[idx].progress = update.data.json;
+                }
+                else if (update.type == 'log')
                 {
-                  vm.outError = err;
-                  //  console.log('OUT '  + err);
-                },
-                function(update)
+                  if (update.data.json !== "null")
+                  {
+                    vm.scripts[idx].logs.push(update.data.json);
+                    vm.scripts[idx].info_outputs.push({data: update.data.json, type: "log", color: {'color': 'blue.400'}});
+                  }
+                }
+                else if (update.type == 'warning')
                 {
-
-                  if (angular.isUndefined(vm.scripts[idx]))
+                  if (update.data.json !== "null")
                   {
-                    //     console.log(vm.scripts);
-                    console.error('Id ',idx,' not found');
-                    return;
+                    vm.scripts[idx].warnings.push(update.data.json);
+                    vm.scripts[idx].info_outputs.push({data: update.data.json, type: "warning", color: {'color': 'orange.400'}});
                   }
-                  // console.log(update.type);
-
-                  if (update.type == 'end')
+                }
+                else if (update.type == 'output')
+                {
+                  if (update.data.json !== "null")
                   {
-                    vm.scripts[idx].progress = 100;
-                  }
-                  else if (update.type == 'progress')
-                  {
-                    //process status
-                    processPercent = percent_data(processPercent);
 
-                    //vm.scripts[idx].progress = update.data;
-                    vm.scripts[idx].progress = processPercent;
-                  }
-                  else if (update.type == 'log')
-                  {
-                    processPercent = percent_data(processPercent);
-                    vm.scripts[idx].progress = processPercent;
-                    // console.log('Json: ', update.data.json == null ? "null" : "not null");
-                    //console.log(typeof update.data.json);
-                    if (update.data.json !== "null")
-                    {
-
+                    var tmp_output = "(";
+                    for (var i = 0; i < Object.keys(update.data.json).length; i++) {
+                      var key = Object.keys(update.data.json)[i];
+                      tmp_output += update.data.json[key];
+                      if (i + 1 < Object.keys(update.data.json).length) {
+                        tmp_output += ", ";
+                      }
                     }
-                    else
-                    {
-                      //  console.log('json is null: ', update.data.json)
-                    }
+                    tmp_output += ")\n";
+
+                    vm.scripts[idx].outputs.push(tmp_output);
+                    vm.scripts[idx].info_outputs.push({data: tmp_output, type: "output", color: {'color': 'green.400'}});
                   }
-                  else if (update.type == 'output')
-                  {
-                    if (update.data.json !== "null")
-                    {
-                      processPercent = percent_data(processPercent);
-                      vm.scripts[idx].progress = processPercent;
-                      console.log(update.data.json);
-                      vm.scripts[idx].output.push(update.data.json);
-                    }
-                  }
-                });
+                }
+                else if (update.type == 'error')
+                {
+                  vm.scripts[idx].errors.push(update.data.json);
+                  vm.scripts[idx].info_outputs.push({data: update.data.json, type: "error", color: {'color': 'red.400'}});
+                }
+              });
         }
       });
       // Percent Data figures out the percentage to place
@@ -122,12 +122,55 @@ angular.module('hog')
             });
 
 
+      vm.openInfo = function(ev, idx, filter_type)
+      {
+        $mdDialog.show({
+          template:
+            '<md-dialog flex="80" ng-cloak>'+
+            '  <md-toolbar layout="column">'+
+            '    <div flex class="md-toolbar-tools">'+
+            '      <h2>Info {{ script_name }}</h2>'+
+            '      <span flex></span>'+
+            '    </div>'+
+            '  </md-toolbar> '+
+            '  <md-toolbar>' +
+            '    <div flex class="md-toolbar">' +
+            '      <md-button ng-disabled="info_outputs.length <= 0" ng-click="filterByAll()">Show All</md-button>' +
+            '      <md-button ng-disabled="outputs.length <= 0" ng-click="filterByOutput()">Show Outputs</md-button>' +
+            '      <md-button ng-disabled="logs.length <= 0" ng-click="filterByLog()">Show Logs</md-button>' +
+            '      <md-button ng-disabled="warnings.length <= 0" ng-click="filterByWarning()">Show Warnings</md-button>' +
+            '      <md-button ng-disabled="errors.length <= 0" ng-click="filterByError()">Show Errors</md-button>' +
+            '    </div>' +
+            '  </md-toolbar> '+
+            '  <md-dialog-content>'+
+            '    <md-content flex layout-padding>' +
+            '      <md-list>' +
+            '        <md-list-item ng-repeat="data in filteredInfo()">' +
+            '          <span md-style-color="data.color">{{ data.data }}</span>' +
+            '        </md-list-item>' +
+            '      </md-list>' +
+            '    </md-content>' +
+            '    <md-button class="md-raised md-primary" ng-click="cancel()">Close</md-button>' +
+            '  </md-dialog-content>'+
+            '</md-dialog>',
+          controller: InfoController,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            script_name: vm.scripts[idx].name,
+            info_outputs: vm.scripts[idx].info_outputs,
+            outputs: vm.scripts[idx].outputs,
+            logs: vm.scripts[idx].logs,
+            warnings: vm.scripts[idx].warnings,
+            errors: vm.scripts[idx].errors,
+            filter_type: filter_type
+          },
+        });
+      };
+
       // Called when Output icon is clicked
       vm.showTabDialog = function(ev, id) {
-        //console.log('IN HWEREWR ' , vm.output);
-
-        //   vm.script = {};
-        // vm.script.bar = ['sdf'];
         console.log(id);
 
         $mdDialog.show(
@@ -182,7 +225,6 @@ angular.module('hog')
 
             })
 
-        console.log('scurvyVM ' + vm.output);
       };
 
 
@@ -263,5 +305,63 @@ function DialogController( $mdDialog, $scope, Runner, vm, id) {
   if($scope.tempScript.radar == true){$scope.mySelection = 2}
 
 
-}
+};
 
+
+// Controller for Info Modal
+function InfoController( $mdDialog, $scope, script_name, info_outputs, outputs, logs, warnings, errors, filter_type)
+{
+  $scope.script_name = script_name;
+  $scope.info_outputs = info_outputs;
+  $scope.outputs = outputs;
+  $scope.logs = logs;
+  $scope.warnings = warnings;
+  $scope.errors = errors;
+  $scope.filter_type = filter_type || "all";
+
+  console.log("NAME: " + $scope.script_name);
+
+  $scope.filteredInfo = function ()
+  {
+    return $scope.info_outputs.filter(function (info)
+    {
+      if ($scope.filter_type === "all")
+      {
+        return true;
+      } else
+      {
+        return info.type === $scope.filter_type;
+      }
+    });
+  };
+
+  $scope.filterByAll = function ()
+  {
+    $scope.filter_type = "all";
+  };
+
+  $scope.filterByOutput = function ()
+  {
+    $scope.filter_type = "output";
+  };
+
+  $scope.filterByLog = function ()
+  {
+    $scope.filter_type = "log";
+  };
+
+  $scope.filterByWarning = function ()
+  {
+    $scope.filter_type = "warning";
+  };
+
+  $scope.filterByError = function ()
+  {
+    $scope.filter_type = "error";
+  };
+
+  $scope.cancel = function()
+  {
+    $mdDialog.cancel();
+  };
+};

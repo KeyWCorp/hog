@@ -44,33 +44,7 @@
           </v-pane-header>
           <v-pane-content>
             <md-card-content>
-              <md-card ng-hide="pig.logs.length == 0 || pig.output.length > 0">
-                <md-card-header >
-                  Logs:
-                  <ng-md-icon class="pull-right" icon="open_in_new" ng-click="openLog()"></ng-md-icon>
-                </md-card-header>
-                <md-card-content>
-                  <md-content style="height: 100px">
-                    <div ng-repeat="log in pig.logs track by $index">
-                      {{log}}
-                      <md-divider></md-divider>
-                    </div>
-                  </md-content>
-                </md-card-content>
-              </md-card>
-              <md-card ng-show="pig.output.length > 0">
-                <md-card-header >
-                  Output:
-                  <ng-md-icon  ng-disable="true" class="pull-right" icon="open_in_new" lass="md-primary md-raised" ng-click="vm.showTabDialog($event, pig._id )">
-                  </ng-md-icon>
-                </md-card-header>
-                <md-card-content>
-                  <md-content style="height: 100px">
-                    {{pig.output}}
-                  </md-content>
-                </md-card-content>
-              </md-card>
-              <md-card ng-show="pig.data" ng-hide="pig.logs.length > 0" ng-hide="pig.output.length >0">
+              <md-card ng-show="pig.data">
                 <md-card-content>
                   <md-content style="height: 100px">
                     {{pig.data}}
@@ -80,13 +54,55 @@
             </md-card-content>
           </v-pane-content>
 
-          <div class="md-actions" layout="row" layout-align="end center">
-            <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(pig._id, $index)">
-              Run
-            </md-button>
-            <md-button class="md-primary md-raised" ng-click="vm.edit(pig._id)">
-              Edit
-            </md-button>
+          <div class="md-actions" layout="row" layout-align="start center">
+            <div layout="column" layout-align="start center" flex ng-if="pig.info_outputs.length > 0">
+              <section layout="row">
+                <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'all')" ng-if="pig.info_outputs.length > 0">
+                  Show All: #{{ pig.info_outputs.length }}
+                  <md-tooltip>
+                    Show All Logs
+                  </md-tooltip>
+                </md-button>
+
+                <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'output')" md-style-color="{'background-color': 'green.400'}" ng-if="pig.outputs.length > 0">
+                  Show Outputs: #{{ pig.outputs.length }}
+                  <md-tooltip>
+                    Show Output
+                  </md-tooltip>
+                </md-button>
+
+                <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'log')" md-style-color="{'background-color': 'blue.400'}" ng-if="pig.logs.length > 0">
+                  Show Logs: #{{ pig.logs.length }}
+                  <md-tooltip>
+                    Show Logs
+                  </md-tooltip>
+                </md-button>
+
+                <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'warning')" md-style-color="{'background-color': 'orange.400'}" ng-if="pig.warnings.length > 0">
+                  Show Warnings: #{{ pig.warnings.length }}
+                  <md-tooltip>
+                    Show Warning Logs
+                  </md-tooltip>
+                </md-button>
+
+                <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'error')" md-style-color="{'background-color': 'red.400'}" ng-if="pig.errors.length > 0">
+                  Show Errors: #{{ pig.errors.length }}
+                  <md-tooltip>
+                    Show Error Logs
+                  </md-tooltip>
+                </md-button>
+
+                <md-divider ></md-divider>
+              </section>
+            </div>
+            <div layout="row" layout-align="end center" flex>
+              <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(pig._id, $index)">
+                Run
+              </md-button>
+              <md-button class="md-primary md-raised" ng-click="vm.edit(pig._id)">
+                Edit
+              </md-button>
+            </div>
           </div>
         </v-pane>
       </v-accordion>
