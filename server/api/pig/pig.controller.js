@@ -14,11 +14,11 @@ function buildResponse (statusCode, data)
 }
 
 /* Load the objects */
- /* Pig.load(
-      function(err)
-      {
-        logger.error('Failed to load Pig collection with error [%s]', err);
-      });*/
+/* Pig.load(
+   function(err)
+   {
+   logger.error('Failed to load Pig collection with error [%s]', err);
+   });*/
 
 /* Set up messages */
 exports.init = function (socket)
@@ -152,54 +152,56 @@ exports.run = function (socket) {
       {
         // Pig Run (id, stdoutCB, stderrCB)
         Pig.run(id,
-            // stdoutCB
-            function(data)
+          // stdoutCB
+          function(data)
+          {
+            if(data.type == 'output')
             {
-              if(data.type == 'output')
-              {
-                //socket.emit('run:output', buildResponse(200, data.data));
-              }
-              if(data.type == 'progress')
-              {
-                socket.emit('run:progress', buildResponse(200, data.data));
-              }
-              else if(data.type == 'log')
-              {
-                socket.emit('run:log', buildResponse(200, data.data));
-              }
-              else if(data.type == 'close')
-              {
-                socket.emit('run:end', buildResponse(200, data.data));
-              }
-              socket.emit('run:output', buildResponse(200, data));
-            },
-        // stderrCB
-        function(data)
-        {
-          if(data.type == 'progress')
+              //socket.emit('run:output', buildResponse(200, data.data));
+            }
+            if(data.type == 'progress')
+            {
+              socket.emit('run:progress', buildResponse(200, data.data));
+            }
+            else if(data.type == 'log')
+            {
+              socket.emit('run:log', buildResponse(200, data.data));
+            }
+            else if(data.type == 'close')
+            {
+              socket.emit('run:end', buildResponse(200, data.data));
+            }
+            socket.emit('run:output', buildResponse(200, data));
+          },
+          // stderrCB
+          function(data)
           {
-            socket.emit('run:progress', buildResponse(200, data.data));
-          }
-          else if(data.type == 'log')
+            if(data.type == 'progress')
+            {
+              socket.emit('run:progress', buildResponse(200, data.data));
+            }
+            else if(data.type == 'log')
+            {
+              socket.emit('run:log', buildResponse(200, data.data));
+            }
+            else if(data.type == 'close')
+            {
+              socket.emit('run:end', buildResponse(200, data.data));
+            }
+            socket.emit('run:log', buildResponse(200, data));
+          },
+          // errCB
+          function(err)
           {
-            socket.emit('run:log', buildResponse(200, data.data));
-          }
-          else if(data.type == 'close')
+            socket.emit('error', buildResponse(200, err));
+            if (err) { return handleError(socket, err); }
+          },
+          // finishedCB
+          function(data)
           {
-            socket.emit('run:end', buildResponse(200, data.data));
-          }
-          socket.emit('run:log', buildResponse(200, data));
-        },
-        // errCB
-        function(err)
-        {
-          if (err) { return handleError(socket, err); }
-        },
-        // finishedCB
-        function(data)
-        {
-          socket.emit('run:finished');
-        });
+            socket.emit('run:end');
+            socket.emit('run:finished');
+          });
       });
 };
 
@@ -214,58 +216,60 @@ exports.runAndTrack = function (socket) {
       {
         // Pig Run (id, stdoutCB, stderrCB)
         Pig.runAndTrack(id,
-            // stdoutCB
-            function(data)
+          // stdoutCB
+          function(data)
+          {
+            if(data.type == 'output')
             {
-              if(data.type == 'output')
-              {
-                //socket.emit('run:output', buildResponse(200, data.data));
-              }
-              if(data.type == 'progress')
-              {
-                socket.emit('run:progress', buildResponse(200, data.data));
-              }
-              else if(data.type == 'log')
-              {
-                socket.emit('run:log', buildResponse(200, data.data));
-              }
-              else if(data.type == 'close')
-              {
-                socket.emit('run:end', buildResponse(200, data.data));
-              }
-              socket.emit('run:output', buildResponse(200, data));
-            },
-        // stderrCB
-        function(data)
-        {
-          if(data.type == 'progress')
+              //socket.emit('run:output', buildResponse(200, data.data));
+            }
+            if(data.type == 'progress')
+            {
+              socket.emit('run:progress', buildResponse(200, data.data));
+            }
+            else if(data.type == 'log')
+            {
+              socket.emit('run:log', buildResponse(200, data.data));
+            }
+            else if(data.type == 'close')
+            {
+              socket.emit('run:end', buildResponse(200, data.data));
+            }
+            socket.emit('run:output', buildResponse(200, data));
+          },
+          // stderrCB
+          function(data)
           {
-            socket.emit('run:progress', buildResponse(200, data.data));
-          }
-          else if(data.type == 'log')
+            if(data.type == 'progress')
+            {
+              socket.emit('run:progress', buildResponse(200, data.data));
+            }
+            else if(data.type == 'log')
+            {
+              socket.emit('run:log', buildResponse(200, data.data));
+            }
+            else if(data.type == 'close')
+            {
+              socket.emit('run:end', buildResponse(200, data.data));
+            }
+            socket.emit('run:log', buildResponse(200, data));
+          },
+          // errCB
+          function(err)
           {
-            socket.emit('run:log', buildResponse(200, data.data));
-          }
-          else if(data.type == 'close')
+            socket.emit('error', buildResponse(200, err));
+            if (err) { return handleError(socket, err); }
+          },
+          // trackerCB
+          function(data)
           {
-            socket.emit('run:end', buildResponse(200, data.data));
-          }
-          socket.emit('run:log', buildResponse(200, data));
-        },
-        // errCB
-        function(err)
-        {
-          if (err) { return handleError(socket, err); }
-        },
-        // trackerCB
-        function(data)
-        {
-          socket.emit('tracker:update', data);
-        },
-        // finishedCB
-        function(data)
-        {
-          socket.emit('run:finished');
-        });
+            socket.emit('tracker:update', data);
+          },
+          // finishedCB
+          function(data)
+          {
+            socket.emit('run:end');
+            socket.emit('run:finished');
+          });
       });
 };

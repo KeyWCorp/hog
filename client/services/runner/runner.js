@@ -194,7 +194,7 @@ angular.module('hog')
         Pig.on('error',
             function(err)
             {
-              deferred.notify({type: 'error', data: err});
+              deferred.resolve({type: 'error', data: err});
             });
 
         return deferred.promise;
@@ -206,7 +206,6 @@ angular.module('hog')
         Pig.on('run:end',
             function(data)
             {
-              //deferred.notify({type: 'end', data: data});
               deferred.resolve({type: 'end', data: data});
             });
         Pig.on('run:progress',
@@ -227,8 +226,7 @@ angular.module('hog')
         Pig.on('error',
             function(err)
             {
-              deferred.notify({type: 'error', data: err});
-              //deferred.reject(err);
+              deferred.resolve({type: 'error', data: err});
             });
 
         return deferred.promise;
