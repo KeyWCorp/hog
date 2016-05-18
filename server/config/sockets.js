@@ -17,6 +17,7 @@ module.exports = function (io) {
 
   });*/
     // nps inserts
+    require('../api/auth/auth.socket.js').register(io);
     require('../api/pig/pig.socket.js').register(io);
   require('../api/settings/settings.socket.js').register(io);
 };

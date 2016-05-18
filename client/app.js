@@ -30,4 +30,7 @@ angular.module('hog', [
     $urlRouterProvider
         .otherwise('/');
     $locationProvider.html5Mode(true);
+  })
+  .config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptor');
   });

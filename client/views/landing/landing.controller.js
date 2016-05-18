@@ -3,5 +3,6 @@ angular.module('hog')
   .controller('LandingCtrl',
     function ($scope, $log, $state, Auth)
     {
-        
+      var vm = this;
+     
     });

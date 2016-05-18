@@ -2,13 +2,13 @@
 
 angular.module('hog')
     .service('Auth',
-        function (socketFactory, $q, $window, $rootScope)
+        function (socketFactory, $q, $window, $rootScope, $state)
         {
             var auth = socketFactory()
             auth.forward('error');
-            auth.ioSocket = io.connect('localhost:9000/api/pigs');
+            auth.ioSocket = io.connect('localhost:9000/api/auth');
 
-            auth.prefix = 'pig-';
+            auth.prefix = 'auth-';
             console.log('hitting connection');
              //var myIoSocket = io.connect('localhost:9000/api/pigs');
              //var myIoSocket = io.connect('10.1.10.26:9000/api/pigs');
@@ -81,6 +81,7 @@ angular.module('hog')
                   {
                     if (response.status === 401)
                     {
+                      $state.go('auth')
                       // handle the case where the user is not authenticated
                     }
                     return response || $q.when(response);
