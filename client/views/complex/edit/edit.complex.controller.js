@@ -244,7 +244,6 @@ angular.module('hog')
           .then(
               function(data)
               {
-                console.log(JSON.stringify( data));
                 $log.debug('saved: ' + data);
               },
               function(err)
@@ -265,18 +264,19 @@ angular.module('hog')
         vm.running = true;
         vm.graph_data = false;
         vm.graph_panes.collapseAll();
+        vm.errors = [];
 
         $log.debug('running: ', vm.script._id);
         vm.log = [];
         Runner.run(vm.script._id)
           .then(
-              function(out)
+              function(end)
               {
-                // vm.output = out;
+                console.log("END");
               },
-              function(err)
+              function(error)
               {
-                vm.outError = err.json;
+                console.log("ERROR: " + JSON.stringify(error));
               },
               function(update)
               {
@@ -298,6 +298,10 @@ angular.module('hog')
                     vm.output.push(update.data.json);
                   }
                 }
+                else if (update.type == 'error')
+                {
+                  vm.errors.push(update.data.json);
+                }
               });
       };
       vm.runAndTrack = function()
@@ -308,18 +312,19 @@ angular.module('hog')
         vm.pigList = [];
         vm.running = true;
         vm.graph_data = false;
+        vm.errors = [];
 
         $log.debug('running: ', vm.script._id);
         vm.log = [];
         Runner.runAndTrack(vm.script._id)
           .then(
-              function(out)
+              function(end)
               {
-                // vm.output = out;
+                console.log("END");
               },
-              function(err)
+              function(error)
               {
-                vm.outError = err.json;
+                console.log("ERROR: " + JSON.stringify(error));
               },
               function(update)
               {
@@ -352,6 +357,10 @@ angular.module('hog')
                     vm.pigList.push(update.data.json);
                     vm.graph_data = true;
                   }
+                }
+                else if (update.type == 'error')
+                {
+                  vm.errors.push(update.data.json);
                 }
               });
       };

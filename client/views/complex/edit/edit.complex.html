@@ -45,13 +45,28 @@
             <v-accordion class="vAccordion--default" layout="column" flex="45">
               <v-pane>
                 <v-pane-header>
-                  Logs
+                  Logs / Warnings
                 </v-pane-header>
                 <v-pane-content>
                   <md-content style="height: 100px" layout-align="space-around">
                     <md-list>
                       <md-list-item ng-repeat="log in vm.log track by $index">
-                        {{log}}
+                        {{ log }}
+                        <md-divider ng-if="!$last"></md-divider>
+                      </md-list-item>
+                    </md-list>
+                  </md-content>
+                </v-pane-content>
+              </v-pane>
+              <v-pane ng-if="vm.errors.length > 0">
+                <v-pane-header>
+                  Errors
+                </v-pane-header>
+                <v-pane-content>
+                  <md-content style="height: 100px" layout-align="space-around">
+                    <md-list>
+                      <md-list-item ng-repeat="error in vm.errors track by $index">
+                        {{ error }}
                         <md-divider ng-if="!$last"></md-divider>
                       </md-list-item>
                     </md-list>
