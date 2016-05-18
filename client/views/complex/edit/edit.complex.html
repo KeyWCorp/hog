@@ -42,38 +42,46 @@
             <div hog-tracker task-string="vm.ots(vm.taskList)" tracker-id="'myTracker'" title="'My Task List'"></div>
           </div>
 
-          <div flex class='md-padding' layout="row" layout-padding>
+          <div flex class='md-padding' layout="column" layout-padding ng-show="vm.info_outputs.length > 0">
+            <md-subheader class="md-primary">Display Output Logs</md-subheader>
             <section layout="row">
-              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'all')" ng-if="vm.info_outputs.length > 0">Info: {{ vm.info_outputs.length }}</md-button>
-              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'output')" md-style-color="{'background-color': 'green.400'}" ng-if="vm.outputs.length > 0">Outputs: {{ vm.outputs.length }}</md-button>
-              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'log')" md-style-color="{'background-color': 'blue.400'}" ng-if="vm.logs.length > 0">Logs: {{ vm.logs.length }}</md-button>
-              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'warning')" md-style-color="{'background-color': 'orange.400'}" ng-if="vm.warnings.length > 0">Warnings: {{ vm.warnings.length }}</md-button>
-              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'error')" md-style-color="{'background-color': 'red.400'}" ng-if="vm.errors.length > 0">Errors: {{ vm.errors.length }}</md-button>
+              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'all')" ng-if="vm.info_outputs.length > 0">
+                Info: {{ vm.info_outputs.length }}
+                <md-tooltip>
+                  Show All Logs
+                </md-tooltip>
+              </md-button>
+
+              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'output')" md-style-color="{'background-color': 'green.400'}" ng-if="vm.outputs.length > 0">
+                Outputs: {{ vm.outputs.length }}
+                <md-tooltip>
+                  Show Output
+                </md-tooltip>
+              </md-button>
+
+              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'log')" md-style-color="{'background-color': 'blue.400'}" ng-if="vm.logs.length > 0">
+                Logs: {{ vm.logs.length }}
+                <md-tooltip>
+                  Show Logs
+                </md-tooltip>
+              </md-button>
+
+              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'warning')" md-style-color="{'background-color': 'orange.400'}" ng-if="vm.warnings.length > 0">
+                Warnings: {{ vm.warnings.length }}
+                <md-tooltip>
+                  Show Warning Logs
+                </md-tooltip>
+              </md-button>
+
+              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'error')" md-style-color="{'background-color': 'red.400'}" ng-if="vm.errors.length > 0">
+                Errors: {{ vm.errors.length }}
+                <md-tooltip>
+                  Show Error Logs
+                </md-tooltip>
+              </md-button>
+
               <md-divider ></md-divider>
             </section>
-          </div>
-
-          <div flex class='md-padding' layout="column" layout-padding>
-            <v-accordion class="vAccordion--default">
-              <v-pane>
-                <v-pane-header>
-                  <h2 class="md-title">Output</h2>
-                </v-pane-header>
-                <v-pane-content>
-                  <md-card ng-show="vm.outputs">
-                    <md-card-content>
-                      <md-list>
-                        <md-content flex layout-padding>
-                          <md-list-item ng-repeat="output in vm.outputs track by $index">
-                            {{ output }}
-                          </md-list-item>
-                        </md-content>
-                      </md-list>
-                    </md-card-content>
-                  </md-card>
-                </v-pane-content>
-              </v-pane>
-            </v-accordion>
           </div>
 
           <div class='md-padding' layout="column" layout-wrap layout-align="space-around">
