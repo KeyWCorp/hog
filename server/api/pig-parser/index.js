@@ -55,6 +55,7 @@ function run(input_args, script_location, stdOut, stdError, stdLog, finishedCall
       var data_list = decoder.write(chunk).split("\n");
 
       var warn_re = /^[\s\S]*WARN[\s\S]*$/gm;
+      var error_re = /^[\s\S]*ERROR[\s\S]*$/gm;
       var info_re = /^[\s\S]*INFO[\s\S]*$/gm;
       var task_re = /(\d+-\d+-\d+)\s(\d+:\d+:\d+),(\d+)\s\[([a-z]*)\]\s([A-Z]+)\s*((?:[a-zA-Z]|\d|\.)+)\s-\s((?:\w|\W)+)/;
 
@@ -62,7 +63,12 @@ function run(input_args, script_location, stdOut, stdError, stdLog, finishedCall
         function (data)
         {
           var warn_match = data.match(warn_re);
+          var error_match = data.match(error_re);
           if (warn_match)
+          {
+            stdLog(decoder.write(chunk));
+          }
+          else if (error_match)
           {
             stdError(decoder.write(chunk));
           }
@@ -326,13 +332,19 @@ function pigGetTasks(input_args, script_location, callback, stdOut, stdError, st
       var data_list = decoder.write(chunk).split("\n");
 
       var warn_re = /^[\s\S]*WARN[\s\S]*$/gm;
+      var error_re = /^[\s\S]*ERROR[\s\S]*$/gm;
       var info_re = /^[\s\S]*INFO[\s\S]*$/gm;
 
       data_list.forEach(
         function (data)
         {
           var warn_match = data.match(warn_re);
+          var error_match = data.match(error_re);
           if (warn_match)
+          {
+            stdLog(decoder.write(chunk));
+          }
+          else if (error_match)
           {
             stdError(decoder.write(chunk));
           }
@@ -493,6 +505,7 @@ function pigGetOutput(input_args, script_location, callback, stdOut, stdError, s
       var data_list = decoder.write(chunk).split("\n");
 
       var warn_re = /^[\s\S]*WARN[\s\S]*$/gm;
+      var error_re = /^[\s\S]*ERROR[\s\S]*$/gm;
       var info_re = /^[\s\S]*INFO[\s\S]*$/gm;
       var task_re = /(\d+-\d+-\d+)\s(\d+:\d+:\d+),(\d+)\s\[([a-z]*)\]\s([A-Z]+)\s*((?:[a-zA-Z]|\d|\.)+)\s-\s((?:\w|\W)+)/;
 
@@ -500,7 +513,12 @@ function pigGetOutput(input_args, script_location, callback, stdOut, stdError, s
         function (data)
         {
           var warn_match = data.match(warn_re);
+          var error_match = data.match(error_re);
           if (warn_match)
+          {
+            stdLog(decoder.write(chunk));
+          }
+          else if (error_match)
           {
             stdError(decoder.write(chunk));
           }

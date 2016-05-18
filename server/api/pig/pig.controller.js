@@ -150,51 +150,21 @@ exports.run = function (socket) {
   socket.on('run',
       function(id)
       {
-        // Pig Run (id, stdoutCB, stderrCB)
         Pig.run(id,
           // stdoutCB
           function(data)
           {
-            if(data.type == 'output')
-            {
-              //socket.emit('run:output', buildResponse(200, data.data));
-            }
-            if(data.type == 'progress')
-            {
-              socket.emit('run:progress', buildResponse(200, data.data));
-            }
-            else if(data.type == 'log')
-            {
-              socket.emit('run:log', buildResponse(200, data.data));
-            }
-            else if(data.type == 'close')
-            {
-              socket.emit('run:end', buildResponse(200, data.data));
-            }
             socket.emit('run:output', buildResponse(200, data));
           },
           // stderrCB
-          function(data)
-          {
-            if(data.type == 'progress')
-            {
-              socket.emit('run:progress', buildResponse(200, data.data));
-            }
-            else if(data.type == 'log')
-            {
-              socket.emit('run:log', buildResponse(200, data.data));
-            }
-            else if(data.type == 'close')
-            {
-              socket.emit('run:end', buildResponse(200, data.data));
-            }
-            socket.emit('run:log', buildResponse(200, data));
-          },
-          // errCB
           function(err)
           {
-            socket.emit('error', buildResponse(200, err));
             if (err) { return handleError(socket, err); }
+          },
+          // stdlogCB
+          function(data)
+          {
+            socket.emit('run:log', buildResponse(200, data));
           },
           // finishedCB
           function(data)
@@ -214,51 +184,21 @@ exports.runAndTrack = function (socket) {
   socket.on('run:track',
       function(id)
       {
-        // Pig Run (id, stdoutCB, stderrCB)
         Pig.runAndTrack(id,
           // stdoutCB
           function(data)
           {
-            if(data.type == 'output')
-            {
-              //socket.emit('run:output', buildResponse(200, data.data));
-            }
-            if(data.type == 'progress')
-            {
-              socket.emit('run:progress', buildResponse(200, data.data));
-            }
-            else if(data.type == 'log')
-            {
-              socket.emit('run:log', buildResponse(200, data.data));
-            }
-            else if(data.type == 'close')
-            {
-              socket.emit('run:end', buildResponse(200, data.data));
-            }
             socket.emit('run:output', buildResponse(200, data));
           },
           // stderrCB
-          function(data)
-          {
-            if(data.type == 'progress')
-            {
-              socket.emit('run:progress', buildResponse(200, data.data));
-            }
-            else if(data.type == 'log')
-            {
-              socket.emit('run:log', buildResponse(200, data.data));
-            }
-            else if(data.type == 'close')
-            {
-              socket.emit('run:end', buildResponse(200, data.data));
-            }
-            socket.emit('run:log', buildResponse(200, data));
-          },
-          // errCB
           function(err)
           {
-            socket.emit('error', buildResponse(200, err));
             if (err) { return handleError(socket, err); }
+          },
+          // stdlogCB
+          function(data)
+          {
+            socket.emit('run:log', buildResponse(200, data));
           },
           // trackerCB
           function(data)

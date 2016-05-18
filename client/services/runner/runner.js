@@ -191,10 +191,10 @@ angular.module('hog')
             {
               deferred.notify({type: 'output', data: output});
             });
-        Pig.on('error',
+        Pig.on('pig:error',
             function(err)
             {
-              deferred.resolve({type: 'error', data: err});
+              deferred.notify({type: 'error', data: err});
             });
 
         return deferred.promise;
@@ -223,10 +223,10 @@ angular.module('hog')
             {
               deferred.notify({type: 'output', data: output});
             });
-        Pig.on('error',
+        Pig.on('pig:error',
             function(err)
             {
-              deferred.resolve({type: 'error', data: err});
+              deferred.notify({type: 'error', data: err});
             });
 
         return deferred.promise;
