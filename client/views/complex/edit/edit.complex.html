@@ -46,35 +46,35 @@
             <md-subheader class="md-primary">Display Output Logs</md-subheader>
             <section layout="row">
               <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'all')" ng-if="vm.info_outputs.length > 0">
-                Info: {{ vm.info_outputs.length }}
+                Show All: #{{ vm.info_outputs.length }}
                 <md-tooltip>
                   Show All Logs
                 </md-tooltip>
               </md-button>
 
               <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'output')" md-style-color="{'background-color': 'green.400'}" ng-if="vm.outputs.length > 0">
-                Outputs: {{ vm.outputs.length }}
+                Show Outputs: #{{ vm.outputs.length }}
                 <md-tooltip>
                   Show Output
                 </md-tooltip>
               </md-button>
 
               <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'log')" md-style-color="{'background-color': 'blue.400'}" ng-if="vm.logs.length > 0">
-                Logs: {{ vm.logs.length }}
+                Show Logs: #{{ vm.logs.length }}
                 <md-tooltip>
                   Show Logs
                 </md-tooltip>
               </md-button>
 
               <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'warning')" md-style-color="{'background-color': 'orange.400'}" ng-if="vm.warnings.length > 0">
-                Warnings: {{ vm.warnings.length }}
+                Show Warnings: #{{ vm.warnings.length }}
                 <md-tooltip>
                   Show Warning Logs
                 </md-tooltip>
               </md-button>
 
               <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'error')" md-style-color="{'background-color': 'red.400'}" ng-if="vm.errors.length > 0">
-                Errors: {{ vm.errors.length }}
+                Show Errors: #{{ vm.errors.length }}
                 <md-tooltip>
                   Show Error Logs
                 </md-tooltip>
@@ -118,10 +118,6 @@
                 </v-pane-content>
               </v-pane>
             </v-accordion>
-          </div>
-
-          <div class='md-padding' flex layout="row" layout-wrap layout-align="space-around">
-            <md-button class="md-raised" ng-click="vm.openInfo($event, 'all')" flex ng-disabled="vm.info_outputs.length <= 0">Show All Output</md-button>
           </div>
     </md-card-content>
 
