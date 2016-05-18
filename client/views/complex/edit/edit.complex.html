@@ -42,61 +42,52 @@
             <div hog-tracker task-string="vm.ots(vm.taskList)" tracker-id="'myTracker'" title="'My Task List'"></div>
           </div>
 
-          <div>
-            <md-chips>
-              <md-chip ng-if="vm.info_outputs.length > 0">Info {{ vm.info_outputs.length }}</md-chip>
-              <md-chip md-style-color="{'background-color': 'green.400'}" ng-if="vm.outputs.length > 0">Outputs {{ vm.outputs.length }}</md-chip>
-              <md-chip md-style-color="{'background-color': 'blue.400'}" ng-if="vm.logs.length > 0">Logs {{ vm.logs.length }}</md-chip>
-              <md-chip md-style-color="{'background-color': 'orange.400'}" ng-if="vm.warnings.length > 0">Warnings {{ vm.warnings.length }}</md-chip>
-              <md-chip md-style-color="{'background-color': 'red.400'}" ng-if="vm.errors.length > 0">Errors {{ vm.errors.length }}</md-chip>
-            </md-chips>
+          <div flex class='md-padding' layout="row" layout-padding>
+            <section layout="row">
+              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'all')" ng-if="vm.info_outputs.length > 0">Info: {{ vm.info_outputs.length }}</md-button>
+              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'output')" md-style-color="{'background-color': 'green.400'}" ng-if="vm.outputs.length > 0">Outputs: {{ vm.outputs.length }}</md-button>
+              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'log')" md-style-color="{'background-color': 'blue.400'}" ng-if="vm.logs.length > 0">Logs: {{ vm.logs.length }}</md-button>
+              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'warning')" md-style-color="{'background-color': 'orange.400'}" ng-if="vm.warnings.length > 0">Warnings: {{ vm.warnings.length }}</md-button>
+              <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'error')" md-style-color="{'background-color': 'red.400'}" ng-if="vm.errors.length > 0">Errors: {{ vm.errors.length }}</md-button>
+              <md-divider ></md-divider>
+            </section>
           </div>
 
-          <div class='md-padding' flex layout="row" layout-wrap layout-align="space-around">
-            <md-button class="md-raised" ng-click="vm.openInfo($event)" flex ng-disabled="vm.info_outputs.length <= 0">Show Info</md-button>
-          </div>
-
-          <div class='md-padding' layout="row" layout-wrap layout-align="space-around">
-            <v-accordion class="vAccordion--default" layout="column" flex="45">
-              <v-pane>
-                <v-pane-header layout="row">
-                  Logs
-                </v-pane-header>
-                <v-pane-content>
-                  <md-content style="height: 100px" layout-align="space-around">
-                    <md-list>
-                      <md-list-item ng-repeat="log in vm.logs track by $index">
-                        {{ log }}
-                        <md-divider ng-if="!$last"></md-divider>
-                      </md-list-item>
-                    </md-list>
-                  </md-content>
-                </v-pane-content>
-              </v-pane>
+          <div flex class='md-padding' layout="column" layout-padding>
+            <v-accordion class="vAccordion--default">
               <v-pane>
                 <v-pane-header>
-                  Output
+                  <h2 class="md-title">Output</h2>
                 </v-pane-header>
                 <v-pane-content>
-                  <span ng-repeat="output in vm.outputs track by $index">{{ output }}</span>
+                  <md-card ng-show="vm.outputs">
+                    <md-card-content>
+                      <md-list>
+                        <md-content flex layout-padding>
+                          <md-list-item ng-repeat="output in vm.outputs track by $index">
+                            {{ output }}
+                          </md-list-item>
+                        </md-content>
+                      </md-list>
+                    </md-card-content>
+                  </md-card>
                 </v-pane-content>
               </v-pane>
             </v-accordion>
-            <md-divider layout="row"></md-divider>
+          </div>
+
+          <div class='md-padding' layout="column" layout-wrap layout-align="space-around">
             <v-accordion class="vAccordion--default" layout="column" layout-align="space-around" flex="45" control="vm.graph_panes">
               <v-pane ng-disabled="!vm.graph_data">
                 <v-pane-header>
                   Graph
-
                 </v-pane-header>
 
                 <v-pane-content>
-
                   <md-button ng-click="vm.showLineGraph()"> Line Graph </md-button>
                   <md-button ng-click="vm.showBarGraph()"> Bar Graph</md-button>
-
                   <md-button ng-click="vm.showRadarChart()"> Radar Chart</md-button>
-                    <canvas ng-if="vm.showGraph" id="myChart" width="400" height="400"></canvas>
+                  <canvas ng-if="vm.showGraph" id="myChart" width="400" height="400"></canvas>
                 </v-pane-content>
               </v-pane>
 
@@ -119,6 +110,10 @@
                 </v-pane-content>
               </v-pane>
             </v-accordion>
+          </div>
+
+          <div class='md-padding' flex layout="row" layout-wrap layout-align="space-around">
+            <md-button class="md-raised" ng-click="vm.openInfo($event, 'all')" flex ng-disabled="vm.info_outputs.length <= 0">Show All Output</md-button>
           </div>
     </md-card-content>
 

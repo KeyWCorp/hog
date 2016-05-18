@@ -421,7 +421,7 @@ angular.module('hog')
         return indx;
       }
 
-      vm.openInfo = function(ev)
+      vm.openInfo = function(ev, filter_type)
       {
         $mdDialog.show({
           template:
@@ -461,7 +461,8 @@ angular.module('hog')
             outputs: vm.outputs,
             logs: vm.logs,
             warnings: vm.warnings,
-            errors: vm.errors
+            errors: vm.errors,
+            filter_type: filter_type
           },
         });
       };
@@ -546,14 +547,14 @@ function SettingsController( $mdDialog, $scope, vm)
 };
 
 // Controller for Info Modal
-function InfoController( $mdDialog, $scope, info_outputs, outputs, logs, warnings, errors)
+function InfoController( $mdDialog, $scope, info_outputs, outputs, logs, warnings, errors, filter_type)
 {
   $scope.info_outputs = info_outputs;
   $scope.outputs = outputs;
   $scope.logs = logs;
   $scope.warnings = warnings;
   $scope.errors = errors;
-  $scope.filter_type = "all";
+  $scope.filter_type = filter_type || "all";
 
   $scope.filteredInfo = function ()
   {

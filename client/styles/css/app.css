@@ -99,3 +99,6 @@ circle.FAILED {
 
 body {
   font-family: sans-serif; }
+
+.chip-btn {
+  border-radius: 10em; }
