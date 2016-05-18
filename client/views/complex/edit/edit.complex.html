@@ -41,32 +41,32 @@
           <div flex ng-show="vm.taskList.length > 0">
             <div hog-tracker task-string="vm.ots(vm.taskList)" tracker-id="'myTracker'" title="'My Task List'"></div>
           </div>
+
+          <div>
+            <md-chips>
+              <md-chip ng-if="vm.info_outputs.length > 0">Info {{ vm.info_outputs.length }}</md-chip>
+              <md-chip md-style-color="{'background-color': 'green.400'}" ng-if="vm.outputs.length > 0">Outputs {{ vm.outputs.length }}</md-chip>
+              <md-chip md-style-color="{'background-color': 'blue.400'}" ng-if="vm.logs.length > 0">Logs {{ vm.logs.length }}</md-chip>
+              <md-chip md-style-color="{'background-color': 'orange.400'}" ng-if="vm.warnings.length > 0">Warnings {{ vm.warnings.length }}</md-chip>
+              <md-chip md-style-color="{'background-color': 'red.400'}" ng-if="vm.errors.length > 0">Errors {{ vm.errors.length }}</md-chip>
+            </md-chips>
+          </div>
+
+          <div class='md-padding' flex layout="row" layout-wrap layout-align="space-around">
+            <md-button class="md-raised" ng-click="vm.openInfo($event)" flex ng-disabled="vm.info_outputs.length <= 0">Show Info</md-button>
+          </div>
+
           <div class='md-padding' layout="row" layout-wrap layout-align="space-around">
             <v-accordion class="vAccordion--default" layout="column" flex="45">
               <v-pane>
-                <v-pane-header>
-                  Logs / Warnings
+                <v-pane-header layout="row">
+                  Logs
                 </v-pane-header>
                 <v-pane-content>
                   <md-content style="height: 100px" layout-align="space-around">
                     <md-list>
-                      <md-list-item ng-repeat="log in vm.log track by $index">
+                      <md-list-item ng-repeat="log in vm.logs track by $index">
                         {{ log }}
-                        <md-divider ng-if="!$last"></md-divider>
-                      </md-list-item>
-                    </md-list>
-                  </md-content>
-                </v-pane-content>
-              </v-pane>
-              <v-pane ng-if="vm.errors.length > 0">
-                <v-pane-header>
-                  Errors
-                </v-pane-header>
-                <v-pane-content>
-                  <md-content style="height: 100px" layout-align="space-around">
-                    <md-list>
-                      <md-list-item ng-repeat="error in vm.errors track by $index">
-                        {{ error }}
                         <md-divider ng-if="!$last"></md-divider>
                       </md-list-item>
                     </md-list>
@@ -78,7 +78,7 @@
                   Output
                 </v-pane-header>
                 <v-pane-content>
-                  <span ng-repeat="output in vm.output track by $index">{{ output }}</span>
+                  <span ng-repeat="output in vm.outputs track by $index">{{ output }}</span>
                 </v-pane-content>
               </v-pane>
             </v-accordion>

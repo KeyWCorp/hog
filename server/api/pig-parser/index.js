@@ -12,7 +12,7 @@ var decoder = new StringDecoder('utf8');
  *
  *
  */
-function run(input_args, script_location, stdOut, stdError, stdLog, finishedCallback)
+function run(input_args, script_location, stdOut, stdError, stdLog, stdWarning, finishedCallback)
 {
   var pig_args = input_args;
   pig_args.push(script_location);
@@ -66,7 +66,7 @@ function run(input_args, script_location, stdOut, stdError, stdLog, finishedCall
           var error_match = data.match(error_re);
           if (warn_match)
           {
-            stdLog(decoder.write(chunk));
+            stdWarning(decoder.write(chunk));
           }
           else if (error_match)
           {
@@ -107,7 +107,7 @@ function run(input_args, script_location, stdOut, stdError, stdLog, finishedCall
  *
  *
  */
-function trackTasks(input_args, script_location, stdOut, stdError, stdLog, taskTracker, finished_callback)
+function trackTasks(input_args, script_location, stdOut, stdError, stdLog, stdWarning, taskTracker, finished_callback)
 {
 
   var output_script_location = script_location + ".pig";
@@ -196,7 +196,7 @@ function trackTasks(input_args, script_location, stdOut, stdError, stdLog, taskT
                 getOutputSynchronously(j);
               }
 
-            }, stdOut, stdError, stdLog);
+            }, stdOut, stdError, stdLog, stdWarning);
         }
       }
       runSynchronously(i);
@@ -222,7 +222,7 @@ function trackTasks(input_args, script_location, stdOut, stdError, stdLog, taskT
               {
                 finished_callback();
               }
-            }, stdOut, stdError, stdLog, taskTracker, task_list);
+            }, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list);
         }
       }
 
@@ -235,7 +235,7 @@ function trackTasks(input_args, script_location, stdOut, stdError, stdLog, taskT
  *
  *
  */
-function writeRunTrack(input_args, output_list, command, callback, stdOut, stdError, stdLog)
+function writeRunTrack(input_args, output_list, command, callback, stdOut, stdError, stdLog, stdWarning)
 {
   var final_regex = {};
 
@@ -271,7 +271,7 @@ function writeRunTrack(input_args, output_list, command, callback, stdOut, stdEr
             variable: command.variable,
             count: count
           });
-        }, stdOut, stdError, stdLog);
+        }, stdOut, stdError, stdLog, stdWarning);
     });
 }
 
@@ -282,7 +282,7 @@ function writeRunTrack(input_args, output_list, command, callback, stdOut, stdEr
  *
  *
  */
-function pigGetTasks(input_args, script_location, callback, stdOut, stdError, stdLog)
+function pigGetTasks(input_args, script_location, callback, stdOut, stdError, stdLog, stdWarning)
 {
 
   var map_plan_re = /^\#\sMap\sReduce\sPlan\s*$/;
@@ -342,7 +342,7 @@ function pigGetTasks(input_args, script_location, callback, stdOut, stdError, st
           var error_match = data.match(error_re);
           if (warn_match)
           {
-            stdLog(decoder.write(chunk));
+            stdWarning(decoder.write(chunk));
           }
           else if (error_match)
           {
@@ -386,7 +386,7 @@ function pigGetTasks(input_args, script_location, callback, stdOut, stdError, st
  * delete the file
  *
  */
-function writeAndRun(input_args, output_list, command, callback, stdOut, stdError, stdLog, taskTracker, task_list)
+function writeAndRun(input_args, output_list, command, callback, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list)
 {
   var final_regex = {};
 
@@ -417,7 +417,7 @@ function writeAndRun(input_args, output_list, command, callback, stdOut, stdErro
               if (err) throw err;
             });
           callback(output_obj);
-        }, stdOut, stdError, stdLog, taskTracker, task_list);
+        }, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list);
     });
 }
 
@@ -428,7 +428,7 @@ function writeAndRun(input_args, output_list, command, callback, stdOut, stdErro
  * Function to run the pig script
  *
  */
-function pigGetOutput(input_args, script_location, callback, stdOut, stdError, stdLog, taskTracker, task_list)
+function pigGetOutput(input_args, script_location, callback, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list)
 {
 
   var output_list = [];
@@ -516,7 +516,7 @@ function pigGetOutput(input_args, script_location, callback, stdOut, stdError, s
           var error_match = data.match(error_re);
           if (warn_match)
           {
-            stdLog(decoder.write(chunk));
+            stdWarning(decoder.write(chunk));
           }
           else if (error_match)
           {

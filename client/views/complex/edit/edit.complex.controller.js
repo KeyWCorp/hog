@@ -16,7 +16,7 @@ angular.module('hog')
       vm.bar = false;
       vm.radar = false;
       vm.pie = false;
-      vm.output = [];
+      vm.outputs = [];
       vm.graph_data = false;
 
 
@@ -192,7 +192,12 @@ angular.module('hog')
       vm.selectedArgs = [];
       vm.editorModel = '';
       vm.progress = 0;
-      vm.log = [];
+
+      vm.info_outputs = [];
+      vm.logs = [];
+      vm.warnings = [];
+      vm.errors = [];
+
       vm.onEditorLoad = function(_ace)
       {
         vm.modeChanged = function () {
@@ -258,7 +263,7 @@ angular.module('hog')
       vm.run = function()
       {
         vm.taskList = [];
-        vm.output = [];
+        vm.outputs = [];
         // start progress bar
         vm.pigList = [];
         vm.running = true;
@@ -267,7 +272,9 @@ angular.module('hog')
         vm.errors = [];
 
         $log.debug('running: ', vm.script._id);
-        vm.log = [];
+        vm.info_outputs = [];
+        vm.logs = [];
+        vm.warnings = [];
         Runner.run(vm.script._id)
           .then(
               function(end)
@@ -288,26 +295,37 @@ angular.module('hog')
                 {
                   if (update.data.json !== "null")
                   {
-                    vm.log.push(update.data.json);
+                    vm.logs.push(update.data.json);
+                    vm.info_outputs.push({data: update.data.json, type: "log", color: {'color': 'blue.400'}});
+                  }
+                }
+                else if (update.type == 'warning')
+                {
+                  if (update.data.json !== "null")
+                  {
+                    vm.warnings.push(update.data.json);
+                    vm.info_outputs.push({data: update.data.json, type: "warning", color: {'color': 'orange.400'}});
                   }
                 }
                 else if (update.type == 'output')
                 {
                   if (update.data.json !== "null")
                   {
-                    vm.output.push(update.data.json);
+                    vm.outputs.push(update.data.json);
+                    vm.info_outputs.push({data: update.data.json, type: "output", color: {'color': 'green.400'}});
                   }
                 }
                 else if (update.type == 'error')
                 {
                   vm.errors.push(update.data.json);
+                  vm.info_outputs.push({data: update.data.json, type: "error", color: {'color': 'red.400'}});
                 }
               });
       };
       vm.runAndTrack = function()
       {
         vm.taskList = [];
-        vm.output = [];
+        vm.outputs = [];
         // start progress bar
         vm.pigList = [];
         vm.running = true;
@@ -315,7 +333,9 @@ angular.module('hog')
         vm.errors = [];
 
         $log.debug('running: ', vm.script._id);
-        vm.log = [];
+        vm.info_outputs = [];
+        vm.logs = [];
+        vm.warnings = [];
         Runner.runAndTrack(vm.script._id)
           .then(
               function(end)
@@ -336,7 +356,16 @@ angular.module('hog')
                 {
                   if (update.data.json !== "null")
                   {
-                    vm.log.push(update.data.json);
+                    vm.logs.push(update.data.json);
+                    vm.info_outputs.push({data: update.data.json, type: "log", color: {'color': 'blue.400'}});
+                  }
+                }
+                else if (update.type == 'warning')
+                {
+                  if (update.data.json !== "null")
+                  {
+                    vm.warnings.push(update.data.json);
+                    vm.info_outputs.push({data: update.data.json, type: "warning", color: {'color': 'orange.400'}});
                   }
                 }
                 else if (update.type == 'output')
@@ -353,7 +382,8 @@ angular.module('hog')
                     }
                     tmp_output += ")\n";
 
-                    vm.output.push(tmp_output);
+                    vm.outputs.push(tmp_output);
+                    vm.info_outputs.push({data: tmp_output, type: "output", color: {'color': 'green.400'}});
                     vm.pigList.push(update.data.json);
                     vm.graph_data = true;
                   }
@@ -361,6 +391,7 @@ angular.module('hog')
                 else if (update.type == 'error')
                 {
                   vm.errors.push(update.data.json);
+                  vm.info_outputs.push({data: update.data.json, type: "error", color: {'color': 'red.400'}});
                 }
               });
       };
@@ -390,6 +421,50 @@ angular.module('hog')
         return indx;
       }
 
+      vm.openInfo = function(ev)
+      {
+        $mdDialog.show({
+          template:
+            '<md-dialog flex="80" ng-cloak>'+
+            '  <form>'+
+            '    <md-toolbar>'+
+            '      <div class="md-toolbar-tools">'+
+            '        <h2>Info</h2>'+
+            '        <span flex></span>'+
+            '      </div>'+
+            '    </md-toolbar>'+
+            '    <md-dialog-content>'+
+            '      <div>' +
+            '        <md-button ng-disabled="info_outputs.length <= 0" ng-click="filterByAll()">Show All</md-button>' +
+            '        <md-button ng-disabled="outputs.length <= 0" ng-click="filterByOutput()">Show Outputs</md-button>' +
+            '        <md-button ng-disabled="logs.length <= 0" ng-click="filterByLog()">Show Logs</md-button>' +
+            '        <md-button ng-disabled="warnings.length <= 0" ng-click="filterByWarning()">Show Warnings</md-button>' +
+            '        <md-button ng-disabled="errors.length <= 0" ng-click="filterByError()">Show Errors</md-button>' +
+            '      </div>' +
+            '      <md-content>' +
+            '        <md-list>' +
+            '          <md-list-item ng-repeat="data in filteredInfo()">' +
+            '            <span md-style-color="data.color">{{ data.data }}</span>' +
+            '          </md-list-item>' +
+            '        </md-list>' +
+            '      </md-content>' +
+            '      <md-button class="md-raised md-primary" ng-click="cancel()">Close</md-button>' +
+            '    </md-dialog-content>'+
+            '  </form>'+
+            '</md-dialog>',
+          controller: InfoController,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            info_outputs: vm.info_outputs,
+            outputs: vm.outputs,
+            logs: vm.logs,
+            warnings: vm.warnings,
+            errors: vm.errors
+          },
+        });
+      };
 
 
       vm.openSettings = function(ev)
@@ -397,42 +472,40 @@ angular.module('hog')
 
         $mdDialog.show({
           controller: SettingsController,
-          template: '<md-dialog  ng-cloak>'+
-            '<form>'+
-            ' <md-toolbar>'+
-            '  <div class="md-toolbar-tools">'+
-            '   <h2>Graph Settings</h2>'+
-            '<span flex></span>'+
-            '</div>'+
-            '</md-toolbar>'+
-            '<md-dialog-content>'+
-            '<div class="md-dialog-content">'+
-            ' <legend>How would you like to view your output?</legend>'+
-            ' <div layout="column" layout-align="center start">'+
-            ' <md-checkbox ng-disabled="vm.script.line || vm.script.radar"  ng-model="vm.script.bar" >'+
-            '    Bar Graph '+
-            '</md-checkbox>'+
-            ' <md-checkbox ng-disabled="vm.script.bar || vm.script.radar"  ng-model="vm.script.line" >'+
-            '    Line Graph '+
-            '</md-checkbox>'+
-            '<md-checkbox ng-disabled="vm.script.bar || vm.script.line"  ng-model="vm.script.radar">'+
-            '   Radar Graph'+
-            '</md-checkbox>'+
-            '</div>'+
-
-            '   </div>'+
-            '  <md-input-container class="md-block">'+
-            '  <div required > ' +
-            ' <label>Enter the number of desired outputs</label>'+
-            '<input ng-model="vm.script.numOutput">'+
-            '</div>'+
-            '</md-input-container>'+
-
-            '<md-button class="md-raised md-primary" ng-click="cancel()">Close</md-button>' +
-            '<md-button class="md-raised md-primary" ng-click="save(vm.script)">Save</md-button>' +
-
-            '  </md-dialog-content>'+
-            '</form>'+
+          template:
+            '<md-dialog ng-cloak>'+
+            '  <form>'+
+            '    <md-toolbar>'+
+            '      <div class="md-toolbar-tools">'+
+            '        <h2>Graph Settings</h2>'+
+            '        <span flex></span>'+
+            '      </div>'+
+            '    </md-toolbar>'+
+            '    <md-dialog-content>'+
+            '      <div class="md-dialog-content">'+
+            '        <legend>How would you like to view your output?</legend>'+
+            '        <div layout="column" layout-align="center start">'+
+            '          <md-checkbox ng-disabled="vm.script.line || vm.script.radar"  ng-model="vm.script.bar" >'+
+            '            Bar Graph '+
+            '          </md-checkbox>'+
+            '          <md-checkbox ng-disabled="vm.script.bar || vm.script.radar"  ng-model="vm.script.line" >'+
+            '            Line Graph '+
+            '          </md-checkbox>'+
+            '          <md-checkbox ng-disabled="vm.script.bar || vm.script.line"  ng-model="vm.script.radar">'+
+            '            Radar Graph'+
+            '          </md-checkbox>'+
+            '        </div>'+
+            '      </div>'+
+            '      <md-input-container class="md-block">'+
+            '        <div required > ' +
+            '          <label>Enter the number of desired outputs</label>'+
+            '          <input ng-model="vm.script.numOutput">'+
+            '        </div>'+
+            '      </md-input-container>'+
+            '      <md-button class="md-raised md-primary" ng-click="cancel()">Close</md-button>' +
+            '      <md-button class="md-raised md-primary" ng-click="save(vm.script)">Save</md-button>' +
+            '     </md-dialog-content>'+
+            '  </form>'+
             '</md-dialog>',
           clickOutsideToClose: true,
           parent: angular.element(document.body),
@@ -447,19 +520,17 @@ angular.module('hog')
 
 
 // Controller for Settings Modal
-function SettingsController( $mdDialog, $scope, vm) {
-
+function SettingsController( $mdDialog, $scope, vm)
+{
   $scope.vm = vm;
-
   $scope.cancel = function()
   {
     $mdDialog.cancel();
   };
-
   $scope.save = function(script)
   {
-
-    if(script.bar == true)                                                      {
+    if(script.bar == true)
+    {
       $scope.vm.save('bar', script.numOutput);
     }
     if(script.line == true)
@@ -472,7 +543,59 @@ function SettingsController( $mdDialog, $scope, vm) {
     }
     $scope.cancel();
   }
+};
 
+// Controller for Info Modal
+function InfoController( $mdDialog, $scope, info_outputs, outputs, logs, warnings, errors)
+{
+  $scope.info_outputs = info_outputs;
+  $scope.outputs = outputs;
+  $scope.logs = logs;
+  $scope.warnings = warnings;
+  $scope.errors = errors;
+  $scope.filter_type = "all";
 
-}
+  $scope.filteredInfo = function ()
+  {
+    return $scope.info_outputs.filter(function (info)
+    {
+      if ($scope.filter_type === "all")
+      {
+        return true;
+      } else
+      {
+        return info.type === $scope.filter_type;
+      }
+    });
+  };
 
+  $scope.filterByAll = function ()
+  {
+    $scope.filter_type = "all";
+  };
+
+  $scope.filterByOutput = function ()
+  {
+    $scope.filter_type = "output";
+  };
+
+  $scope.filterByLog = function ()
+  {
+    $scope.filter_type = "log";
+  };
+
+  $scope.filterByWarning = function ()
+  {
+    $scope.filter_type = "warning";
+  };
+
+  $scope.filterByError = function ()
+  {
+    $scope.filter_type = "error";
+  };
+
+  $scope.cancel = function()
+  {
+    $mdDialog.cancel();
+  };
+};
