@@ -263,18 +263,20 @@ angular.module('hog')
       vm.run = function()
       {
         vm.taskList = [];
-        vm.outputs = [];
         // start progress bar
         vm.pigList = [];
         vm.running = true;
         vm.graph_data = false;
         vm.graph_panes.collapseAll();
-        vm.errors = [];
 
         $log.debug('running: ', vm.script._id);
+
         vm.info_outputs = [];
+        vm.outputs = [];
         vm.logs = [];
         vm.warnings = [];
+        vm.errors = [];
+
         Runner.run(vm.script._id)
           .then(
               function(end)

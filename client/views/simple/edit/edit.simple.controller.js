@@ -77,20 +77,25 @@ angular.module('hog')
 
       vm.run = function()
       {
-        vm.output = [];
         vm.running = true;
-
         $log.debug('running: ', vm.script._id);
-        vm.log = [];
+
+        vm.info_outputs = [];
+        vm.outputs = [];
+        vm.logs = [];
+        vm.warnings = [];
+        vm.errors = [];
+
         console.log("ARGS: " + JSON.stringify(vm.script.args));
         Runner.run(vm.script._id)
           .then(
-              function(out)
+              function(end)
               {
+                console.log("END");
               },
-              function(err)
+              function(error)
               {
-                vm.outError = err.json;
+                console.log("ERROR: " + JSON.stringify(error));
               },
               function(update)
               {
@@ -102,15 +107,30 @@ angular.module('hog')
                 {
                   if (update.data.json !== "null")
                   {
-                    vm.log.push(update.data.json);
+                    vm.logs.push(update.data.json);
+                    vm.info_outputs.push({data: update.data.json, type: "log", color: {'color': 'blue.400'}});
+                  }
+                }
+                else if (update.type == 'warning')
+                {
+                  if (update.data.json !== "null")
+                  {
+                    vm.warnings.push(update.data.json);
+                    vm.info_outputs.push({data: update.data.json, type: "warning", color: {'color': 'orange.400'}});
                   }
                 }
                 else if (update.type == 'output')
                 {
                   if (update.data.json !== "null")
                   {
-                    vm.output.push(update.data.json);
+                    vm.outputs.push(update.data.json);
+                    vm.info_outputs.push({data: update.data.json, type: "output", color: {'color': 'green.400'}});
                   }
+                }
+                else if (update.type == 'error')
+                {
+                  vm.errors.push(update.data.json);
+                  vm.info_outputs.push({data: update.data.json, type: "error", color: {'color': 'red.400'}});
                 }
               });
       };
@@ -126,4 +146,105 @@ angular.module('hog')
         running: false
       });
 
+      vm.openInfo = function(ev, filter_type)
+      {
+        $mdDialog.show({
+          template:
+            '<md-dialog flex="80" ng-cloak>'+
+            '  <md-toolbar layout="column">'+
+            '    <div flex class="md-toolbar-tools">'+
+            '      <h2>Info</h2>'+
+            '      <span flex></span>'+
+            '    </div>'+
+            '  </md-toolbar> '+
+            '  <md-toolbar>' +
+            '    <div flex class="md-toolbar">' +
+            '      <md-button ng-disabled="info_outputs.length <= 0" ng-click="filterByAll()">Show All</md-button>' +
+            '      <md-button ng-disabled="outputs.length <= 0" ng-click="filterByOutput()">Show Outputs</md-button>' +
+            '      <md-button ng-disabled="logs.length <= 0" ng-click="filterByLog()">Show Logs</md-button>' +
+            '      <md-button ng-disabled="warnings.length <= 0" ng-click="filterByWarning()">Show Warnings</md-button>' +
+            '      <md-button ng-disabled="errors.length <= 0" ng-click="filterByError()">Show Errors</md-button>' +
+            '    </div>' +
+            '  </md-toolbar> '+
+            '  <md-dialog-content>'+
+            '    <md-content flex layout-padding>' +
+            '      <md-list>' +
+            '        <md-list-item ng-repeat="data in filteredInfo()">' +
+            '          <span md-style-color="data.color">{{ data.data }}</span>' +
+            '        </md-list-item>' +
+            '      </md-list>' +
+            '    </md-content>' +
+            '    <md-button class="md-raised md-primary" ng-click="cancel()">Close</md-button>' +
+            '  </md-dialog-content>'+
+            '</md-dialog>',
+          controller: InfoController,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            info_outputs: vm.info_outputs,
+            outputs: vm.outputs,
+            logs: vm.logs,
+            warnings: vm.warnings,
+            errors: vm.errors,
+            filter_type: filter_type
+          },
+        });
+      };
+
     });
+
+// Controller for Info Modal
+function InfoController( $mdDialog, $scope, info_outputs, outputs, logs, warnings, errors, filter_type)
+{
+  $scope.info_outputs = info_outputs;
+  $scope.outputs = outputs;
+  $scope.logs = logs;
+  $scope.warnings = warnings;
+  $scope.errors = errors;
+  $scope.filter_type = filter_type || "all";
+
+  $scope.filteredInfo = function ()
+  {
+    return $scope.info_outputs.filter(function (info)
+    {
+      if ($scope.filter_type === "all")
+      {
+        return true;
+      } else
+      {
+        return info.type === $scope.filter_type;
+      }
+    });
+  };
+
+  $scope.filterByAll = function ()
+  {
+    $scope.filter_type = "all";
+  };
+
+  $scope.filterByOutput = function ()
+  {
+    $scope.filter_type = "output";
+  };
+
+  $scope.filterByLog = function ()
+  {
+    $scope.filter_type = "log";
+  };
+
+  $scope.filterByWarning = function ()
+  {
+    $scope.filter_type = "warning";
+  };
+
+  $scope.filterByError = function ()
+  {
+    $scope.filter_type = "error";
+  };
+
+  $scope.cancel = function()
+  {
+    $mdDialog.cancel();
+  };
+};
