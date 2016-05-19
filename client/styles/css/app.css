@@ -19,7 +19,7 @@ svg.pig-flow {
   shape-rendering: crispEdges;
   vector-effect: non-scaling-stroke; }
 
-.link {
+.flow_link {
   stroke: #000;
   stroke-width: 7px; }
 
@@ -99,3 +99,6 @@ circle.FAILED {
 
 body {
   font-family: sans-serif; }
+
+.chip-btn {
+  border-radius: 10em; }

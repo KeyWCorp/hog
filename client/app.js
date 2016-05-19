@@ -20,7 +20,9 @@ angular.module('hog', [
     'md.data.table',
     'hog.hog-tracker',
     'pig.pig-flow',
-    'pig.pig-flow-templates'
+    'pig.pig-flow-templates',
+    'mdColors',
+    'luegg.directives'
 ]).config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')

@@ -134,7 +134,7 @@ angular.module("pig.pig-flow", [])
             .on("dragstart", dragstart)
             .on("dragend", dragended);
 
-          vm.link = vm.container.selectAll(".link");
+          vm.link = vm.container.selectAll(".flow_link");
           vm.node = vm.container.selectAll(".node");
           vm.node_close = vm.container.selectAll(".node_close");
           vm.node_edit = vm.container.selectAll(".node_edit");
@@ -161,7 +161,7 @@ angular.module("pig.pig-flow", [])
             .data(vm.links);
           vm.link.enter()
             .append("line")
-            .attr("class", "link")
+            .attr("class", "flow_link")
             .on("dblclick", function (d)
             {
               d3.event.stopPropagation();

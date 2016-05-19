@@ -186,6 +186,11 @@ angular.module('hog')
             {
               deferred.notify({type: 'log', data: log});
             });
+        Pig.on('run:warning',
+            function(warning)
+            {
+              deferred.notify({type: 'warning', data: warning});
+            });
         Pig.on('run:output',
             function(output)
             {
@@ -217,6 +222,11 @@ angular.module('hog')
             function(log)
             {
               deferred.notify({type: 'log', data: log});
+            });
+        Pig.on('run:warning',
+            function(warning)
+            {
+              deferred.notify({type: 'warning', data: warning});
             });
         Pig.on('run:output',
             function(output)

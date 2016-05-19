@@ -166,6 +166,11 @@ exports.run = function (socket) {
           {
             socket.emit('run:log', buildResponse(200, data));
           },
+          // stdwarningCB
+          function(data)
+          {
+            socket.emit('run:warning', buildResponse(200, data));
+          },
           // finishedCB
           function(data)
           {
@@ -199,6 +204,11 @@ exports.runAndTrack = function (socket) {
           function(data)
           {
             socket.emit('run:log', buildResponse(200, data));
+          },
+          // stdwarningCB
+          function(data)
+          {
+            socket.emit('run:warning', buildResponse(200, data));
           },
           // trackerCB
           function(data)

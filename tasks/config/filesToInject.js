@@ -12,6 +12,9 @@ module.exports = [
   'client/views/**/*.js', '!client/views/**/*.spec.js',
   '!client/views/**/*.e2e.js',
 
+  // custom text colors
+  'client/services/mdColors/mdColors.js',
+
   // pig-flow
   '!client/services/pig-flow/server.js',
   '!client/services/pig-flow/app.js',
