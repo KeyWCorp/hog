@@ -24,23 +24,23 @@
           <v-accordion class="vAccordion--default" flex>
             <v-pane flex>
               <v-pane-header>
-                  <div
-                    layout="row"
-                    layout-padding
-                    style="background-color:#e3e3e3; height: 40px"
-                    layout-align="start center">
+                <div
+                       layout="row"
+                       layout-padding
+                       style="background-color:#e3e3e3; height: 40px"
+                       layout-align="start center">
 
-                    <h4>{{pig.name}}</h4>
-                    <div layout-align="start center">
-                      <md-progress-circular
-                        md-diameter="20px"
-                        ng-show="vm.isRunning[pig._id] && vm.running"
-                        md-mode="determinate"
-                        value="{{pig.progress}}"
-                        class="md-accent md-hue-4">
-                      </md-progress-circular>
-                    </div>
+                  <h4>{{pig.name}}</h4>
+                  <div layout-align="start center">
+                    <md-progress-circular
+                       md-diameter="20px"
+                       ng-show="vm.isRunning[pig._id] && vm.running"
+                       md-mode="determinate"
+                       value="{{pig.progress}}"
+                       class="md-accent md-hue-4">
+                    </md-progress-circular>
                   </div>
+                </div>
               </v-pane-header>
               <v-pane-content flex>
                 <div style="min-width: 900px;" ng-show="pig.data" readonly ui-ace="vm.editorOptions" ng-model="pig.data" flex></div>
@@ -90,9 +90,17 @@
             </div>
             <span flex></span>
             <div layout="row" layout-align="end center" flex>
-              <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(pig._id, $index)">
-                Run
-              </md-button>
+              <md-menu>
+                <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Execute</md-button>
+                <md-menu-content width="4">
+                  <md-menu-item>
+                    <md-button ng-disabled="vm.running" ng-click="vm.run(pig._id, $index)">Execute</md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ng-disabled="vm.running" ng-click="vm.runAndTrack(pig._id, $index)">Execute and Track</md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
               <md-button class="md-primary md-raised" ng-click="vm.edit(pig._id)">
                 Edit
               </md-button>

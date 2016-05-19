@@ -67,6 +67,66 @@ angular.module('hog')
 
           var processPercent = 0;
 
+          Runner.run(id)
+            .then(
+              function(end)
+              {
+                console.log("END");
+              },
+              function(error)
+              {
+                console.log("ERROR: " + JSON.stringify(error));
+              },
+              function(update)
+              {
+                if (update.type == 'progress')
+                {
+                  vm.scripts[idx].progress = update.data.json;
+                }
+                else if (update.type == 'log')
+                {
+                  if (update.data.json !== "null")
+                  {
+                    vm.scripts[idx].logs.push(update.data.json);
+                    vm.scripts[idx].info_outputs.push({data: update.data.json, type: "log", color: {'color': 'blue.400'}});
+                  }
+                }
+                else if (update.type == 'warning')
+                {
+                  if (update.data.json !== "null")
+                  {
+                    vm.scripts[idx].warnings.push(update.data.json);
+                    vm.scripts[idx].info_outputs.push({data: update.data.json, type: "warning", color: {'color': 'orange.400'}});
+                  }
+                }
+                else if (update.type == 'output')
+                {
+                  if (update.data.json !== "null")
+                  {
+                    vm.scripts[idx].outputs.push(update.data.json);
+                    vm.scripts[idx].info_outputs.push({data: update.data.json, type: "output", color: {'color': 'green.400'}});
+                  }
+                }
+                else if (update.type == 'error')
+                {
+                  vm.scripts[idx].errors.push(update.data.json);
+                  vm.scripts[idx].info_outputs.push({data: update.data.json, type: "error", color: {'color': 'red.400'}});
+                }
+              });
+        },
+        runAndTrack: function(id, idx)
+        {
+          vm.isRunning[id] = true;
+          vm.running = true;
+
+          vm.scripts[idx].info_outputs = [];
+          vm.scripts[idx].outputs = [];
+          vm.scripts[idx].logs = [];
+          vm.scripts[idx].warnings = [];
+          vm.scripts[idx].errors = [];
+
+          var processPercent = 0;
+
           Runner.runAndTrack(id)
             .then(
               function(end)

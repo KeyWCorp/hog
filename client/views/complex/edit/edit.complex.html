@@ -19,10 +19,11 @@
                 <md-menu-item>
                   <md-button ng-disabled="vm.running" ng-click="vm.runAndTrack()">Execute and Track</md-button>
                 </md-menu-item>
-              </md-menu>
-              <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
-              <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
-              <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
+              </md-menu-content>
+            </md-menu>
+            <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+            <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
+            <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
           </div>
 
         </div>
@@ -121,8 +122,8 @@
               </v-pane>
             </v-accordion>
           </div>
-            </md-card-content>
+      </md-card-content>
 
 
-      </md-card>
-    </md-content>
+    </md-card>
+</md-content>
