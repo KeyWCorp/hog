@@ -430,7 +430,7 @@ angular.module('hog')
             '<md-dialog flex="80" ng-cloak>'+
             '  <md-toolbar layout="column">'+
             '    <div flex class="md-toolbar-tools">'+
-            '      <h2>Info</h2>'+
+            '      <h2>Info<span ng-if="script_name"> for {{ script_name }}</span></h2>'+
             '      <span flex></span>'+
             '    </div>'+
             '  </md-toolbar> '+
@@ -459,6 +459,7 @@ angular.module('hog')
           parent: angular.element(document.body),
           targetEvent: ev,
           locals: {
+            script_name: vm.script.name,
             info_outputs: vm.info_outputs,
             outputs: vm.outputs,
             logs: vm.logs,
@@ -549,8 +550,9 @@ function SettingsController( $mdDialog, $scope, vm)
 };
 
 // Controller for Info Modal
-function InfoController( $mdDialog, $scope, info_outputs, outputs, logs, warnings, errors, filter_type)
+function InfoController( $mdDialog, $scope, script_name, info_outputs, outputs, logs, warnings, errors, filter_type)
 {
+  $scope.script_name = script_name;
   $scope.info_outputs = info_outputs;
   $scope.outputs = outputs;
   $scope.logs = logs;

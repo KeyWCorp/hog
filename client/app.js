@@ -22,6 +22,7 @@ angular.module('hog', [
     'pig.pig-flow',
     'pig.pig-flow-templates',
     'mdColors',
+    'luegg.directives'
 ]).config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')
