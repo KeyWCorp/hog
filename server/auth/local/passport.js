@@ -6,19 +6,26 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('../../api/user/user.model');
 
 passport.use(new LocalStrategy({
-    usernameField: 'email',
+    usernameField: 'username',
     passwordField: 'password'
   },
-  function (email, password, done) {
+  function (username, password, done) {
     User.findOne({
-      email: email
-    }, '+passwordHash +salt', function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false, { msg: 'email not found' }); }
-      if (!user.authenticate(password)) {
-        return done(null, false, { msg: 'incorrect password' });
-      }
-      done(null, user);
-    });
+      username: username
+    },
+    {populate: true})
+    .then(
+      function (user)
+      {
+        if (!user) { return done(null, false, { msg: 'username not found' }); }
+        if (!user.authenticate(password)) {
+          return done(null, false, { msg: 'incorrect password' });
+        }
+        done(null, user);
+      },
+      function(err)
+      {
+        if (err) { return done(err); }
+      });
   }
 ));

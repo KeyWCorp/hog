@@ -48,6 +48,7 @@
   "dependencies": {
     "async": "^1.4.2",
     "body-parser": "^1.12.0",
+    "camo": "^0.12.1",
     "chalk": "^1.0.0",
     "chart.js": "^1.0.2",
     "child-process-promise": "^1.1.0",

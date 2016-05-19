@@ -14,7 +14,7 @@ router.post('/', function (req, res, next) {
     if (error) { return res.status(401).json(error); }
     if (!user) { return res.status(401).json({ msg: 'login failed' }); }
     res.json({
-      user: _.omit(user.toObject(), ['passwordHash', 'salt']),
+      user: _.omit(user.toJSON(), ['passwordHash', 'salt']),
       token: auth.signToken(user._id)
     });
   })(req, res, next);
