@@ -6,46 +6,28 @@
     <div style="padding-left: 40px;" > <a href='#'> {{ vm.name }} </a></div>
   </div>
 </md-toolbar>
-<!--
-<center>
-  <img src="images/keyw_birds.png" style="width:144px;height:50px;padding-top:10px;" >
-</center>
--->
-  <!--- Main Menu -->
-  <section layout="row" flex ng-cloak >
-    <md-sidenav class="md-sidenav-left md-whiteframe-z" md-component-id="left" style="width: 204px; min-width: 204px;">
-      <md-toolbar  class="md-theme-dark">
-        <h5 class="md-toolbar-tools" ng-click="close()"> Navigation </h5>
-      </md-toolbar>
-      <md-content layout-padding >
-        <section layout="column">
-          <md-menu ng-repeat="nav in vm.menu">
-            <!--<div ng-if="nav.substates">-->
-        <md-button ng-click="vm.clicked(nav, $mdOpenMenu, $event)" class="md-flat md-secondary">
-          {{nav.name}}
-          <md-divider></md-divider>
-        </md-button>
-        <md-menu-content>
-          <md-menu-item ng-repeat="sub in nav.substates">
-            <section layout="column">
-              <md-button ng-click="close()" class="md-flat md-accent" ui-sref="{{sub.state}}">{{sub.name}}</md-button>
-              <md-tooltip md-direction="right">{{sub.tooltip}}</md-tooltip>
-            </section>
-          </md-menu-item>
-        </md-menu-content>
-        <!--</div>-->
-        <!--<div ng-if="!nav.substates">
-          <md-menu-content>
-          <md-menu-item>
-          <md-button ui-sref="{{nav.state}}">
-          {{nav.name}}
-          <md-divider></md-divider>
+<!--- Main Menu -->
+<section layout="row" flex ng-cloak >
+  <md-sidenav class="md-sidenav-left md-whiteframe-z" md-component-id="left" style="width: 204px; min-width: 204px;">
+    <md-toolbar  class="md-theme-dark">
+      <h5 class="md-toolbar-tools" ng-click="close()"> Navigation </h5>
+    </md-toolbar>
+    <md-content layout-padding >
+      <section layout="column">
+        <md-menu ng-repeat="nav in vm.menu">
+          <md-button ng-click="vm.clicked(nav, $mdOpenMenu, $event)" class="md-flat md-secondary">
+            {{nav.name}}
+            <md-divider></md-divider>
           </md-button>
-          </md-menu-item>
+          <md-menu-content>
+            <md-menu-item ng-repeat="sub in nav.substates">
+              <section layout="column">
+                <md-button ng-click="close()" class="md-flat md-accent" ui-sref="{{sub.state}}">{{sub.name}}</md-button>
+              </section>
+            </md-menu-item>
           </md-menu-content>
-          </div>-->
-          </md-menu>
-        </section>
-      </md-content>
-    </md-sidenav>
-  </section>
+        </md-menu>
+      </section>
+    </md-content>
+  </md-sidenav>
+</section>

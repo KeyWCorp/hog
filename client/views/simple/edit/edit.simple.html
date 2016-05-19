@@ -10,21 +10,6 @@
       <input ng-model="vm.args" aria-label="Pig Arguments">
     </md-input-container>
 
-    <v-accordion class="vAccordion--default" layout="column" layout-padding flex="45">
-      <v-pane expanded="true">
-        <v-pane-header>
-          Editor
-        </v-pane-header>
-        <v-pane-content>
-          <div layout="column" layout-margin ng-if="vm.data_ready">
-            <div flex>
-              <div pig-flow layout="column" input-data-string="vm.ots(vm.data)" output-data="vm.output_data" id="pig-flow{{ vm.script.id }}"></div>
-            </div>
-          </div>
-        </v-pane-content>
-      </v-pane>
-    </v-accordion>
-
     <div flex class='md-padding' layout="column" layout-padding ng-show="vm.info_outputs.length > 0">
       <md-subheader class="md-primary">Display Output Logs</md-subheader>
       <section layout="row">
@@ -76,6 +61,21 @@
         <md-button ng-disabled="!vm.script.data || scriptForm.$invalid || vm.running" class="md-raised md-primary" ng-click="vm.run()">Run</md-button>
       </md-input-container>
     </div>
+
+    <v-accordion class="vAccordion--default" layout="column" layout-padding flex="45">
+      <v-pane expanded="true">
+        <v-pane-header>
+          Editor
+        </v-pane-header>
+        <v-pane-content>
+          <div layout="column" layout-margin ng-if="vm.data_ready">
+            <div flex>
+              <div pig-flow layout="column" input-data-string="vm.ots(vm.data)" output-data="vm.output_data" id="pig-flow{{ vm.script.id }}"></div>
+            </div>
+          </div>
+        </v-pane-content>
+      </v-pane>
+    </v-accordion>
 
   </form>
 

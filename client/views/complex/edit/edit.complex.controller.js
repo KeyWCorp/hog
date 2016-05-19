@@ -437,11 +437,11 @@ angular.module('hog')
             '    </md-toolbar> '+
             '    <md-toolbar>' +
             '      <div flex class="md-toolbar">' +
-            '        <md-button ng-disabled="info_outputs.length <= 0" ng-click="filterByAll()">Show All</md-button>' +
-            '        <md-button ng-disabled="outputs.length <= 0" ng-click="filterByOutput()">Show Outputs</md-button>' +
-            '        <md-button ng-disabled="logs.length <= 0" ng-click="filterByLog()">Show Logs</md-button>' +
-            '        <md-button ng-disabled="warnings.length <= 0" ng-click="filterByWarning()">Show Warnings</md-button>' +
-            '        <md-button ng-disabled="errors.length <= 0" ng-click="filterByError()">Show Errors</md-button>' +
+            '        <md-button class="md-raised md-primary" ng-disabled="info_outputs.length <= 0" ng-click="filterByAll()">Show All</md-button>' +
+            '        <md-button class="md-raised md-primary" ng-disabled="outputs.length <= 0" ng-click="filterByOutput()">Show Outputs</md-button>' +
+            '        <md-button class="md-raised md-primary" ng-disabled="logs.length <= 0" ng-click="filterByLog()">Show Logs</md-button>' +
+            '        <md-button class="md-raised md-primary" ng-disabled="warnings.length <= 0" ng-click="filterByWarning()">Show Warnings</md-button>' +
+            '        <md-button class="md-raised md-primary" ng-disabled="errors.length <= 0" ng-click="filterByError()">Show Errors</md-button>' +
             '      </div>' +
             '    </md-toolbar> '+
             '    <md-dialog-content scroll-glue>'+
@@ -455,7 +455,7 @@ angular.module('hog')
             '      <md-divider ></md-divider>' +
             '    </md-dialog-content>'+
             '    <div class="md-actions" layout="row" layout-align="end center">' +
-            '      <md-button class="md-raised md-primary" ng-click="cancel()">Close</md-button>' +
+            '      <md-button class="md-raised" ng-click="cancel()">Close</md-button>' +
             '    </div>' +
             '  </form>' +
             '</md-dialog>',
