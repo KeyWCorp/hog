@@ -18,43 +18,36 @@
     </md-autocomplete>
   </div>
   <div class='md-padding' layout="column" layout-align="center center" >
-    <md-card ng-model="vm.scripts" flex ng-repeat="pig in vm.scripts track by $index">
-      <v-accordion class="vAccordion--default">
-        <v-pane   style="width:900px" >
-          <v-pane-header>
-            <md-card-header>
-              <div
-                layout="row"
-                layout-padding
-                style="background-color:#e3e3e3; height: 40px"
-                layout-align="start center">
+    <div layout="row" flex ng-repeat="pig in vm.scripts track by $index">
+      <div flex>
+        <md-card ng-model="vm.scripts" flex>
+          <v-accordion class="vAccordion--default" flex>
+            <v-pane flex>
+              <v-pane-header>
+                  <div
+                    layout="row"
+                    layout-padding
+                    style="background-color:#e3e3e3; height: 40px"
+                    layout-align="start center">
 
-                <h4>{{pig.name}}</h4>
-                <div layout-align="start center">
-                  <md-progress-circular
-                    md-diameter="20px"
-                    ng-show="vm.isRunning[pig._id] && vm.running"
-                    md-mode="determinate"
-                    value="{{pig.progress}}"
-                    class="md-accent md-hue-4">
-                  </md-progress-circular>
-                </div>
-              </div>
-            </md-card-header>
-          </v-pane-header>
-          <v-pane-content>
-            <md-card-content>
-              <md-card ng-show="pig.data">
-                <md-card-content>
-                  <md-content style="height: 100px">
-                    {{pig.data}}
-                  </md-content>
-                </md-card-content>
-              </md-card>
-            </md-card-content>
-          </v-pane-content>
-
-          <div class="md-actions" layout="row" layout-align="start center">
+                    <h4>{{pig.name}}</h4>
+                    <div layout-align="start center">
+                      <md-progress-circular
+                        md-diameter="20px"
+                        ng-show="vm.isRunning[pig._id] && vm.running"
+                        md-mode="determinate"
+                        value="{{pig.progress}}"
+                        class="md-accent md-hue-4">
+                      </md-progress-circular>
+                    </div>
+                  </div>
+              </v-pane-header>
+              <v-pane-content flex>
+                <div style="min-width: 900px;" ng-show="pig.data" readonly ui-ace="vm.editorOptions" ng-model="pig.data" flex></div>
+              </v-pane-content>
+            </v-pane>
+          </v-accordion>
+          <div class="md-actions" layout="row">
             <div layout="column" layout-align="start center" flex ng-if="pig.info_outputs.length > 0">
               <section layout="row">
                 <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'all')" ng-if="pig.info_outputs.length > 0">
@@ -95,6 +88,7 @@
                 <md-divider ></md-divider>
               </section>
             </div>
+            <span flex></span>
             <div layout="row" layout-align="end center" flex>
               <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(pig._id, $index)">
                 Run
@@ -104,8 +98,8 @@
               </md-button>
             </div>
           </div>
-        </v-pane>
-      </v-accordion>
-    </md-card>
+        </md-card>
+      </div>
+    </div>
   </div>
 </section>

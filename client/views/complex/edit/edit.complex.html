@@ -34,7 +34,7 @@
               </md-input-container>
           </div>
 
-        <div ui-ace="vm.editorOptions" ng-model="vm.script.data"> </div>
+        <div ui-ace="vm.editorOptions" ng-model="vm.script.data" style="height: 600px;"></div>
         <div class="container" ng-class="{'visible' : !vm.running}">
           <md-progress-linear ng-if="vm.start" md-mode="indeterminate"></md-progress-linear>
 

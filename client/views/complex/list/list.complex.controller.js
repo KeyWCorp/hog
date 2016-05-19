@@ -8,6 +8,39 @@ angular.module('hog')
       vm.isRunning = {};
       vm.running = false;
 
+      vm.modes = ['Pig_Latin'];
+      vm.themes = ['twilight', 'none'];
+      vm.mode = vm.modes[0];
+      vm.theme = vm.themes[0];
+      vm.selectedArgs = [];
+      vm.editorModel = '';
+      vm.progress = 0;
+
+      vm.onEditorLoad = function(_ace)
+      {
+        vm.modeChanged = function () {
+          console.log('changing mode to: ' + vm.mode.toLowerCase());
+          console.log('ace: ', _ace);
+          console.log('session: ', _ace.getSession());
+          _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
+        }
+      };
+      vm.onEditorChange = function(_ace)
+      {
+
+      };
+
+      vm.editorOptions = {
+        mode: vm.mode.toLowerCase(),
+        onLoad: function(_ace) {vm.onEditorLoad(_ace);},
+        useWrapMode: false,
+        showGutter: false,
+        theme: vm.theme,
+        firstLineNumber: 1,
+        onChange: vm.onEditorChange(),
+        readOnly: true
+      };
+
       Pig.on('run:finished', function ()
           {
             vm.running = false;
@@ -156,7 +189,6 @@ angular.module('hog')
             '      <md-divider ></md-divider>' +
             '    </md-dialog-content>'+
             '    <div class="md-actions" layout="row" layout-align="end center">' +
-            '      <md-divider ></md-divider>' +
             '      <md-button class="md-raised" ng-click="cancel()">Close</md-button>' +
             '    </div>' +
             '  </form>' +
