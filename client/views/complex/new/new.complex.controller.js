@@ -44,10 +44,6 @@ angular.module('hog')
       vm.save = function()
       {
         vm.script.args = vm.args.split(" ");
-        if (!vm.script.args)
-        {
-          vm.script.args = ["-x", "local"];
-        }
 
         vm.script.name = vm.script.name.replace(/[\s]/g, "_");
         Runner.create(vm.script)

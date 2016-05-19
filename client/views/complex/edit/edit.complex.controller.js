@@ -163,27 +163,6 @@ angular.module('hog')
             {
               vm.script = data.json;
               vm.args = vm.script.args.join(" ");
-              if (!vm.args)
-              {
-                vm.args = [];
-                Settings.getp('pigArgs')
-                  .then(
-                      function(data)
-                      {
-                        data.json.data.forEach(
-                            function(element)
-                            {
-                              //vm.args.push({arg: element.arg, input: element.default});
-                              vm.args.push(element.arg);
-                              vm.args.push(element.default);
-                            });
-                        vm.args = vm.args.join(" ");
-                      },
-                      function(err)
-                      {
-                        $log.error(err);
-                      });
-              }
             });
       vm.modes = ['Pig_Latin'];
       vm.themes = ['twilight', 'none'];
