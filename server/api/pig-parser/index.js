@@ -54,9 +54,9 @@ function run(input_args, script_location, stdOut, stdError, stdLog, stdWarning, 
     {
       var data_list = decoder.write(chunk).split("\n");
 
-      var warn_re = /^[\s\S]*WARN[\s\S]*$/gm;
-      var error_re = /^[\s\S]*ERROR[\s\S]*$/gm;
-      var info_re = /^[\s\S]*INFO[\s\S]*$/gm;
+      var warn_re = /^(?:WARNING|[\s\S]+\sWARN)[\s\S]*$/gm;
+      var error_re = /^[\s\S]+\sERROR[\s\S]*$/gm;
+      var info_re = /^[\s\S]+\sINFO[\s\S]*$/gm;
       var task_re = /(\d+-\d+-\d+)\s(\d+:\d+:\d+),(\d+)\s\[([a-z]*)\]\s([A-Z]+)\s*((?:[a-zA-Z]|\d|\.)+)\s-\s((?:\w|\W)+)/;
 
       data_list.forEach(
