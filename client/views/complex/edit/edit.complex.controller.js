@@ -2,7 +2,7 @@
 
 angular.module('hog')
 
-.controller('EditComplexCtrl', function ($log, $state, $stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog)
+.controller('EditComplexCtrl', function ($log, $state, $stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog, PigCompleter)
     {
       var vm = this;
       vm.script =  Runner.getData();
@@ -179,18 +179,26 @@ angular.module('hog')
 
       vm.onEditorLoad = function(_ace)
       {
+        //_ace.setKeyboardHandler("ace/keyboard/vim");
         vm.modeChanged = function () {
           console.log('changing mode to: ' + vm.mode.toLowerCase());
           console.log('ace: ', _ace);
           console.log('session: ', _ace.getSession());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
-        }
+        };
+        var langTools = ace.require("ace/ext/language_tools");
+        langTools.addCompleter(PigCompleter);
       };
       vm.onEditorChange = function(_ace)
       {
 
       };
       vm.editorOptions = {
+        advanced: {
+          enableSnippets: false,
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true
+        },
         mode: vm.mode.toLowerCase(),
         onLoad: function(_ace) {vm.onEditorLoad(_ace);},
         useWrapMode: false,
