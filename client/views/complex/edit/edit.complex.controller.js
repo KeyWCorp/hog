@@ -302,6 +302,8 @@ angular.module('hog')
                   {
                     vm.outputs.push(update.data.json);
                     vm.info_outputs.push({data: update.data.json, type: "output", color: {'color': 'green.400'}});
+
+                    vm.parseOutput(update.data.json);
                   }
                 }
                 else if (update.type == 'error')
@@ -409,6 +411,101 @@ angular.module('hog')
         var indx = _.findIndex(list, 'arg', item);
         return indx;
       }
+
+      vm.parseOutput = function (data)
+      {
+        var failed = false;
+        try
+        {
+          var tmp_data = data
+            .replace(/\(/g, "[")
+            .replace(/\)/g, "]");
+
+          var output_data = JSON.parse(tmp_data);
+          console.log(JSON.stringify(output_data));
+        }
+        catch (err)
+        {
+          failed = true;
+        }
+        finally
+        {
+          if (!failed)
+          {
+            vm.pigList.push(output_data);
+          }
+        }
+
+      };
+
+      vm.openGraphInfo = function(ev)
+      {
+        $mdDialog.show({
+          template:
+            '<md-dialog flex="80" ng-cloak>'+
+            '  <form>' +
+            '    <md-toolbar layout="column">'+
+            '      <div flex class="md-toolbar-tools">'+
+            '        <h2>Graph Info<span ng-if="script_name"> for {{ script_name }}</span></h2>'+
+            '        <span flex></span>'+
+            '      </div>'+
+            '    </md-toolbar> '+
+            '    <md-dialog-content layout="column" scroll-glue>'+
+            '      <md-tabs class="md-primary" md-dynamic-height md-border-bottom>' +
+            '        <md-tab label="Settings">' +
+            '          <md-content class="md-padding">' +
+            '            <div flex layout="row" layout-padding>' +
+            '              <div flex>' +
+            '                <md-subheader class="md-primary">Data layout</md-subheader>' +
+            '                <div layout="row">' +
+            '                  [<span ng-repeat="item in graph_layout"><span ng-if="!$first"> </span>{{ item }}<span ng-if="!$last">,</span></span> ]' +
+            '                </div>' +
+            '              </div>' +
+            '            </div>' +
+            '            <md-divider ></md-divider>' +
+            '            <div flex layout="row" layout-padding>' +
+            '              <md-input-container flex>' +
+            '                <label>X Axis</label>' +
+            '                <md-select ng-model="x_axis" md-on-close="setX()">' +
+            '                  <md-option ng-repeat="item in indexs" ng-disabled="item.disabled" value="{{ item.value }}">' +
+            '                    {{ item.value }}' +
+            '                  </md-option>' +
+            '                </md-select>' +
+            '              </md-input-container>' +
+            '              <md-input-container flex>' +
+            '                <label>Y Axis</label>' +
+            '                <md-select ng-model="y_axis" md-on-close="setY()">' +
+            '                  <md-option ng-repeat="item in indexs" ng-disabled="item.disabled" value="{{ item.value }}">' +
+            '                    {{ item.value }}' +
+            '                  </md-option>' +
+            '                </md-select>' +
+            '              </md-input-container>' +
+            '            </div>' +
+            '          </md-content>' +
+            '        </md-tab>' +
+            '        <md-tab label="Graph">' +
+            '          <md-content class="md-padding">' +
+            '            <canvas id="myChart" width="400" height="400"></canvas>' +
+            '          </md-content>' +
+            '        </md-tab>' +
+            '      </md-tabs>' +
+            '      <md-divider ></md-divider>' +
+            '    </md-dialog-content>'+
+            '    <div class="md-actions" layout="row" layout-align="end center">' +
+            '      <md-button class="md-raised" ng-click="cancel()">Close</md-button>' +
+            '    </div>' +
+            '  </form>' +
+            '</md-dialog>',
+          controller: GraphInfoController,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            script_name: vm.script.name,
+            graph_data: vm.pigList
+          },
+        });
+      };
 
       vm.openInfo = function(ev, filter_type)
       {
@@ -590,6 +687,69 @@ function InfoController( $mdDialog, $scope, script_name, info_outputs, outputs, 
   {
     $scope.filter_type = "error";
   };
+
+  $scope.cancel = function()
+  {
+    $mdDialog.cancel();
+  };
+};
+
+// Controller for Graph Info Modal
+function GraphInfoController( $mdDialog, $scope, script_name, graph_data)
+{
+  $scope.script_name = script_name;
+  $scope.graph_data = graph_data;
+  $scope.graph_layout = [];
+  $scope.indexs = [];
+
+
+  $scope.graph_data[0].forEach(function (item, i)
+  {
+    $scope.graph_layout.push(i);
+    $scope.indexs.push({value: i, disabled: false});
+  });
+
+  $scope.setX = function ()
+  {
+    $scope.indexs.map(function (item, i)
+    {
+      if (Number(item.value) === Number($scope.x_axis))
+      {
+        item.disabled = true;
+        $scope.graph_layout[i] = "X";
+      }
+      else if (Number(item.value) !== Number($scope.y_axis))
+      {
+        item.disabled = false;
+        $scope.graph_layout[i] = i;
+      }
+
+    });
+  };
+
+  $scope.graphToString = function ()
+  {
+    return $scope.graph_layout.toString();
+  };
+
+  $scope.setY = function ()
+  {
+    $scope.indexs.map(function (item, i)
+    {
+      if (Number(item.value) === Number($scope.y_axis))
+      {
+        item.disabled = true;
+        $scope.graph_layout[i] = "Y";
+      }
+      else if (Number(item.value) !== Number($scope.x_axis))
+      {
+        item.disabled = false;
+        $scope.graph_layout[i] = i;
+      }
+
+    });
+  };
+
 
   $scope.cancel = function()
   {
