@@ -7,6 +7,10 @@ angular.module('hog')
       var staticWordCompleter = {
         getCompletions: function(editor, session, pos, prefix, callback) {
           var wordList = [
+          {data: "AS", type: "keyword"},
+          {data: "BY", type: "keyword"},
+          {data: "USING", type: "keyword"},
+
           {data: "COGROUP", type: "Relational Operator"},
           {data: "CROSS", type: "Relational Operator"},
           {data: "DISTINCT", type: "Relational Operator"},

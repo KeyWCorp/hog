@@ -11,7 +11,7 @@ angular.module('hog')
       vm.output = {};
 
       vm.modes = ['Pig_Latin'];
-      vm.themes = ['twilight', 'none'];
+      vm.themes = ['monokai', 'twilight', 'none'];
       vm.mode = vm.modes[0];
       vm.theme = vm.themes[0];
       vm.selectedArgs = [];

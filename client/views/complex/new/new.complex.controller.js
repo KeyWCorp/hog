@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('hog')
-.controller('NewComplexCtrl', function ($log, Runner, $mdToast, $state)
+.controller('NewComplexCtrl', function ($log, Runner, $mdToast, $state, PigCompleter)
     {
       var vm = this;
       angular.extend(vm, {
         name: 'NewComplexCtrl'
       });
       vm.modes = ['Pig_Latin'];
-      vm.themes = ['twilight', 'none'];
+      vm.themes = ['monokai', 'twilight', 'none'];
       vm.mode = vm.modes[0];
       vm.theme = vm.themes[0];
       vm.args = "";
@@ -27,12 +27,19 @@ angular.module('hog')
           console.log('session: ', _ace.getSession());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
         }
+        var langTools = ace.require("ace/ext/language_tools");
+        langTools.addCompleter(PigCompleter);
       };
       vm.onEditorChange = function(_ace)
       {
 
       };
       vm.editorOptions = {
+        advanced: {
+          enableSnippets: false,
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true
+        },
         mode: vm.mode.toLowerCase(),
         onLoad: function(_ace) {vm.onEditorLoad(_ace);},
         useWrapMode: true,
