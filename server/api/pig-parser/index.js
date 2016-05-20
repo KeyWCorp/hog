@@ -74,12 +74,10 @@ function run(input_args, script_location, stdOut, stdError, stdLog, stdWarning, 
           }
           else
           {
-            var info_match = data.match(info_re);
-            if (info_match)
+            if (data)
             {
               stdLog(data);
             }
-
           }
         });
     });
