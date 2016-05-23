@@ -5,7 +5,7 @@ angular.module('hog')
 .controller('EditComplexCtrl', function ($log, $state, $stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog, PigCompleter)
     {
       var vm = this;
-      vm.script =  Runner.getData();
+      //vm.script =  Runner.getData();
 
       var ctx;
       var myNewChart;
@@ -107,7 +107,7 @@ angular.module('hog')
       vm.save = function(graph, numOutput)
       {
         console.log('in vm .save', graph);
-        vm.script.numOutput = numOutput;
+        vm.script.numOutput = numOutput || vm.script.numOutput;
         vm.script.args = vm.args.split(" ");
 
         if(graph == 'bar')
@@ -352,7 +352,7 @@ angular.module('hog')
             '      </div>'+
             '    </md-toolbar> '+
             '    <md-dialog-content layout="column" scroll-glue>'+
-            '      <md-tabs class="md-primary" md-dynamic-height md-border-bottom>' +
+            '      <md-tabs class="md-primary" md-dynamic-height md-border-bottom md-selected="selectedIndex" md-autoselect>' +
             '        <md-tab label="Settings">' +
             '          <md-content class="md-padding">' +
             '            <div flex layout="row" layout-padding>' +
@@ -625,7 +625,7 @@ function InfoController( $mdDialog, $scope, script_name, info_outputs, outputs, 
 };
 
 // Controller for Graph Info Modal
-function GraphInfoController( $mdDialog, $scope, script_name, graph_data, script)
+function GraphInfoController($mdDialog, $scope, $timeout, script_name, graph_data, script)
 {
   $scope.script_name = script_name;
   $scope.graph_data = graph_data;
@@ -633,27 +633,31 @@ function GraphInfoController( $mdDialog, $scope, script_name, graph_data, script
   $scope.indexs = [];
 
   $scope.show_graph = false;
+  $scope.selectedIndex = 1;
 
   $scope.x_location = -1;
   $scope.x_axis = -1;
   $scope.y_location = -1;
   $scope.y_axis = -1;
 
+  $scope.sliderNum;
+  $scope.graph_type;
+  $scope.total_data = {};
 
   $scope.slider_max = $scope.graph_data.length;
-  $scope.sliderNum = ($scope.slider_max >= script.numOutput) ? script.numOutput : $scope.slider_max;
+
+  /*
+   * Set number of outputs to saved setting
+   * if it is greater than 0 and less than
+   * the number of outputs, else set to
+   * number of outputs
+   */
+  $scope.sliderNum = ($scope.slider_max >= script.numOutput && Number(script.numOutput) > 0) ? script.numOutput : $scope.slider_max;
   $scope.graph_type = (script.bar ? "Bar" : script.line ? "Line" : script.radar ? "Radar" : "Bar");
+
   var myNewChart;
   var ctx;
 
-
-  $scope.$watch(
-    function() {
-      return $scope.sliderNum;
-    },
-    function() {
-      $scope.showGraph();
-    });
 
   $scope.graph_data[0].forEach(function (item, i)
   {
@@ -773,6 +777,18 @@ function GraphInfoController( $mdDialog, $scope, script_name, graph_data, script
     }
 
   };
+
+  // wait for data before calling graph
+  $timeout(function ()
+  {
+    $scope.showGraph();
+  }, 500);
+
+
+  $scope.$watch("sliderNum", function ()
+  {
+    $scope.showGraph();
+  });
 
 
   $scope.cancel = function()
