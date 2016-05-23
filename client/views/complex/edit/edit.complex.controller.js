@@ -11,10 +11,6 @@ angular.module('hog')
       var myNewChart;
 
       // Graphs are not displayed initially
-      vm.showLine = false;
-      vm.bar = false;
-      vm.radar = false;
-      vm.pie = false;
       vm.outputs = [];
       vm.graph_data = false;
 
@@ -56,14 +52,6 @@ angular.module('hog')
         name: 'EditComplexCtrl',
         running: false
       });
-      vm.saveRowCallback = function(row){
-        $mdToast.show(
-            $mdToast.simple()
-            .content('Row changed to: '+row)
-            .hideDelay(3000)
-            );
-      };
-
 
       Runner.get($stateParams.id)
         .then(
@@ -72,6 +60,7 @@ angular.module('hog')
               vm.script = data.json;
               vm.args = vm.script.args.join(" ");
             });
+
       vm.modes = ['Pig_Latin'];
       vm.themes = ['monokai', 'twilight', 'none'];
       vm.mode = vm.modes[0];
@@ -150,6 +139,12 @@ angular.module('hog')
               {
                 $log.error('error: ' +err);
               });
+
+        $mdToast.show(
+          $mdToast.simple()
+          .content('Scrpt Saved!')
+          .hideDelay(3000)
+        );
       }
       vm.canceled = function(id) {
         $state.go('home.complex.list');
@@ -436,7 +431,8 @@ angular.module('hog')
           targetEvent: ev,
           locals: {
             script_name: vm.script.name,
-            graph_data: vm.pigList
+            graph_data: vm.pigList,
+            script: vm.script
           },
         });
       };
@@ -629,7 +625,7 @@ function InfoController( $mdDialog, $scope, script_name, info_outputs, outputs, 
 };
 
 // Controller for Graph Info Modal
-function GraphInfoController( $mdDialog, $scope, script_name, graph_data)
+function GraphInfoController( $mdDialog, $scope, script_name, graph_data, script)
 {
   $scope.script_name = script_name;
   $scope.graph_data = graph_data;
@@ -645,8 +641,8 @@ function GraphInfoController( $mdDialog, $scope, script_name, graph_data)
 
 
   $scope.slider_max = $scope.graph_data.length;
-  $scope.sliderNum = ($scope.slider_max >= 4) ? 4 : $scope.slider_max;
-  $scope.graph_type = "Bar";
+  $scope.sliderNum = ($scope.slider_max >= script.numOutput) ? script.numOutput : $scope.slider_max;
+  $scope.graph_type = (script.bar ? "Bar" : script.line ? "Line" : script.radar ? "Radar" : "Bar");
   var myNewChart;
   var ctx;
 
