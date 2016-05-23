@@ -11,7 +11,6 @@ angular.module('hog')
       var myNewChart;
 
       // Graphs are not displayed initially
-      vm.showGraph = false;
       vm.showLine = false;
       vm.bar = false;
       vm.radar = false;
@@ -50,97 +49,6 @@ angular.module('hog')
       {
         var t = JSON.parse(newData);
         vm.data[0] = t;
-      };
-
-      // Display the Bar Graph
-      vm.showBarGraph = function()
-      {
-        if (myNewChart) {
-          myNewChart.destroy();
-        }
-
-        vm.showGraph = true;
-        ctx = document.getElementById("myChart").getContext("2d");
-        myNewChart = new Chart(ctx).Bar(vm.total_data);
-        myNewChart.resize();
-      };
-
-      // Display the Radar Chart
-      vm.showRadarChart = function()
-      {
-        if (myNewChart) {
-          myNewChart.destroy();
-        }
-
-        vm.showGraph = true;
-        ctx = document.getElementById("myChart").getContext("2d");
-        myNewChart = new Chart(ctx).Radar(vm.total_data);
-        myNewChart.resize();
-      };
-
-      // Display the Line Graph
-      vm.showLineGraph = function()
-      {
-        if (myNewChart) {
-          myNewChart.destroy();
-        }
-
-        vm.showGraph = true;
-        ctx = document.getElementById("myChart").getContext("2d");
-        myNewChart = new Chart(ctx).Line(vm.total_data);
-        myNewChart.resize();
-      };
-      // Display the Pie Graph
-      vm.showLPieChart = function()
-      {
-        if (myNewChart) {
-          myNewChart.destroy();
-        }
-
-        vm.showGraph = true;
-        ctx = document.getElementById("myChart").getContext("2d");
-        myNewChart = new Chart(ctx).Pie(vm.total_data);
-        myNewChart.resize();
-      };
-
-      // User selects values from table,
-      // set vm.data equal to the changes
-      vm.onChange = function()
-      {
-
-        vm.data = [[]];
-        vm.labels = [];
-
-        var keys = Object.keys(vm.testData[0]);
-        keys = keys.slice(0, keys.length - 1);
-
-        for (var i = 0; i < vm.testData.length; i++) {
-          var data = vm.testData[i];
-          vm.labels.push(data[keys[0]]);
-          vm.data[0].push(parseFloat(data[keys[1]]));
-        };
-
-        if (myNewChart) {
-          myNewChart.destroy();
-        }
-
-        vm.total_data = {
-          labels: vm.labels,
-          datasets: [
-          {
-            labels: "kevins",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: vm.data[0]
-          }
-          ]
-        };
-        vm.showGraph = true;
-
       };
 
       var _ = lodash;
@@ -254,7 +162,6 @@ angular.module('hog')
         vm.pigList = [];
         vm.running = true;
         vm.graph_data = false;
-        vm.graph_panes.collapseAll();
 
         $log.debug('running: ', vm.script._id);
 
@@ -375,7 +282,7 @@ angular.module('hog')
 
                     vm.outputs.push(tmp_output);
                     vm.info_outputs.push({data: tmp_output, type: "output", color: {'color': 'green.400'}});
-                    vm.pigList.push(update.data.json);
+                    vm.parseOutput(tmp_output);
                     vm.graph_data = true;
                   }
                 }
@@ -422,7 +329,6 @@ angular.module('hog')
             .replace(/\)/g, "]");
 
           var output_data = JSON.parse(tmp_data);
-          console.log(JSON.stringify(output_data));
         }
         catch (err)
         {
@@ -458,35 +364,63 @@ angular.module('hog')
             '              <div flex>' +
             '                <md-subheader class="md-primary">Data layout</md-subheader>' +
             '                <div layout="row">' +
-            '                  [<span ng-repeat="item in graph_layout"><span ng-if="!$first"> </span>{{ item }}<span ng-if="!$last">,</span></span> ]' +
+            '                  [<span ng-repeat="item in graph_layout track by $index"><span ng-if="!$first"> </span>{{ item }}<span ng-if="!$last">,</span></span> ]' +
             '                </div>' +
             '              </div>' +
             '            </div>' +
             '            <md-divider ></md-divider>' +
             '            <div flex layout="row" layout-padding>' +
-            '              <md-input-container flex>' +
-            '                <label>X Axis</label>' +
-            '                <md-select ng-model="x_axis" md-on-close="setX()">' +
-            '                  <md-option ng-repeat="item in indexs" ng-disabled="item.disabled" value="{{ item.value }}">' +
-            '                    {{ item.value }}' +
-            '                  </md-option>' +
-            '                </md-select>' +
-            '              </md-input-container>' +
-            '              <md-input-container flex>' +
-            '                <label>Y Axis</label>' +
-            '                <md-select ng-model="y_axis" md-on-close="setY()">' +
-            '                  <md-option ng-repeat="item in indexs" ng-disabled="item.disabled" value="{{ item.value }}">' +
-            '                    {{ item.value }}' +
-            '                  </md-option>' +
-            '                </md-select>' +
-            '              </md-input-container>' +
+            '              <div flex>' +
+            '                <md-menu>' +
+            '                  <md-button flex class="md-raised" aria-label="X Axis" ng-click="$mdOpenMenu($event)">' +
+            '                    X Axis' +
+            '                  </md-button>' +
+            '                  <md-menu-content width="6">' +
+            '                    <md-menu-item ng-repeat="item in indexs">' +
+            '                      <md-button ng-disabled="item.disabled" ng-click="setX($index)">' +
+            '                        {{ item.value }}' +
+            '                      </md-button>' +
+            '                    </md-menu-item>' +
+            '                  </md-menu-content>' +
+            '                </md-menu>' +
+            '              </div>' +
+            '              <div flex>' +
+            '                <md-menu>' +
+            '                  <md-button flex class="md-raised" aria-label="Y Axis" ng-click="$mdOpenMenu($event)">' +
+            '                    Y Axis' +
+            '                  </md-button>' +
+            '                  <md-menu-content width="6">' +
+            '                    <md-menu-item ng-repeat="item in indexs">' +
+            '                      <md-button ng-disabled="item.disabled" ng-click="setY($index)">' +
+            '                        {{ item.value }}' +
+            '                      </md-button>' +
+            '                    </md-menu-item>' +
+            '                  </md-menu-content>' +
+            '                </md-menu>' +
+            '              </div>' +
             '            </div>' +
             '          </md-content>' +
             '        </md-tab>' +
-            '        <md-tab label="Graph">' +
+            '        <md-tab label="Graph" ng-disabled="!show_graph" ng-click="showGraph()">' +
+            '          <md-toolbar>' +
+            '            <div class="md-toolbar-tools">' +
+            '              <md-button class="md-primary md-raised" ng-click="showGraph(\'Bar\')">' +
+            '                Bar Graph' +
+            '              </md-button>' +
+            '              <md-button class="md-primary md-raised" ng-click="showGraph(\'Line\')">' +
+            '                Line Graph' +
+            '              </md-button>' +
+            '              <md-button class="md-primary md-raised" ng-click="showGraph(\'Radar\')">' +
+            '                Radar Graph' +
+            '              </md-button>' +
+            '            </div>' +
+            '          </md-toolbar>' +
             '          <md-content class="md-padding">' +
-            '            <canvas id="myChart" width="400" height="400"></canvas>' +
+            '            <canvas class="chart chart-bar" id="myChart" chart-legend="true"></canvas>' +
             '          </md-content>' +
+            '          <div layout-padding>' +
+            '            <md-slider md-discrete ng-model="sliderNum" min="0" max="{{ slider_max }}" aria-label="blue" id="blue-slider" class="md-primary"></md-slider>' +
+            '          </div>' +
             '        </md-tab>' +
             '      </md-tabs>' +
             '      <md-divider ></md-divider>' +
@@ -702,6 +636,28 @@ function GraphInfoController( $mdDialog, $scope, script_name, graph_data)
   $scope.graph_layout = [];
   $scope.indexs = [];
 
+  $scope.show_graph = false;
+
+  $scope.x_location = -1;
+  $scope.x_axis = -1;
+  $scope.y_location = -1;
+  $scope.y_axis = -1;
+
+
+  $scope.slider_max = $scope.graph_data.length;
+  $scope.sliderNum = ($scope.slider_max >= 4) ? 4 : $scope.slider_max;
+  $scope.graph_type = "Bar";
+  var myNewChart;
+  var ctx;
+
+
+  $scope.$watch(
+    function() {
+      return $scope.sliderNum;
+    },
+    function() {
+      $scope.showGraph();
+    });
 
   $scope.graph_data[0].forEach(function (item, i)
   {
@@ -709,22 +665,30 @@ function GraphInfoController( $mdDialog, $scope, script_name, graph_data)
     $scope.indexs.push({value: i, disabled: false});
   });
 
-  $scope.setX = function ()
+  $scope.setX = function (x_axis)
   {
+    $scope.graph_layout[$scope.x_axis] = $scope.x_axis;
+    $scope.x_axis = x_axis;
     $scope.indexs.map(function (item, i)
     {
       if (Number(item.value) === Number($scope.x_axis))
       {
-        item.disabled = true;
+        //item.disabled = true;
         $scope.graph_layout[i] = "X";
-      }
-      else if (Number(item.value) !== Number($scope.y_axis))
-      {
-        item.disabled = false;
-        $scope.graph_layout[i] = i;
-      }
+        $scope.x_location = i;
 
+        if ($scope.y_location >= 0)
+        {
+          $scope.show_graph = true;
+        }
+      }
     });
+
+    if (x_axis === $scope.y_axis)
+    {
+      $scope.y_axis = -1;
+      $scope.y_location = -1;
+    }
   };
 
   $scope.graphToString = function ()
@@ -732,22 +696,86 @@ function GraphInfoController( $mdDialog, $scope, script_name, graph_data)
     return $scope.graph_layout.toString();
   };
 
-  $scope.setY = function ()
+  $scope.setY = function (y_axis)
   {
+    $scope.graph_layout[$scope.y_axis] = $scope.y_axis;
+    $scope.y_axis = y_axis;
     $scope.indexs.map(function (item, i)
     {
       if (Number(item.value) === Number($scope.y_axis))
       {
-        item.disabled = true;
+        //item.disabled = true;
         $scope.graph_layout[i] = "Y";
+        $scope.y_location = i;
+
+        if ($scope.y_location >= 0)
+        {
+          $scope.show_graph = true;
+        }
       }
-      else if (Number(item.value) !== Number($scope.x_axis))
+    });
+
+    if (y_axis === $scope.x_axis)
+    {
+      $scope.x_axis = -1;
+      $scope.x_location = -1;
+    }
+  };
+  $scope.setY($scope.indexs[0].value);
+
+
+  $scope.showGraph = function(graph_type)
+  {
+    if ($scope.y_location != -1)
+    {
+      if (graph_type)
       {
-        item.disabled = false;
-        $scope.graph_layout[i] = i;
+        $scope.graph_type = graph_type;
       }
 
-    });
+      if (myNewChart) {
+        myNewChart.destroy();
+      }
+
+      var x_data = [];
+      var y_data = [];
+
+      $scope.graph_data.forEach(function (item, i)
+      {
+        if ($scope.x_location >= 0)
+        {
+          x_data.push(item[$scope.x_location]);
+        } else {
+          x_data.push(i);
+        }
+
+        y_data.push(item[$scope.y_location]);
+
+      });
+
+      $scope.total_data = {
+        labels: x_data.slice(0, $scope.sliderNum),
+        datasets: [{
+          labels: "kevins",
+          fillColor: "rgba(220,220,220,0.4)",
+          strokeColor: "rgba(220,220,220,1)",
+          pointColor: "rgba(220,220,220,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: y_data.slice(0, $scope.sliderNum)
+        }]
+      };
+
+      var container = document.getElementById("myChart");
+      if (container)
+      {
+        ctx = container.getContext("2d");
+        myNewChart = new Chart(ctx)[$scope.graph_type]($scope.total_data);
+        myNewChart.resize();
+      }
+    }
+
   };
 
 

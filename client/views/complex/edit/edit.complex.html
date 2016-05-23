@@ -77,42 +77,6 @@
             <div hog-tracker task-string="vm.ots(vm.taskList)" tracker-id="'myTracker'" title="'My Task List'"></div>
           </div>
 
-
-          <div class='md-padding' layout="column" layout-wrap layout-align="space-around">
-            <v-accordion class="vAccordion--default" layout="column" layout-align="space-around" flex="45" control="vm.graph_panes">
-              <v-pane ng-disabled="!vm.graph_data">
-                <v-pane-header>
-                  Graph
-                </v-pane-header>
-
-                <v-pane-content>
-                  <md-button ng-click="vm.showLineGraph()"> Line Graph </md-button>
-                  <md-button ng-click="vm.showBarGraph()"> Bar Graph</md-button>
-                  <md-button ng-click="vm.showRadarChart()"> Radar Chart</md-button>
-                  <canvas ng-if="vm.showGraph" id="myChart" width="400" height="400"></canvas>
-                </v-pane-content>
-              </v-pane>
-
-              <v-pane ng-disabled="!vm.graph_data">
-                <v-pane-header>
-                  Table
-                </v-pane-header>
-                <v-pane-content>
-                  <md-table-container>
-                    <head>
-                      <div>
-                        <md-input-container>
-                          <md-select ng-disabled="vm.running" multiple ng-model="vm.testData" md-on-close="vm.onChange()" placeholder="Select one or more Values">
-                            <md-option ng-value="items" ng-repeat="items in vm.pigList track by $index">{{items}}</md-option>
-                          </md-select>
-                        </md-input-container>
-                      </div>
-                    </head>
-                  </md-table-container>
-                </v-pane-content>
-              </v-pane>
-            </v-accordion>
-          </div>
       </md-card-content>
 
 
