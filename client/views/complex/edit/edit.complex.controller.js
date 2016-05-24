@@ -339,7 +339,7 @@ angular.module('hog')
 
       };
 
-      vm.openGraphInfo = function(ev)
+      vm.openGraphInfo = function(ev, graph_data, script)
       {
         $mdDialog.show({
           template:
@@ -435,9 +435,8 @@ angular.module('hog')
           parent: angular.element(document.body),
           targetEvent: ev,
           locals: {
-            script_name: vm.script.name,
-            graph_data: vm.pigList,
-            script: vm.script
+            graph_data: graph_data || vm.pigList,
+            script: script || vm.script
           },
         });
       };
@@ -461,6 +460,7 @@ angular.module('hog')
             '        <md-button class="md-raised md-primary" ng-disabled="logs.length <= 0" ng-click="filterByLog()">Show Logs</md-button>' +
             '        <md-button class="md-raised md-primary" ng-disabled="warnings.length <= 0" ng-click="filterByWarning()">Show Warnings</md-button>' +
             '        <md-button class="md-raised md-primary" ng-disabled="errors.length <= 0" ng-click="filterByError()">Show Errors</md-button>' +
+            '        <md-button class="md-raised md-primary" ng-disabled="graph_data.length <= 0" ng-click="openGraphInfo($event)">Show Graph</md-button>' +
             '      </div>' +
             '    </md-toolbar> '+
             '    <md-dialog-content scroll-glue>'+
@@ -489,7 +489,9 @@ angular.module('hog')
             logs: vm.logs,
             warnings: vm.warnings,
             errors: vm.errors,
-            filter_type: filter_type
+            filter_type: filter_type,
+            graph_data: vm.pigList,
+            openGraphInfo: vm.openGraphInfo
           },
         });
       };
@@ -574,7 +576,7 @@ function SettingsController( $mdDialog, $scope, vm)
 };
 
 // Controller for Info Modal
-function InfoController( $mdDialog, $scope, script_name, info_outputs, outputs, logs, warnings, errors, filter_type)
+function InfoController( $mdDialog, $scope, script_name, info_outputs, outputs, logs, warnings, errors, filter_type, graph_data, openGraphInfo)
 {
   $scope.script_name = script_name;
   $scope.info_outputs = info_outputs;
@@ -583,6 +585,9 @@ function InfoController( $mdDialog, $scope, script_name, info_outputs, outputs, 
   $scope.warnings = warnings;
   $scope.errors = errors;
   $scope.filter_type = filter_type || "all";
+
+  $scope.graph_data = graph_data;
+  $scope.openGraphInfo = openGraphInfo;
 
   $scope.filteredInfo = function ()
   {
@@ -630,9 +635,9 @@ function InfoController( $mdDialog, $scope, script_name, info_outputs, outputs, 
 };
 
 // Controller for Graph Info Modal
-function GraphInfoController($mdDialog, $scope, $timeout, script_name, graph_data, script)
+function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
 {
-  $scope.script_name = script_name;
+  $scope.script_name = script.name;
   $scope.graph_data = graph_data;
   $scope.graph_layout = [];
   $scope.indexs = [];
