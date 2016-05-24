@@ -10,7 +10,7 @@
           </md-input-container>
 
           <div flex layout-align="end" style="float:right;">
-            <md-menu>
+            <md-menu ng-show="!vm.edited">
               <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Execute</md-button>
               <md-menu-content width="4">
                 <md-menu-item>
@@ -21,7 +21,18 @@
                 </md-menu-item>
               </md-menu-content>
             </md-menu>
-            <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+            <md-menu ng-show="vm.edited">
+              <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Save and Execute</md-button>
+              <md-menu-content width="4">
+                <md-menu-item>
+                  <md-button ng-disabled="vm.running" ng-click="vm.saveAndRun()">Save and Execute</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-disabled="vm.running" ng-click="vm.saveAndRunAndTrack()">Save and Execute and Track</md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+            <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="!vm.edited">Save</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
           </div>
@@ -40,45 +51,36 @@
           <section layout="row">
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'all')" ng-if="vm.info_outputs.length > 0">
               Show All: #{{ vm.info_outputs.length }}
-              <md-tooltip>
-                Show All Logs
-              </md-tooltip>
             </md-button>
 
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'output')" md-style-color="{'background-color': 'green.400'}" ng-if="vm.outputs.length > 0">
               Show Outputs: #{{ vm.outputs.length }}
-              <md-tooltip>
-                Show Output
-              </md-tooltip>
             </md-button>
 
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'log')" md-style-color="{'background-color': 'blue.400'}" ng-if="vm.logs.length > 0">
               Show Logs: #{{ vm.logs.length }}
-              <md-tooltip>
-                Show Logs
-              </md-tooltip>
             </md-button>
 
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'warning')" md-style-color="{'background-color': 'orange.400'}" ng-if="vm.warnings.length > 0">
               Show Warnings: #{{ vm.warnings.length }}
-              <md-tooltip>
-                Show Warning Logs
-              </md-tooltip>
             </md-button>
 
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'error')" md-style-color="{'background-color': 'red.400'}" ng-if="vm.errors.length > 0">
               Show Errors: #{{ vm.errors.length }}
-              <md-tooltip>
-                Show Error Logs
-              </md-tooltip>
             </md-button>
 
             <md-divider ></md-divider>
           </section>
         </div>
 
+        <div flex layout="column" layout-padding>
+          <md-button flex ng-click="vm.openGraphInfo($event)" ng-if="vm.pigList.length > 0">
+            Show Graph Info: #{{ vm.pigList.length }}
+          </md-button>
+        </div>
 
-        <div ui-ace="vm.editorOptions" ng-model="vm.script.data" style="height: 600px;"></div>
+
+        <div ui-ace="vm.editorOptions" ng-model="script_data" style="height: 600px;"></div>
         <div class="container" ng-class="{'visible' : !vm.running}">
           <md-progress-linear ng-if="vm.start" md-mode="indeterminate"></md-progress-linear>
 
@@ -86,42 +88,6 @@
             <div hog-tracker task-string="vm.ots(vm.taskList)" tracker-id="'myTracker'" title="'My Task List'"></div>
           </div>
 
-
-          <div class='md-padding' layout="column" layout-wrap layout-align="space-around">
-            <v-accordion class="vAccordion--default" layout="column" layout-align="space-around" flex="45" control="vm.graph_panes">
-              <v-pane ng-disabled="!vm.graph_data">
-                <v-pane-header>
-                  Graph
-                </v-pane-header>
-
-                <v-pane-content>
-                  <md-button ng-click="vm.showLineGraph()"> Line Graph </md-button>
-                  <md-button ng-click="vm.showBarGraph()"> Bar Graph</md-button>
-                  <md-button ng-click="vm.showRadarChart()"> Radar Chart</md-button>
-                  <canvas ng-if="vm.showGraph" id="myChart" width="400" height="400"></canvas>
-                </v-pane-content>
-              </v-pane>
-
-              <v-pane ng-disabled="!vm.graph_data">
-                <v-pane-header>
-                  Table
-                </v-pane-header>
-                <v-pane-content>
-                  <md-table-container>
-                    <head>
-                      <div>
-                        <md-input-container>
-                          <md-select ng-disabled="vm.running" multiple ng-model="vm.testData" md-on-close="vm.onChange()" placeholder="Select one or more Values">
-                            <md-option ng-value="items" ng-repeat="items in vm.pigList track by $index">{{items}}</md-option>
-                          </md-select>
-                        </md-input-container>
-                      </div>
-                    </head>
-                  </md-table-container>
-                </v-pane-content>
-              </v-pane>
-            </v-accordion>
-          </div>
       </md-card-content>
 
 

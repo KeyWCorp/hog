@@ -25,7 +25,7 @@
                   </div>
               </v-pane-header>
               <v-pane-content flex>
-                <div style="min-width: 900px;" ng-show="pig.data" readonly ui-ace="vm.editorOptions" ng-model="pig.data" flex></div>
+                <div style="min-width: 900px;" readonly ui-ace="vm.editorOptions" ng-model="pig.data" flex></div>
               </v-pane-content>
             </v-pane>
           </v-accordion>
@@ -79,6 +79,11 @@
                 Edit
               </md-button>
             </div>
+          </div>
+          <div flex layout="column" layout-padding ng-if="pig.pigList.length > 0">
+            <md-button flex ng-click="vm.openGraphInfo($event, $index)">
+              Show Graph Info: #{{ pig.pigList.length }}
+            </md-button>
           </div>
         </md-card>
       </div>
