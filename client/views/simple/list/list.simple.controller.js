@@ -660,6 +660,7 @@ function SimpleListGraphInfoController($mdDialog, $scope, $timeout, graph_data, 
     reloadData(function ()
     {
       $scope.setY($scope.indexs[0].value);
+      $scope.showGraph();
     });
   });
 
