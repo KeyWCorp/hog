@@ -434,6 +434,7 @@ angular.module('hog')
           clickOutsideToClose: true,
           parent: angular.element(document.body),
           targetEvent: ev,
+          bindToController: true,
           locals: {
             graph_data: graph_data || vm.pigList,
             script: script || vm.script
@@ -654,20 +655,37 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
   $scope.graph_type;
   $scope.total_data = {};
 
-  $scope.slider_max = $scope.graph_data.length;
+  $scope.graph_structure = {};
 
-  /*
-   * Set number of outputs to saved setting
-   * if it is greater than 0 and less than
-   * the number of outputs, else set to
-   * number of outputs
-   */
-  $scope.sliderNum = ($scope.slider_max >= script.numOutput && Number(script.numOutput) > 0) ? script.numOutput : $scope.slider_max;
-  $scope.graph_type = (script.bar ? "Bar" : script.line ? "Line" : script.radar ? "Radar" : "Bar");
+  function reloadData ()
+  {
+    $scope.slider_max = $scope.graph_data.length;
+
+    /*
+    * Set number of outputs to saved setting
+    * if it is greater than 0 and less than
+    * the number of outputs, else set to
+    * number of outputs
+    */
+    $scope.sliderNum = ($scope.slider_max >= script.numOutput && Number(script.numOutput) > 0) ? script.numOutput : $scope.slider_max;
+    $scope.graph_type = (script.bar ? "Bar" : script.line ? "Line" : script.radar ? "Radar" : "Bar");
+
+    $scope.graph_data.map(function (item)
+    {
+      if ($scope.graph_structure[item.length])
+      {
+        $scope.graph_structure[item.length].push(item);
+      }
+      else
+      {
+        $scope.graph_structure[item.length] = [item];
+      }
+    });
+
+  };
 
   var myNewChart;
   var ctx;
-
 
   $scope.graph_data[0].forEach(function (item, i)
   {
@@ -741,7 +759,6 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
       $scope.x_location = -1;
     }
   };
-  $scope.setY($scope.indexs[0].value);
 
 
   $scope.showGraph = function(graph_type)
@@ -773,13 +790,12 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
 
       });
 
-      var test3 = y_data.slice(0, y_data.length / 2).reverse();
-      test3.concat(y_data);
 
       $scope.total_data = {
         labels: x_data.slice(0, $scope.sliderNum),
         datasets: [{
-          labels: "A",
+          labels: x_data.slice(0, $scope.sliderNum),
+
           // Blue
           fillColor: "rgba(33,150,243,0.3)",
           strokeColor: "rgba(33,150,243,1)",
@@ -787,30 +803,25 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(33,150,243,1)",
-          data: y_data.slice(0, $scope.sliderNum)
-        }/*,
-        {
-          labels: "B",
+
           // Grey
-          fillColor: "rgba(182,182,182,0.4)",
+          /*fillColor: "rgba(182,182,182,0.4)",
           strokeColor: "rgba(182,182,182,1)",
           pointColor: "rgba(182,182,182,1)",
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(182,182,182,1)",
-          data: y_data.slice(0, $scope.sliderNum).reverse()
-        },
-        {
-          labels: "C",
+          pointHighlightStroke: "rgba(182,182,182,1)",*/
+
           // Orange
-          fillColor: "rgba(255,87,34,0.3)",
+          /*fillColor: "rgba(255,87,34,0.3)",
           strokeColor: "rgba(255,87,34,1)",
           pointColor: "rgba(255,87,34,1)",
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(255,87,34,1)",
-          data: test3.slice(0, $scope.sliderNum)
-        }*/]
+          pointHighlightStroke: "rgba(255,87,34,1)",*/
+
+          data: y_data.slice(0, $scope.sliderNum)
+        }]
       };
 
       var container = document.getElementById("myChart");
@@ -830,15 +841,22 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
     $scope.showGraph();
   }, 500);
 
-
   $scope.$watch("sliderNum", function ()
   {
     $scope.showGraph();
   });
+
+  $scope.$watch("graph_data", function ()
+  {
+    reloadData();
+  }, true);
 
 
   $scope.cancel = function()
   {
     $mdDialog.cancel();
   };
+
+  reloadData();
+  $scope.setY($scope.indexs[0].value);
 };
