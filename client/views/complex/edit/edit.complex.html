@@ -10,7 +10,7 @@
           </md-input-container>
 
           <div flex layout-align="end" style="float:right;">
-            <md-menu>
+            <md-menu ng-show="!vm.edited">
               <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Execute</md-button>
               <md-menu-content width="4">
                 <md-menu-item>
@@ -21,7 +21,18 @@
                 </md-menu-item>
               </md-menu-content>
             </md-menu>
-            <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+            <md-menu ng-show="vm.edited">
+              <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Save and Execute</md-button>
+              <md-menu-content width="4">
+                <md-menu-item>
+                  <md-button ng-disabled="vm.running" ng-click="vm.saveAndRun()">Save and Execute</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-disabled="vm.running" ng-click="vm.saveAndRunAndTrack()">Save and Execute and Track</md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+            <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="!vm.edited">Save</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
           </div>
@@ -69,7 +80,8 @@
         </div>
 
 
-        <div ui-ace="vm.editorOptions" ng-model="vm.script.data" style="height: 600px;"></div>
+        <!-- <div ui-ace="vm.editorOptions" ng-model="vm.script.data" style="height: 600px;"></div> -->
+        <div ui-ace="vm.editorOptions" ng-model="script_data" style="height: 600px;"></div>
         <div class="container" ng-class="{'visible' : !vm.running}">
           <md-progress-linear ng-if="vm.start" md-mode="indeterminate"></md-progress-linear>
 

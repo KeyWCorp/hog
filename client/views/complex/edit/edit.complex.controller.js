@@ -2,7 +2,7 @@
 
 angular.module('hog')
 
-.controller('EditComplexCtrl', function ($log, $state, $stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog, PigCompleter)
+.controller('EditComplexCtrl', function ($scope, $log, $state, $stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog, PigCompleter)
     {
       var vm = this;
       //vm.script =  Runner.getData();
@@ -13,6 +13,7 @@ angular.module('hog')
       // Graphs are not displayed initially
       vm.outputs = [];
       vm.graph_data = false;
+      vm.edited = false;
 
 
 
@@ -59,6 +60,10 @@ angular.module('hog')
             {
               vm.script = data.json;
               vm.args = vm.script.args.join(" ");
+
+              vm.script_data = vm.script.data;
+              $scope.script_data = vm.script_data;
+
             });
 
       vm.modes = ['Pig_Latin'];
@@ -104,10 +109,12 @@ angular.module('hog')
         firstLineNumber: 1,
         onChange: vm.onEditorChange()
       };
-      vm.save = function(graph, numOutput)
+      vm.save = function(graph, numOutput, cb)
       {
 
         vm.script.name = vm.script.name.replace(/[\s]/g, "_");
+        vm.script.data = $scope.script_data;
+
         console.log('in vm .save', graph);
         vm.script.numOutput = numOutput || vm.script.numOutput;
         vm.script.args = vm.args.split(" ");
@@ -136,22 +143,44 @@ angular.module('hog')
               function(data)
               {
                 $log.debug('saved: ' + data);
+
+                vm.script = data.json;
+                vm.args = vm.script.args.join(" ");
+
+                vm.script_data = vm.script.data;
+                $scope.script_data = vm.script_data;
+                vm.edited = false;
+
+
+                $mdToast.show(
+                  $mdToast.simple()
+                  .content('Script Saved!')
+                  .hideDelay(3000)
+                );
+                if (cb)
+                {
+                  cb();
+                }
               },
               function(err)
               {
                 $log.error('error: ' +err);
               });
-
-        $mdToast.show(
-          $mdToast.simple()
-          .content('Script Saved!')
-          .hideDelay(3000)
-        );
       }
       vm.canceled = function(id) {
         $state.go('home.complex.list');
-
       }
+
+      vm.saveAndRun = function()
+      {
+        vm.save(null, null, vm.run);
+      };
+
+      vm.saveAndRunAndTrack = function()
+      {
+        vm.save(null, null, vm.runAndTrack);
+      };
+
       vm.run = function()
       {
         vm.taskList = [];
@@ -340,6 +369,19 @@ angular.module('hog')
         }
 
       };
+
+      $scope.$watch("script_data", function(newValue, oldValue)
+      {
+        if (newValue !== vm.script_data)
+        {
+          vm.edited = true;
+        }
+        else
+        {
+          vm.edited = false;
+        }
+
+      });
 
       vm.openGraphInfo = function(ev, graph_data, script)
       {
