@@ -2,10 +2,15 @@
 
 var Settings = require('./settings.controller');
 var logger = require('../../config/logger.js');
+var config = require('../../config/environment');
+var socketioJwt = require('socketio-jwt');
 
 exports.register = function (io) {
 
-    var nps = io.of('/api/settings');
+    var nps = io.of('/api/settings').use(socketioJwt.authorize({
+      secret: config.secrets.session,
+      handshake: true
+    }));
     nps.on('connection', function(socket)
     {
         socket.connectDate = new Date();

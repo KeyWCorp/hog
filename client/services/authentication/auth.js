@@ -2,14 +2,14 @@
 
 angular.module('hog')
     .service('Auth',
-        function (socketFactory, $q, $window, $rootScope, $state)
+        function (socketFactory, $log, $q, $window, $rootScope, $state, $http)
         {
-            var auth = socketFactory()
+            /*var auth = socketFactory()
             auth.forward('error');
             auth.ioSocket = io.connect('localhost:9000/api/auth');
 
             auth.prefix = 'auth-';
-            console.log('hitting connection');
+            console.log('hitting connection');*/
              //var myIoSocket = io.connect('localhost:9000/api/pigs');
              //var myIoSocket = io.connect('10.1.10.26:9000/api/pigs');
 
@@ -18,6 +18,51 @@ angular.module('hog')
               });*/
             var service = {
               login: function(username, password, provider)
+              {
+                $http
+                  .post('/auth/' + provider, {username: username, password: password})
+                  .success(
+                    function (data, status, headers, config)
+                    {
+                      $window.sessionStorage.token = data.token;
+                       $state.go('home.complex.list');
+                      $rootScope.$broadcast('authenticated', data.token);
+                     
+                      $log.debug('status: ', status, 'login', data.token);
+                    })
+                  .error(
+                    function (data, status, headers, config)
+                    {
+                      // Erase the token if the user fails to log in
+                      delete $window.sessionStorage.token;
+
+                      // Handle login errors here
+                      $log.error('Error: Invalid user or password');
+                  });
+              },
+              register: function(username, password, provider)
+              {
+                $log.debug('registering user: ', username, password, provider);
+                $http
+                  .post('/api/users/register', {username: username, password: password, provider: provider})
+                  .success(
+                    function (data, status, headers, config)
+                    {
+                      $window.sessionStorage.token = data.token;
+                      $rootScope.$broadcast('authenticated', data.token);
+                      $log.debug('login');
+                    })
+                  .error(
+                    function (data, status, headers, config)
+                    {
+                      // Erase the token if the user fails to log in
+                      delete $window.sessionStorage.token;
+
+                      // Handle login errors here
+                      $log.error('Error: Invalid user or password');
+                  });
+              },
+              /*slogin: function(username, password, provider)
               {
                 var defer = $q.defer();
                 //Log the user in
@@ -41,7 +86,7 @@ angular.module('hog')
                   });
                 return defer.promise();
               },
-              logout: function(uid)
+              slogout: function(uid)
               {
                 var defer = $q.defer();
                 auth.ioSocket.emit('unauthenticate', {uid: uid});
@@ -103,8 +148,8 @@ angular.module('hog')
                 var defer = $q.defer();
                 // Get the authenticated user and state
                 return defer.promise();
-              }
+              }*/
               
             }
-            return auth;
+            return service;
   });

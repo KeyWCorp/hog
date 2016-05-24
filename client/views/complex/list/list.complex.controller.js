@@ -1,17 +1,19 @@
 'use strict';
 
 angular.module('hog')
-.controller('ListComplexCtrl', function ($log, $state, Runner, $mdDialog, $mdMedia, $scope,$mdToast,  NgTableParams, $interval, Pig)
+.controller('ListComplexCtrl', function ($log, $state, Run, $mdDialog, $mdMedia, $scope,$mdToast,  NgTableParams, $interval, Settings)
     {
       var vm = this;
 
       vm.isRunning = {};
       vm.running = false;
-
-      Pig.on('run:finished', function ()
+      $log.debug('run: ', Run);
+      /*Run.finished()
+        .then(
+          function()
           {
             vm.running = false;
-          });
+          });*/
 
       angular.extend(vm, {
         name: 'ListComplexCtrl',
@@ -29,7 +31,7 @@ angular.module('hog')
           //console.log(id);
           var processPercent = 0;
 
-          Runner.runAndTrack(id)
+          Run.runAndTrack(id)
             .then(
                 function(out)
                 {
@@ -111,7 +113,7 @@ angular.module('hog')
         return currentPer;
       }
       //Do not delete
-      Runner.list()
+      Run.list()
         .then(
             function(data)
             {
@@ -208,7 +210,7 @@ angular.module('hog')
 // inject data into here
 
 //I removed data from the controller directives
-function DialogController( $mdDialog, $scope, Runner, vm, id) {
+function DialogController( $mdDialog, $scope, Run, vm, id) {
   $scope.items = [1,2,3];
 
   $scope.series = ['Series A'];

@@ -7,7 +7,10 @@ var all = {
 
   env: process.env.NODE_ENV || 'development',
   root: path.normalize(__dirname + '/../../..'),
-  port: process.env.PORT || 9000
+  port: process.env.PORT || 9000,
+  secrets: {
+    session: process.env.SESSION_SECRET || 'secretKey'
+  }
 };
 
 module.exports = _.merge(all, require('./' + all.env + '.js'));

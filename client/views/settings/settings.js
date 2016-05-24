@@ -13,6 +13,14 @@ angular.module('hog')
                         controllerAs: 'vm'
                     },
                     // sub-state insert
+                },
+                resolve: {
+                  Runner: function(RunnerService) {
+                    return RunnerService;
+                  },
+                  Settings: function(SettingsService) {
+                    return SettingsService;
+                  }
                 }
             });
   });

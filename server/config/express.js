@@ -8,6 +8,7 @@ var express     = require('express'),
     logger      = require('./logger.js'),
     expressJwt  = require('express-jwt'),
     jwt         = require('jsonwebtoken'),
+    passport    = require('passport'),
     config      = require('./environment');
 
 module.exports = function (app) {
@@ -18,8 +19,9 @@ module.exports = function (app) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(compression());
- // app.use(morgan('tiny'));
-  //  app.use(morgan(logger.stream))
+  //app.use(morgan('tiny'));
+  //app.use(morgan(logger.stream))
+  app.use(passport.initialize());
   app.use(express.static(path.join(config.root, 'client')));
   app.set('appPath', 'client');
 
@@ -28,5 +30,5 @@ module.exports = function (app) {
   }
 
   //Protect the API
-  app.use('/api', expressJwt({secret: config.secret}));
+  //app.use('/api', expressJwt({secret: config.secrets.session}));
 };

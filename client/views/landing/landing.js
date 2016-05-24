@@ -8,11 +8,11 @@ angular.module('hog')
         {
             url: '/auth',
             views: {
-                'header': {
+                /*'header': {
                     templateUrl: 'views/landing/header.landing.html',
                     controller: 'LandingHeaderCtrl',
                     controllerAs: 'vm'
-                },
+                },*/
                 '': {
                     templateUrl: 'views/landing/landing.html',
                     controller: 'LandingCtrl',

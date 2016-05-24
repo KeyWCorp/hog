@@ -12,6 +12,11 @@ angular.module('hog')
 				        controller: 'ListComplexCtrl',
 						controllerAs: 'vm'
                     }
-                }
+                },
+                resolve: {
+                  Run: function(Runner){
+                    return Runner;
+                  }
+                },
             });
   });

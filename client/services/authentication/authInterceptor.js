@@ -2,7 +2,7 @@
 
 angular.module('hog')
   .factory('authInterceptor',
-    function ($rootScope, $q, $window, $state)
+    function ($q, $window, $log)
     {
       return {
         request: function (config) {
@@ -14,10 +14,11 @@ angular.module('hog')
         },
         response: function (response) {
           if (response.status === 401) {
-            $state.go('auth.login');
+            //$state.go('auth.login');
+            $log.debug('Should be going to auth.login');
             // handle the case where the user is not authenticated
           }
           return response || $q.when(response);
         }
       };
-    });
+    });   

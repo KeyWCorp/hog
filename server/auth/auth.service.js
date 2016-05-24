@@ -17,20 +17,19 @@ exports.isAuthenticated = function () {
   return compose()
     .use(validateJwt)
     .use(function (req, res, next) {
-      User.findOne(({_id: req.user._id})
+      User.findOne({_id: req.user._id})
         .then(
-          function (user) 
+          function (user)
           {
             if (!user) { return res.send(401); }
             req.user = user;
             next();
           },
-          function(err)
+          function (err)
           {
             if (err) { return next(err); }
           });
     });
-
 };
 
 /**

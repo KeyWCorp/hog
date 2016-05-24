@@ -3,6 +3,7 @@
 var express = require('express');
 var chalk = require('chalk');
 var config = require('./config/environment');
+var socketioJwt = require('socketio-jwt');
 
 var app = express();
 var server = require('http').createServer(app);

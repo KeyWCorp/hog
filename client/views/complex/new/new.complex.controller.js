@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hog')
-.controller('NewComplexCtrl', function ($log, Runner, $mdToast)
+.controller('NewComplexCtrl', function ($log, Run, $mdToast)
     {
       var vm = this;
       angular.extend(vm, {
@@ -49,7 +49,7 @@ angular.module('hog')
         // if (vm.firstTime)
         //{
         //  vm.firstTime = false;
-        Runner.create(vm.script)
+        Run.create(vm.script)
           .then(
               function(data)
               {
@@ -59,7 +59,7 @@ angular.module('hog')
         //    }
         /*  else
             {
-            Runner.save(vm.script)
+            Run.save(vm.script)
             .then(
             function(data)
             {
@@ -71,7 +71,7 @@ angular.module('hog')
       /* vm.save = function()
          {
 
-         Runner.save(vm.script)
+         Run.save(vm.script)
          .then(
          function(data)
          {
@@ -89,7 +89,7 @@ angular.module('hog')
         {
 
           $log.debug('running: ', vm.script._id);
-          Runner.run(vm.script._id)
+          Run.run(vm.script._id)
             .then(
                 function(out)
                 {
@@ -113,7 +113,7 @@ angular.module('hog')
         }
         else
         {
-          Runner.create(vm.script)
+          Run.create(vm.script)
             .then(
                 function(data)
                 {

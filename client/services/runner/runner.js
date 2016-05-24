@@ -1,37 +1,51 @@
 'use strict';
 
 angular.module('hog')
-.service('Runner',
+.service('RunnerService',
     function (Pig, $rootScope, $log, $q, uuid4)
     {
-
+      var dpig = $q.defer();
       var holdData = {};
-
-      $rootScope.$on('pig-error',
-          function(msg)
-          {
-            console.log('error-msg', msg);
-          });
-      var args = [];
-      var processes = {};
-      var service = {
-        process: list,
-        procList: processes,
-        args: args,
-        // send: sendData,
-        // create: createProc,
-        list: list,
-        create: create,
-        get: get,
-        getData: getData,
-        update: update,
-        destroy: destroy,
-        run: run,
-        runAndTrack: runAndTrack,
-        save: update
-      };
-
-      return service;
+      Pig.then(
+        function(info)
+        {
+          $log.debug('resolved: ', info);
+        },
+        function(err)
+        {
+          $log.debug('errored: ', err);
+        },
+        function(newPig)
+        {
+          Pig = newPig;
+          $log.debug('new pig as arrived', Pig, newPig);
+          
+          $rootScope.$on('pig-error',
+              function(msg)
+              {
+                console.log('error-msg', msg);
+              });
+          var args = [];
+          var processes = {};
+          var service = {
+            process: list,
+            procList: processes,
+            args: args,
+            // send: sendData,
+            // create: createProc,
+            list: list,
+            create: create,
+            get: get,
+            getData: getData,
+            update: update,
+            destroy: destroy,
+            run: run,
+            runAndTrack: runAndTrack,
+            save: update,
+            finished: finished,
+            trackUpdate: trackUpdate
+          };
+        
 
       //Added by Rick to try and pass object
       function getData()
@@ -46,7 +60,28 @@ angular.module('hog')
               });
         return temp;
       }
-
+      function trackUpdate()
+      {
+        var defer = $q.defer();
+        Pig.on('track:update',
+          function (data)
+          {
+            defer.notify(data);
+          });
+        return $q.promise;
+      }
+      function finished()
+      {
+        var defer = $q.defer();
+        
+        Pig.on('run:finished',
+          function ()
+          {
+            defer.notify(true);
+          });
+        return $q.promise;
+      }
+      
       function save(data)
       {
         console.log(' IN RUNNER SAVE FUNCTION');
@@ -272,4 +307,7 @@ angular.module('hog')
               }
             });
       }
-    });
+      dpig.resolve(service);
+    })
+    return dpig.promise;
+  });

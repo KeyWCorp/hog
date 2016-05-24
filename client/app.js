@@ -28,7 +28,7 @@ angular.module('hog', [
 })
   .config(function ( $urlRouterProvider , $locationProvider) {
     $urlRouterProvider
-        .otherwise('/');
+        .otherwise('/auth/login');
     $locationProvider.html5Mode(true);
   })
   .config(function ($httpProvider) {

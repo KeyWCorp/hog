@@ -22,7 +22,7 @@ class User extends Document {
   }
   
   // I guess getters and setters are now called virtuals
-  set password(pass)
+  set password(password)
   {
     this._password = password;
     this.salt = this.makeSalt();
@@ -70,8 +70,16 @@ class User extends Document {
       return 'users';
   }
 };
-
-var users = new ds({ filename: path.join(__dirname, "users.data.db"), autoload: true, onload: function (err) { if(err) { logger.error('Error on load: ', err) }}});
+exports.User = User;
+exports.init = function(cb)
+{
+  var uri = 'nedb://' + path.join(__dirname, "users.data.db");
+  connect(uri).then(function(db) {
+    logger.info('connected to DB');
+    cb(null, db);
+  });
+}
+/*var users = new ds({ filename: path.join(__dirname, "users.data.db"), autoload: true, onload: function (err) { if(err) { logger.error('Error on load: ', err) }}});
 
 var userSchema = {
   username: '',
@@ -124,25 +132,25 @@ internals.checkPassword = function(username, password, cb)
 internals.saltPassword = function(password)
 {
   
-};
+};*/
   /**
    * Authenticate
    *
    * @param {String} password
    * @return {Boolean}
    */
-  internals.authenticate: function (password) {
+  /*internals.authenticate: function (password) {
     return this.encryptPassword(password) === this.passwordHash;
-  },
+  },*/
 
   /**
    * Make salt
    *
    * @return {String}
    */
-  internals.makeSalt: function () {
+ /* internals.makeSalt: function () {
     return crypto.randomBytes(16).toString('base64');
-  },
+  },*/
 
   /**
    * Encrypt password
@@ -150,8 +158,8 @@ internals.saltPassword = function(password)
    * @param {String} password
    * @return {String}
    */
-  internals.encryptPassword: function (password) {
+  /*internals.encryptPassword: function (password) {
     if (!password || !this.salt) { return ''; }
     var salt = new Buffer(this.salt, 'base64');
     return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
-  }
+  }*/

@@ -17,7 +17,7 @@ angular.module('hog')
               templateUrl: '/views/complex/list/list.complex.html',
               controller: 'ListComplexCtrl',
               controllerAs: 'vm'
-            },
+            }
             /*
             edit: {
               templateUrl: 'edit.complex.html',
@@ -30,6 +30,16 @@ angular.module('hog')
               controllerAs: 'vm'
             },
             */
-          }
+          },
+          resolve: {
+            Run: function(RunnerService){
+              return RunnerService;
+            },
+            Settings: function(SettingsService) {
+              console.log("settings: ", SettingsService)
+              return SettingsService;
+            }
+            
+          },
         });
 });

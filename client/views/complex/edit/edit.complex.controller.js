@@ -2,13 +2,13 @@
 
 angular.module('hog')
 
-.controller('EditComplexCtrl', function ($log, $state, $stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog)
+.controller('EditComplexCtrl', function ($log, $state, $stateParams, Run, lodash, Settings, $mdToast,  NgTableParams, $interval, $mdDialog)
 
     {
 
 
       var vm = this;
-      vm.script =  Runner.getData();
+      vm.script =  Run.getData();
 
       var ctx;
       var myNewChart;
@@ -26,16 +26,43 @@ angular.module('hog')
 
       vm.taskList = [];
       vm.running = false;
-
-      Pig.on('tracker:update', function (data)
+      Run.trackUpdate()
+        .then(
+          function(data)
+          {
+            //vm.taskList = data;
+          },
+          function(err)
+          {
+            $log.error(err);
+          },
+          function(update)
+          {
+            vm.taskList = update;
+          });
+      /*Pig.on('tracker:update', function (data)
           {
             vm.taskList = data;
-          });
+          });*/
 
-      Pig.on('run:finished', function ()
+      Run.finished()
+        .then(
+          function(fin)
+          {
+            vm.running = false;
+          },
+          function(err)
+          {
+            $log.error(err);
+          },
+          function(update)
           {
             vm.running = false;
           });
+      /*Pig.on('run:finished', function ()
+          {
+            vm.running = false;
+          });*/
 
       vm.ots = function (o)
       {
@@ -181,7 +208,7 @@ angular.module('hog')
       };
 
 
-      Runner.get($stateParams.id)
+      Run.get($stateParams.id)
         .then(
             function(data)
             {
@@ -264,7 +291,7 @@ angular.module('hog')
           vm.script.radar = true;
         }
 
-        Runner.update(vm.script)
+        Run.update(vm.script)
           .then(
               function(data)
               {
@@ -292,7 +319,7 @@ angular.module('hog')
 
         $log.debug('running: ', vm.script._id);
         vm.log = [];
-        Runner.run(vm.script._id)
+        Run.run(vm.script._id)
           .then(
               function(out)
               {
@@ -335,7 +362,7 @@ angular.module('hog')
 
         $log.debug('running: ', vm.script._id);
         vm.log = [];
-        Runner.runAndTrack(vm.script._id)
+        Run.runAndTrack(vm.script._id)
           .then(
               function(out)
               {

@@ -1,7 +1,19 @@
 'use strict';
 
+var socketioJwt = require('socketio-jwt');
+var config      = require('./environment');
 module.exports = function (io) {
 
+  /*io.use(socketioJwt.authorize({
+    secret: config.secrets.session,
+    handshake: true
+  }));
+  
+  io.sockets
+    .on('connection', function (socket) {
+      console.log(socket.decoded_token, 'connected');
+      //socket.on('event');
+    });*/
   /*io.on('connection', function (socket) {
 
     socket.connectDate = new Date();
@@ -17,7 +29,7 @@ module.exports = function (io) {
 
   });*/
     // nps inserts
-    require('../api/auth/auth.socket.js').register(io);
-    require('../api/pig/pig.socket.js').register(io);
+  //require('../api/auth/auth.socket.js').register(io);
+  require('../api/pig/pig.socket.js').register(io);
   require('../api/settings/settings.socket.js').register(io);
 };
