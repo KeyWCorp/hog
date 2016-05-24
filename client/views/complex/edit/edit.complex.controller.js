@@ -106,6 +106,8 @@ angular.module('hog')
       };
       vm.save = function(graph, numOutput)
       {
+
+        vm.script.name = vm.script.name.replace(/[\s]/g, "_");
         console.log('in vm .save', graph);
         vm.script.numOutput = numOutput || vm.script.numOutput;
         vm.script.args = vm.args.split(" ");
@@ -345,7 +347,7 @@ angular.module('hog')
           template:
             '<md-dialog flex="80" ng-cloak>'+
             '  <form>' +
-            '    <md-toolbar layout="column">'+
+            '    <md-toolbar layout="column" md-scroll-shrink="false">'+
             '      <div flex class="md-toolbar-tools">'+
             '        <h2>Graph Info<span ng-if="script_name"> for {{ script_name }}</span></h2>'+
             '        <span flex></span>'+
@@ -355,6 +357,16 @@ angular.module('hog')
             '      <md-tabs class="md-primary" md-dynamic-height md-border-bottom md-selected="selectedIndex" md-autoselect>' +
             '        <md-tab label="Settings">' +
             '          <md-content class="md-padding">' +
+            '            <div flex layout="column" layou-padding>' +
+            '              <md-input-container>' +
+            '                <label>Output with #</label>' +
+            '                <md-select ng-model="output_selection">' +
+            '                  <md-option ng-repeat="(key, value) in graph_structure" value="{{ key }}">' +
+            '                    {{ key }}' +
+            '                  </md-option>' +
+            '                </md-select>' +
+            '              </md-input-container>' +
+            '            </div>' +
             '            <div flex layout="row" layout-padding>' +
             '              <div flex>' +
             '                <md-subheader class="md-primary">Data layout</md-subheader>' +
@@ -402,7 +414,7 @@ angular.module('hog')
             '          </md-content>' +
             '        </md-tab>' +
             '        <md-tab label="Graph" ng-disabled="!show_graph" ng-click="showGraph()">' +
-            '          <md-toolbar>' +
+            '          <md-toolbar md-scroll-shrink="false">' +
             '            <div class="md-toolbar-tools">' +
             '              <md-button class="md-primary md-raised" ng-click="showGraph(\'Bar\')">' +
             '                Bar Graph' +
@@ -416,6 +428,14 @@ angular.module('hog')
             '            </div>' +
             '          </md-toolbar>' +
             '          <md-content class="md-padding">' +
+            '            <md-input-container>' +
+            '              <label>Output with #</label>' +
+            '              <md-select ng-model="output_selection">' +
+            '                <md-option ng-repeat="(key, value) in graph_structure" value="{{ key }}">' +
+            '                  {{ key }}' +
+            '                </md-option>' +
+            '              </md-select>' +
+            '            </md-input-container>' +
             '            <canvas class="chart chart-bar" id="myChart" chart-legend="true"></canvas>' +
             '          </md-content>' +
             '          <div layout-padding>' +
@@ -448,14 +468,12 @@ angular.module('hog')
           template:
             '<md-dialog flex="80" ng-cloak>'+
             '  <form>' +
-            '    <md-toolbar layout="column">'+
+            '    <md-toolbar layout="column" class="md-tall">' +
             '      <div flex class="md-toolbar-tools">'+
             '        <h2>Info<span ng-if="script_name"> for {{ script_name }}</span></h2>'+
             '        <span flex></span>'+
             '      </div>'+
-            '    </md-toolbar> '+
-            '    <md-toolbar>' +
-            '      <div flex class="md-toolbar">' +
+            '      <div class="md-toolbar-tools" layout="row" layout-sm="column" flex layout-align="start center">' +
             '        <md-button class="md-raised md-primary" ng-disabled="info_outputs.length <= 0" ng-click="filterByAll()">Show All</md-button>' +
             '        <md-button class="md-raised md-primary" ng-disabled="outputs.length <= 0" ng-click="filterByOutput()">Show Outputs</md-button>' +
             '        <md-button class="md-raised md-primary" ng-disabled="logs.length <= 0" ng-click="filterByLog()">Show Logs</md-button>' +
@@ -649,26 +667,20 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
   $scope.x_location = -1;
   $scope.x_axis = -1;
   $scope.y_location = -1;
-  $scope.y_axis = -1;
+  $scope.y_axis = 0;
 
   $scope.sliderNum;
   $scope.graph_type;
   $scope.total_data = {};
 
   $scope.graph_structure = {};
+  $scope.output_selection = $scope.graph_data[0].length;
+  $scope.refreshed_data = true;
 
-  function reloadData ()
+  function reloadData (cb)
   {
-    $scope.slider_max = $scope.graph_data.length;
 
-    /*
-    * Set number of outputs to saved setting
-    * if it is greater than 0 and less than
-    * the number of outputs, else set to
-    * number of outputs
-    */
-    $scope.sliderNum = ($scope.slider_max >= script.numOutput && Number(script.numOutput) > 0) ? script.numOutput : $scope.slider_max;
-    $scope.graph_type = (script.bar ? "Bar" : script.line ? "Line" : script.radar ? "Radar" : "Bar");
+  $scope.graph_structure = {};
 
     $scope.graph_data.map(function (item)
     {
@@ -682,16 +694,45 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
       }
     });
 
+    /*
+    * Set number of outputs to saved setting
+    * if it is greater than 0 and less than
+    * the number of outputs, else set to
+    * number of outputs
+    */
+    $scope.slider_max = $scope.graph_structure[$scope.output_selection].length;
+    $scope.sliderNum = (Number($scope.slider_max) >= Number(script.numOutput) && Number(script.numOutput) > 0) ? script.numOutput : $scope.slider_max;
+    $scope.graph_type = (script.bar ? "Bar" : script.line ? "Line" : script.radar ? "Radar" : "Bar");
+
+    console.log("max: " + $scope.slider_max);
+
+    if ($scope.refreshed_data)
+    {
+      $scope.graph_layout = [];
+      $scope.indexs = [];
+
+      $scope.graph_structure[$scope.output_selection][0].forEach(function (item, i)
+      {
+        $scope.graph_layout.push(i);
+        $scope.indexs.push({value: i, disabled: false});
+
+        if (i + 1 >= $scope.graph_structure[$scope.output_selection][0].length)
+        {
+          if (cb)
+          {
+            cb();
+          }
+        }
+      });
+
+      $scope.refreshed_data = false;
+    }
+
+
   };
 
   var myNewChart;
   var ctx;
-
-  $scope.graph_data[0].forEach(function (item, i)
-  {
-    $scope.graph_layout.push(i);
-    $scope.indexs.push({value: i, disabled: false});
-  });
 
   $scope.setX = function (x_axis)
   {
@@ -742,7 +783,6 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
     {
       if (Number(item.value) === Number($scope.y_axis))
       {
-        //item.disabled = true;
         $scope.graph_layout[i] = "Y";
         $scope.y_location = i;
 
@@ -777,7 +817,7 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
       var x_data = [];
       var y_data = [];
 
-      $scope.graph_data.forEach(function (item, i)
+      $scope.graph_structure[$scope.output_selection].forEach(function (item, i)
       {
         if ($scope.x_location >= 0)
         {
@@ -839,7 +879,7 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
   $timeout(function ()
   {
     $scope.showGraph();
-  }, 500);
+  }, 200);
 
   $scope.$watch("sliderNum", function ()
   {
@@ -851,12 +891,23 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
     reloadData();
   }, true);
 
+  $scope.$watch("output_selection", function ()
+  {
+    $scope.refreshed_data = true;
+    reloadData(function ()
+    {
+      $scope.setY($scope.indexs[0].value);
+    });
+  });
+
 
   $scope.cancel = function()
   {
     $mdDialog.cancel();
   };
 
-  reloadData();
-  $scope.setY($scope.indexs[0].value);
+  reloadData(function ()
+  {
+    $scope.setY($scope.indexs[0].value);
+  });
 };
