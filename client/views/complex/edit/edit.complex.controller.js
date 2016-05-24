@@ -88,6 +88,7 @@ angular.module('hog')
           console.log('session: ', _ace.getSession());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
         };
+        _ace.$blockScrolling = Infinity;
         var langTools = ace.require("ace/ext/language_tools");
         langTools.addCompleter(PigCompleter);
       };
@@ -469,7 +470,7 @@ angular.module('hog')
             '              </md-button>' +
             '            </div>' +
             '          </md-toolbar>' +
-            '          <md-content class="md-padding">' +
+            '          <div layout-padding flex>' +
             '            <md-input-container>' +
             '              <label>Output with #</label>' +
             '              <md-select ng-model="output_selection">' +
@@ -478,9 +479,13 @@ angular.module('hog')
             '                </md-option>' +
             '              </md-select>' +
             '            </md-input-container>' +
+            '          </div>' +
+            '          <md-content class="md-padding">' +
             '            <canvas class="chart chart-bar" id="myChart" chart-legend="true"></canvas>' +
             '          </md-content>' +
-            '          <div layout-padding>' +
+            '          <div layout-padding flex>' +
+            '            <br/>' +
+            '            <br/>' +
             '            <md-slider md-discrete ng-model="sliderNum" min="0" max="{{ slider_max }}" aria-label="blue" id="blue-slider" class="md-primary"></md-slider>' +
             '          </div>' +
             '        </md-tab>' +
@@ -492,7 +497,7 @@ angular.module('hog')
             '    </div>' +
             '  </form>' +
             '</md-dialog>',
-          controller: GraphInfoController,
+          controller: ComplexEditGraphInfoController,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
           targetEvent: ev,
@@ -539,7 +544,7 @@ angular.module('hog')
             '    </div>' +
             '  </form>' +
             '</md-dialog>',
-          controller: InfoController,
+          controller: ComplexEditInfoController,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
           targetEvent: ev,
@@ -637,7 +642,7 @@ function SettingsController( $mdDialog, $scope, vm)
 };
 
 // Controller for Info Modal
-function InfoController( $mdDialog, $scope, script_name, info_outputs, outputs, logs, warnings, errors, filter_type, graph_data, openGraphInfo)
+function ComplexEditInfoController( $mdDialog, $scope, script_name, info_outputs, outputs, logs, warnings, errors, filter_type, graph_data, openGraphInfo)
 {
   $scope.script_name = script_name;
   $scope.info_outputs = info_outputs;
@@ -696,7 +701,7 @@ function InfoController( $mdDialog, $scope, script_name, info_outputs, outputs, 
 };
 
 // Controller for Graph Info Modal
-function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
+function ComplexEditGraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
 {
   $scope.script_name = script.name;
   $scope.graph_data = graph_data;
@@ -746,7 +751,6 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
     $scope.sliderNum = (Number($scope.slider_max) >= Number(script.numOutput) && Number(script.numOutput) > 0) ? script.numOutput : $scope.slider_max;
     $scope.graph_type = (script.bar ? "Bar" : script.line ? "Line" : script.radar ? "Radar" : "Bar");
 
-    console.log("max: " + $scope.slider_max);
 
     if ($scope.refreshed_data)
     {

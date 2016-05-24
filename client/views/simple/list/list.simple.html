@@ -80,6 +80,11 @@
               </md-button>
             </div>
           </div>
+          <div flex layout="column" layout-padding ng-if="pig.pigList.length > 0">
+            <md-button flex ng-click="vm.openGraphInfo($event, $index)">
+              Show Graph Info: #{{ pig.pigList.length }}
+            </md-button>
+          </div>
         </md-card>
       </div>
     </div>
