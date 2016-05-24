@@ -75,13 +75,26 @@
     <v-accordion class="vAccordion--default" layout="column" layout-padding flex="45">
       <v-pane expanded="true">
         <v-pane-header>
-          Editor
+          Simple Editor
         </v-pane-header>
         <v-pane-content>
           <div layout="column" layout-margin ng-if="vm.data_ready">
             <div flex>
               <div pig-flow layout="column" input-data-string="vm.ots(vm.data)" output-data="vm.output_data" id="pig-flow{{ vm.script.id }}"></div>
             </div>
+          </div>
+        </v-pane-content>
+      </v-pane>
+      <v-pane>
+        <v-pane-header>
+          Complex Script
+        </v-pane-header>
+        <v-pane-content>
+          <div flex layout="column" layout-padding>
+            <div ui-ace="vm.editorOptions" readonly ng-model="vm.script.data" style="height: 400px;"></div>
+            <md-button class="md-raised" flex ng-click="vm.editComplex()">
+              Edit Complex Script
+            </md-button>
           </div>
         </v-pane-content>
       </v-pane>

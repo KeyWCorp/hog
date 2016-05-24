@@ -13,6 +13,39 @@ angular.module('hog')
       vm.data_ready = false;
       vm.edited = false;
 
+      vm.modes = ['Pig_Latin'];
+      vm.themes = ['monokai', 'twilight', 'none'];
+      vm.mode = vm.modes[0];
+      vm.theme = vm.themes[0];
+      vm.selectedArgs = [];
+      vm.editorModel = '';
+      vm.progress = 0;
+
+      vm.onEditorLoad = function(_ace)
+      {
+        vm.modeChanged = function () {
+          console.log('changing mode to: ' + vm.mode.toLowerCase());
+          console.log('ace: ', _ace);
+          console.log('session: ', _ace.getSession());
+          _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
+        }
+        _ace.$blockScrolling = Infinity;
+      };
+      vm.onEditorChange = function(_ace)
+      {
+
+      };
+
+      vm.editorOptions = {
+        mode: vm.mode.toLowerCase(),
+        onLoad: function(_ace) {vm.onEditorLoad(_ace);},
+        useWrapMode: false,
+        showGutter: false,
+        theme: vm.theme,
+        firstLineNumber: 1,
+        onChange: vm.onEditorChange(),
+        readOnly: true
+      };
 
 
       Runner.get($stateParams.id)
@@ -80,6 +113,11 @@ angular.module('hog')
             vm.script.links = vm.output_data.links;
             vm.script.type = "simple";
           });
+
+      vm.editComplex = function ()
+      {
+        $state.go('home.complex.edit', {id: vm.script._id});
+      };
 
       vm.save = function (cb)
       {
