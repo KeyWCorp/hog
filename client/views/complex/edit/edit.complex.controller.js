@@ -773,18 +773,44 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
 
       });
 
+      var test3 = y_data.slice(0, y_data.length / 2).reverse();
+      test3.concat(y_data);
+
       $scope.total_data = {
         labels: x_data.slice(0, $scope.sliderNum),
         datasets: [{
-          labels: "kevins",
-          fillColor: "rgba(220,220,220,0.4)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
+          labels: "A",
+          // Blue
+          fillColor: "rgba(33,150,243,0.3)",
+          strokeColor: "rgba(33,150,243,1)",
+          pointColor: "rgba(33,150,243,1)",
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
+          pointHighlightStroke: "rgba(33,150,243,1)",
           data: y_data.slice(0, $scope.sliderNum)
-        }]
+        }/*,
+        {
+          labels: "B",
+          // Grey
+          fillColor: "rgba(182,182,182,0.4)",
+          strokeColor: "rgba(182,182,182,1)",
+          pointColor: "rgba(182,182,182,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(182,182,182,1)",
+          data: y_data.slice(0, $scope.sliderNum).reverse()
+        },
+        {
+          labels: "C",
+          // Orange
+          fillColor: "rgba(255,87,34,0.3)",
+          strokeColor: "rgba(255,87,34,1)",
+          pointColor: "rgba(255,87,34,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(255,87,34,1)",
+          data: test3.slice(0, $scope.sliderNum)
+        }*/]
       };
 
       var container = document.getElementById("myChart");
