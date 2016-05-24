@@ -566,6 +566,7 @@ angular.module("pig.pig-flow", [])
             .remove();
 
           vm.force.start();
+          vm.updateScript();
         };
 
 
@@ -711,16 +712,6 @@ angular.module("pig.pig-flow", [])
               return d.y;
             });
 
-          //vm.node_input
-          //  .attr("cx", function (d)
-          //  {
-          //    return d.x + d.width * 0.5;
-          //  })
-          //  .attr("cy", function (d)
-          //  {
-          //    return d.y;
-          //  });
-
           vm.node_outputs
             .attr("r", 10)
             .attr("class", "node_outputs")
@@ -736,16 +727,6 @@ angular.module("pig.pig-flow", [])
               d.y = d.p.y + d.p.height;
               return d.y;
             });
-
-          //vm.node_output
-          //  .attr("cx", function (d)
-          //  {
-          //    return d.x + d.width * 0.5;
-          //  })
-          //  .attr("cy", function (d)
-          //  {
-          //    return d.y + d.height;
-          //  });
 
           vm.node_name_label
             .attr("x", function (d)
@@ -867,15 +848,11 @@ angular.module("pig.pig-flow", [])
         function dragended(d)
         {
           d3.select(this).classed("dragging", false);
+          start_update();
         }
 
         function removeNode(d)
         {
-          if (d.category === "output")
-          {
-            vm.output_script = "";
-            start_update();
-          }
           vm.nodes.splice(d.index, 1);
           removeLinks(d);
           vm.start();
@@ -1096,11 +1073,7 @@ angular.module("pig.pig-flow", [])
         {
 
           vm.output_script = "";
-
-          console.log(JSON.stringify({
-            nodes: vm.nodes,
-            links: vm.links
-          }, null, 2));
+          var i = 0;
 
           var fts = new FlowToScript(vm.nodes, vm.links);
           fts.start(function (d)
