@@ -142,7 +142,7 @@ angular.module('hog')
 
         $mdToast.show(
           $mdToast.simple()
-          .content('Scrpt Saved!')
+          .content('Script Saved!')
           .hideDelay(3000)
         );
       }
@@ -371,6 +371,11 @@ angular.module('hog')
             '                    X Axis' +
             '                  </md-button>' +
             '                  <md-menu-content width="6">' +
+            '                    <md-menu-item>' +
+            '                      <md-button ng-click="setX(-1)">' +
+            '                        Index' +
+            '                      </md-button>' +
+            '                    </md-menu-item>' +
             '                    <md-menu-item ng-repeat="item in indexs">' +
             '                      <md-button ng-disabled="item.disabled" ng-click="setX($index)">' +
             '                        {{ item.value }}' +
@@ -667,27 +672,37 @@ function GraphInfoController($mdDialog, $scope, $timeout, script_name, graph_dat
 
   $scope.setX = function (x_axis)
   {
-    $scope.graph_layout[$scope.x_axis] = $scope.x_axis;
-    $scope.x_axis = x_axis;
-    $scope.indexs.map(function (item, i)
+    if (x_axis === -1)
     {
-      if (Number(item.value) === Number($scope.x_axis))
+      $scope.graph_layout[$scope.x_axis] = $scope.x_axis;
+      $scope.x_axis = x_axis;
+      $scope.x_location = x_axis;
+    }
+    else
+    {
+      $scope.graph_layout[$scope.x_axis] = $scope.x_axis;
+      $scope.x_axis = x_axis;
+      $scope.indexs.map(function (item, i)
       {
-        //item.disabled = true;
-        $scope.graph_layout[i] = "X";
-        $scope.x_location = i;
-
-        if ($scope.y_location >= 0)
+        if (Number(item.value) === Number($scope.x_axis))
         {
-          $scope.show_graph = true;
-        }
-      }
-    });
+          //item.disabled = true;
+          $scope.graph_layout[i] = "X";
+          $scope.x_location = i;
 
-    if (x_axis === $scope.y_axis)
-    {
-      $scope.y_axis = -1;
-      $scope.y_location = -1;
+          if ($scope.y_location >= 0)
+          {
+            $scope.show_graph = true;
+          }
+        }
+      });
+
+      if (x_axis === $scope.y_axis)
+      {
+        $scope.y_axis = -1;
+        $scope.y_location = -1;
+        $scope.show_graph = false;
+      }
     }
   };
 
