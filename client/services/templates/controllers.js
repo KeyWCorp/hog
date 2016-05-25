@@ -257,3 +257,77 @@ function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
     $scope.setY($scope.indexs[0].value);
   });
 };
+
+
+
+// Controller for Info Modal
+function InfoController(
+    $mdDialog,
+    $scope,
+    script_name,
+    info_outputs,
+    outputs,
+    logs,
+    warnings,
+    errors,
+    filter_type,
+    graph_data,
+    openGraphInfo,
+    script_index)
+{
+  $scope.script_name = script_name;
+  $scope.info_outputs = info_outputs;
+  $scope.outputs = outputs;
+  $scope.logs = logs;
+  $scope.warnings = warnings;
+  $scope.errors = errors;
+  $scope.filter_type = filter_type || "all";
+
+  $scope.graph_data = graph_data;
+  $scope.openGraphInfo = openGraphInfo;
+  $scope.script_index = script_index;
+
+  $scope.filteredInfo = function ()
+  {
+    return $scope.info_outputs.filter(function (info)
+    {
+      if ($scope.filter_type === "all")
+      {
+        return true;
+      } else
+      {
+        return info.type === $scope.filter_type;
+      }
+    });
+  };
+
+  $scope.filterByAll = function ()
+  {
+    $scope.filter_type = "all";
+  };
+
+  $scope.filterByOutput = function ()
+  {
+    $scope.filter_type = "output";
+  };
+
+  $scope.filterByLog = function ()
+  {
+    $scope.filter_type = "log";
+  };
+
+  $scope.filterByWarning = function ()
+  {
+    $scope.filter_type = "warning";
+  };
+
+  $scope.filterByError = function ()
+  {
+    $scope.filter_type = "error";
+  };
+
+  $scope.cancel = function()
+  {
+    $mdDialog.cancel();
+  };
+};

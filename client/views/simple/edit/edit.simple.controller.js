@@ -420,7 +420,7 @@ angular.module('hog')
             '    </div>' +
             '  </form>' +
             '</md-dialog>',
-          controller: SimpleEditInfoController,
+          controller: InfoController,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
           targetEvent: ev,
@@ -433,68 +433,10 @@ angular.module('hog')
             errors: vm.errors,
             filter_type: filter_type,
             graph_data: vm.pigList,
-            openGraphInfo: vm.openGraphInfo
+            openGraphInfo: vm.openGraphInfo,
+            script_index: null
           },
         });
       };
 
     });
-
-// Controller for Info Modal
-function SimpleEditInfoController( $mdDialog, $scope, script_name, info_outputs, outputs, logs, warnings, errors, filter_type, graph_data, openGraphInfo)
-{
-  $scope.script_name = script_name;
-  $scope.info_outputs = info_outputs;
-  $scope.outputs = outputs;
-  $scope.logs = logs;
-  $scope.warnings = warnings;
-  $scope.errors = errors;
-  $scope.filter_type = filter_type || "all";
-
-  $scope.graph_data = graph_data;
-  $scope.openGraphInfo = openGraphInfo;
-
-  $scope.filteredInfo = function ()
-  {
-    return $scope.info_outputs.filter(function (info)
-    {
-      if ($scope.filter_type === "all")
-      {
-        return true;
-      } else
-      {
-        return info.type === $scope.filter_type;
-      }
-    });
-  };
-
-  $scope.filterByAll = function ()
-  {
-    $scope.filter_type = "all";
-  };
-
-  $scope.filterByOutput = function ()
-  {
-    $scope.filter_type = "output";
-  };
-
-  $scope.filterByLog = function ()
-  {
-    $scope.filter_type = "log";
-  };
-
-  $scope.filterByWarning = function ()
-  {
-    $scope.filter_type = "warning";
-  };
-
-  $scope.filterByError = function ()
-  {
-    $scope.filter_type = "error";
-  };
-
-  $scope.cancel = function()
-  {
-    $mdDialog.cancel();
-  };
-};

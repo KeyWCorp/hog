@@ -141,7 +141,7 @@ angular.module('pig.pig-flow-templates', [])
           }
           else
           {
-            self.node_list.forEach(function (node)
+            self.node_list.forEach(function (node, i)
                 {
                   self.sortList(node);
                   if (i >= self.node_list.length - 1)
