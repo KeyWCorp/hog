@@ -141,7 +141,7 @@ angular.module('pig.pig-flow-templates', [])
           }
           else
           {
-            self.node_list.forEach(function (node)
+            self.node_list.forEach(function (node, i)
                 {
                   self.sortList(node);
                   if (i >= self.node_list.length - 1)
@@ -379,7 +379,7 @@ angular.module('pig.pig-flow-templates', [])
             value: ""
           },
           {
-            name: "seperator",
+            name: "separator",
             value: ""
           }],
           description: "Load from a source",
@@ -397,9 +397,9 @@ angular.module('pig.pig-flow-templates', [])
             variables: [
               "source",
               "format",
-              "seperator"
+              "separator"
             ],
-            content: "<output_variable> = LOAD '<source>' USING PigStorage('<seperator>') AS <format>;"
+            content: "<output_variable> = LOAD '<source>' USING PigStorage('<separator>') AS <format>;"
           }
         },
         {
