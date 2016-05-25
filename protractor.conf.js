@@ -5,6 +5,7 @@ exports.config = { // jshint ignore:line
   // chromeDriver: './node_modules/gulp-protractor/node_modules/protractor/selenium/chromedriver',
 
   baseUrl: 'http://localhost:9000',
+  //baseUrl: 'http://10.1.10.26:9000',
 
   capabilities: {
     browserName: 'chrome'

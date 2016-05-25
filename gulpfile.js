@@ -35,3 +35,4 @@ gulp.task('debug', function() {
       sslCert: ''
     }));
 });
+gulp.task('migrate',                    require('./tasks/migrate'));

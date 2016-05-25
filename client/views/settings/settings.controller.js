@@ -1,9 +1,31 @@
 'use strict';
 
 angular.module('hog')
-  .controller('SettingsCtrl', function ($mdToast, $log, Settings, lodash) {
+  .controller('SettingsCtrl', function ($mdToast, $log, Settings, lodash, Runner, $q) {
 
     var vm = this;
+    //vm.script =  Runner.getData();
+   
+    // This may not be needed
+    Runner.list()
+          .then(
+            function(data)
+            {
+              // Might Need to Parse it
+              vm.script= data.json;
+              //  console.log(vm.script[2].name);
+               // console.log(JSON.stringify(vm.script));
+            });
+    
+    
+   // var empty = {};
+    //e/mpty = Runner.update(vm.script);
+ 
+   // vm.items = ['harry', 'dic', 'coxe' ];
+   // console.log('Emptuy ' + JSON.stringify(empty));
+       // console.log('STSTT ' + JSON.stringify(vm.script.name));
+
+//    vm.script = {};
     var priv = {
       removedArgs: [],
       getToastPosition: function()
@@ -16,12 +38,46 @@ angular.module('hog')
         };
       }
     }
+    
+    
+          
+            
+    
     angular.extend(vm, {
       name: 'SettingsCtrl',
       ins: Settings.list(),
-      save: function(data)
+      save: function(data, script)
       {
-        //TODO: save the settings to the server
+         
+        //  console.log(script.name); 
+          //console.log(vm.script[2].name);
+        
+          for(var i = 0; i < vm.script.length; i++)
+          {
+                
+
+              if(script.name == vm.script[i].name)
+              {
+                  vm.script[i].name = script.name;
+               //   console.log(vm.script[i].name);
+
+              }
+          }
+          
+           Runner.save(script)
+                .then(
+                    function(data)
+                    {
+                      
+                        $log.debug('saved: ' + JSON.stringify(data));
+                    },
+                    function(err)
+                    {
+                        $log.error('error: ' +err);
+                    })
+       
+          
+        //TODO:save the settings to the server
         $log.debug(data);
         var goodCount = 0;
         var badCount = [];
@@ -139,4 +195,18 @@ angular.module('hog')
       {
         vm.udfs = data.json;
       });
+    
+  /* vm.clearValue = function() {
+   vm.myModel = undefined;
+  };*/
+    vm.scriptSelect = function(script)
+    {
+//console.log('asdfasd' + JSON.stringify(script));
+        vm.script.line = script.line;
+        vm.script.bar = script.bar;
+        vm.script.radar = script.radar;
+        vm.script.numOutput = script.numOutput;
+    }
+    
+ 
 });

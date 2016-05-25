@@ -1,0 +1,51 @@
+.node {
+    //cursor: pointer;
+}
+
+circle.pending {
+    fill: #fff;
+}
+
+circle.RUNNING {
+    fill: #0f0;
+}
+
+circle.FINISHED {
+    fill: #666;
+}
+
+circle.FAILED {
+    fill: #f00;
+}
+
+.pending {
+    background-color: #fff;
+}
+
+.RUNNING {
+    background-color: #0f0;
+}
+
+.FINISHED {
+    background-color: #666;
+}
+
+.FAILED {
+    background-color: #f00;
+}
+
+.node circle {
+    //fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+.node text {
+    font: 20px sans-serif;
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+}

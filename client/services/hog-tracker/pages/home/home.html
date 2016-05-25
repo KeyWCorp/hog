@@ -1,0 +1,45 @@
+<div ng-controller='HomeCtrl'>
+    <!-- TODO: place directive call here -->
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings">
+        </md-button>
+        <h2>
+            <span>Toolbar with Icon Buttons</span>
+        </h2>
+        <span flex></span>
+        </div>
+    </md-toolbar>
+    <br>
+
+    <md-content layout-gt-sm="row" layout-padding="">
+        <md-input-container>
+            <label>Root Status</label>
+            <input ng-model="taskList[0].status">
+        </md-input-container>
+
+        <md-input-container>
+            <label>Status 2</label>
+            <input ng-model="taskList[1].status">
+        </md-input-container>
+
+        <md-input-container>
+            <md-button ng-click="addChild()" class="md-raised">Add</md-button>
+        </md-input-container>
+
+        <md-input-container>
+            <md-button ng-disabled="running" ng-click="run()" class="md-raised">Run</md-button>
+        </md-input-container>
+
+        <md-input-container>
+          <md-progress-circular ng-if="running" md-mode="indeterminate"></md-progress-circular>
+        </md-input-container>
+    </md-content>
+
+    <div layout="column">
+        <div flex>
+            <div hog-tracker task-string="ots(taskList)" tracker-id="'myTracker'"></div>
+        </div>
+    </div>
+
+</div>

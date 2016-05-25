@@ -1,0 +1,31 @@
+<div ng-controller='HomeCtrl'>
+	<!-- TODO: place directive call here -->
+  <md-toolbar>
+      <div class="md-toolbar-tools">
+      <md-button class="md-icon-button" aria-label="Settings">
+      </md-button>
+      <h2>
+          <span>Pig Flow Test</span>
+      </h2>
+      <span flex></span>
+      </div>
+  </md-toolbar>
+
+  <div layout="column" layout-margin>
+
+    <md-input-container ng-show="outputData.script" flex>
+      <label>Script</label>
+      <textarea ng-model="outputData.script"></textarea>
+    </md-input-container>
+
+    <md-button ng-click="newScript()">Change Script</md-button>
+
+    <div layout="column" layout-margin>
+      <div flex>
+        <div pig-flow layout="column" input-data-string="ots(data)" output-data="outputData" id="mine1"></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

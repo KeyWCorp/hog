@@ -10,5 +10,95 @@
   border-right-style: solid;
   height: 100%; }
 
+svg.pig-flow {
+  border: solid 1px #800; }
+
+.axis line {
+  fill: none;
+  stroke: #ddd;
+  shape-rendering: crispEdges;
+  vector-effect: non-scaling-stroke; }
+
+.flow_link {
+  stroke: #000;
+  stroke-width: 7px; }
+
+.path {
+  fill: none;
+  stroke: #bbb;
+  stroke-width: 1.5px; }
+
+rect.node_header {
+  fill: lightsteelblue;
+  stroke: black;
+  stroke-width: 1.5px; }
+
+rect.node_body {
+  fill: lightsteelblue;
+  stroke: steelblue;
+  stroke-width: 1.5px; }
+
+text.node_close {
+  fill: #ff3232;
+  stroke: #ff3232; }
+
+circle.node_inputs {
+  fill: #32ff32;
+  stroke: #5a96c8; }
+
+circle.node_outputs {
+  fill: #32ff32;
+  stroke: #5a96c8; }
+
+circle.node_outputs.dragging {
+  fill: #323232;
+  stroke: #5a96c8; }
+
+.dragging {
+  fill: #c4d8f2;
+  stroke: #5a96c8; }
+
+.md-fab-top-right {
+  top: 20px !important; }
+
+circle.pending {
+  fill: #fff; }
+
+circle.RUNNING {
+  fill: #0f0; }
+
+circle.FINISHED {
+  fill: #666; }
+
+circle.FAILED {
+  fill: #f00; }
+
+.pending {
+  background-color: #fff; }
+
+.RUNNING {
+  background-color: #0f0; }
+
+.FINISHED {
+  background-color: #666; }
+
+.FAILED {
+  background-color: #f00; }
+
+.node circle {
+  stroke: steelblue;
+  stroke-width: 1.5px; }
+
+.node text {
+  font: 20px sans-serif; }
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px; }
+
 body {
   font-family: sans-serif; }
+
+.chip-btn {
+  border-radius: 10em; }

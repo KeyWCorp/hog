@@ -16,7 +16,13 @@ angular.module('hog', [
     'uuid4',
     'vAccordion',
     'ngLodash',
-    'chart.js'
+    'chart.js',
+    'md.data.table',
+    'hog.hog-tracker',
+    'pig.pig-flow',
+    'pig.pig-flow-templates',
+    'mdColors',
+    'luegg.directives'
 ]).config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')

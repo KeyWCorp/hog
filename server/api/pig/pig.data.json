@@ -1,111 +1,7 @@
 {
-  "0": {
-    "name": "Test",
-    "data": "A = LOAD 'file:///home/xadmin/Downloads/work/datatest/test.data' USING PigStorage(',') AS (one:int,two:int,three:int);\nB = FILTER A BY one > 1;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": 0,
-    "logs": [],
-    "output": []
-  },
-  "1": {
-    "name": "",
-    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": 1,
-    "logs": [],
-    "output": []
-  },
-  "2": {
-    "name": "Test",
-    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": 2,
-    "logs": [],
-    "output": []
-  },
-  "3": {
-    "name": "test",
-    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": 3,
-    "logs": [],
-    "output": []
-  },
-  "4": {
-    "name": "test_steve",
-    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": 4,
-    "logs": [],
-    "output": []
-  },
-  "41": {
-    "name": "teste",
-    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": "41",
-    "logs": [],
-    "output": []
-  },
-  "42": {
-    "name": "mytest",
-    "data": "A = LOAD 'student' USING PigStorage() AS (name:chararray, age:int, gpa:float);\nB = FOREACH A GENERATE name;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": 42,
-    "logs": [],
-    "output": []
-  },
-  "43": {
-    "name": "Steve_Test",
-    "data": "A = LOAD 'file:///Users/sdemmer/test.data' AS (one:int,two:int,three:int);\nB = FILTER A BY one > 1;\nDUMP B;",
-    "args": [
-      {
-        "arg": "-x",
-        "input": "local"
-      }
-    ],
-    "id": 43,
-    "logs": [],
-    "output": []
-  },
   "44": {
-    "name": "Kevin_Test",
-    "data": "A = LOAD 'file:///Users/kmcoxe/Projects/hog/test.data' AS (one:int,two:int,three:int);\nB = FILTER A BY one > 1;\nDUMP B;",
+    "name": "Mikes_Script",
+    "data": "REGISTER /home/maparco/jars/datafu.jar\nREGISTER /home/maparco/jars/parquet-pig-bundle-1.6.0.jar\nDEFINE PageRank datafu.pig.linkanalysis.PageRank('alpha','0.87','dangling_nodes','true');\n\n--Load tcpdump sensor data with geo enrichment\ndata = LOAD 'hdfs://10.1.10.26:8020/test/netflow_parquet/*.parquet' USING parquet.pig.ParquetLoader();\ndata = FILTER data BY direction MATCHES 'INBOUND';\ndata = FOREACH data GENERATE '0' AS topic, srcIP AS source, destIP AS dest, 1.0 AS weight:double;\ndata = FILTER data BY (source IS NOT NULL) OR (dest IS NOT NULL);\ntopic_edges = DISTINCT data;\n\nsource = FOREACH topic_edges GENERATE source;\ndest = FOREACH topic_edges GENERATE dest;\nsource = DISTINCT source;\ndest = DISTINCT dest;\nsource = RANK source;\ndest = RANK dest;\n\ntopic_edges_source = JOIN topic_edges BY source, source BY source;\ntopic_edges_source = FOREACH topic_edges_source GENERATE topic_edges::topic AS topic, source::rank_source AS source, topic_edges::weight AS weight, topic_edges::source AS ipSrc, topic_edges::dest AS ipDest;\ntopic_edges_dest = JOIN topic_edges_source BY ipDest, dest BY dest;\ntopic_edges_dest = FOREACH topic_edges_dest GENERATE topic_edges_source::topic AS topic, topic_edges_source::source AS source, dest::rank_dest AS dest, topic_edges_source::weight AS weight, topic_edges_source::ipSrc AS ipSrc, dest::dest AS ipDest;\n\ntopic_edges = FOREACH topic_edges_dest GENERATE (chararray)topic,(int)source,(int)dest,(double)weight,(chararray)ipSrc,(chararray)ipDest;\ntopic_edges_grouped = FOREACH (GROUP topic_edges BY (topic,source)) GENERATE group.topic AS topic, group.source AS source, topic_edges.(dest,weight) AS edges;\n\ntopic_ranks = FOREACH (GROUP topic_edges_grouped BY topic) GENERATE group AS topic,FLATTEN(PageRank(topic_edges_grouped.(source,edges))) AS (source,rank);\n\ntopic_ranks = FOREACH topic_ranks GENERATE topic, source, (rank*100) AS rank;\ntopic_ranks = JOIN topic_ranks BY source, source BY rank_source;\ntopic_ranks = FOREACH topic_ranks GENERATE source::source AS ipSrc, topic_ranks::rank AS rank;\ntopic_ranks = ORDER topic_ranks BY rank DESC;\nDUMP topic_ranks;",
     "args": [
       {
         "arg": "-x",
@@ -114,11 +10,12 @@
     ],
     "id": 44,
     "logs": [],
-    "output": []
+    "output": [],
+    "bar": true
   },
   "45": {
-    "name": "Rick_Test",
-    "data": "A = LOAD 'file:///Users/rick/Desktop/HOG/hog2/hog/test.data' AS (one:int,two:int,three:int);\nB = FILTER A BY one > 1;\nDUMP B;",
+    "name": "Hog_Tracker",
+    "data": "A = LOAD 'file:///Users/kmcoxe/Documents/IPI/hog/node_modules/pig-parser/src/test.data' AS (x:int);\nB = GROUP A ALL;\nC = FOREACH B GENERATE SUM(A.x) AS count, MIN(A.x) as minimum;\nD = FOREACH B GENERATE MIN(A.x) as count, MAX(A.x) AS minimum;\nE = FOREACH B GENERATE SUM(A.x) AS count, AVG(A.x) AS minimum;\n\nEXPLAIN C;\nEXPLAIN D;\n\nDESCRIBE C;\nDESCRIBE D;\nDESCRIBE E;\n\nDUMP C;\nDUMP D;\nDUMP E;",
     "args": [
       {
         "arg": "-x",
@@ -126,6 +23,593 @@
       }
     ],
     "id": 45,
+    "logs": [],
+    "output": [],
+    "graph": "bar",
+    "setting": {
+      "graph": []
+    },
+    "setings": [
+      null
+    ],
+    "settings": [],
+    "radar": true,
+    "bar": false,
+    "line": false,
+    "numbOutput": "1344"
+  },
+  "451": {
+    "name": "Simple_Script",
+    "data": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);\nDUMP load0;\n",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local"
+      }
+    ],
+    "bar": true,
+    "line": false,
+    "radar": false,
+    "nodes": [
+      {
+        "x": 335.5,
+        "y": 47.89999999999998,
+        "width": 300,
+        "height": 124,
+        "name": "new node 0",
+        "category": "input",
+        "type": "load",
+        "params": [
+          {
+            "name": "source",
+            "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
+          },
+          {
+            "name": "format",
+            "value": "(x:int, y:int)"
+          }
+        ],
+        "script": {
+          "input_var": false,
+          "output_var": true,
+          "variables": [
+            "source",
+            "format"
+          ],
+          "content": "<output_var> = LOAD '<source>' USING PigStorage(' ') AS <format>;"
+        },
+        "output": "load0",
+        "fixed": 1,
+        "index": 0,
+        "weight": 1,
+        "px": 335.5,
+        "py": 47.89999999999998,
+        "output_node": 1
+      },
+      {
+        "x": 352.5,
+        "y": 289.9,
+        "width": 300,
+        "height": 124,
+        "name": "new node 1",
+        "category": "output",
+        "type": "dump",
+        "params": [],
+        "script": {
+          "input_var": true,
+          "output_var": false,
+          "variables": [],
+          "content": "DUMP <input_var>;"
+        },
+        "output": "dump1",
+        "fixed": true,
+        "index": 1,
+        "weight": 1,
+        "px": 352.5,
+        "py": 289.9,
+        "input_node": 0,
+        "input": "load0"
+      }
+    ],
+    "links": [
+      {
+        "source": {
+          "x": 335.5,
+          "y": 47.89999999999998,
+          "width": 300,
+          "height": 124,
+          "name": "new node 0",
+          "category": "input",
+          "type": "load",
+          "params": [
+            {
+              "name": "source",
+              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
+            },
+            {
+              "name": "format",
+              "value": "(x:int, y:int)"
+            }
+          ],
+          "script": {
+            "input_var": false,
+            "output_var": true,
+            "variables": [
+              "source",
+              "format"
+            ],
+            "content": "<output_var> = LOAD '<source>' USING PigStorage(' ') AS <format>;"
+          },
+          "output": "load0",
+          "fixed": 1,
+          "index": 0,
+          "weight": 1,
+          "px": 335.5,
+          "py": 47.89999999999998,
+          "output_node": 1
+        },
+        "target": {
+          "x": 352.5,
+          "y": 289.9,
+          "width": 300,
+          "height": 124,
+          "name": "new node 1",
+          "category": "output",
+          "type": "dump",
+          "params": [],
+          "script": {
+            "input_var": true,
+            "output_var": false,
+            "variables": [],
+            "content": "DUMP <input_var>;"
+          },
+          "output": "dump1",
+          "fixed": true,
+          "index": 1,
+          "weight": 1,
+          "px": 352.5,
+          "py": 289.9,
+          "input_node": 0,
+          "input": "load0"
+        }
+      }
+    ],
+    "type": "simple",
+    "id": "451",
+    "logs": [],
+    "output": []
+  },
+  "452": {
+    "name": "Another_simple_script",
+    "data": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);\nsum1group = GROUP load0 BY x;\nsum1 = FOREACH sum1group GENERATE SUM(load0.x) AS x;\nDUMP sum1;\n",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local"
+      }
+    ],
+    "bar": true,
+    "line": false,
+    "radar": false,
+    "nodes": [
+      {
+        "x": 42.5,
+        "y": 40.89999999999998,
+        "width": 300,
+        "height": 124,
+        "name": "new node 0",
+        "category": "input",
+        "type": "load",
+        "params": [
+          {
+            "name": "source",
+            "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
+          },
+          {
+            "name": "format",
+            "value": "(x:int, y:int)"
+          }
+        ],
+        "script": {
+          "input_var": false,
+          "output_var": true,
+          "variables": [
+            "source",
+            "format"
+          ],
+          "content": "<output_var> = LOAD '<source>' USING PigStorage(' ') AS <format>;"
+        },
+        "output": "load0",
+        "fixed": 1,
+        "index": 0,
+        "weight": 1,
+        "px": 42.5,
+        "py": 40.89999999999998,
+        "output_node": 1
+      },
+      {
+        "x": 509.5,
+        "y": 236.89999999999998,
+        "width": 300,
+        "height": 124,
+        "name": "new node 1",
+        "category": "function",
+        "type": "sum",
+        "params": [
+          {
+            "name": "type",
+            "value": "x"
+          }
+        ],
+        "script": {
+          "input_var": true,
+          "output_var": true,
+          "variables": [
+            "type"
+          ],
+          "content": "<output_var>group = GROUP <input_var> BY <type>;\n<output_var> = FOREACH <output_var>group GENERATE SUM(<input_var>.<type>) AS <type>;"
+        },
+        "output": "sum1",
+        "fixed": 1,
+        "index": 1,
+        "weight": 2,
+        "px": 509.5,
+        "py": 236.89999999999998,
+        "input_node": 0,
+        "input": "load0",
+        "output_node": 2
+      },
+      {
+        "x": 151.5,
+        "y": 430.9,
+        "width": 300,
+        "height": 124,
+        "name": "new node 2",
+        "category": "output",
+        "type": "dump",
+        "params": [],
+        "script": {
+          "input_var": true,
+          "output_var": false,
+          "variables": [],
+          "content": "DUMP <input_var>;"
+        },
+        "output": "dump2",
+        "fixed": 1,
+        "index": 2,
+        "weight": 1,
+        "px": 151.5,
+        "py": 430.9,
+        "input_node": 1,
+        "input": "sum1"
+      }
+    ],
+    "links": [
+      {
+        "source": {
+          "x": 42.5,
+          "y": 40.89999999999998,
+          "width": 300,
+          "height": 124,
+          "name": "new node 0",
+          "category": "input",
+          "type": "load",
+          "params": [
+            {
+              "name": "source",
+              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
+            },
+            {
+              "name": "format",
+              "value": "(x:int, y:int)"
+            }
+          ],
+          "script": {
+            "input_var": false,
+            "output_var": true,
+            "variables": [
+              "source",
+              "format"
+            ],
+            "content": "<output_var> = LOAD '<source>' USING PigStorage(' ') AS <format>;"
+          },
+          "output": "load0",
+          "fixed": 1,
+          "index": 0,
+          "weight": 1,
+          "px": 42.5,
+          "py": 40.89999999999998,
+          "output_node": 1
+        },
+        "target": {
+          "x": 509.5,
+          "y": 236.89999999999998,
+          "width": 300,
+          "height": 124,
+          "name": "new node 1",
+          "category": "function",
+          "type": "sum",
+          "params": [
+            {
+              "name": "type",
+              "value": "x"
+            }
+          ],
+          "script": {
+            "input_var": true,
+            "output_var": true,
+            "variables": [
+              "type"
+            ],
+            "content": "<output_var>group = GROUP <input_var> BY <type>;\n<output_var> = FOREACH <output_var>group GENERATE SUM(<input_var>.<type>) AS <type>;"
+          },
+          "output": "sum1",
+          "fixed": 1,
+          "index": 1,
+          "weight": 2,
+          "px": 509.5,
+          "py": 236.89999999999998,
+          "input_node": 0,
+          "input": "load0",
+          "output_node": 2
+        }
+      },
+      {
+        "source": {
+          "x": 509.5,
+          "y": 236.89999999999998,
+          "width": 300,
+          "height": 124,
+          "name": "new node 1",
+          "category": "function",
+          "type": "sum",
+          "params": [
+            {
+              "name": "type",
+              "value": "x"
+            }
+          ],
+          "script": {
+            "input_var": true,
+            "output_var": true,
+            "variables": [
+              "type"
+            ],
+            "content": "<output_var>group = GROUP <input_var> BY <type>;\n<output_var> = FOREACH <output_var>group GENERATE SUM(<input_var>.<type>) AS <type>;"
+          },
+          "output": "sum1",
+          "fixed": 1,
+          "index": 1,
+          "weight": 2,
+          "px": 509.5,
+          "py": 236.89999999999998,
+          "input_node": 0,
+          "input": "load0",
+          "output_node": 2
+        },
+        "target": {
+          "x": 151.5,
+          "y": 430.9,
+          "width": 300,
+          "height": 124,
+          "name": "new node 2",
+          "category": "output",
+          "type": "dump",
+          "params": [],
+          "script": {
+            "input_var": true,
+            "output_var": false,
+            "variables": [],
+            "content": "DUMP <input_var>;"
+          },
+          "output": "dump2",
+          "fixed": 1,
+          "index": 2,
+          "weight": 1,
+          "px": 151.5,
+          "py": 430.9,
+          "input_node": 1,
+          "input": "sum1"
+        }
+      }
+    ],
+    "type": "simple",
+    "id": 452,
+    "logs": [],
+    "output": []
+  },
+  "4521": {
+    "name": "KevinsSimpleTest",
+    "data": "\nload0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);\nDUMP load0;",
+    "args": [
+      {
+        "arg": "-x",
+        "input": "local"
+      }
+    ],
+    "bar": true,
+    "line": false,
+    "radar": false,
+    "nodes": [
+      {
+        "x": 462.5,
+        "y": 50.89999999999998,
+        "width": 330,
+        "height": 124,
+        "name": "new node 0",
+        "category": "relational_operators",
+        "type": "load",
+        "params": [
+          {
+            "name": "source",
+            "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
+          },
+          {
+            "name": "format",
+            "value": "(x:int, y:int)"
+          },
+          {
+            "name": "seperator",
+            "value": " "
+          }
+        ],
+        "script": {
+          "input_var": false,
+          "output_var": true,
+          "variables": [
+            "source",
+            "format",
+            "seperator"
+          ],
+          "content": "<output_variable> = LOAD '<source>' USING PigStorage('<seperator>') AS <format>;",
+          "output": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "label": "variable",
+            "value": ""
+          }
+        ],
+        "output": "load0",
+        "fixed": 1,
+        "index": 0,
+        "weight": 1,
+        "px": 462.5,
+        "py": 50.89999999999998,
+        "output_node": 1
+      },
+      {
+        "x": 448.5,
+        "y": 270.9,
+        "width": 330,
+        "height": 124,
+        "name": "new node 1",
+        "category": "output",
+        "type": "dump",
+        "params": [],
+        "script": {
+          "input_var": true,
+          "output_var": false,
+          "variables": [],
+          "content": "DUMP <input_variable>;",
+          "output": "DUMP load0;"
+        },
+        "inputs": [
+          {
+            "label": "variable",
+            "value": "load0"
+          }
+        ],
+        "outputs": [],
+        "output": "dump1",
+        "fixed": true,
+        "index": 1,
+        "weight": 1,
+        "px": 448.5,
+        "py": 270.9,
+        "input_node": 0,
+        "input": "load0"
+      }
+    ],
+    "links": [
+      {
+        "source": {
+          "x": 462.5,
+          "y": 50.89999999999998,
+          "width": 330,
+          "height": 124,
+          "name": "new node 0",
+          "category": "relational_operators",
+          "type": "load",
+          "params": [
+            {
+              "name": "source",
+              "value": "/Users/kmcoxe/Documents/IPI/test/test.data"
+            },
+            {
+              "name": "format",
+              "value": "(x:int, y:int)"
+            },
+            {
+              "name": "seperator",
+              "value": " "
+            }
+          ],
+          "script": {
+            "input_var": false,
+            "output_var": true,
+            "variables": [
+              "source",
+              "format",
+              "seperator"
+            ],
+            "content": "<output_variable> = LOAD '<source>' USING PigStorage('<seperator>') AS <format>;",
+            "output": "load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "label": "variable",
+              "value": ""
+            }
+          ],
+          "output": "load0",
+          "fixed": 1,
+          "index": 0,
+          "weight": 1,
+          "px": 462.5,
+          "py": 50.89999999999998,
+          "output_node": 1
+        },
+        "target": {
+          "x": 448.5,
+          "y": 270.9,
+          "width": 330,
+          "height": 124,
+          "name": "new node 1",
+          "category": "output",
+          "type": "dump",
+          "params": [],
+          "script": {
+            "input_var": true,
+            "output_var": false,
+            "variables": [],
+            "content": "DUMP <input_variable>;",
+            "output": "DUMP load0;"
+          },
+          "inputs": [
+            {
+              "label": "variable",
+              "value": "load0"
+            }
+          ],
+          "outputs": [],
+          "output": "dump1",
+          "fixed": true,
+          "index": 1,
+          "weight": 1,
+          "px": 448.5,
+          "py": 270.9,
+          "input_node": 0,
+          "input": "load0"
+        },
+        "output_data": {
+          "label": "variable",
+          "value": ""
+        },
+        "input_data": {
+          "label": "variable",
+          "value": "load0"
+        },
+        "x1": 165,
+        "y1": 124,
+        "x2": 165,
+        "y2": 0
+      }
+    ],
+    "type": "simple",
+    "id": "4521",
     "logs": [],
     "output": []
   }

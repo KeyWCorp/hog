@@ -1,40 +1,21 @@
 <md-content>
-    {{vm.name}}
     <section id="input">
-        <md-input-container>
+        <md-input-container layout-padding>
             <label>Name:</label>
             <input ng-model="vm.script.name">
         </md-input-container>
+
+        <md-input-container layout-padding>
+          <label>Pig Arguments:</label>
+          <input ng-model="vm.args">
+        </md-input-container>
+
         <div ui-ace="vm.editorOptions" ng-model="vm.script.data">
 
         </div>
-        <md-input-container>
-            <md-button class="md-raised md-primary" ng-click="vm.run()">Execute</md-button>
-            <div flex="50" ng-repeat="item in vm.args">
-                <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
-                    {{item.arg}}
-                </md-checkbox>
-                <md-input-container ng-show="vm.exists(item, vm.script.args)">
-                    <input ng-model="item.input" aria-label="arg {{item.arg}}">
-                </md-input-container>
-            </div>
-        </md-input-container>
 
-    </section>
-    <div>{{vm.script}}</div>
-    <div>{{vm.script.args}}</div>
-    <section id="output">
-        <div>
-            <div ng-show="vm.progress">
-                <p>{{vm.progress}}</p>
-            </div>
-            <div ng-show="vm.output">
-                <pre>{{vm.output}}</pre>
-            </div>
-            <div ng-show="vm.log">
-                <pre>{{vm.log}}</pre>
-            </div>
-            <!-- Graph the results -->
-        </div>
+        <md-input-container layout-padding>
+          <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+        </md-input-container>
     </section>
 </md-content>

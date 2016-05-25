@@ -1,0 +1,82 @@
+<md-content>
+  <form name="scriptForm" layout='column' layout-padding>
+    <md-input-container flex>
+      <label>Name:</label>
+      <input required ng-model="vm.script.name">
+    </md-input-container>
+
+    <md-input-container flex>
+      <label>Pig Arguments</label>
+      <input ng-model="vm.args" aria-label="Pig Arguments">
+    </md-input-container>
+
+    <div flex class='md-padding' layout="column" layout-padding ng-show="vm.info_outputs.length > 0">
+      <md-subheader class="md-primary">Display Output Logs</md-subheader>
+      <section layout="row">
+        <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'all')" ng-if="vm.info_outputs.length > 0">
+          Show All: #{{ vm.info_outputs.length }}
+          <md-tooltip>
+            Show All Logs
+          </md-tooltip>
+        </md-button>
+
+        <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'output')" md-style-color="{'background-color': 'green.400'}" ng-if="vm.outputs.length > 0">
+          Show Outputs: #{{ vm.outputs.length }}
+          <md-tooltip>
+            Show Output
+          </md-tooltip>
+        </md-button>
+
+        <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'log')" md-style-color="{'background-color': 'blue.400'}" ng-if="vm.logs.length > 0">
+          Show Logs: #{{ vm.logs.length }}
+          <md-tooltip>
+            Show Logs
+          </md-tooltip>
+        </md-button>
+
+        <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'warning')" md-style-color="{'background-color': 'orange.400'}" ng-if="vm.warnings.length > 0">
+          Show Warnings: #{{ vm.warnings.length }}
+          <md-tooltip>
+            Show Warning Logs
+          </md-tooltip>
+        </md-button>
+
+        <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'error')" md-style-color="{'background-color': 'red.400'}" ng-if="vm.errors.length > 0">
+          Show Errors: #{{ vm.errors.length }}
+          <md-tooltip>
+            Show Error Logs
+          </md-tooltip>
+        </md-button>
+
+        <md-divider ></md-divider>
+      </section>
+    </div>
+
+    <div layout="row" flex>
+      <md-input-container flex>
+        <md-button ng-disabled="!vm.script.data || scriptForm.$invalid" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+      </md-input-container>
+
+      <md-input-container flex>
+        <md-button ng-disabled="!vm.script.data || scriptForm.$invalid || vm.running" class="md-raised md-primary" ng-click="vm.run()">Run</md-button>
+      </md-input-container>
+    </div>
+
+    <v-accordion class="vAccordion--default" layout="column" layout-padding flex="45">
+      <v-pane expanded="true">
+        <v-pane-header>
+          Editor
+        </v-pane-header>
+        <v-pane-content>
+          <div layout="column" layout-margin ng-if="vm.data_ready">
+            <div flex>
+              <div pig-flow layout="column" input-data-string="vm.ots(vm.data)" output-data="vm.output_data" id="pig-flow{{ vm.script.id }}"></div>
+            </div>
+          </div>
+        </v-pane-content>
+      </v-pane>
+    </v-accordion>
+
+  </form>
+
+</md-content>

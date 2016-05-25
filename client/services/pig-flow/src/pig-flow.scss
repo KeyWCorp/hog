@@ -1,0 +1,63 @@
+
+svg.pig-flow {
+  border: solid 1px #800;
+}
+
+.axis line {
+  fill: none;
+  stroke: #ddd;
+  shape-rendering: crispEdges;
+  vector-effect: non-scaling-stroke;
+}
+
+.flow_link {
+  stroke: #000;
+  stroke-width: 7px;
+}
+
+.path {
+  fill: none;
+  stroke: #bbb;
+  stroke-width: 1.5px;
+}
+
+rect.node_header {
+  fill: lightsteelblue;
+  stroke: black;
+  stroke-width: 1.5px;
+}
+
+rect.node_body {
+  fill: lightsteelblue;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+text.node_close {
+  fill: rgba(255, 50, 50, 1.0);
+  stroke: rgba(255, 50, 50, 1.0);
+}
+
+circle.node_inputs {
+  fill: rgba(50, 255, 50, 1.0);
+  stroke: rgba(90, 150, 200, 1.0);
+}
+
+circle.node_outputs {
+  fill: rgba(50, 255, 50, 1.0);
+  stroke: rgba(90, 150, 200, 1.0);
+}
+
+circle.node_outputs.dragging {
+  fill: rgba(50, 50, 50, 1.0);
+  stroke: rgba(90, 150, 200, 1.0);
+}
+
+.dragging {
+  fill: rgba(196, 216, 242, 1.0);
+  stroke: rgba(90, 150, 200, 1.0);
+}
+
+.md-fab-top-right {
+  top: 20px !important;
+}
