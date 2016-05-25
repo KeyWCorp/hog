@@ -57,7 +57,7 @@ RUN git clone https://$cred@gitlab.com/ccis-irad/hog.git
 WORKDIR /hog
 RUN npm install
 RUN bower install --allow-root
-CMD npm prune && gulp
+CMD npm prune && npm install && gulp
 ```
 Run 'docker build --build-arg cred='GitLabUser:GitLabPass' -t DockerImageName path/to/Dockerfile' to build the container and then 'docker run -d -p=127.0.0.1:9000:9000 DockerImageName'
 The image will build itself from an image that offloads some of the public dependencies during the build. Each time the container is ran, the container will 
