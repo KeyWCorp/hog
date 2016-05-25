@@ -21,6 +21,7 @@ angular.module('hog', [
     'hog.hog-tracker',
     'pig.pig-flow',
     'pig.pig-flow-templates',
+    'hog.hog-templates',
     'mdColors',
     'luegg.directives'
 ]).config(function($mdThemingProvider) {
