@@ -1,15 +1,12 @@
 'use strict';
 
 angular.module('hog')
-
-.controller('EditComplexCtrl', function ($log, $state, $stateParams, Run, lodash, Settings, $mdToast,  NgTableParams, $interval, $mdDialog)
-
+.controller('EditComplexCtrl',
+  function ($log, $state, $stateParams, Run, lodash, Settings, $mdToast,  NgTableParams, $interval, $mdDialog)
     {
-
-
       var vm = this;
       vm.script =  Run.getData();
-
+      console.log('run: ', Run, 'script', vm.script);
       var ctx;
       var myNewChart;
 
@@ -210,12 +207,10 @@ angular.module('hog')
 
       Run.get($stateParams.id)
         .then(
-            function(data)
-            {
-              vm.script = data.json;
-
-
-            });
+          function(data)
+          {
+            vm.script = data.json;
+          });
       vm.modes = ['Pig_Latin'];
       vm.themes = ['twilight', 'none'];
       vm.mode = vm.modes[0];
@@ -223,20 +218,20 @@ angular.module('hog')
       vm.args = [];
       Settings.getp('pigArgs')
         .then(
-            function(data)
-            {
-              //$log.info("pig args", data)
-              data.json.data.forEach(
-                  function(element)
-                  {
-                    vm.args.push({arg: element.arg, input: element.default});
-                  });
-              //$log.info('new args', vm.args)
-            },
-            function(err)
-            {
-              $log.error(err);
-            });
+          function(data)
+          {
+            //$log.info("pig args", data)
+            data.json.data.forEach(
+              function(element)
+              {
+                vm.args.push({arg: element.arg, input: element.default});
+              });
+            //$log.info('new args', vm.args)
+          },
+          function(err)
+          {
+            $log.error(err);
+          });
       // vm.args = [{arg: '-t', input: ""}, {arg: '-g', input: ""}, {arg: '-x', input: ""}];
       vm.selectedArgs = [];
       vm.editorModel = '';
@@ -293,19 +288,18 @@ angular.module('hog')
 
         Run.update(vm.script)
           .then(
-              function(data)
-              {
-                console.log(JSON.stringify( data));
-                $log.debug('saved: ' + data);
-              },
-              function(err)
-              {
-                $log.error('error: ' +err);
-              });
+            function(data)
+            {
+              console.log(JSON.stringify( data));
+              $log.debug('saved: ' + data);
+            },
+            function(err)
+            {
+              $log.error('error: ' +err);
+            });
       }
       vm.canceled = function(id) {
         $state.go('home.complex.list');
-
       }
       vm.run = function()
       {
@@ -321,35 +315,35 @@ angular.module('hog')
         vm.log = [];
         Run.run(vm.script._id)
           .then(
-              function(out)
+            function(out)
+            {
+              // vm.output = out;
+            },
+            function(err)
+            {
+              vm.outError = err.json;
+            },
+            function(update)
+            {
+              if (update.type == 'progress')
               {
-                // vm.output = out;
-              },
-              function(err)
+                vm.progress = update.data.json;
+              }
+              else if (update.type == 'log')
               {
-                vm.outError = err.json;
-              },
-              function(update)
+                if (update.data.json !== "null")
+                {
+                  vm.log.push(update.data.json);
+                }
+              }
+              else if (update.type == 'output')
               {
-                if (update.type == 'progress')
+                if (update.data.json !== "null")
                 {
-                  vm.progress = update.data.json;
+                  vm.output.push(update.data.json);
                 }
-                else if (update.type == 'log')
-                {
-                  if (update.data.json !== "null")
-                  {
-                    vm.log.push(update.data.json);
-                  }
-                }
-                else if (update.type == 'output')
-                {
-                  if (update.data.json !== "null")
-                  {
-                    vm.output.push(update.data.json);
-                  }
-                }
-              });
+              }
+            });
       };
       vm.runAndTrack = function()
       {
@@ -364,47 +358,47 @@ angular.module('hog')
         vm.log = [];
         Run.runAndTrack(vm.script._id)
           .then(
-              function(out)
+            function(out)
+            {
+              // vm.output = out;
+            },
+            function(err)
+            {
+              vm.outError = err.json;
+            },
+            function(update)
+            {
+              if (update.type == 'progress')
               {
-                // vm.output = out;
-              },
-              function(err)
+                vm.progress = update.data.json;
+              }
+              else if (update.type == 'log')
               {
-                vm.outError = err.json;
-              },
-              function(update)
-              {
-                if (update.type == 'progress')
+                if (update.data.json !== "null")
                 {
-                  vm.progress = update.data.json;
+                  vm.log.push(update.data.json);
                 }
-                else if (update.type == 'log')
+              }
+              else if (update.type == 'output')
+              {
+                if (update.data.json !== "null")
                 {
-                  if (update.data.json !== "null")
-                  {
-                    vm.log.push(update.data.json);
-                  }
-                }
-                else if (update.type == 'output')
-                {
-                  if (update.data.json !== "null")
-                  {
-                    var tmp_output = "(";
-                    for (var i = 0; i < Object.keys(update.data.json).length; i++) {
-                      var key = Object.keys(update.data.json)[i];
-                      tmp_output += update.data.json[key];
-                      if (i + 1 < Object.keys(update.data.json).length) {
-                        tmp_output += ", ";
-                      }
+                  var tmp_output = "(";
+                  for (var i = 0; i < Object.keys(update.data.json).length; i++) {
+                    var key = Object.keys(update.data.json)[i];
+                    tmp_output += update.data.json[key];
+                    if (i + 1 < Object.keys(update.data.json).length) {
+                      tmp_output += ", ";
                     }
-                    tmp_output += ")\n";
-
-                    vm.output.push(tmp_output);
-                    vm.pigList.push(update.data.json);
-                    vm.graph_data = true;
                   }
+                  tmp_output += ")\n";
+
+                  vm.output.push(tmp_output);
+                  vm.pigList.push(update.data.json);
+                  vm.graph_data = true;
                 }
-              });
+              }
+            });
       };
       vm.exists = function(item, list)
       {
@@ -434,17 +428,10 @@ angular.module('hog')
           //$log.debug('index of ', indx, item);
           return indx;
       }
-
-
-
       vm.openSettings = function(ev)
       {
-
         //vm.script.settings = [];
         //  vm.script.settings.radar = [];
-
-
-
         $mdDialog.show({
           controller: SettingsController,
           template: '<md-dialog  ng-cloak>'+
@@ -505,11 +492,8 @@ angular.module('hog')
           locals:{vm:vm},
 
         });
-
       }
-
     });
-
 
 // Controller for Settings Modal
 function SettingsController( $mdDialog, $scope, vm) {

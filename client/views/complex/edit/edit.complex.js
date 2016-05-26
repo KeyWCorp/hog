@@ -12,6 +12,10 @@ angular.module('hog')
               controller: 'EditComplexCtrl',
               controllerAs: 'vm'
             }
+          },
+          resolve: {
+            Run: "Runner",
+            Settings: "Settings"
           }
         });
 });

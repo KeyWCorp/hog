@@ -8,12 +8,19 @@ angular.module('hog')
       vm.isRunning = {};
       vm.running = false;
       $log.debug('run: ', Run);
-      /*Run.finished()
+      Run.finished()
         .then(
           function()
           {
+          },
+          function(err)
+          {
+            $log.error(err);
+          },
+          function()
+          {
             vm.running = false;
-          });*/
+          });
 
       angular.extend(vm, {
         name: 'ListComplexCtrl',
