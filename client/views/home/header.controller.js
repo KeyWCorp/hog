@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hog')
-  .controller('HeaderCtrl', function ($scope, $log, $mdSidenav, $state) {
+  .controller('HeaderCtrl', function ($scope, $log, $mdSidenav, $state, Auth) {
 
     $scope.close = function (){
         $mdSidenav('left').close();
@@ -84,6 +84,10 @@ angular.module('hog')
           {
             vm.goState(nav.state);
           }
+        },
+        logout: function()
+        {
+          Auth.logout();
         }
     });
 

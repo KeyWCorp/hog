@@ -12,6 +12,7 @@ angular.module('hog')
               controller: 'ComplexCtrl',
               controllerAs: 'vm'
             },
+            
             // sub-state insert
            /* list: {
               templateUrl: '/views/complex/list/list.complex.html',
@@ -31,5 +32,14 @@ angular.module('hog')
             },
             */
           },
+          resolve: {
+            auth: function(Auth, $state)
+            {
+              if(!Auth.isAuth())
+              {
+                $state.go('auth.login');
+              }
+            }
+          }
         });
 });

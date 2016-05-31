@@ -19,6 +19,19 @@ angular.module('hog')
                     controllerAs: 'vm'
                 }
             },
+            resolve: {
+            auth: function(Auth, $state)
+            {
+              var isat = Auth.isAuth();
+              console.log('is authed', isat);
+              if(!isat)
+              {
+                console.log('going to auth login');
+                $state.go('auth.login');
+              }
+              return Auth;
+            }
+          }
         });    
     
   });

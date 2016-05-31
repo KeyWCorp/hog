@@ -2,7 +2,7 @@
 
 angular.module('hog')
     .service('Auth',
-        function (socketFactory, $log, $q, $window, $rootScope, $state, $http)
+        function (socketFactory, $log, $q, $window, $rootScope, $state, $http, jwtHelper)
         {
             /*var auth = socketFactory()
             auth.forward('error');
@@ -62,6 +62,29 @@ angular.module('hog')
                       $log.error('Error: Invalid user or password');
                   });
               },
+              logout: function()
+              {
+                delete $window.sessionStorage.token;
+                $state.go('auth.login');
+              },
+              isAuth: function()
+              {
+                if($window.sessionStorage.token && !jwtHelper.isTokenExpired($window.sessionStorage.token))
+                {
+                  return true;
+                }
+                else
+                {
+                  return false;
+                }
+              },
+              keepAlive: function()
+              {
+                if($window.sessionStorage.token && jwtHelper.isTokenExpired($window.sessionStorage.token))
+                {
+                  console.log('reauth?')
+                }
+              }
               /*slogin: function(username, password, provider)
               {
                 var defer = $q.defer();

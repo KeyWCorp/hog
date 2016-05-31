@@ -20,17 +20,39 @@ angular.module('hog', [
     'md.data.table',
     'hog.hog-tracker',
     'pig.pig-flow',
-    'pig.pig-flow-templates'
-]).config(function($mdThemingProvider) {
-  $mdThemingProvider.theme('default')
-    .primaryPalette('blue')
-    .accentPalette('orange');
-})
-  .config(function ( $urlRouterProvider , $locationProvider) {
-    $urlRouterProvider
-        .otherwise('/auth/login');
-    $locationProvider.html5Mode(true);
-  })
-  .config(function ($httpProvider) {
-    $httpProvider.interceptors.push('authInterceptor');
-  });
+    'pig.pig-flow-templates',
+    'angular-jwt',
+    'ngIdle'
+])
+  .config(
+    function($mdThemingProvider)
+    {
+      $mdThemingProvider.theme('default')
+        .primaryPalette('blue')
+        .accentPalette('orange');
+    })
+  .config(
+    function (IdleProvider, KeepaliveProvider)
+    {
+      // Configure Idle settings.
+      IdleProvider.idle(300); // In seconds
+      IdleProvider.timeout(30); // In seconds
+      //KeepaliveProvider.interval(10); // In seconds
+    })
+  .config(
+    function ( $urlRouterProvider , $locationProvider)
+    {
+      $urlRouterProvider
+          .otherwise('/auth/login');
+      $locationProvider.html5Mode(true);
+    })
+  .config(
+    function ($httpProvider)
+    {
+      $httpProvider.interceptors.push('authInterceptor');
+    })
+  .run(
+    function (Idle)
+    {
+      //Idle.watch();
+    });

@@ -28,7 +28,9 @@
     "ace-builds": "^1.2.3",
     "list-to-tree": "^0.0.6",
     "t": "^0.5.1",
-    "lodash": "~3.10.1"
+    "lodash": "~3.10.1",
+    "angular-jwt": "^0.0.9",
+    "ng-idle": "^1.2.2"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.7",
