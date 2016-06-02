@@ -1,12 +1,12 @@
 'use strict';
 var pigParser = require('../pig-parser/index.js');
-var fs        = require('fs');
-var _         = require('lodash');
-var spawn     = require('child_process').spawn;
+//var fs        = require('fs');
+//var _         = require('lodash');
+//var spawn     = require('child_process').spawn;
 var logger    = require('../../config/logger.js');
 var path      = require('path');
-var ds        = require('nedb');
-var connect   = require('camo').connect;
+//var ds        = require('nedb');
+//var connect   = require('camo').connect;
 var Document  = require('camo').Document;
 
 class Pig extends Document {
@@ -106,11 +106,12 @@ class Pig extends Document {
 exports.Pig = Pig;
 exports.init = function(cb)
 {
-  var uri = 'nedb://' + path.join(__dirname);
+  cb(null);
+  /*var uri = 'nedb://' + path.join(__dirname);
   connect(uri).then(function(db) {
-    logger.info('connected to DB', db);
+    logger.info('connected to DB', db, uri);
     cb(null, db);
-  })
+  })*/
 }
 /*
 var collection = new ds({filename: 'server/api/pig/pig.data.db', autoload: true, onload: function (err) { if(err) { logger.error('Error on load: ', err) }}});

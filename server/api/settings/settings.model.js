@@ -1,11 +1,11 @@
 'use strict';
 
-var fs      = require('fs');
-var _       = require('lodash');
+//var fs      = require('fs');
+//var _       = require('lodash');
 var logger  = require('../../config/logger.js');
-var path    = require('path');
-var ds      = require('nedb');
-var connect = require('camo').connect;
+//var path    = require('path');
+//var ds      = require('nedb');
+//var connect = require('camo').connect;
 var Document  = require('camo').Document;
 
 class Setting extends Document {
@@ -33,15 +33,16 @@ class Setting extends Document {
 exports.Setting = Setting;
 exports.init = function(cb)
 {
-  var uri = 'nedb://' + path.join(__dirname);
+  cb(null);
+  /*var uri = 'nedb://' + path.join(__dirname);
   connect(uri).then(function(db) {
-    logger.info('connected to DB', db);
+    logger.info('connected to DB', db, uri);
     cb(null, db);
   },
   function(err)
   {
     logger.error(err);
-  });
+  });*/
 }
 /*
 var collection = new ds({filename: 'server/api/settings/settings.data.db', autoload: true, onload: function (err) { if(err) { logger.error('Error on load: ', err) }}});

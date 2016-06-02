@@ -85,17 +85,20 @@ exports.show = function (socket) {
   socket.on('show',
       function(id)
       {
+        console.log('in show for pig: ', id, _ready);
         if (_ready)
         {
-          Pig.findOne({_id: id})
+          Pig.findOne({_id: id}, {populate: true})
             .then(
               function(obj)
               {
                 //if (err) { return handleError(socket, err); }
-                socket.emit('show', buildResponse(200, obj));
+                //logger.info('data for show: ', obj.toJSON());
+                socket.emit('show', buildResponse(200, obj.toJSON()));
               },
               function(err)
               {
+                logger.error(err);
                 if (err) { return handleError(socket, err); }
               });
         }
