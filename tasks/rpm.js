@@ -66,13 +66,15 @@ gulp.task('npm-pack', [ 'rpm-setup' ], function (callback) {
 
 gulp.task('rpm-files', [ 'rpm-setup', 'npm-pack' ], function () {
   var globs = [
-    'node_modules/**/*',
     'client/**/*',
     'server/**/*',
     'gulpfile.js',
     'tasks/**/*',
     'package.json',
-    'bower.json'
+    'bower.json',
+    'karma.conf.js',
+    'protractor.conf.js',
+    'README.md'
   ];
 
   return gulp.src(globs, rpm.globOptions)

@@ -65,6 +65,7 @@ running. We find the program runs best using a Chrome web browser.
 Make any desired changes in your package.json (rpm builds from there).
 Make sure that you are compiling on a Linux environment, or modify the gulpfile
 rpm task to ensure that you compile the RPM on the right architecture.
+Gulp Brass currently only supports x86_64 architectures.
 ```
 gulp rpm
 ```
