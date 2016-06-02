@@ -68,3 +68,4 @@ rpm task to ensure that you compile the RPM on the right architecture.
 ```
 gulp rpm
 ```
+A new RPM will be located in /path/to/hog/brass_build/RPMS/
