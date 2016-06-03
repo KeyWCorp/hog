@@ -59,8 +59,14 @@ angular.module('hog')
             function(data)
             {
               vm.script = data.json;
-              vm.args = vm.script.args.join(" ");
-
+              var strfy = _.flatMap(vm.script.args,
+                                          function(n)
+                                          {
+                return [n.arg, n.input];
+              });
+              
+              vm.args = strfy.join(" ");
+              console.log('vm args', vm.args);
               vm.script_data = vm.script.data;
               $scope.script_data = vm.script_data;
 
