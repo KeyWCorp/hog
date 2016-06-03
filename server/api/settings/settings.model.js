@@ -1,11 +1,50 @@
 'use strict';
 
-var fs      = require('fs');
-var _       = require('lodash');
+//var fs      = require('fs');
+//var _       = require('lodash');
 var logger  = require('../../config/logger.js');
-var path    = require('path');
-var ds      = require('nedb');
+//var path    = require('path');
+//var ds      = require('nedb');
+//var connect = require('camo').connect;
+var Document  = require('camo').Document;
 
+class Setting extends Document {
+  constructor() {
+    super();
+    
+    this.default      = String;
+    this.inputType    = String;
+    this.name         = String;
+    this.data         = [];
+    this.displayName  = String;
+  }
+  static collectionName() {
+        return 'settings.data';
+    }
+  preValidate()
+  {
+    console.log('validate: ', this.name);
+  }
+  postValidate()
+  {
+    console.log('validate: ', this.name);
+  }
+}
+exports.Setting = Setting;
+exports.init = function(cb)
+{
+  cb(null);
+  /*var uri = 'nedb://' + path.join(__dirname);
+  connect(uri).then(function(db) {
+    logger.info('connected to DB', db, uri);
+    cb(null, db);
+  },
+  function(err)
+  {
+    logger.error(err);
+  });*/
+}
+/*
 var collection = new ds({filename: 'server/api/settings/settings.data.db', autoload: true, onload: function (err) { if(err) { logger.error('Error on load: ', err) }}});
 
 exports.create = function(obj, cb)
@@ -54,3 +93,4 @@ exports.delete = function(id, cb)
   collection.remove({_id: id}, cb);
 }
 
+*/

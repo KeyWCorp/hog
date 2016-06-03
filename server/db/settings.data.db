@@ -1,0 +1,9 @@
+{"name":"pigArgs","displayName":"Pig Arguments:","data":[{"description":"Run mode","arg":"-x","default":"local"}],"inputType":"form","_id":"F7jcB9UxKbZk3oyi"}
+{"name":"pigArgs","displayName":"Pig Arguments:","data":[{"description":"Run mode","arg":"-x","default":"local"}],"inputType":"form","_id":"NeXBcf3R0xqRn1H3"}
+{"name":"test","displayName":"Test:","data":"testing","inputType":"string","_id":"XW5IDPubyFFX5CQ4"}
+{"name":"udfLocs","displayName":"UDF locations:","data":["./udf","./"],"inputType":"string","_id":"eBYlw8dt2ayFRjKO"}
+{"name":"udfLocs","displayName":"UDF locations:","data":["./udf","./"],"inputType":"string","_id":"m2ROIDNqLNeUrgMU"}
+{"name":"es","displayName":"ElasticSearch:","data":"10.1.10.1:9000","inputType":"string","_id":"oARNlRtnrlrz0u42"}
+{"name":"es","displayName":"ElasticSearch:","data":"10.1.10.1:9000","inputType":"string","_id":"uKRXUIZbn3gbu9ir"}
+{"name":"udfs","displayName":"User Defined Functions (UDF):","data":[{"name":"test","file":""},{"name":"test2","file":""}],"inputType":"chips","_id":"vub7voODomgUjGAt"}
+{"name":"udfs","displayName":"User Defined Functions (UDF):","data":[{"name":"test","file":""},{"name":"test2","file":""}],"inputType":"chips","_id":"yvfILTAI1WkM9ML9"}

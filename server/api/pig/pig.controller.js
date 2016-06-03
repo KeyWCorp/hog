@@ -1,9 +1,10 @@
 'use strict';
 
-var fs = require('fs');
-var Pig = require('./pig.model');
-var logger = require('../../config/logger.js');
-
+var fs      = require('fs');
+var Pigs    = require('./pig.model');
+var logger  = require('../../config/logger.js');
+var _ready  = false;
+var Pig     = Pigs.Pig;
 /* Set up response functions */
 function handleError (socket, err) {
   return socket.emit('pig:error', {status: 500, json: err});
@@ -24,10 +25,10 @@ function buildResponse (statusCode, data)
 exports.init = function (socket)
 {
   logger.info('initializing pig controller')
-    Pig.created = function(obj)
-    {
-      socket.emit('Pig:created', obj);
-    }
+  Pig.created = function(obj)
+  {
+    socket.emit('Pig:created', obj);
+  }
   Pig.updated = function(obj)
   {
     socket.emit('Pig:updated', obj);
@@ -36,6 +37,11 @@ exports.init = function (socket)
   {
     socket.emit('Pig:removed', obj);
   }
+  Pigs.init(
+    function(err, db)
+    {
+      _ready = true;
+    });
 }
 /**
  * Get list of Pig
@@ -48,15 +54,23 @@ exports.index = function (socket) {
     socket.on('index',
         function()
         {
-          console.log('Index requested');
-          logger.debug('Index requested');
-          Pig.list(
-              function (err, pigs)
-              {
-                if (err) { return handleError(socket, err); }
-                console.log('index sent')
+          if (_ready)
+          {
+            console.log('Index requested');
+            logger.debug('Index requested');
+            Pig.find({})
+              .then(
+                function (pigs)
+                {
+                  //
+                  console.log('index sent')
                   socket.emit('index', buildResponse(200, pigs));
-              });
+                },
+                function(err)
+                {
+                  if (err) { return handleError(socket, err); }
+                });
+          }
         });
 };
 
@@ -71,12 +85,23 @@ exports.show = function (socket) {
   socket.on('show',
       function(id)
       {
-        Pig.find(id,
-            function(err, obj)
-            {
-              if (err) { return handleError(socket, err); }
-              socket.emit('show', buildResponse(200, obj));
-            });
+        console.log('in show for pig: ', id, _ready);
+        if (_ready)
+        {
+          Pig.findOne({_id: id}, {populate: true})
+            .then(
+              function(obj)
+              {
+                //if (err) { return handleError(socket, err); }
+                //logger.info('data for show: ', obj.toJSON());
+                socket.emit('show', buildResponse(200, obj.toJSON()));
+              },
+              function(err)
+              {
+                logger.error(err);
+                if (err) { return handleError(socket, err); }
+              });
+        }
       });
 };
 
@@ -91,12 +116,21 @@ exports.create = function (socket) {
   socket.on('create',
       function(data)
       {
-        Pig.create(data,
-            function(err, obj)
-            {
-              if (err) { return handleError(socket, err); }
-              socket.emit('server:create', buildResponse(201, obj));
-            });
+        if (_ready)
+        {
+          var pig = Pig.create(JSON.parse(data));
+          pig.save()
+            .then(
+              function(obj)
+              {
+              //if (err) { return handleError(socket, err); }
+                socket.emit('server:create', buildResponse(201, obj.toJSON()));
+              },
+              function(err)
+              {
+                if (err) { return handleError(socket, err); }
+              });
+        }
       });
 };
 
@@ -112,13 +146,21 @@ exports.update = function (socket)
   socket.on('update',
       function(data)
       {
-        Pig.update(data.id, data.obj,
-            function(err, obj)
-            {
-              console.log('finished updating', err, obj);
-              if (err) { return handleError(socket, err); }
-              socket.emit('update', buildResponse(200, obj));
-            });
+        if (_ready)
+        {
+          Pig.findOneAndUpdate({_id: data.id}, JSON.parse(data.obj), {upsert: true})
+            .then(
+              function(obj)
+              {
+                console.log('finished updating', obj);
+              //if (err) { return handleError(socket, err); }
+                socket.emit('update', buildResponse(200, obj.toJSON()));
+              },
+              function(err)
+              {
+                if (err) { return handleError(socket, err); }
+              });
+        }
       });
 };
 
@@ -132,12 +174,20 @@ exports.destroy = function (socket) {
   socket.on('destroy',
       function(id)
       {
-        Pig.remove(id,
-            function(err)
-            {
-              if (err) { return handleError(socket, err); }
-              socket.emit('destroy', buildResponse(204, {}));
-            });
+        if (_ready)
+        {
+          Pig.deleteOne({_id: id})
+            .then(
+              function(err)
+              {
+                //if (err) { return handleError(socket, err); }
+                socket.emit('destroy', buildResponse(204, {}));
+              },
+              function(err)
+              {
+                if (err) { return handleError(socket, err); }
+              });
+        }
       });
 };
 
@@ -150,33 +200,45 @@ exports.run = function (socket) {
   socket.on('run',
       function(id)
       {
-        Pig.run(id,
-          // stdoutCB
-          function(data)
-          {
-            socket.emit('run:output', buildResponse(200, data));
-          },
-          // stderrCB
-          function(err)
-          {
-            if (err) { return handleError(socket, err); }
-          },
-          // stdlogCB
-          function(data)
-          {
-            socket.emit('run:log', buildResponse(200, data));
-          },
-          // stdwarningCB
-          function(data)
-          {
-            socket.emit('run:warning', buildResponse(200, data));
-          },
-          // finishedCB
-          function(data)
-          {
-            socket.emit('run:end');
-            socket.emit('run:finished');
-          });
+        if (_ready)
+        {
+          Pig.findOne({_id: id})
+            .then(
+              function(doc)
+              {
+                doc.run(
+                  // stdoutCB
+                  function(data)
+                  {
+                    socket.emit('run:output', buildResponse(200, data));
+                  },
+                  // stderrCB
+                  function(err)
+                  {
+                    if (err) { return handleError(socket, err); }
+                  },
+                  // stdlogCB
+                  function(data)
+                  {
+                    socket.emit('run:log', buildResponse(200, data));
+                  },
+                  // stdwarningCB
+                  function(data)
+                  {
+                    socket.emit('run:warning', buildResponse(200, data));
+                  },
+                  // finishedCB
+                  function(data)
+                  {
+                    socket.emit('run:end');
+                    socket.emit('run:finished');
+                  });
+              },
+              function(err)
+              {
+                if (err) { return handleError(socket, err); }
+              });
+        }
       });
 };
 
@@ -189,37 +251,49 @@ exports.runAndTrack = function (socket) {
   socket.on('run:track',
       function(id)
       {
-        Pig.runAndTrack(id,
-          // stdoutCB
-          function(data)
-          {
-            socket.emit('run:output', buildResponse(200, data));
-          },
-          // stderrCB
-          function(err)
-          {
-            if (err) { return handleError(socket, err); }
-          },
-          // stdlogCB
-          function(data)
-          {
-            socket.emit('run:log', buildResponse(200, data));
-          },
-          // stdwarningCB
-          function(data)
-          {
-            socket.emit('run:warning', buildResponse(200, data));
-          },
-          // trackerCB
-          function(data)
-          {
-            socket.emit('tracker:update', data);
-          },
-          // finishedCB
-          function(data)
-          {
-            socket.emit('run:end');
-            socket.emit('run:finished');
-          });
+        if (_ready)
+        {
+          Pig.findOne({_id: id})
+            .then(
+              function(doc)
+              {
+                doc.runAndTrack(
+                  // stdoutCB
+                  function(data)
+                  {
+                    socket.emit('run:output', buildResponse(200, data));
+                  },
+                  // stderrCB
+                  function(err)
+                  {
+                    if (err) { return handleError(socket, err); }
+                  },
+                  // stdlogCB
+                  function(data)
+                  {
+                    socket.emit('run:log', buildResponse(200, data));
+                  },
+                  // stdwarningCB
+                  function(data)
+                  {
+                    socket.emit('run:warning', buildResponse(200, data));
+                  },
+                  // trackerCB
+                  function(data)
+                  {
+                    socket.emit('tracker:update', data);
+                  },
+                  // finishedCB
+                  function(data)
+                  {
+                    socket.emit('run:end');
+                    socket.emit('run:finished');
+                  });
+              },
+              function(err)
+              {
+                if (err) { return handleError(socket, err); }
+              });
+        }
       });
 };
