@@ -14,6 +14,9 @@ angular.module('hog')
       vm.outputs = [];
       vm.graph_data = false;
       vm.edited = false;
+      vm.script_edited = false;
+      vm.args_edited = false;
+      vm.name_edited = false;
 
 
 
@@ -59,16 +62,18 @@ angular.module('hog')
             function(data)
             {
               vm.script = data.json;
-              var strfy = _.flatMap(vm.script.args,
-                                          function(n)
-                                          {
-                return [n.arg, n.input];
-              });
-              
-              vm.args = strfy.join(" ");
+
+              vm.args = vm.script.args.join(" ");
               console.log('vm args', vm.args);
               vm.script_data = vm.script.data;
+
               $scope.script_data = vm.script_data;
+              $scope.script_name = "";
+              if (vm.script.name)
+              {
+                $scope.script_name = vm.script.name;
+              }
+              $scope.script_args = vm.args;
 
             });
 
@@ -119,12 +124,14 @@ angular.module('hog')
       vm.save = function(graph, numOutput, cb)
       {
 
-        vm.script.name = vm.script.name.replace(/[\s]/g, "_");
+        // move inputs into script values
+        //
+
         vm.script.data = $scope.script_data;
 
-        console.log('in vm .save', graph);
+        vm.script.name = $scope.script_name.replace(/[\s]/g, "_");
         vm.script.numOutput = numOutput || vm.script.numOutput;
-        vm.script.args = vm.args.split(" ");
+        vm.script.args = $scope.script_args.split(" ");
 
         if(graph == 'bar')
         {
@@ -155,24 +162,35 @@ angular.module('hog')
                 vm.args = vm.script.args.join(" ");
 
                 vm.script_data = vm.script.data;
+
                 $scope.script_data = vm.script_data;
+                $scope.script_name = "";
+                if (vm.script.name)
+                {
+                  $scope.script_name = vm.script.name;
+                }
+                $scope.script_args = vm.args;
+
                 vm.edited = false;
+                vm.script_edited = false;
+                vm.args_edited = false;
+                vm.name_edited = false;
 
 
                 $mdToast.show(
-                  $mdToast.simple()
-                  .content('Script Saved!')
-                  .hideDelay(3000)
-                );
+                    $mdToast.simple()
+                    .content('Script Saved!')
+                    .hideDelay(3000)
+                    );
                 if (cb)
                 {
                   cb();
                 }
               },
-              function(err)
-              {
-                $log.error('error: ' +err);
-              });
+        function(err)
+        {
+          $log.error('error: ' +err);
+        });
       }
       vm.canceled = function(id) {
         $state.go('home.complex.list');
@@ -378,17 +396,59 @@ angular.module('hog')
       };
 
       $scope.$watch("script_data", function(newValue, oldValue)
-      {
-        if (newValue !== vm.script_data)
-        {
-          vm.edited = true;
-        }
-        else
-        {
-          vm.edited = false;
-        }
+          {
+            if (newValue !== vm.script_data)
+            {
+              vm.script_edited = true;
+            }
+            else
+            {
+              vm.script_edited = false;
+            }
+            update_edited();
+          });
 
-      });
+      $scope.$watch("script_name", function(newValue, oldValue)
+          {
+            if (vm.hasOwnProperty("script"))
+            {
+              if (vm.script.hasOwnProperty("name"))
+              {
+                console.log(vm.script.name);
+                if (newValue !== vm.script.name)
+                {
+                  vm.name_edited = true;
+                }
+                else
+                {
+                  vm.name_edited = false;
+                }
+                update_edited();
+              }
+            }
+          });
+
+      $scope.$watch("script_args", function(newValue, oldValue)
+          {
+            if (newValue !== vm.args)
+            {
+              vm.args_edited = true;
+            }
+            else
+            {
+              vm.args_edited = false;
+            }
+            update_edited();
+          });
+
+      function update_edited ()
+      {
+        // console.log("NAME: " + vm.name_edited);
+        // console.log("ARGS: " + vm.args_edited);
+        // console.log("SCRIPT: " + vm.edited);
+        // console.log(vm.name_edited || vm.args_edited || vm.edited);
+        vm.edited = vm.name_edited || vm.args_edited || vm.script_edited;
+      };
 
       vm.openGraphInfo = function(ev, graph_data, script)
       {
