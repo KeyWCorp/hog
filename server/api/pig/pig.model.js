@@ -1,7 +1,7 @@
 'use strict';
 var pigParser = require('../pig-parser/index.js');
-//var fs        = require('fs');
-//var _         = require('lodash');
+var fs        = require('fs');
+var _         = require('lodash');
 //var spawn     = require('child_process').spawn;
 var logger    = require('../../config/logger.js');
 var path      = require('path');
@@ -97,9 +97,71 @@ class Pig extends Document {
     }
     this.version = ''.concat(major,'.',minor,'.',release);
   }
-  preSave()
+  preSave(d)
   {
-    this.bump();
+    //this.bump();
+    console.log('in presave', d);
+    var that = this;
+    
+      return Promise.all([this.saveScript()])
+  }
+  rename(oldPath)
+  {
+    var that = this;
+    var script_location;
+    if (this.script_loc)
+    {
+      script_location = this.script_loc;
+    }
+    else
+    {
+      script_location = path.join(__dirname, '../../',  'scripts/pig/', this.name +  '.pig');
+    }
+    console.log('renaming ', oldPath, ' to ', script_location);
+    var p = new Promise(
+      function(resolve, reject)
+      {
+        fs.rename(oldPath, script_location,
+          function(err)
+          {
+            console.log('finished renaming', err);
+            if(err)
+            {
+              reject(err);
+            }
+            else
+            {
+              resolve();
+            }
+          });
+      });
+    return p;
+  }
+  saveScript()
+  {
+    var that = this;
+     var p = new Promise(
+      function(resolve, reject)
+      {
+        console.log('writing script');
+        fs.writeFile(path.join(__dirname, '../../scripts/pig/' + that.name + '.pig'), that.data, 'utf-8',
+          function(err)
+          {
+            console.log('wrote file', err);
+            if(err)
+            {
+              logger.error('Error on creation: ', err)
+              reject(err);
+            }
+            else
+            {
+              console.log('resolved')
+              that.script_loc = path.join(__dirname, '../../scripts/pig/', that.name, '.pig');
+              resolve(that);
+            }
+          });
+      });
+    return p;
   }
 }
 

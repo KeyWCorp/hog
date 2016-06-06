@@ -1,6 +1,7 @@
 'use strict';
 
 var fs      = require('fs');
+var path    = require('path');
 var Pigs    = require('./pig.model');
 var logger  = require('../../config/logger.js');
 var _ready  = false;
@@ -119,10 +120,12 @@ exports.create = function (socket) {
         if (_ready)
         {
           var pig = Pig.create(JSON.parse(data));
+          console.log(pig);
           pig.save()
             .then(
               function(obj)
               {
+                console.log(obj);
               //if (err) { return handleError(socket, err); }
                 socket.emit('server:create', buildResponse(201, obj.toJSON()));
               },
@@ -148,18 +151,91 @@ exports.update = function (socket)
       {
         if (_ready)
         {
-          Pig.findOneAndUpdate({_id: data.id}, JSON.parse(data.obj), {upsert: true})
+          var oldData = JSON.parse(data.obj);
+          Pig.findOneAndUpdate({_id: data.id}, oldData, {upsert: true})
             .then(
-              function(obj)
+              function(doc)
               {
-                console.log('finished updating', obj);
-              //if (err) { return handleError(socket, err); }
-                socket.emit('update', buildResponse(200, obj.toJSON()));
+                console.log('old name: ', oldData.name, 'new name: ', doc.name)
+                if(doc.name != oldData.name)
+                {
+                  var script_location; // Old location of the script
+                  if (oldData.script_loc)
+                  {
+                    script_location = oldData.script_loc;
+                  }
+                  else
+                  {
+                    script_location = path.join(__dirname, '../../',  'scripts/pig/', oldData.name +  '.pig');
+                  }
+                  doc.rename(script_location)
+                    .then(
+                      function()
+                      {
+                        doc.saveScript()
+                          .then(
+                            function()
+                            {
+                              console.log('finished updating', doc);
+                              //if (err) { return handleError(socket, err); }
+                              socket.emit('update', buildResponse(200, doc.toJSON()));
+                            },
+                            function(err)
+                            {
+                              if (err) { return handleError(socket, err); }
+                            });
+                      },
+                      function(err)
+                      {
+                        if (err) { return handleError(socket, err); }
+                      });
+                }
+                else
+                {
+                  doc.saveScript()
+                    .then(
+                      function()
+                      {
+                        console.log('finished updating', doc);
+                        //if (err) { return handleError(socket, err); }
+                        socket.emit('update', buildResponse(200, doc.toJSON()));
+                      },
+                      function(err)
+                      {
+                        if (err) { return handleError(socket, err); }
+                      });
+                }
               },
               function(err)
               {
                 if (err) { return handleError(socket, err); }
               });
+          console.log('saving ', data);
+         /* Pig.findOne({_id: data.id}, JSON.parse(data.obj))
+            .then(
+              function(doc)
+              {
+                if(doc.name != data.name)
+                {
+                  doc.rename();
+                }
+                doc.save()
+                  .then(
+                    function(obj)
+                    {
+                      console.log('finished updating', obj);
+                    //if (err) { return handleError(socket, err); }
+                      socket.emit('update', buildResponse(200, obj.toJSON()));
+                    },
+                    function(err)
+                    {
+                      if (err) { return handleError(socket, err); }
+                    });
+              },
+              function(err)
+              {
+                if (err) { return handleError(socket, err); }
+              });*/
         }
       });
 };
