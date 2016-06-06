@@ -385,7 +385,7 @@ angular.module('hog.hog-templates', [])
         '        <span flex></span>'+
         '      </div>'+
         '    </md-toolbar> '+
-        '    <md-dialog-content layout="column" scroll-glue>'+
+        '    <md-dialog-content layout="column">'+
         '      <md-tabs class="md-primary" md-dynamic-height md-border-bottom md-selected="selectedIndex" md-autoselect>' +
         '        <md-tab label="Settings">' +
         '          <md-content class="md-padding">' +
