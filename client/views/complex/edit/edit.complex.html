@@ -35,6 +35,12 @@
             <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="!vm.edited">Save</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
+            <md-input-container>
+              <label>Version</label>
+        <md-select ng-model="vm.version" >
+            <md-option ng-value="vm.versions" ng-repeat="version in vm.versions">{{version}}</md-option>
+              <md-button ng-click="vm.bumpVersion()"></md-button>
+            </md-input-container>
           </div>
 
         </div>
