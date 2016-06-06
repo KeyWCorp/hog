@@ -435,7 +435,7 @@ angular.module('hog')
 
         $mdDialog.show({
           controller: SettingsController,
-          template: complexEditSettingsTemplate,
+          template: HogTemplates.complexEditSettingsTemplate,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
           targetEvent: ev,
