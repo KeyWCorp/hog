@@ -442,10 +442,6 @@ angular.module('hog')
 
       function update_edited ()
       {
-        // console.log("NAME: " + vm.name_edited);
-        // console.log("ARGS: " + vm.args_edited);
-        // console.log("SCRIPT: " + vm.edited);
-        // console.log(vm.name_edited || vm.args_edited || vm.edited);
         vm.edited = vm.name_edited || vm.args_edited || vm.script_edited;
       };
 

@@ -351,40 +351,90 @@ angular.module('hog.hog-templates', [])
           script_name,
           output_data)
       {
-        $scope.script_name = script_name;
-
+        $scope.table_structure = {};
         $scope.output_data = [];
-        output_data.map(function(item)
-          {
-            var tmp_item = {};
-            item.forEach(function(data, key)
-              {
-                tmp_item["index" + key] = data;
-              });
-            $scope.output_data.push(tmp_item);
-
-          });
-
         $scope.table_selected = [];
+        $scope.table_output_data = [];
+        $scope.output_selection_type = "";
+
         $scope.query = {
           order: 0,
           limit: 5,
           page: 1
         };
-        $scope.table_data = $scope.output_data.slice(0, $scope.query.limit * $scope.query.page);
 
-        $scope.getTableData = function (current_page)
+        $scope.script_name = script_name;
+        $scope.output_data = output_data;
+
+        $scope.output_data.map(function (item)
+            {
+              if ($scope.table_structure[item.length])
+              {
+                $scope.table_structure[item.length].push(item);
+              }
+              else
+              {
+                $scope.table_structure[item.length] = [item];
+              }
+            });
+
+        function reloadData(cb)
+        {
+          $scope.table_output_data = [];
+
+          Object.keys($scope.table_structure).forEach(function(line)
+            {
+              $scope.table_structure[line].map(function(item)
+                  {
+                    var tmp_item = {};
+                    item.forEach(function(data, key)
+                        {
+                          tmp_item["index" + key] = data;
+                        });
+                    $scope.table_output_data.push(tmp_item);
+                  });
+            });
+
+          if ($scope.output_selection_type)
+          {
+            $scope.table_data = $scope.table_structure[$scope.output_selection_type].slice(0, $scope.query.limit * $scope.query.page);
+          }
+        };
+
+        $scope.$watch("output_data", function ()
+          {
+            reloadData();
+          });
+
+        $scope.$watch("output_selection_type", function ()
+          {
+            reloadData();
+          });
+
+        $scope.getTableData = function (param)
         {
           var start = $scope.query.limit * ($scope.query.page - 1);
           var end = $scope.query.limit * $scope.query.page;
 
-          if (typeof current_page === 'number')
+          if (typeof param === 'number')
           {
-            start = $scope.query.limit * (current_page - 1);
-            end = $scope.query.limit * current_page;
+            start = $scope.query.limit * (param - 1);
+            end = $scope.query.limit * param;
           }
 
-          $scope.table_data = $scope.output_data.slice(start, end);
+          var sorted = $scope.table_structure[$scope.output_selection_type].sort(function(a,b)
+            {
+              if(a[$scope.query.order] < b[$scope.query.order]) return -1;
+              if(a[$scope.query.order] > b[$scope.query.order]) return 1;
+              return 0;
+            });
+
+          sorted.forEach(function(d)
+            {
+              console.log(JSON.stringify(d[$scope.query.order]));
+            });
+
+          $scope.table_data = sorted.slice(start, end);
         };
 
         $scope.cancel = function()
@@ -412,7 +462,7 @@ angular.module('hog.hog-templates', [])
         '        <md-button class="md-raised md-primary" ng-disabled="warnings.length <= 0" ng-click="filterByWarning()">Show Warnings</md-button>' +
         '        <md-button class="md-raised md-primary" ng-disabled="errors.length <= 0" ng-click="filterByError()">Show Errors</md-button>' +
         '        <md-button class="md-raised md-primary" ng-disabled="graph_data.length <= 0" ng-click="openGraphInfo($event, script_index)">Show Graph</md-button>' +
-        '        <md-button class="md-raised md-primary" ng-disabled="graph_data.length <= 0" ng-click="openOutputTable($event, script_name, graph_data)">Show Table</md-button>' +
+        '        <md-button class="md-raised md-primary" ng-disabled="graph_data.length <= 0" ng-click="openOutputTable($event, script_index)">Show Table</md-button>' +
         '      </div>' +
         '    </md-toolbar> '+
         '    <md-dialog-content scroll-glue>'+
@@ -590,8 +640,16 @@ angular.module('hog.hog-templates', [])
         '    </md-toolbar> '+
         '    <md-dialog-content>'+
         '      <md-content flex layout-padding>' +
-        '        <md-table-container>' +
-        '          <table md-table md-row-select multiple ng-model="table_selected">' +
+        '        <md-input-container>' +
+        '          <label>Output with #</label>' +
+        '          <md-select ng-model="output_selection_type">' +
+        '            <md-option ng-repeat="(key, value) in table_structure" value="{{ key }}">' +
+        '              {{ key }}' +
+        '            </md-option>' +
+        '          </md-select>' +
+        '        </md-input-container>' +
+        '        <md-table-container ng-if="output_selection_type">' +
+        '          <table md-table ng-model="table_selected">' +
         '            <thead md-head md-order="query.order" md-on-reorder="getTableData">' +
         '              <tr md-row>' +
         '                <th md-column md-order-by="{{ key }}" ng-repeat="(key, value) in table_data[0]"><span>{{ key }}</span></th>' +

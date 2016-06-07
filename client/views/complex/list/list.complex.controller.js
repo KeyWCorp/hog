@@ -281,7 +281,24 @@ angular.module('hog')
           filter_type: filter_type,
           graph_data: vm.scripts[idx].pigList,
           openGraphInfo: vm.openGraphInfo,
+          openOutputTable: vm.openOutputTable,
           script_index: idx
+        },
+      });
+    };
+
+
+    vm.openOutputTable = function(ev, idx)
+    {
+      $mdDialog.show({
+        template: HogTemplates.outputTableTemplate,
+        controller: HogTemplates.OutputTableController,
+        clickOutsideToClose: true,
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        locals: {
+          script_name: vm.scripts[idx].name,
+          output_data: vm.scripts[idx].pigList
         },
       });
     };
