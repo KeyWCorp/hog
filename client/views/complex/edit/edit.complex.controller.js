@@ -19,7 +19,6 @@ angular.module('hog')
       vm.name_edited = false;
 
 
-
       vm.taskList = [];
       vm.running = false;
 
@@ -484,7 +483,25 @@ angular.module('hog')
             filter_type: filter_type,
             graph_data: vm.pigList,
             openGraphInfo: vm.openGraphInfo,
+            openOutputTable: vm.openOutputTable,
             script_index: null
+          },
+        });
+      };
+
+
+
+      vm.openOutputTable = function(ev)
+      {
+        $mdDialog.show({
+          template: HogTemplates.outputTableTemplate,
+          controller: HogTemplates.OutputTableController,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            script_name: vm.script.name,
+            output_data: vm.pigList
           },
         });
       };

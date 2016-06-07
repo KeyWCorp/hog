@@ -280,6 +280,7 @@ angular.module('hog.hog-templates', [])
           filter_type,
           graph_data,
           openGraphInfo,
+          openOutputTable,
           script_index)
       {
         $scope.script_name = script_name;
@@ -292,6 +293,7 @@ angular.module('hog.hog-templates', [])
 
         $scope.graph_data = graph_data;
         $scope.openGraphInfo = openGraphInfo;
+        $scope.openOutputTable = openOutputTable;
         $scope.script_index = script_index;
 
         $scope.filteredInfo = function ()
@@ -339,6 +341,58 @@ angular.module('hog.hog-templates', [])
         };
       };
 
+
+
+
+      // Controller for Output Table Modal
+      function OutputTableController(
+          $mdDialog,
+          $scope,
+          script_name,
+          output_data)
+      {
+        $scope.script_name = script_name;
+
+        $scope.output_data = [];
+        output_data.map(function(item)
+          {
+            var tmp_item = {};
+            item.forEach(function(data, key)
+              {
+                tmp_item["index" + key] = data;
+              });
+            $scope.output_data.push(tmp_item);
+
+          });
+
+        $scope.table_selected = [];
+        $scope.query = {
+          order: 0,
+          limit: 5,
+          page: 1
+        };
+        $scope.table_data = $scope.output_data.slice(0, $scope.query.limit * $scope.query.page);
+
+        $scope.getTableData = function (current_page)
+        {
+          var start = $scope.query.limit * ($scope.query.page - 1);
+          var end = $scope.query.limit * $scope.query.page;
+
+          if (typeof current_page === 'number')
+          {
+            start = $scope.query.limit * (current_page - 1);
+            end = $scope.query.limit * current_page;
+          }
+
+          $scope.table_data = $scope.output_data.slice(start, end);
+        };
+
+        $scope.cancel = function()
+        {
+          $mdDialog.cancel();
+        };
+      };
+
       /*
        *
        * View Templates
@@ -358,6 +412,7 @@ angular.module('hog.hog-templates', [])
         '        <md-button class="md-raised md-primary" ng-disabled="warnings.length <= 0" ng-click="filterByWarning()">Show Warnings</md-button>' +
         '        <md-button class="md-raised md-primary" ng-disabled="errors.length <= 0" ng-click="filterByError()">Show Errors</md-button>' +
         '        <md-button class="md-raised md-primary" ng-disabled="graph_data.length <= 0" ng-click="openGraphInfo($event, script_index)">Show Graph</md-button>' +
+        '        <md-button class="md-raised md-primary" ng-disabled="graph_data.length <= 0" ng-click="openOutputTable($event, script_name, graph_data)">Show Table</md-button>' +
         '      </div>' +
         '    </md-toolbar> '+
         '    <md-dialog-content scroll-glue>'+
@@ -522,14 +577,55 @@ angular.module('hog.hog-templates', [])
         '     </md-dialog-content>'+
         '  </form>'+
         '</md-dialog>';
+
+
+      var outputTableTemplate =
+        '<md-dialog flex="80" ng-cloak>'+
+        '  <form>' +
+        '    <md-toolbar layout="column">' +
+        '      <div flex class="md-toolbar-tools">'+
+        '        <h2>Output Table<span ng-if="script_name"> for {{ script_name }}</span></h2>'+
+        '        <span flex></span>'+
+        '      </div>'+
+        '    </md-toolbar> '+
+        '    <md-dialog-content>'+
+        '      <md-content flex layout-padding>' +
+        '        <md-table-container>' +
+        '          <table md-table md-row-select multiple ng-model="table_selected">' +
+        '            <thead md-head md-order="query.order" md-on-reorder="getTableData">' +
+        '              <tr md-row>' +
+        '                <th md-column md-order-by="{{ key }}" ng-repeat="(key, value) in table_data[0]"><span>{{ key }}</span></th>' +
+        '              </tr>' +
+        '            </thead>' +
+        '            <tbody md-body>' +
+        '              <tr md-row  md-select="item" md-auto-select ng-repeat="item in table_data | orderBy: query.order">' +
+        '                <td md-cell ng-repeat="(key, value) in item">{{ value }}</td>' +
+        '              </tr>' +
+        '            </tbody>' +
+        '          </table>' +
+        '        </md-table-container>' +
+        '        <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{ output_data.length }}" md-on-paginate="getTableData" md-page-select></md-table-pagination>' +
+        '      </md-content>' +
+        '      <md-divider ></md-divider>' +
+        '    </md-dialog-content>'+
+        '    <div class="md-actions" layout="row" layout-align="end center">' +
+        '      <md-button class="md-raised" ng-click="cancel()">Close</md-button>' +
+        '    </div>' +
+        '  </form>' +
+        '</md-dialog>';
+
+
+
       return {
         // Controllers
         GraphInfoController: GraphInfoController,
         InfoController: InfoController,
+        OutputTableController: OutputTableController,
 
         // Views
         outputInfoTemplate: outputInfoTemplate,
         graphInfoTemplate: graphInfoTemplate,
-        complexEditSettingsTemplate: complexEditSettingsTemplate
+        complexEditSettingsTemplate: complexEditSettingsTemplate,
+        outputTableTemplate: outputTableTemplate
       };
     });
