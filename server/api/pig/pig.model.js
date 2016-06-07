@@ -156,7 +156,7 @@ class Pig extends Document {
             else
             {
               console.log('resolved')
-              that.script_loc = path.join(__dirname, '../../scripts/pig/', that.name, '.pig');
+              that.script_loc = path.join(__dirname, '../../scripts/pig/', that.name + '.pig');
               resolve(that);
             }
           });
