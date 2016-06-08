@@ -14,14 +14,16 @@ class Pig extends Document {
   {
     super();
 
-    this.name       = String;
-    this.data       = String;
-    this.type       = String;
-    this.nodes      = [];
-    this.links      = [];
-    this.args       = [];
-    this.version    = String;
-    this.script_loc = String;
+    this.name        = String;
+    this.data        = String;
+    this.type        = String;
+    this.graph_type  = String;
+    this.graph_count = Number;
+    this.nodes       = [];
+    this.links       = [];
+    this.args        = [];
+    this.version     = String;
+    this.script_loc  = String;
   }
   static collectionName() {
         return 'pig.data';
