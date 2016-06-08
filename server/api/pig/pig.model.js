@@ -13,9 +13,12 @@ class Pig extends Document {
   constructor()
   {
     super();
-    
+
     this.name       = String;
     this.data       = String;
+    this.type       = String;
+    this.nodes      = [];
+    this.links      = [];
     this.args       = [];
     this.version    = String;
     this.script_loc = String;
@@ -102,7 +105,7 @@ class Pig extends Document {
     //this.bump();
     console.log('in presave', d);
     var that = this;
-    
+
       return Promise.all([this.saveScript()])
   }
   rename(oldPath)
