@@ -46,7 +46,7 @@ rpm = brass.create(options);
 // order.
 module.exports = function(done) {
   runSequence(
-      ['build'],
+      ['rpm-spec'],
       done);
 };
 // Removes the brass_build directory.
@@ -91,7 +91,9 @@ gulp.task('rpm-files', [ 'rpm-setup', 'npm-pack' ], function () {
     'bower.json',
     'karma.conf.js',
     'protractor.conf.js',
-    'README.md'
+    'README.md',
+    'node_modules/**/*',
+    'backup.log'
   ];
   // buildRoot is where the app will build itself once it unpacks,
   // You will have to change if you want the package to unpack
