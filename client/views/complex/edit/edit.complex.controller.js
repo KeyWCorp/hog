@@ -13,7 +13,11 @@ angular.module('hog')
       // Graphs are not displayed initially
       vm.outputs = [];
       vm.graph_data = false;
+
       vm.edited = false;
+      vm.name_edited = false;
+      vm.args_edited = false;
+      vm.script_edited = false;
 
 
 
@@ -58,11 +62,14 @@ angular.module('hog')
         .then(
             function(data)
             {
+
               vm.script = data.json;
               vm.args = vm.script.args.join(" ");
               console.log('vm args', vm.args);
-              vm.script_data = vm.script.data;
-              $scope.script_data = vm.script_data;
+
+              $scope.script_data = vm.script.data;
+              $scope.script_name = vm.script.name;
+              $scope.script_args = vm.args;
 
             });
 
@@ -113,12 +120,12 @@ angular.module('hog')
       vm.save = function(graph, numOutput, cb)
       {
 
-        vm.script.name = vm.script.name.replace(/[\s]/g, "_");
         vm.script.data = $scope.script_data;
+        vm.script.name = $scope.script_name.replace(/[\s]/g, "_");
+        vm.script.args = $scope.script_args.split(" ");
 
         console.log('in vm .save', graph);
         vm.script.numOutput = numOutput || vm.script.numOutput;
-        vm.script.args = vm.args.split(" ");
 
         if(graph == 'bar')
         {
@@ -148,9 +155,15 @@ angular.module('hog')
                 vm.script = data.json;
                 vm.args = vm.script.args.join(" ");
 
-                vm.script_data = vm.script.data;
-                $scope.script_data = vm.script_data;
+                $scope.script_data = vm.script.data;
+                $scope.script_name = vm.script.name;
+                $scope.script_args = vm.args;
+
                 vm.edited = false;
+
+                vm.name_edited = false;
+                vm.args_edited = false;
+                vm.script_edited = false;
 
 
                 $mdToast.show(
@@ -372,18 +385,67 @@ angular.module('hog')
 
       };
 
+
+      $scope.$watch("script_name", function(newValue, oldValue)
+      {
+        if (vm.script)
+        {
+          if (vm.script.name !== "undefined")
+          {
+            if (newValue !== vm.script.name)
+            {
+              vm.name_edited = true;
+            }
+            else
+            {
+              vm.name_edited = false;
+            }
+            updateEdit();
+          }
+        }
+      });
+
+      $scope.$watch("script_args", function(newValue, oldValue)
+      {
+        if (vm.args !== "undefined")
+        {
+          if (newValue !== vm.args)
+          {
+            vm.args_edited = true;
+          }
+          else
+          {
+            vm.args_edited = false;
+          }
+          updateEdit();
+        }
+      });
+
       $scope.$watch("script_data", function(newValue, oldValue)
       {
-        if (newValue !== vm.script_data)
+        if (vm.script)
         {
-          vm.edited = true;
+          if (vm.script.data !== "undefined")
+          {
+            if (newValue !== vm.script.data)
+            {
+              vm.script_edited = true;
+            }
+            else
+            {
+              vm.script_edited = false;
+            }
+            updateEdit();
+          }
         }
-        else
-        {
-          vm.edited = false;
-        }
-
       });
+
+
+
+      function updateEdit ()
+      {
+        vm.edited = vm.name_edited || vm.args_edited || vm.script_edited;
+      };
 
       vm.openGraphInfo = function(ev, graph_data, script)
       {
