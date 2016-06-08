@@ -59,13 +59,7 @@ angular.module('hog')
             function(data)
             {
               vm.script = data.json;
-              var strfy = _.flatMap(vm.script.args,
-                                          function(n)
-                                          {
-                return [n.arg, n.input];
-              });
-              
-              vm.args = strfy.join(" ");
+              vm.args = vm.script.args.join(" ");
               console.log('vm args', vm.args);
               vm.script_data = vm.script.data;
               $scope.script_data = vm.script_data;
@@ -359,7 +353,8 @@ angular.module('hog')
         {
           var tmp_data = data
             .replace(/\(/g, "[")
-            .replace(/\)/g, "]");
+            .replace(/\)/g, "]")
+            .replace(/(?:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(\w+\.*))/g, '"$1$2"');
 
           var output_data = JSON.parse(tmp_data);
         }
