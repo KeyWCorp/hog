@@ -59,12 +59,16 @@
     </div>
 
     <div layout="row" flex>
-      <md-input-container flex ng-if="!vm.edited">
-        <md-button ng-disabled="!vm.script.data || scriptForm.$invalid || vm.running" class="md-raised md-primary" ng-click="vm.run()">Run</md-button>
+      <md-input-container flex ng-if="!vm.edited && !vm.running">
+        <md-button ng-show="vm.script.data || !scriptForm.$invalid || !vm.running" class="md-raised md-primary" ng-click="vm.run()">Run</md-button>
       </md-input-container>
 
-      <md-input-container flex ng-if="vm.edited">
-        <md-button ng-disabled="!vm.script.data || scriptForm.$invalid || vm.running" class="md-raised md-primary" ng-click="vm.saveAndRun()">Save and Run</md-button>
+      <md-input-container flex ng-if="vm.edited && !vm.running">
+        <md-button ng-show="vm.script.data || !scriptForm.$invalid || !vm.running" class="md-raised md-primary" ng-click="vm.saveAndRun()">Save and Run</md-button>
+      </md-input-container>
+
+      <md-input-container flex ng-if="vm.running">
+        <md-button class="md-raised md-warn" ng-click="vm.kill()" ng-show="vm.running">Kill</md-button>
       </md-input-container>
 
       <md-input-container flex>
@@ -74,6 +78,7 @@
       <md-input-container flex>
         <md-button class="md-raised md-primary" ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export CSV</md-button>
       </md-input-container>
+
     </div>
 
     <v-accordion class="vAccordion--default" layout="column" layout-padding flex="45">

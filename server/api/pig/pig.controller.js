@@ -308,6 +308,23 @@ exports.run = function (socket) {
                   {
                     socket.emit('run:end');
                     socket.emit('run:finished');
+                  },
+                  // killCB
+                  function(pig)
+                  {
+                    socket.on('kill',
+                        function (kill_id)
+                        {
+                          if (id === kill_id)
+                          {
+                            pig.kill();
+
+                            console.log("\n\nKilled script....");
+
+                            socket.emit('run:end');
+                            socket.emit('run:finished');
+                          }
+                        });
                   });
               },
               function(err)
@@ -364,6 +381,23 @@ exports.runAndTrack = function (socket) {
                   {
                     socket.emit('run:end');
                     socket.emit('run:finished');
+                  },
+                  // killCB
+                  function(pig)
+                  {
+                    socket.on('kill',
+                        function (kill_id)
+                        {
+                          if (id === kill_id)
+                          {
+                            pig.kill();
+
+                            console.log("\n\nKilled script....");
+
+                            socket.emit('run:end');
+                            socket.emit('run:finished');
+                          }
+                        });
                   });
               },
               function(err)

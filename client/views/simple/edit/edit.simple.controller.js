@@ -208,6 +208,16 @@ angular.module('hog')
             });
       };
 
+      vm.kill = function()
+      {
+        Runner.kill(vm.script._id)
+          .then(
+              function(data)
+              {
+                console.log("Killed: " + JSON.stringify(data, null, 2));
+              });
+      };
+
       vm.run = function()
       {
         vm.running = true;

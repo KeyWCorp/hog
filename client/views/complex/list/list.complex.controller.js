@@ -55,6 +55,15 @@ angular.module('hog')
         $state.go('^.edit', {id: id});
 
       },
+      kill: function(id)
+      {
+        Runner.kill(id)
+          .then(
+              function(data)
+              {
+                console.log("Killed: " + JSON.stringify(data, null, 2));
+              });
+      },
       run: function(id, idx)
       {
         vm.isRunning[id] = true;

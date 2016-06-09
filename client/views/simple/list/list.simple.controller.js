@@ -70,6 +70,17 @@ angular.module('hog')
                 });
           });
 
+
+      vm.kill = function(id)
+      {
+        Runner.kill(id)
+          .then(
+              function(data)
+              {
+                console.log("Killed: " + JSON.stringify(data, null, 2));
+              });
+      };
+
       vm.run = function(id, idx)
       {
         vm.output[id] = [];

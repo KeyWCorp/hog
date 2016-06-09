@@ -176,6 +176,17 @@ angular.module('hog')
         vm.save(null, null, vm.runAndTrack);
       };
 
+
+      vm.kill = function()
+      {
+        Runner.kill(vm.script._id)
+          .then(
+              function(data)
+              {
+                console.log("Killed: " + JSON.stringify(data, null, 2));
+              });
+      };
+
       vm.run = function()
       {
         vm.taskList = [];

@@ -26,6 +26,7 @@ angular.module('hog')
         getData: getData,
         update: update,
         destroy: destroy,
+        kill: kill,
         run: run,
         runAndTrack: runAndTrack,
         save: update
@@ -167,10 +168,20 @@ angular.module('hog')
             });
         return deferred.promise;
       }
+      function kill(id)
+      {
+        var deferred = $q.defer();
+        setTimeout(() => {
+          Pig.emit('kill', id);
+          deferred.resolve({type: 'data', data: id});
+        }, 2000);
+        return deferred.promise;
+      }
       function run(id)
       {
         var deferred = $q.defer();
         Pig.emit('run', id);
+
         Pig.on('run:end',
             function(data)
             {
@@ -208,6 +219,7 @@ angular.module('hog')
       {
         var deferred = $q.defer();
         Pig.emit('run:track', id);
+
         Pig.on('run:end',
             function(data)
             {
