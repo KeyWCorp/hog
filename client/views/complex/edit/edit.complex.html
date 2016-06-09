@@ -9,7 +9,7 @@
             <input ng-model="script_name">
           </md-input-container>
 
-          <div flex layout-align="end" style="float:right;">
+          <div flex="60" layout-align="end" style="float:right;">
             <md-menu ng-show="!vm.edited">
               <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Execute</md-button>
               <md-menu-content width="4">
@@ -35,6 +35,7 @@
             <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="!vm.edited">Save</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export CSV</md-button>
           </div>
 
         </div>

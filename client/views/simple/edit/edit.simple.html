@@ -70,6 +70,10 @@
       <md-input-container flex>
         <md-button ng-disabled="!vm.edited || !vm.script.data || scriptForm.$invalid" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
       </md-input-container>
+
+      <md-input-container flex>
+        <md-button class="md-raised md-primary" ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export CSV</md-button>
+      </md-input-container>
     </div>
 
     <v-accordion class="vAccordion--default" layout="column" layout-padding flex="45">
