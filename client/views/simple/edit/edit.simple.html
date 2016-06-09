@@ -66,14 +66,14 @@
 
       <md-menu flex layout="row">
         <md-button flex class="md-raised md-primary" ng-click="$mdOpenMenu($event)">
-          Export
+          Download/Export
         </md-button>
         <md-menu-content flex width="4">
           <md-menu-item>
-            <md-button ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export CSV</md-button>
+            <md-button ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export Output To CSV</md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-disabled="vm.running || !vm.script.data" ng-click="vm.downloadScript()">Export Script</md-button>
+            <md-button ng-disabled="!vm.script.data" ng-click="vm.downloadScript()">Download Script</md-button>
           </md-menu-item>
         </md-menu-content>
       </md-menu>
