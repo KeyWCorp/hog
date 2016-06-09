@@ -58,23 +58,24 @@
       </md-button>
     </div>
 
-    <div layout="row" flex>
-      <md-input-container flex ng-if="!vm.edited">
-        <md-button ng-disabled="!vm.script.data || scriptForm.$invalid || vm.running" class="md-raised md-primary" ng-click="vm.run()">Run</md-button>
-      </md-input-container>
 
-      <md-input-container flex ng-if="vm.edited">
-        <md-button ng-disabled="!vm.script.data || scriptForm.$invalid || vm.running" class="md-raised md-primary" ng-click="vm.saveAndRun()">Save and Run</md-button>
-      </md-input-container>
+    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+      <md-button flex ng-if="!vm.edited" ng-disabled="!vm.script.data || scriptForm.$invalid || vm.running" class="md-raised md-primary" ng-click="vm.run()">Run</md-button>
+      <md-button flex ng-if="vm.edited" ng-disabled="!vm.script.data || scriptForm.$invalid || vm.running" class="md-raised md-primary" ng-click="vm.saveAndRun()">Save and Run</md-button>
+      <md-button flex ng-disabled="!vm.edited || !vm.script.data || scriptForm.$invalid" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
 
-      <md-input-container flex>
-        <md-button ng-disabled="!vm.edited || !vm.script.data || scriptForm.$invalid" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
-      </md-input-container>
+      <md-menu flex layout="row">
+        <md-button flex class="md-raised md-primary" ng-click="$mdOpenMenu($event)">
+          Export
+        </md-button>
+        <md-menu-content flex width="4">
+          <md-menu-item>
+            <md-button ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export CSV</md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </section>
 
-      <md-input-container flex>
-        <md-button class="md-raised md-primary" ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export CSV</md-button>
-      </md-input-container>
-    </div>
 
     <v-accordion class="vAccordion--default" layout="column" layout-padding flex="45">
       <v-pane expanded="true">
