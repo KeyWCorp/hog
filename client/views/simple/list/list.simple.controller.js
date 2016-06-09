@@ -7,6 +7,7 @@ angular.module('hog')
 
       vm.output_data = {};
       vm.running = false;
+      vm.current_running_id = "";
       vm.isRunning = {};
       vm.output = {};
 
@@ -61,6 +62,7 @@ angular.module('hog')
       Pig.on('run:finished', function ()
           {
             vm.running = false;
+            vm.current_running_id = "";
             Object.keys(vm.isRunning).map(function (key)
                 {
                   if (vm.isRunning[key] === true)
@@ -86,6 +88,7 @@ angular.module('hog')
         vm.output[id] = [];
         vm.running = true;
         vm.isRunning[id] = true;
+        vm.current_running_id = id;
 
         vm.scripts[idx].info_outputs = [];
         vm.scripts[idx].outputs = [];

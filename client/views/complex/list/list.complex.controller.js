@@ -8,6 +8,8 @@ angular.module('hog')
     vm.isRunning = {};
     vm.running = false;
 
+    vm.current_running_id = "";
+
     vm.modes = ['Pig_Latin'];
     vm.themes = ['monokai', 'twilight', 'none'];
     vm.mode = vm.modes[0];
@@ -45,6 +47,7 @@ angular.module('hog')
     Pig.on('run:finished', function ()
         {
           vm.running = false;
+          vm.current_running_id = "";
         });
 
     angular.extend(vm, {
@@ -68,6 +71,7 @@ angular.module('hog')
       {
         vm.isRunning[id] = true;
         vm.running = true;
+        vm.current_running_id = id;
 
         vm.scripts[idx].info_outputs = [];
         vm.scripts[idx].outputs = [];

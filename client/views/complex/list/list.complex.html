@@ -91,7 +91,7 @@
               </div>
               <span flex></span>
               <div layout="row" layout-align="end center" flex>
-                <md-menu ng-show="!vm.running">
+                <md-menu ng-show="!vm.running || vm.current_running_id !== pig._id">
                   <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Execute</md-button>
                   <md-menu-content width="4">
                     <md-menu-item>
@@ -103,7 +103,7 @@
                   </md-menu-content>
                 </md-menu>
 
-                <md-button class="md-raised md-warn" ng-click="vm.kill(pig._id)" ng-show="vm.running">
+                <md-button class="md-raised md-warn" ng-click="vm.kill(pig._id)" ng-show="vm.running && vm.current_running_id === pig._id">
                   Kill
                 </md-button>
 

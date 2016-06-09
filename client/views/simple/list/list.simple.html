@@ -72,10 +72,10 @@
             </div>
             <span flex></span>
             <div layout="row" layout-align="end center" flex>
-              <md-button class="md-primary md-raised" ng-show='!vm.running' ng-click="vm.run(pig._id, $index)">
+              <md-button class="md-primary md-raised" ng-disabled="vm.running" ng-show='!vm.running || vm.current_running_id !== pig._id' ng-click="vm.run(pig._id, $index)">
                 Run
               </md-button>
-              <md-button class="md-raised md-warn" ng-click="vm.kill(pig._id)" ng-show="vm.running">
+              <md-button class="md-raised md-warn" ng-click="vm.kill(pig._id)" ng-show="vm.running && vm.current_running_id === pig._id">
                 Kill
               </md-button>
               <md-button class="md-primary md-raised" ng-click="vm.edit(pig._id)">
