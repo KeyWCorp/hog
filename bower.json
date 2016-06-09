@@ -29,7 +29,8 @@
     "list-to-tree": "^0.0.6",
     "t": "^0.5.1",
     "lodash": "^4.13.1",
-    "angular-scroll-glue": "^2.0.6"
+    "angular-scroll-glue": "^2.0.6",
+    "ng-csv": "^0.3.6"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.7",

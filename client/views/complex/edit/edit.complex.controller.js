@@ -20,7 +20,6 @@ angular.module('hog')
       vm.script_edited = false;
 
 
-
       vm.taskList = [];
       vm.running = false;
 
@@ -349,7 +348,7 @@ angular.module('hog')
           var tmp_data = data
             .replace(/\(/g, "[")
             .replace(/\)/g, "]")
-            .replace(/(?:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(\w+\.*))/g, '"$1$2"');
+            .replace(/(?:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(\w+\.*\w*))/g, '"$1$2"');
 
           var output_data = JSON.parse(tmp_data);
         }
