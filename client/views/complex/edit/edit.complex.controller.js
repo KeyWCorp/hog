@@ -124,27 +124,9 @@ angular.module('hog')
         vm.script.name = $scope.script_name.replace(/[\s]/g, "_");
         vm.script.args = $scope.script_args.split(" ");
 
-        console.log('in vm .save', graph);
-        vm.script.numOutput = numOutput || vm.script.numOutput;
-
-        if(graph == 'bar')
-        {
-          vm.script.bar = true;
-          vm.script.line = false;
-          vm.script.radar = false;
-        }
-        if(graph == 'line')
-        {
-          vm.script.bar = false;
-          vm.script.line = true;
-          vm.script.radar = false;
-        }
-        if(graph == 'radar')
-        {
-          vm.script.bar = false;
-          vm.script.line = false;
-          vm.script.radar = true;
-        }
+        console.log('in vm .save', graph, numOutput);
+        vm.script.graph_count = numOutput;
+        vm.script.graph_type = graph;
 
         Runner.update(vm.script)
           .then(
@@ -513,20 +495,39 @@ function SettingsController( $mdDialog, $scope, vm)
   {
     $mdDialog.cancel();
   };
-  $scope.save = function(script)
+
+
+  $scope.graph = {
+    Bar: false,
+    Line: false,
+    Radar: false
+  };
+
+  $scope.graph_type = $scope.vm.script.graph_type || "Bar";
+  $scope.graph[$scope.graph_type] = true;
+
+  $scope.graph_output_count = $scope.vm.script.graph_count;
+
+  $scope.save = function()
   {
-    if(script.bar == true)
+    if ($scope.graph.Bar)
     {
-      $scope.vm.save('bar', script.numOutput);
+      $scope.graph_type = "Bar";
     }
-    if(script.line == true)
+    else if ($scope.graph.Line)
     {
-      $scope.vm.save('line', script.numOutput);
+      $scope.graph_type = "Line";
     }
-    if(script.radar == true)
+    else if ($scope.graph.Radar)
     {
-      $scope.vm.save('radar', script.numOutput);
+      $scope.graph_type = "Radar";
     }
+    else
+    {
+      $scope.graph_type = "Bar";
+    }
+
+    $scope.vm.save($scope.graph_type, $scope.graph_output_count);
     $scope.cancel();
   }
 };
