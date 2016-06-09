@@ -2,12 +2,12 @@
   <form name="scriptForm" layout='column' layout-padding>
     <md-input-container flex>
       <label>Name:</label>
-      <input required ng-model="vm.script.name">
+      <input required ng-model="script_name">
     </md-input-container>
 
     <md-input-container flex>
       <label>Pig Arguments</label>
-      <input ng-model="vm.args" aria-label="Pig Arguments">
+      <input ng-model="script_args" aria-label="Pig Arguments">
     </md-input-container>
 
     <div flex class='md-padding' layout="column" layout-padding ng-show="vm.info_outputs.length > 0">
@@ -69,6 +69,10 @@
 
       <md-input-container flex>
         <md-button ng-disabled="!vm.edited || !vm.script.data || scriptForm.$invalid" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+      </md-input-container>
+
+      <md-input-container flex>
+        <md-button class="md-raised md-primary" ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export CSV</md-button>
       </md-input-container>
     </div>
 

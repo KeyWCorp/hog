@@ -1,6 +1,7 @@
 'use strict';
 
 var fs      = require('fs');
+var path    = require('path');
 var Pigs    = require('./pig.model');
 var logger  = require('../../config/logger.js');
 var _ready  = false;
@@ -120,10 +121,12 @@ exports.create = function (socket) {
         {
           var pig = Pig.create(JSON.parse(data));
           pig.diff(null);
+          console.log(pig);
           pig.save()
             .then(
               function(obj)
               {
+                console.log(obj);
               //if (err) { return handleError(socket, err); }
                 socket.emit('server:create', buildResponse(201, obj.toJSON()));
               },
@@ -149,48 +152,69 @@ exports.update = function (socket)
       {
         if (_ready)
         {
-          Pig.findOne({_id: data.id})
+          var oldData = JSON.parse(data);
+          Pig.findOne({_id: oldData.id})
             .then(
               function(doc)
               {
-                if(data.version != doc.version)
+                if(oldData.version != doc.version)
                 {
-                  doc.diff(data);
+                  doc.diff(oldData);
                 }
-                if(data.name != doc.name)
+                if(oldData.name != doc.name)
                 {
-                  doc.rename(data.name);
+                  if (oldData.script_loc)
+                  {
+                    script_location = oldData.script_loc;
+                  }
+                  else
+                  {
+                    script_location = path.join(__dirname, '../../',  'scripts/pig/', oldData.name +  '.pig');
+                  }
+                  doc.rename(script_location)
+                    .then(
+                      function()
+                      {
+                        doc.update(oldData);
+                        doc.save()
+                          .then(
+                            function(obj)
+                            {
+                              console.log('finished updating', obj);
+                              //if (err) { return handleError(socket, err); }
+                              socket.emit('update', buildResponse(200, obj.toJSON()));
+                            },
+                            function(err)
+                            {
+                              if (err) { return handleError(socket, err); }
+                            }); 
+                      },
+                      function(err)
+                      {
+                        if (err) { return handleError(socket, err); }
+                      });
                 }
-                doc.update(data);
-                doc.save()
-                  .then(
-                    function(obj)
-                    {
-                      console.log('finished updating', obj);
-                      //if (err) { return handleError(socket, err); }
-                      socket.emit('update', buildResponse(200, obj.toJSON()));
-                    },
-                    function(err)
-                    {
-                      if (err) { return handleError(socket, err); }
-                    });               
+                else
+                {
+                  doc.update(oldData);
+                  doc.save()
+                    .then(
+                      function(obj)
+                      {
+                        console.log('finished updating', obj);
+                        //if (err) { return handleError(socket, err); }
+                        socket.emit('update', buildResponse(200, obj.toJSON()));
+                      },
+                      function(err)
+                      {
+                        if (err) { return handleError(socket, err); }
+                      });
+                }               
               },
               function(err)
               {
                 if (err) { return handleError(socket, err); }
               });
-          /*Pig.findOneAndUpdate({_id: data.id}, JSON.parse(data.obj), {upsert: true})
-            .then(
-              function(obj)
-              {
-                console.log('finished updating', obj);
-              //if (err) { return handleError(socket, err); }
-                socket.emit('update', buildResponse(200, obj.toJSON()));
-              },
-              function(err)
-              {
-                if (err) { return handleError(socket, err); }
-              });*/
         }
       });
 };

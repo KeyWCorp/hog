@@ -13,8 +13,11 @@ angular.module('hog')
       // Graphs are not displayed initially
       vm.outputs = [];
       vm.graph_data = false;
-      vm.edited = false;
 
+      vm.edited = false;
+      vm.name_edited = false;
+      vm.args_edited = false;
+      vm.script_edited = false;
 
 
       vm.taskList = [];
@@ -70,7 +73,8 @@ angular.module('hog')
               console.log('vm args', vm.args);
               vm.script_data = vm.script.data;
               $scope.script_data = vm.script_data;
-              
+              $scope.script_name = vm.script.name;
+              $scope.script_args = vm.args;
             });
       vm.getVersion = function()
       {
@@ -143,31 +147,13 @@ angular.module('hog')
       vm.save = function(graph, numOutput, cb)
       {
 
-        vm.script.name = vm.script.name.replace(/[\s]/g, "_");
         vm.script.data = $scope.script_data;
+        vm.script.name = $scope.script_name.replace(/[\s]/g, "_");
+        vm.script.args = $scope.script_args.split(" ");
 
-        console.log('in vm .save', graph);
-        vm.script.numOutput = numOutput || vm.script.numOutput;
-        vm.script.args = vm.args.split(" ");
-
-        if(graph == 'bar')
-        {
-          vm.script.bar = true;
-          vm.script.line = false;
-          vm.script.radar = false;
-        }
-        if(graph == 'line')
-        {
-          vm.script.bar = false;
-          vm.script.line = true;
-          vm.script.radar = false;
-        }
-        if(graph == 'radar')
-        {
-          vm.script.bar = false;
-          vm.script.line = false;
-          vm.script.radar = true;
-        }
+        console.log('in vm .save', graph, numOutput);
+        vm.script.graph_count = numOutput;
+        vm.script.graph_type = graph;
 
         Runner.update(vm.script)
           .then(
@@ -178,9 +164,15 @@ angular.module('hog')
                 vm.script = data.json;
                 vm.args = vm.script.args.join(" ");
 
-                vm.script_data = vm.script.data;
-                $scope.script_data = vm.script_data;
+                $scope.script_data = vm.script.data;
+                $scope.script_name = vm.script.name;
+                $scope.script_args = vm.args;
+
                 vm.edited = false;
+
+                vm.name_edited = false;
+                vm.args_edited = false;
+                vm.script_edited = false;
 
 
                 $mdToast.show(
@@ -383,7 +375,8 @@ angular.module('hog')
         {
           var tmp_data = data
             .replace(/\(/g, "[")
-            .replace(/\)/g, "]");
+            .replace(/\)/g, "]")
+            .replace(/(?:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(\w+\.*\w*))/g, '"$1$2"');
 
           var output_data = JSON.parse(tmp_data);
         }
@@ -401,18 +394,67 @@ angular.module('hog')
 
       };
 
+
+      $scope.$watch("script_name", function(newValue, oldValue)
+      {
+        if (vm.script)
+        {
+          if (vm.script.name !== "undefined")
+          {
+            if (newValue !== vm.script.name)
+            {
+              vm.name_edited = true;
+            }
+            else
+            {
+              vm.name_edited = false;
+            }
+            updateEdit();
+          }
+        }
+      });
+
+      $scope.$watch("script_args", function(newValue, oldValue)
+      {
+        if (vm.args !== "undefined")
+        {
+          if (newValue !== vm.args)
+          {
+            vm.args_edited = true;
+          }
+          else
+          {
+            vm.args_edited = false;
+          }
+          updateEdit();
+        }
+      });
+
       $scope.$watch("script_data", function(newValue, oldValue)
       {
-        if (newValue !== vm.script_data)
+        if (vm.script)
         {
-          vm.edited = true;
+          if (vm.script.data !== "undefined")
+          {
+            if (newValue !== vm.script.data)
+            {
+              vm.script_edited = true;
+            }
+            else
+            {
+              vm.script_edited = false;
+            }
+            updateEdit();
+          }
         }
-        else
-        {
-          vm.edited = false;
-        }
-
       });
+
+
+
+      function updateEdit ()
+      {
+        vm.edited = vm.name_edited || vm.args_edited || vm.script_edited;
+      };
 
       vm.openGraphInfo = function(ev, graph_data, script)
       {
@@ -459,7 +501,7 @@ angular.module('hog')
 
         $mdDialog.show({
           controller: SettingsController,
-          template: complexEditSettingsTemplate,
+          template: HogTemplates.complexEditSettingsTemplate,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
           targetEvent: ev,
@@ -480,20 +522,39 @@ function SettingsController( $mdDialog, $scope, vm)
   {
     $mdDialog.cancel();
   };
-  $scope.save = function(script)
+
+
+  $scope.graph = {
+    Bar: false,
+    Line: false,
+    Radar: false
+  };
+
+  $scope.graph_type = $scope.vm.script.graph_type || "Bar";
+  $scope.graph[$scope.graph_type] = true;
+
+  $scope.graph_output_count = $scope.vm.script.graph_count;
+
+  $scope.save = function()
   {
-    if(script.bar == true)
+    if ($scope.graph.Bar)
     {
-      $scope.vm.save('bar', script.numOutput);
+      $scope.graph_type = "Bar";
     }
-    if(script.line == true)
+    else if ($scope.graph.Line)
     {
-      $scope.vm.save('line', script.numOutput);
+      $scope.graph_type = "Line";
     }
-    if(script.radar == true)
+    else if ($scope.graph.Radar)
     {
-      $scope.vm.save('radar', script.numOutput);
+      $scope.graph_type = "Radar";
     }
+    else
+    {
+      $scope.graph_type = "Bar";
+    }
+
+    $scope.vm.save($scope.graph_type, $scope.graph_output_count);
     $scope.cancel();
   }
 };

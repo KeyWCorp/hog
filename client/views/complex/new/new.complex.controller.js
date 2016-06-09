@@ -59,7 +59,11 @@ angular.module('hog')
               {
                 vm.script = data.json;
                 // Place pop up for saved
-                $mdToast.showSimple('Settings Saved!');
+                $mdToast.show(
+                    $mdToast.simple()
+                    .content('Script Saved!')
+                    .hideDelay(3000)
+                    );
                 $state.go('^.edit', {id: vm.script._id});
               });
       }

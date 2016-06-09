@@ -30,6 +30,12 @@ angular.module('hog.hog-templates', [])
         $scope.output_selection = $scope.graph_data[0].length;
         $scope.refreshed_data = true;
 
+        $scope.graph = {
+          Bar: false,
+          Line: false,
+          Radar: false
+        };
+
         function reloadData (cb)
         {
 
@@ -54,8 +60,10 @@ angular.module('hog.hog-templates', [])
            * number of outputs
            */
           $scope.slider_max = $scope.graph_structure[$scope.output_selection].length;
-          $scope.sliderNum = (Number($scope.slider_max) >= Number(script.numOutput) && Number(script.numOutput) > 0) ? script.numOutput : $scope.slider_max;
-          $scope.graph_type = (script.bar ? "Bar" : script.line ? "Line" : script.radar ? "Radar" : "Bar");
+          $scope.sliderNum = (Number($scope.slider_max) >= Number(script.graph_count) && Number(script.graph_count) > 0) ? script.graph_count : $scope.slider_max;
+          $scope.graph_type = script.graph_type || "Bar";
+
+          $scope.graph[$scope.graph_type] = true;
 
 
           if ($scope.refreshed_data)
@@ -385,7 +393,7 @@ angular.module('hog.hog-templates', [])
         '        <span flex></span>'+
         '      </div>'+
         '    </md-toolbar> '+
-        '    <md-dialog-content layout="column" scroll-glue>'+
+        '    <md-dialog-content layout="column">'+
         '      <md-tabs class="md-primary" md-dynamic-height md-border-bottom md-selected="selectedIndex" md-autoselect>' +
         '        <md-tab label="Settings">' +
         '          <md-content class="md-padding">' +
@@ -500,13 +508,13 @@ angular.module('hog.hog-templates', [])
         '      <div class="md-dialog-content">'+
         '        <legend>How would you like to view your output?</legend>'+
         '        <div layout="column" layout-align="center start">'+
-        '          <md-checkbox ng-disabled="vm.script.line || vm.script.radar"  ng-model="vm.script.bar" >'+
+        '          <md-checkbox ng-disabled="graph.Line || graph.Radar"  ng-model="graph.Bar" >'+
         '            Bar Graph '+
         '          </md-checkbox>'+
-        '          <md-checkbox ng-disabled="vm.script.bar || vm.script.radar"  ng-model="vm.script.line" >'+
+        '          <md-checkbox ng-disabled="graph.Bar || graph.Radar"  ng-model="graph.Line" >'+
         '            Line Graph '+
         '          </md-checkbox>'+
-        '          <md-checkbox ng-disabled="vm.script.bar || vm.script.line"  ng-model="vm.script.radar">'+
+        '          <md-checkbox ng-disabled="graph.Bar || graph.Line"  ng-model="graph.Radar">'+
         '            Radar Graph'+
         '          </md-checkbox>'+
         '        </div>'+
@@ -514,11 +522,11 @@ angular.module('hog.hog-templates', [])
         '      <md-input-container class="md-block">'+
         '        <div required > ' +
         '          <label>Enter the number of desired outputs</label>'+
-        '          <input ng-model="vm.script.numOutput">'+
+        '          <input ng-model="graph_output_count">'+
         '        </div>'+
         '      </md-input-container>'+
         '      <md-button class="md-raised md-primary" ng-click="cancel()">Close</md-button>' +
-        '      <md-button class="md-raised md-primary" ng-click="save(vm.script)">Save</md-button>' +
+        '      <md-button class="md-raised md-primary" ng-click="save()">Save</md-button>' +
         '     </md-dialog-content>'+
         '  </form>'+
         '</md-dialog>';

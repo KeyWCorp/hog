@@ -44,6 +44,10 @@ angular.module('hog')
         }
 
         vm.script.name = vm.script.name.replace(/\s/g, "_");
+
+        console.log("BEFORE: " + JSON.stringify(vm.script, null, 2));
+
+
         Runner.create(vm.script)
           .then(
               function(data)

@@ -6,10 +6,10 @@
         <div layout="row">
           <md-input-container flex>
             <label>Name:</label>
-            <input ng-model="vm.script.name">
+            <input ng-model="script_name">
           </md-input-container>
 
-          <div flex layout-align="end" style="float:right;">
+          <div flex="60" layout-align="end" style="float:right;">
             <md-menu ng-show="!vm.edited">
               <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Execute</md-button>
               <md-menu-content width="4">
@@ -35,6 +35,8 @@
             <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="!vm.edited">Save</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export CSV</md-button>
+
             <md-input-container>
               <label>Version</label>
               <md-select ng-model="vm.version" md-on-close="getVersion()">
@@ -42,6 +44,8 @@
               </md-select>
                <md-button ng-disabled="vm.version != vm.latestVersion" ng-click="vm.bumpVersion()"></md-button>
             </md-input-container>
+
+
           </div>
 
         </div>
@@ -49,7 +53,7 @@
         <div layout="row" layout-align="start center">
           <md-input-container flex>
             <label>Pig Arguments</label>
-            <input ng-model="vm.args" aria-label="Pig Arguments">
+            <input ng-model="script_args" aria-label="Pig Arguments">
           </md-input-container>
         </div>
 
