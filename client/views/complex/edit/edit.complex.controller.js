@@ -59,6 +59,7 @@ angular.module('hog')
             function(data)
             {
               vm.script = data.json;
+              vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
               var strfy = _.flatMap(vm.script.args,
                                           function(n)
                                           {
@@ -69,9 +70,32 @@ angular.module('hog')
               console.log('vm args', vm.args);
               vm.script_data = vm.script.data;
               $scope.script_data = vm.script_data;
-
+              
             });
-
+      vm.getVersion = function()
+      {
+        if (vm.version != vm.currentVersion)
+        {
+          Runner.getVersion(vm.version)
+            .then(
+                function(data)
+                {
+                  vm.version = vm.currentVersion = data.json.version;
+                  vm.script = data.json;
+                   var strfy = _.flatMap(vm.script.args,
+                                          function(n)
+                                          {
+                    return [n.arg, n.input];
+                  });
+              
+                  vm.args = strfy.join(" ");
+                  console.log('vm args', vm.args);
+                  vm.script_data = vm.script.data;
+                  $scope.script_data = vm.script_data;
+                }
+            )
+        }
+      }
       vm.modes = ['Pig_Latin'];
       vm.themes = ['monokai', 'twilight', 'none'];
       vm.mode = vm.modes[0];

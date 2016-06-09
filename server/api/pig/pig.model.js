@@ -8,7 +8,21 @@ var path      = require('path');
 //var ds        = require('nedb');
 //var connect   = require('camo').connect;
 var Document  = require('camo').Document;
+var EmbeddedDocument  = require('camo').EmbeddedDocument;
 
+class version extends EmbeddedDocument {
+  constructor()
+  {
+    super();
+    this.version    = String;
+    this.current    = Boolean;
+    this.diff       = String;
+    this.timeStamp  = {
+      type: Date,
+      default: new Date().now()
+    };
+  }
+}
 class Pig extends Document {
   constructor()
   {
@@ -19,6 +33,7 @@ class Pig extends Document {
     this.args       = [];
     this.version    = String;
     this.script_loc = String;
+    this.history    = [version];
   }
   static collectionName() {
         return 'pig.data';
@@ -99,7 +114,7 @@ class Pig extends Document {
   }
   preSave()
   {
-    this.bump();
+    //this.bump();
   }
 }
 

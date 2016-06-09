@@ -119,6 +119,7 @@ exports.create = function (socket) {
         if (_ready)
         {
           var pig = Pig.create(JSON.parse(data));
+          pig.diff(null);
           pig.save()
             .then(
               function(obj)
@@ -148,7 +149,37 @@ exports.update = function (socket)
       {
         if (_ready)
         {
-          Pig.findOneAndUpdate({_id: data.id}, JSON.parse(data.obj), {upsert: true})
+          Pig.findOne({_id: data.id})
+            .then(
+              function(doc)
+              {
+                if(data.version != doc.version)
+                {
+                  doc.diff(data);
+                }
+                if(data.name != doc.name)
+                {
+                  doc.rename(data.name);
+                }
+                doc.update(data);
+                doc.save()
+                  .then(
+                    function(obj)
+                    {
+                      console.log('finished updating', obj);
+                      //if (err) { return handleError(socket, err); }
+                      socket.emit('update', buildResponse(200, obj.toJSON()));
+                    },
+                    function(err)
+                    {
+                      if (err) { return handleError(socket, err); }
+                    });               
+              },
+              function(err)
+              {
+                if (err) { return handleError(socket, err); }
+              });
+          /*Pig.findOneAndUpdate({_id: data.id}, JSON.parse(data.obj), {upsert: true})
             .then(
               function(obj)
               {
@@ -159,7 +190,7 @@ exports.update = function (socket)
               function(err)
               {
                 if (err) { return handleError(socket, err); }
-              });
+              });*/
         }
       });
 };

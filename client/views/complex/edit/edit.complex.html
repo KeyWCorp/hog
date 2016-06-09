@@ -37,9 +37,10 @@
             <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
             <md-input-container>
               <label>Version</label>
-        <md-select ng-model="vm.version" >
-            <md-option ng-value="vm.versions" ng-repeat="version in vm.versions">{{version}}</md-option>
-              <md-button ng-click="vm.bumpVersion()"></md-button>
+              <md-select ng-model="vm.version" md-on-close="getVersion()">
+                  <md-option ng-value="vm.versions" ng-repeat="version in vm.versions">{{version}}</md-option>
+              </md-select>
+               <md-button ng-disabled="vm.version != vm.latestVersion" ng-click="vm.bumpVersion()"></md-button>
             </md-input-container>
           </div>
 
