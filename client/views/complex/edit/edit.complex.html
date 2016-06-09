@@ -35,7 +35,20 @@
             <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="!vm.edited">Save</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
-            <md-button class="md-raised md-primary" ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export CSV</md-button>
+
+            <md-menu>
+              <md-button ng-click="$mdOpenMenu($event)" class="md-raised md-primary">
+                Download/Export
+              </md-button>
+              <md-menu-content flex width="4">
+                <md-menu-item>
+                  <md-button ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export Output To CSV</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-disabled="!vm.script.data" ng-click="vm.downloadScript()">Download Script</md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
           </div>
 
         </div>
