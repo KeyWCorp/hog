@@ -131,6 +131,19 @@ angular.module('hog')
 
 
 
+      vm.deleteScript = function()
+      {
+        Runner.destroy(vm.script._id)
+          .then(
+              function(data)
+              {
+                $state.go('^.list');
+              });
+      };
+
+
+
+
       vm.save = function(graph, numOutput, cb)
       {
 
@@ -568,6 +581,12 @@ function SettingsController( $mdDialog, $scope, vm)
   $scope.graph[$scope.graph_type] = true;
 
   $scope.graph_output_count = $scope.vm.script.graph_count;
+
+  $scope.deleteScript = function()
+  {
+    $scope.vm.deleteScript();
+    $scope.cancel();
+  };
 
   $scope.save = function()
   {
