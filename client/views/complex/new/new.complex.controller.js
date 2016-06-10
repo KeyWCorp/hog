@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('hog')
-.controller('NewComplexCtrl', function ($log, Runner, $mdToast, $state)
+.controller('NewComplexCtrl', function ($log, Runner, $mdToast, $state, PigCompleter)
     {
+
       var vm = this;
       angular.extend(vm, {
         name: 'NewComplexCtrl'
       });
       vm.modes = ['Pig_Latin'];
-      vm.themes = ['twilight', 'none'];
+      vm.themes = ['monokai', 'twilight', 'none'];
       vm.mode = vm.modes[0];
       vm.theme = vm.themes[0];
       vm.args = "";
@@ -27,12 +28,26 @@ angular.module('hog')
           console.log('session: ', _ace.getSession());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
         }
+        var langTools = ace.require("ace/ext/language_tools");
+        langTools.addCompleter(PigCompleter);
       };
+
+
+
       vm.onEditorChange = function(_ace)
       {
 
       };
+
+
+
+
       vm.editorOptions = {
+        advanced: {
+          enableSnippets: false,
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true
+        },
         mode: vm.mode.toLowerCase(),
         onLoad: function(_ace) {vm.onEditorLoad(_ace);},
         useWrapMode: true,
@@ -41,6 +56,20 @@ angular.module('hog')
         firstLineNumber: 1,
         onChange: vm.onEditorChange()
       };
+
+
+      vm.upload = function()
+      {
+        document.getElementById('fileInput').click();
+      };
+
+      vm.uploadScript = function($fileContent)
+      {
+        vm.script.data = $fileContent;
+      };
+
+
+
       vm.save = function()
       {
         vm.script.args = vm.args.split(" ");
@@ -52,10 +81,16 @@ angular.module('hog')
               {
                 vm.script = data.json;
                 // Place pop up for saved
-                $mdToast.showSimple('Settings Saved!');
+                $mdToast.show(
+                    $mdToast.simple()
+                    .content('Script Saved!')
+                    .hideDelay(3000)
+                    );
                 $state.go('^.edit', {id: vm.script._id});
               });
       }
+
+
 
       vm.run = function()
       {
@@ -98,11 +133,17 @@ angular.module('hog')
                 });
         }
       };
+
+
+
       vm.exists = function(item, list)
       {
         //$log.debug('Item, list', item, list);
         return list.indexOf(item) > -1;
       };
+
+
+
       vm.toggle = function(item, list)
       {
         var idx = list.indexOf(item);

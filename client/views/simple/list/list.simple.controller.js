@@ -1,17 +1,18 @@
 'use strict';
 
 angular.module('hog')
-.controller('ListSimpleCtrl', function ($log, $scope, $state, Runner, Pig, $mdDialog)
+.controller('ListSimpleCtrl', function ($log, $scope, $state, HogTemplates, Runner, Pig, $mdDialog)
     {
       var vm = this;
 
       vm.output_data = {};
       vm.running = false;
+      vm.current_running_id = "";
       vm.isRunning = {};
       vm.output = {};
 
       vm.modes = ['Pig_Latin'];
-      vm.themes = ['twilight', 'none'];
+      vm.themes = ['monokai', 'twilight', 'none'];
       vm.mode = vm.modes[0];
       vm.theme = vm.themes[0];
       vm.selectedArgs = [];
@@ -26,6 +27,7 @@ angular.module('hog')
           console.log('session: ', _ace.getSession());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
         }
+        _ace.$blockScrolling = Infinity;
       };
       vm.onEditorChange = function(_ace)
       {
@@ -60,6 +62,7 @@ angular.module('hog')
       Pig.on('run:finished', function ()
           {
             vm.running = false;
+            vm.current_running_id = "";
             Object.keys(vm.isRunning).map(function (key)
                 {
                   if (vm.isRunning[key] === true)
@@ -69,14 +72,27 @@ angular.module('hog')
                 });
           });
 
+
+      vm.kill = function(id)
+      {
+        Runner.kill(id)
+          .then(
+              function(data)
+              {
+                console.log("Killed: " + JSON.stringify(data, null, 2));
+              });
+      };
+
       vm.run = function(id, idx)
       {
         vm.output[id] = [];
         vm.running = true;
         vm.isRunning[id] = true;
+        vm.current_running_id = id;
 
         vm.scripts[idx].info_outputs = [];
         vm.scripts[idx].outputs = [];
+        vm.scripts[idx].pigList = [];
         vm.scripts[idx].logs = [];
         vm.scripts[idx].warnings = [];
         vm.scripts[idx].errors = [];
@@ -119,6 +135,9 @@ angular.module('hog')
                   if (update.data.json !== "null")
                   {
                     vm.scripts[idx].outputs.push(update.data.json);
+                    vm.parseOutput(idx, update.data.json);
+
+
                     vm.scripts[idx].info_outputs.push({data: update.data.json, type: "output", color: {'color': 'green.400'}});
                   }
                 }
@@ -128,6 +147,32 @@ angular.module('hog')
                   vm.scripts[idx].info_outputs.push({data: update.data.json, type: "error", color: {'color': 'red.400'}});
                 }
               });
+      };
+
+      vm.parseOutput = function (idx, data)
+      {
+        var failed = false;
+        try
+        {
+          var tmp_data = data
+            .replace(/\(/g, "[")
+            .replace(/\)/g, "]")
+            .replace(/(?:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(\w+\.*))/g, '"$1$2"');
+
+          var output_data = JSON.parse(tmp_data);
+        }
+        catch (err)
+        {
+          failed = true;
+        }
+        finally
+        {
+          if (!failed)
+          {
+            vm.scripts[idx].pigList.push(output_data);
+          }
+        }
+
       };
 
       vm.edit = function(id)
@@ -140,45 +185,27 @@ angular.module('hog')
         return JSON.stringify(d);
       };
 
+      vm.openGraphInfo = function(ev, idx)
+      {
+        $mdDialog.show({
+          template: HogTemplates.graphInfoTemplate,
+          controller: HogTemplates.GraphInfoController,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          bindToController: true,
+          locals: {
+            graph_data: vm.scripts[idx].pigList,
+            script: vm.scripts[idx]
+          },
+        });
+      };
+
       vm.openInfo = function(ev, idx, filter_type)
       {
         $mdDialog.show({
-          template:
-            '<md-dialog flex="80" ng-cloak>'+
-            '  <form>' +
-            '    <md-toolbar layout="column">'+
-            '      <div flex class="md-toolbar-tools">'+
-            '        <h2>Info<span ng-if="script_name"> for {{ script_name }}</span></h2>'+
-            '        <span flex></span>'+
-            '      </div>'+
-            '    </md-toolbar> '+
-            '    <md-toolbar>' +
-            '      <div flex class="md-toolbar">' +
-            '        <md-button class="md-raised md-primary" ng-disabled="info_outputs.length <= 0" ng-click="filterByAll()">Show All</md-button>' +
-            '        <md-button class="md-raised md-primary" ng-disabled="outputs.length <= 0" ng-click="filterByOutput()">Show Outputs</md-button>' +
-            '        <md-button class="md-raised md-primary" ng-disabled="logs.length <= 0" ng-click="filterByLog()">Show Logs</md-button>' +
-            '        <md-button class="md-raised md-primary" ng-disabled="warnings.length <= 0" ng-click="filterByWarning()">Show Warnings</md-button>' +
-            '        <md-button class="md-raised md-primary" ng-disabled="errors.length <= 0" ng-click="filterByError()">Show Errors</md-button>' +
-            '      </div>' +
-            '    </md-toolbar> '+
-            '    <md-dialog-content scroll-glue>'+
-            '      <div class="md-dialog-content">' +
-            '        <md-content flex layout-padding>' +
-            '          <md-list>' +
-            '            <md-list-item ng-repeat="data in filteredInfo()">' +
-            '              <span md-style-color="data.color">{{ data.data }}</span>' +
-            '            </md-list-item>' +
-            '          </md-list>' +
-            '        </md-content>' +
-            '      </div>' +
-            '      <md-divider ></md-divider>' +
-            '    </md-dialog-content>'+
-            '    <div class="md-actions" layout="row" layout-align="end center">' +
-            '      <md-button class="md-raised" ng-click="cancel()">Close</md-button>' +
-            '    </div>' +
-            '  </form>' +
-            '</md-dialog>',
-          controller: InfoController,
+          template: HogTemplates.outputInfoTemplate,
+          controller: HogTemplates.InfoController,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
           targetEvent: ev,
@@ -189,7 +216,10 @@ angular.module('hog')
             logs: vm.scripts[idx].logs,
             warnings: vm.scripts[idx].warnings,
             errors: vm.scripts[idx].errors,
-            filter_type: filter_type
+            filter_type: filter_type,
+            graph_data: vm.scripts[idx].pigList,
+            openGraphInfo: vm.openGraphInfo,
+            script_index: idx
           },
         });
       };
@@ -198,63 +228,3 @@ angular.module('hog')
         name: 'ListSimpleCtrl',
       });
     });
-
-
-
-// Controller for Info Modal
-function InfoController( $mdDialog, $scope, script_name, info_outputs, outputs, logs, warnings, errors, filter_type)
-{
-  $scope.script_name = script_name;
-  $scope.info_outputs = info_outputs;
-  $scope.outputs = outputs;
-  $scope.logs = logs;
-  $scope.warnings = warnings;
-  $scope.errors = errors;
-  $scope.filter_type = filter_type || "all";
-
-  console.log("NAME: " + $scope.script_name);
-
-  $scope.filteredInfo = function ()
-  {
-    return $scope.info_outputs.filter(function (info)
-    {
-      if ($scope.filter_type === "all")
-      {
-        return true;
-      } else
-      {
-        return info.type === $scope.filter_type;
-      }
-    });
-  };
-
-  $scope.filterByAll = function ()
-  {
-    $scope.filter_type = "all";
-  };
-
-  $scope.filterByOutput = function ()
-  {
-    $scope.filter_type = "output";
-  };
-
-  $scope.filterByLog = function ()
-  {
-    $scope.filter_type = "log";
-  };
-
-  $scope.filterByWarning = function ()
-  {
-    $scope.filter_type = "warning";
-  };
-
-  $scope.filterByError = function ()
-  {
-    $scope.filter_type = "error";
-  };
-
-  $scope.cancel = function()
-  {
-    $mdDialog.cancel();
-  };
-};

@@ -25,7 +25,7 @@
                   </div>
               </v-pane-header>
               <v-pane-content flex>
-                <div style="min-width: 900px;" ng-show="pig.data" readonly ui-ace="vm.editorOptions" ng-model="pig.data" flex></div>
+                <div style="min-width: 900px;" readonly ui-ace="vm.editorOptions" ng-model="pig.data" flex></div>
               </v-pane-content>
             </v-pane>
           </v-accordion>
@@ -72,13 +72,21 @@
             </div>
             <span flex></span>
             <div layout="row" layout-align="end center" flex>
-              <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(pig._id, $index)">
+              <md-button class="md-primary md-raised" ng-disabled="vm.running" ng-show='!vm.running || vm.current_running_id !== pig._id' ng-click="vm.run(pig._id, $index)">
                 Run
+              </md-button>
+              <md-button class="md-raised md-warn" ng-click="vm.kill(pig._id)" ng-show="vm.running && vm.current_running_id === pig._id">
+                Kill
               </md-button>
               <md-button class="md-primary md-raised" ng-click="vm.edit(pig._id)">
                 Edit
               </md-button>
             </div>
+          </div>
+          <div flex layout="column" layout-padding ng-if="pig.pigList.length > 0">
+            <md-button flex ng-click="vm.openGraphInfo($event, $index)">
+              Show Graph Info: #{{ pig.pigList.length }}
+            </md-button>
           </div>
         </md-card>
       </div>

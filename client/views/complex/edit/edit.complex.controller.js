@@ -2,24 +2,22 @@
 
 angular.module('hog')
 
-.controller('EditComplexCtrl', function ($log, $state, $stateParams, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog)
+.controller('EditComplexCtrl', function ($scope, $log, $state, $stateParams, HogTemplates, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog, PigCompleter, FileSaver, Blob)
     {
       var vm = this;
-      vm.script =  Runner.getData();
+      //vm.script =  Runner.getData();
 
       var ctx;
       var myNewChart;
 
       // Graphs are not displayed initially
-      vm.showGraph = false;
-      vm.showLine = false;
-      vm.bar = false;
-      vm.radar = false;
-      vm.pie = false;
       vm.outputs = [];
       vm.graph_data = false;
 
-
+      vm.edited = false;
+      vm.name_edited = false;
+      vm.args_edited = false;
+      vm.script_edited = false;
 
       vm.taskList = [];
       vm.running = false;
@@ -52,120 +50,29 @@ angular.module('hog')
         vm.data[0] = t;
       };
 
-      // Display the Bar Graph
-      vm.showBarGraph = function()
-      {
-        if (myNewChart) {
-          myNewChart.destroy();
-        }
-
-        vm.showGraph = true;
-        ctx = document.getElementById("myChart").getContext("2d");
-        myNewChart = new Chart(ctx).Bar(vm.total_data);
-        myNewChart.resize();
-      };
-
-      // Display the Radar Chart
-      vm.showRadarChart = function()
-      {
-        if (myNewChart) {
-          myNewChart.destroy();
-        }
-
-        vm.showGraph = true;
-        ctx = document.getElementById("myChart").getContext("2d");
-        myNewChart = new Chart(ctx).Radar(vm.total_data);
-        myNewChart.resize();
-      };
-
-      // Display the Line Graph
-      vm.showLineGraph = function()
-      {
-        if (myNewChart) {
-          myNewChart.destroy();
-        }
-
-        vm.showGraph = true;
-        ctx = document.getElementById("myChart").getContext("2d");
-        myNewChart = new Chart(ctx).Line(vm.total_data);
-        myNewChart.resize();
-      };
-      // Display the Pie Graph
-      vm.showLPieChart = function()
-      {
-        if (myNewChart) {
-          myNewChart.destroy();
-        }
-
-        vm.showGraph = true;
-        ctx = document.getElementById("myChart").getContext("2d");
-        myNewChart = new Chart(ctx).Pie(vm.total_data);
-        myNewChart.resize();
-      };
-
-      // User selects values from table,
-      // set vm.data equal to the changes
-      vm.onChange = function()
-      {
-
-        vm.data = [[]];
-        vm.labels = [];
-
-        var keys = Object.keys(vm.testData[0]);
-        keys = keys.slice(0, keys.length - 1);
-
-        for (var i = 0; i < vm.testData.length; i++) {
-          var data = vm.testData[i];
-          vm.labels.push(data[keys[0]]);
-          vm.data[0].push(parseFloat(data[keys[1]]));
-        };
-
-        if (myNewChart) {
-          myNewChart.destroy();
-        }
-
-        vm.total_data = {
-          labels: vm.labels,
-          datasets: [
-          {
-            labels: "kevins",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: vm.data[0]
-          }
-          ]
-        };
-        vm.showGraph = true;
-
-      };
-
       var _ = lodash;
       angular.extend(this, {
         name: 'EditComplexCtrl',
         running: false
       });
-      vm.saveRowCallback = function(row){
-        $mdToast.show(
-            $mdToast.simple()
-            .content('Row changed to: '+row)
-            .hideDelay(3000)
-            );
-      };
-
 
       Runner.get($stateParams.id)
         .then(
             function(data)
             {
+
               vm.script = data.json;
               vm.args = vm.script.args.join(" ");
+              console.log('vm args', vm.args);
+
+              $scope.script_data = vm.script.data;
+              $scope.script_name = vm.script.name;
+              $scope.script_args = vm.args;
+
             });
+
       vm.modes = ['Pig_Latin'];
-      vm.themes = ['twilight', 'none'];
+      vm.themes = ['monokai', 'twilight', 'none'];
       vm.mode = vm.modes[0];
       vm.theme = vm.themes[0];
       vm.selectedArgs = [];
@@ -179,18 +86,31 @@ angular.module('hog')
 
       vm.onEditorLoad = function(_ace)
       {
+        //_ace.setKeyboardHandler("ace/keyboard/vim");
         vm.modeChanged = function () {
           console.log('changing mode to: ' + vm.mode.toLowerCase());
           console.log('ace: ', _ace);
           console.log('session: ', _ace.getSession());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
-        }
+        };
+        _ace.$blockScrolling = Infinity;
+        var langTools = ace.require("ace/ext/language_tools");
+        langTools.addCompleter(PigCompleter);
       };
       vm.onEditorChange = function(_ace)
       {
 
       };
+
+
+
+
       vm.editorOptions = {
+        advanced: {
+          enableSnippets: false,
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true
+        },
         mode: vm.mode.toLowerCase(),
         onLoad: function(_ace) {vm.onEditorLoad(_ace);},
         useWrapMode: false,
@@ -199,46 +119,97 @@ angular.module('hog')
         firstLineNumber: 1,
         onChange: vm.onEditorChange()
       };
-      vm.save = function(graph, numOutput)
-      {
-        console.log('in vm .save', graph);
-        vm.script.numOutput = numOutput;
-        vm.script.args = vm.args.split(" ");
 
-        if(graph == 'bar')
-        {
-          vm.script.bar = true;
-          vm.script.line = false;
-          vm.script.radar = false;
-        }
-        if(graph == 'line')
-        {
-          vm.script.bar = false;
-          vm.script.line = true;
-          vm.script.radar = false;
-        }
-        if(graph == 'radar')
-        {
-          vm.script.bar = false;
-          vm.script.line = false;
-          vm.script.radar = true;
-        }
+
+
+      vm.downloadScript = function()
+      {
+        var data = new Blob([vm.script.data], {type: 'text/plain;charset=utf-8'});
+        FileSaver.saveAs(data, vm.script.name + ".pig");
+      };
+
+
+
+
+      vm.save = function(graph, numOutput, cb)
+      {
+
+        vm.script.data = $scope.script_data;
+        vm.script.name = $scope.script_name.replace(/[\s]/g, "_");
+        vm.script.args = $scope.script_args.split(" ");
+
+        console.log('in vm .save', graph, numOutput);
+        vm.script.graph_count = numOutput;
+        vm.script.graph_type = graph;
 
         Runner.update(vm.script)
           .then(
               function(data)
               {
                 $log.debug('saved: ' + data);
+
+                vm.script = data.json;
+                vm.args = vm.script.args.join(" ");
+
+                $scope.script_data = vm.script.data;
+                $scope.script_name = vm.script.name;
+                $scope.script_args = vm.args;
+
+                vm.edited = false;
+
+                vm.name_edited = false;
+                vm.args_edited = false;
+                vm.script_edited = false;
+
+
+                $mdToast.show(
+                  $mdToast.simple()
+                  .content('Script Saved!')
+                  .hideDelay(3000)
+                );
+                if (cb)
+                {
+                  cb();
+                }
               },
               function(err)
               {
                 $log.error('error: ' +err);
               });
-      }
+      };
+
+
+
+
       vm.canceled = function(id) {
         $state.go('home.complex.list');
+      };
 
-      }
+
+
+      vm.saveAndRun = function()
+      {
+        vm.save(null, null, vm.run);
+      };
+
+
+
+      vm.saveAndRunAndTrack = function()
+      {
+        vm.save(null, null, vm.runAndTrack);
+      };
+
+
+      vm.kill = function()
+      {
+        Runner.kill(vm.script._id)
+          .then(
+              function(data)
+              {
+                console.log("Killed: " + JSON.stringify(data, null, 2));
+              });
+      };
+
       vm.run = function()
       {
         vm.taskList = [];
@@ -246,7 +217,6 @@ angular.module('hog')
         vm.pigList = [];
         vm.running = true;
         vm.graph_data = false;
-        vm.graph_panes.collapseAll();
 
         $log.debug('running: ', vm.script._id);
 
@@ -294,6 +264,8 @@ angular.module('hog')
                   {
                     vm.outputs.push(update.data.json);
                     vm.info_outputs.push({data: update.data.json, type: "output", color: {'color': 'green.400'}});
+
+                    vm.parseOutput(update.data.json);
                   }
                 }
                 else if (update.type == 'error')
@@ -303,6 +275,9 @@ angular.module('hog')
                 }
               });
       };
+
+
+
       vm.runAndTrack = function()
       {
         vm.taskList = [];
@@ -365,7 +340,7 @@ angular.module('hog')
 
                     vm.outputs.push(tmp_output);
                     vm.info_outputs.push({data: tmp_output, type: "output", color: {'color': 'green.400'}});
-                    vm.pigList.push(update.data.json);
+                    vm.parseOutput(tmp_output);
                     vm.graph_data = true;
                   }
                 }
@@ -376,6 +351,10 @@ angular.module('hog')
                 }
               });
       };
+
+
+
+
       vm.exists = function(item, list)
       {
         if(angular.isDefined(list) && angular.isDefined(item))
@@ -387,6 +366,10 @@ angular.module('hog')
           return false;
         }
       };
+
+
+
+
       vm.toggle = function(item, list)
       {
         if(angular.isDefined(list) && angular.isDefined(item))
@@ -396,49 +379,137 @@ angular.module('hog')
           else list.push(item);
         }
       };
+
+
+
+
       vm.index = function(list, item)
       {
         var indx = _.findIndex(list, 'arg', item);
         return indx;
-      }
+      };
+
+
+
+      vm.parseOutput = function (data)
+      {
+        var failed = false;
+        try
+        {
+          var tmp_data = data
+            .replace(/\(/g, "[")
+            .replace(/\)/g, "]")
+            .replace(/(?:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(\w+\.*\w*))/g, '"$1$2"');
+
+          var output_data = JSON.parse(tmp_data);
+        }
+        catch (err)
+        {
+          failed = true;
+        }
+        finally
+        {
+          if (!failed)
+          {
+            vm.pigList.push(output_data);
+          }
+        }
+
+      };
+
+
+      $scope.$watch("script_name", function(newValue, oldValue)
+      {
+        if (vm.script)
+        {
+          if (vm.script.name !== "undefined")
+          {
+            if (newValue !== vm.script.name)
+            {
+              vm.name_edited = true;
+            }
+            else
+            {
+              vm.name_edited = false;
+            }
+            updateEdit();
+          }
+        }
+      });
+
+
+
+
+      $scope.$watch("script_args", function(newValue, oldValue)
+      {
+        if (vm.args !== "undefined")
+        {
+          if (newValue !== vm.args)
+          {
+            vm.args_edited = true;
+          }
+          else
+          {
+            vm.args_edited = false;
+          }
+          updateEdit();
+        }
+      });
+
+
+
+
+      $scope.$watch("script_data", function(newValue, oldValue)
+      {
+        if (vm.script)
+        {
+          if (vm.script.data !== "undefined")
+          {
+            if (newValue !== vm.script.data)
+            {
+              vm.script_edited = true;
+            }
+            else
+            {
+              vm.script_edited = false;
+            }
+            updateEdit();
+          }
+        }
+      });
+
+
+
+      function updateEdit ()
+      {
+        vm.edited = vm.name_edited || vm.args_edited || vm.script_edited;
+      };
+
+
+
+      vm.openGraphInfo = function(ev, graph_data, script)
+      {
+        $mdDialog.show({
+          template: HogTemplates.graphInfoTemplate,
+          controller: HogTemplates.GraphInfoController,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          bindToController: true,
+          locals: {
+            graph_data: graph_data || vm.pigList,
+            script: script || vm.script
+          },
+        });
+      };
+
+
 
       vm.openInfo = function(ev, filter_type)
       {
         $mdDialog.show({
-          template:
-            '<md-dialog flex="80" ng-cloak>'+
-            '  <form>' +
-            '    <md-toolbar layout="column">'+
-            '      <div flex class="md-toolbar-tools">'+
-            '        <h2>Info<span ng-if="script_name"> for {{ script_name }}</span></h2>'+
-            '        <span flex></span>'+
-            '      </div>'+
-            '    </md-toolbar> '+
-            '    <md-toolbar>' +
-            '      <div flex class="md-toolbar">' +
-            '        <md-button class="md-raised md-primary" ng-disabled="info_outputs.length <= 0" ng-click="filterByAll()">Show All</md-button>' +
-            '        <md-button class="md-raised md-primary" ng-disabled="outputs.length <= 0" ng-click="filterByOutput()">Show Outputs</md-button>' +
-            '        <md-button class="md-raised md-primary" ng-disabled="logs.length <= 0" ng-click="filterByLog()">Show Logs</md-button>' +
-            '        <md-button class="md-raised md-primary" ng-disabled="warnings.length <= 0" ng-click="filterByWarning()">Show Warnings</md-button>' +
-            '        <md-button class="md-raised md-primary" ng-disabled="errors.length <= 0" ng-click="filterByError()">Show Errors</md-button>' +
-            '      </div>' +
-            '    </md-toolbar> '+
-            '    <md-dialog-content scroll-glue>'+
-            '      <md-content flex layout-padding>' +
-            '        <md-list>' +
-            '          <md-list-item ng-repeat="data in filteredInfo()">' +
-            '            <span md-style-color="data.color">{{ data.data }}</span>' +
-            '          </md-list-item>' +
-            '        </md-list>' +
-            '      </md-content>' +
-            '      <md-divider ></md-divider>' +
-            '    </md-dialog-content>'+
-            '    <div class="md-actions" layout="row" layout-align="end center">' +
-            '      <md-button class="md-raised" ng-click="cancel()">Close</md-button>' +
-            '    </div>' +
-            '  </form>' +
-            '</md-dialog>',
-          controller: InfoController,
+          template: HogTemplates.outputInfoTemplate,
+          controller: HogTemplates.InfoController,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
           targetEvent: ev,
@@ -449,10 +520,14 @@ angular.module('hog')
             logs: vm.logs,
             warnings: vm.warnings,
             errors: vm.errors,
-            filter_type: filter_type
+            filter_type: filter_type,
+            graph_data: vm.pigList,
+            openGraphInfo: vm.openGraphInfo,
+            script_index: null
           },
         });
       };
+
 
 
       vm.openSettings = function(ev)
@@ -460,41 +535,7 @@ angular.module('hog')
 
         $mdDialog.show({
           controller: SettingsController,
-          template:
-            '<md-dialog ng-cloak>'+
-            '  <form>'+
-            '    <md-toolbar>'+
-            '      <div class="md-toolbar-tools">'+
-            '        <h2>Graph Settings</h2>'+
-            '        <span flex></span>'+
-            '      </div>'+
-            '    </md-toolbar>'+
-            '    <md-dialog-content>'+
-            '      <div class="md-dialog-content">'+
-            '        <legend>How would you like to view your output?</legend>'+
-            '        <div layout="column" layout-align="center start">'+
-            '          <md-checkbox ng-disabled="vm.script.line || vm.script.radar"  ng-model="vm.script.bar" >'+
-            '            Bar Graph '+
-            '          </md-checkbox>'+
-            '          <md-checkbox ng-disabled="vm.script.bar || vm.script.radar"  ng-model="vm.script.line" >'+
-            '            Line Graph '+
-            '          </md-checkbox>'+
-            '          <md-checkbox ng-disabled="vm.script.bar || vm.script.line"  ng-model="vm.script.radar">'+
-            '            Radar Graph'+
-            '          </md-checkbox>'+
-            '        </div>'+
-            '      </div>'+
-            '      <md-input-container class="md-block">'+
-            '        <div required > ' +
-            '          <label>Enter the number of desired outputs</label>'+
-            '          <input ng-model="vm.script.numOutput">'+
-            '        </div>'+
-            '      </md-input-container>'+
-            '      <md-button class="md-raised md-primary" ng-click="cancel()">Close</md-button>' +
-            '      <md-button class="md-raised md-primary" ng-click="save(vm.script)">Save</md-button>' +
-            '     </md-dialog-content>'+
-            '  </form>'+
-            '</md-dialog>',
+          template: HogTemplates.complexEditSettingsTemplate,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
           targetEvent: ev,
@@ -502,7 +543,7 @@ angular.module('hog')
 
         });
 
-      }
+      };
 
     });
 
@@ -515,76 +556,39 @@ function SettingsController( $mdDialog, $scope, vm)
   {
     $mdDialog.cancel();
   };
-  $scope.save = function(script)
+
+
+  $scope.graph = {
+    Bar: false,
+    Line: false,
+    Radar: false
+  };
+
+  $scope.graph_type = $scope.vm.script.graph_type || "Bar";
+  $scope.graph[$scope.graph_type] = true;
+
+  $scope.graph_output_count = $scope.vm.script.graph_count;
+
+  $scope.save = function()
   {
-    if(script.bar == true)
+    if ($scope.graph.Bar)
     {
-      $scope.vm.save('bar', script.numOutput);
+      $scope.graph_type = "Bar";
     }
-    if(script.line == true)
+    else if ($scope.graph.Line)
     {
-      $scope.vm.save('line', script.numOutput);
+      $scope.graph_type = "Line";
     }
-    if(script.radar == true)
+    else if ($scope.graph.Radar)
     {
-      $scope.vm.save('radar', script.numOutput);
+      $scope.graph_type = "Radar";
     }
+    else
+    {
+      $scope.graph_type = "Bar";
+    }
+
+    $scope.vm.save($scope.graph_type, $scope.graph_output_count);
     $scope.cancel();
   }
-};
-
-// Controller for Info Modal
-function InfoController( $mdDialog, $scope, script_name, info_outputs, outputs, logs, warnings, errors, filter_type)
-{
-  $scope.script_name = script_name;
-  $scope.info_outputs = info_outputs;
-  $scope.outputs = outputs;
-  $scope.logs = logs;
-  $scope.warnings = warnings;
-  $scope.errors = errors;
-  $scope.filter_type = filter_type || "all";
-
-  $scope.filteredInfo = function ()
-  {
-    return $scope.info_outputs.filter(function (info)
-    {
-      if ($scope.filter_type === "all")
-      {
-        return true;
-      } else
-      {
-        return info.type === $scope.filter_type;
-      }
-    });
-  };
-
-  $scope.filterByAll = function ()
-  {
-    $scope.filter_type = "all";
-  };
-
-  $scope.filterByOutput = function ()
-  {
-    $scope.filter_type = "output";
-  };
-
-  $scope.filterByLog = function ()
-  {
-    $scope.filter_type = "log";
-  };
-
-  $scope.filterByWarning = function ()
-  {
-    $scope.filter_type = "warning";
-  };
-
-  $scope.filterByError = function ()
-  {
-    $scope.filter_type = "error";
-  };
-
-  $scope.cancel = function()
-  {
-    $mdDialog.cancel();
-  };
 };

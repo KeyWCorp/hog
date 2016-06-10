@@ -1,21 +1,28 @@
 <md-content>
-    <section id="input">
-        <md-input-container layout-padding>
-            <label>Name:</label>
-            <input ng-model="vm.script.name">
+  <form name="scriptForm">
+    <section layout="column" id="input">
+      <md-input-container layout-padding>
+        <label>Name:</label>
+        <input required ng-model="vm.script.name">
+      </md-input-container>
+
+      <md-input-container layout-padding>
+        <label>Pig Arguments:</label>
+        <input ng-model="vm.args">
+      </md-input-container>
+      <div ui-ace="vm.editorOptions" ng-model="vm.script.data"></div>
+      <div layout="row" layout-padding>
+        <md-input-container flex layout-padding>
+          <md-button ng-disabled="!vm.script.data || scriptForm.$invalid" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
         </md-input-container>
 
-        <md-input-container layout-padding>
-          <label>Pig Arguments:</label>
-          <input ng-model="vm.args">
+        <input id="fileInput" type="file" ng-hide="true" on-read-file="vm.uploadScript($fileContent)">
+        <md-input-container flex layout-padding>
+          <md-button class="md-raised md-primary" ng-click="vm.upload()">
+            Upload Script
+          </md-button>
         </md-input-container>
-
-        <div ui-ace="vm.editorOptions" ng-model="vm.script.data">
-
-        </div>
-
-        <md-input-container layout-padding>
-          <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
-        </md-input-container>
+      </div>
     </section>
+  </form>
 </md-content>

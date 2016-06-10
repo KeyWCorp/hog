@@ -128,20 +128,26 @@ angular.module('pig.pig-flow-templates', [])
 
                   if (i >= self.raw_link_list.length - 1)
                   {
-                    self.node_list.forEach(function (node)
+                    self.node_list.forEach(function (node, i)
                         {
                           self.sortList(node);
-                          cb();
+                          if (i >= self.node_list.length - 1)
+                          {
+                            cb();
+                          }
                         });
                   }
                 });
           }
           else
           {
-            self.node_list.forEach(function (node)
+            self.node_list.forEach(function (node, i)
                 {
                   self.sortList(node);
-                  cb();
+                  if (i >= self.node_list.length - 1)
+                  {
+                    cb();
+                  }
                 });
           }
 
@@ -276,10 +282,6 @@ angular.module('pig.pig-flow-templates', [])
 
       var main_template =
         "<md-content class='md-padding' flex layout='row'>"
-        + "  <md-button class='md-raised md-primary' ng-click='updateScript()'>"
-        + "    Update Script"
-        + "  </md-button>"
-        + ""
         + "  <span flex></span>"
         + ""
         + "  <md-button class='md-fab' aria-label='Add' ng-click='toggleNodeList()'>"
@@ -377,7 +379,7 @@ angular.module('pig.pig-flow-templates', [])
             value: ""
           },
           {
-            name: "seperator",
+            name: "separator",
             value: ""
           }],
           description: "Load from a source",
@@ -395,9 +397,9 @@ angular.module('pig.pig-flow-templates', [])
             variables: [
               "source",
               "format",
-              "seperator"
+              "separator"
             ],
-            content: "<output_variable> = LOAD '<source>' USING PigStorage('<seperator>') AS <format>;"
+            content: "<output_variable> = LOAD '<source>' USING PigStorage('<separator>') AS <format>;"
           }
         },
         {

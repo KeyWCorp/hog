@@ -3,7 +3,7 @@
 var fs = require('fs');
 var Settings = require('./settings.model');
 var logger = require('../../config/logger.js');
-
+var _ready = false;
 /* Set up response functions */
 function handleError (socket, err) {
   return socket.emit('settings:error', {status: 500, json: err});
@@ -36,6 +36,12 @@ exports.init = function (socket)
     {
         socket.emit('Settings:removed', obj);
     }
+    
+    Settings.init(
+        function(err, db)
+        {
+          _ready = true;
+        });
 }
 /**
  * Get list of Settings
@@ -50,13 +56,21 @@ exports.index = function (socket) {
         {
             //console.log('Index requested');
             logger.debug('Index requested');
-            Settings.list(
-                function (err, settings)
-                {
-                    if (err) { return handleError(socket, err); }
-                    logger.debug('index sent', settings);
+            if (_ready)
+            {
+              var Settin = Settings.Setting;
+              Settin.find({})
+                .then(
+                  function (settings)
+                  {
+                    logger.debug('index sent settings:', settings);
                     socket.emit('index', buildResponse(200, settings));
-                });
+                  },
+                  function (err)
+                  {
+                    if (err) { return handleError(socket, err); }
+                  });
+            }
         });
 };
 
@@ -71,12 +85,19 @@ exports.show = function (socket) {
     socket.on('show',
         function(id)
         {
-           Settings.find(id,
-                function(err, obj)
+          if (_ready)
+          {
+            Settings.Setting.findOne({name: id})
+              .then(
+                function(obj)
                 {
-                    if (err) { return handleError(socket, err); }
-                    socket.emit('show', buildResponse(200, obj));
+                    socket.emit('show', buildResponse(200, obj.toJSON()));
+                },
+                function(err)
+                {
+                   if (err) { return handleError(socket, err); }
                 });
+          }
         });
 };
 
@@ -91,13 +112,22 @@ exports.create = function (socket) {
     socket.on('create',
         function(data)
         {
-            Settings.create(data,
-                function(err, obj)
+          if (_ready)
+          {
+            var setting = Settings.Setting.create(JSON.parse(data))
+            setting.save()
+              .then(
+                function(obj)
                 {
                     logger.debug('creating obj:', obj);
-                    if (err) { return handleError(socket, err); }
-                    socket.emit('create', buildResponse(201, obj));
+                    //if (err) { return handleError(socket, err); }
+                    socket.emit('create', buildResponse(201, obj.toJSON()));
+                },
+                function(err)
+                {
+                   if (err) { return handleError(socket, err); }
                 });
+          }
         });
 };
 
@@ -114,14 +144,22 @@ exports.update = function (socket)
     socket.on('update',
         function(data)
         {
-          logger.debug('updating', data);
-            Settings.update(data.id, data.obj,
-                function(err, obj)
+          if (_ready)
+          {
+            logger.debug('updating', data);
+            Settings.Setting.findOneAndUpdate({_id: data.id}, JSON.parse(data.obj), {upsert: true})
+              .then(
+                function(obj)
                 {
                     logger.debug('finished updating', err, obj);
-                    if (err) { return handleError(socket, err); }
-                    socket.emit('update', buildResponse(200, obj));
+                    //if (err) { return handleError(socket, err); }
+                    socket.emit('update', buildResponse(200, obj.toJSON()));
+                },
+                function(err)
+                {
+                   if (err) { return handleError(socket, err); };
                 });
+          }
         });
  };
 
@@ -135,12 +173,20 @@ exports.destroy = function (socket) {
     socket.on('destroy',
         function(id)
         {
-            Settings.remove(id,
+          if (_ready)
+          {
+            Settings.Setting.deleteOne({_id: id})
+              .then(
                 function(err)
                 {
-                    if (err) { return handleError(socket, err); }
+                    //if (err) { return handleError(socket, err); }
                     socket.emit('destroy', buildResponse(204, {}));
+                },
+                function(err)
+                {
+                   if (err) { return handleError(socket, err); }
                 });
+          }
         });
 };
 

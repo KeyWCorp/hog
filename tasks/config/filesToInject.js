@@ -12,6 +12,8 @@ module.exports = [
   'client/views/**/*.js', '!client/views/**/*.spec.js',
   '!client/views/**/*.e2e.js',
 
+  'client/bower_components/ace-builds/src-min-noconflict/ext-language_tools.js',
+
   // custom text colors
   'client/services/mdColors/mdColors.js',
 

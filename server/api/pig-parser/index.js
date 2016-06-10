@@ -12,7 +12,7 @@ var decoder = new StringDecoder('utf8');
  *
  *
  */
-function run(input_args, script_location, stdOut, stdError, stdLog, stdWarning, finishedCallback)
+function run(input_args, script_location, stdOut, stdError, stdLog, stdWarning, finishedCallback, killCB)
 {
   var pig_args = input_args;
   pig_args.push(script_location);
@@ -21,6 +21,8 @@ function run(input_args, script_location, stdOut, stdError, stdLog, stdWarning, 
   {
     env: process.env
   });
+
+  killCB(pig);
 
   var re;
   var variable_info;
@@ -54,9 +56,9 @@ function run(input_args, script_location, stdOut, stdError, stdLog, stdWarning, 
     {
       var data_list = decoder.write(chunk).split("\n");
 
-      var warn_re = /^[\s\S]*WARN[\s\S]*$/gm;
-      var error_re = /^[\s\S]*ERROR[\s\S]*$/gm;
-      var info_re = /^[\s\S]*INFO[\s\S]*$/gm;
+      var warn_re = /^(?:WARNING|[\s\S]+\sWARN)[\s\S]*$/gm;
+      var error_re = /^[\s\S]+\sERROR[\s\S]*$/gm;
+      var info_re = /^[\s\S]+\sINFO[\s\S]*$/gm;
       var task_re = /(\d+-\d+-\d+)\s(\d+:\d+:\d+),(\d+)\s\[([a-z]*)\]\s([A-Z]+)\s*((?:[a-zA-Z]|\d|\.)+)\s-\s((?:\w|\W)+)/;
 
       data_list.forEach(
@@ -74,12 +76,10 @@ function run(input_args, script_location, stdOut, stdError, stdLog, stdWarning, 
           }
           else
           {
-            var info_match = data.match(info_re);
-            if (info_match)
+            if (data)
             {
               stdLog(data);
             }
-
           }
         });
     });
@@ -107,7 +107,7 @@ function run(input_args, script_location, stdOut, stdError, stdLog, stdWarning, 
  *
  *
  */
-function trackTasks(input_args, script_location, stdOut, stdError, stdLog, stdWarning, taskTracker, finished_callback)
+function trackTasks(input_args, script_location, stdOut, stdError, stdLog, stdWarning, taskTracker, finished_callback, killCB)
 {
 
   var output_script_location = script_location + ".pig";
@@ -196,7 +196,7 @@ function trackTasks(input_args, script_location, stdOut, stdError, stdLog, stdWa
                 getOutputSynchronously(j);
               }
 
-            }, stdOut, stdError, stdLog, stdWarning);
+            }, stdOut, stdError, stdLog, stdWarning, killCB);
         }
       }
       runSynchronously(i);
@@ -222,7 +222,7 @@ function trackTasks(input_args, script_location, stdOut, stdError, stdLog, stdWa
               {
                 finished_callback();
               }
-            }, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list);
+            }, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list, killCB);
         }
       }
 
@@ -235,7 +235,7 @@ function trackTasks(input_args, script_location, stdOut, stdError, stdLog, stdWa
  *
  *
  */
-function writeRunTrack(input_args, output_list, command, callback, stdOut, stdError, stdLog, stdWarning)
+function writeRunTrack(input_args, output_list, command, callback, stdOut, stdError, stdLog, stdWarning, killCB)
 {
   var final_regex = {};
 
@@ -271,7 +271,7 @@ function writeRunTrack(input_args, output_list, command, callback, stdOut, stdEr
             variable: command.variable,
             count: count
           });
-        }, stdOut, stdError, stdLog, stdWarning);
+        }, stdOut, stdError, stdLog, stdWarning, killCB);
     });
 }
 
@@ -282,7 +282,7 @@ function writeRunTrack(input_args, output_list, command, callback, stdOut, stdEr
  *
  *
  */
-function pigGetTasks(input_args, script_location, callback, stdOut, stdError, stdLog, stdWarning)
+function pigGetTasks(input_args, script_location, callback, stdOut, stdError, stdLog, stdWarning, killCB)
 {
 
   var map_plan_re = /^\#\sMap\sReduce\sPlan\s*$/;
@@ -386,7 +386,7 @@ function pigGetTasks(input_args, script_location, callback, stdOut, stdError, st
  * delete the file
  *
  */
-function writeAndRun(input_args, output_list, command, callback, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list)
+function writeAndRun(input_args, output_list, command, callback, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list, killCB)
 {
   var final_regex = {};
 
@@ -417,7 +417,7 @@ function writeAndRun(input_args, output_list, command, callback, stdOut, stdErro
               if (err) throw err;
             });
           callback(output_obj);
-        }, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list);
+        }, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list, killCB);
     });
 }
 
@@ -428,7 +428,7 @@ function writeAndRun(input_args, output_list, command, callback, stdOut, stdErro
  * Function to run the pig script
  *
  */
-function pigGetOutput(input_args, script_location, callback, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list)
+function pigGetOutput(input_args, script_location, callback, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list, killCB)
 {
 
   var output_list = [];
