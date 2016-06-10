@@ -105,9 +105,14 @@
         <v-pane-content>
           <div flex layout="column" layout-padding>
             <div ui-ace="vm.editorOptions" readonly ng-model="vm.script.data" style="height: 400px;"></div>
-            <md-button class="md-raised" flex ng-click="vm.editComplex()">
-              Edit Complex Script
-            </md-button>
+            <div flex layout="row" layout-padding>
+              <md-button flex class="md-raised" flex ng-click="vm.editComplex()">
+                Edit Complex Script
+              </md-button>
+              <md-button flex class="md-raised md-warn" ng-click="vm.deleteScript($event)">
+                Delete
+              </md-button>
+            </div>
           </div>
         </v-pane-content>
       </v-pane>

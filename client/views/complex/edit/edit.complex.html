@@ -34,7 +34,6 @@
             </md-menu>
             <md-button class="md-raised md-warn" ng-click="vm.kill()" ng-show="vm.running">Kill</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="!vm.edited">Save</md-button>
-            <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
 
             <md-menu>
@@ -96,6 +95,7 @@
 
 
         <div ui-ace="vm.editorOptions" ng-model="script_data" style="height: 600px;"></div>
+
         <div class="container" ng-class="{'visible' : !vm.running}">
           <md-progress-linear ng-if="vm.start" md-mode="indeterminate"></md-progress-linear>
 

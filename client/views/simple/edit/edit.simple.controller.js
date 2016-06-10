@@ -167,6 +167,25 @@ angular.module('hog')
         $state.go('home.complex.edit', {id: vm.script._id});
       };
 
+
+      vm.deleteScript = function(ev)
+      {
+        $mdDialog.show({
+          template: HogTemplates.deleteDialogTemplate,
+          controller: HogTemplates.DeleteDialogController,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            script_id: vm.script._id,
+            cb: function (data)
+            {
+              $state.go('^.list');
+            }
+          },
+        });
+      };
+
       vm.save = function (cb)
       {
         vm.script.args = $scope.script_args.split(" ");

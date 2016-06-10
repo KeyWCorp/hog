@@ -347,6 +347,46 @@ angular.module('hog.hog-templates', [])
         };
       };
 
+
+
+      // Controller for Info Modal
+      function DeleteDialogController(
+          $mdDialog,
+          $scope,
+          Runner,
+          script_id,
+          cb)
+      {
+        $scope.script_id = script_id;
+
+        $scope.deleteScript = function ()
+        {
+          Runner.destroy($scope.script_id)
+            .then(
+                function(data)
+                {
+                  Runner.list()
+                    .then(
+                        function(data)
+                        {
+                          console.log("Deleted script");
+                          cb();
+                          $mdDialog.cancel();
+                        });
+                });
+        };
+
+        $scope.cancel = function()
+        {
+          $mdDialog.cancel();
+        };
+      };
+
+
+
+
+
+
       /*
        *
        * View Templates
@@ -519,25 +559,62 @@ angular.module('hog.hog-templates', [])
         '          </md-checkbox>'+
         '        </div>'+
         '      </div>'+
-        '      <md-input-container class="md-block">'+
-        '        <div required > ' +
-        '          <label>Enter the number of desired outputs</label>'+
-        '          <input ng-model="graph_output_count">'+
-        '        </div>'+
+        '      <md-input-container flex layout-padding class="md-block">'+
+        '        <label>Enter the number of desired outputs</label>'+
+        '        <input ng-model="graph_output_count">'+
         '      </md-input-container>'+
-        '      <md-button class="md-raised md-primary" ng-click="cancel()">Close</md-button>' +
-        '      <md-button class="md-raised md-primary" ng-click="save()">Save</md-button>' +
+        '      <md-input-container flex layout="row" class="md-block">'+
+        '        <md-switch flex class="md-warn" ng-model="enable_delete" aria-label="Enable Delete">'+
+        '          Enable Delete'+
+        '        </md-switch>'+
+        '        <md-button flex class="md-raised md-warn" ng-disabled="!enable_delete" ng-click="deleteScript()">'+
+        '          Delete'+
+        '        </md-button>'+
+        '      </md-input-container>'+
+        '      <md-input-container layout="row" class="md-block">'+
+        '        <md-button flex class="md-raised md-primary" ng-click="cancel()">Close</md-button>' +
+        '        <md-button flex class="md-raised md-primary" ng-click="save()">Save</md-button>' +
+        '      </md-input-container>'+
         '     </md-dialog-content>'+
         '  </form>'+
         '</md-dialog>';
+
+      var deleteDialogTemplate =
+        '<md-dialog flex="40" ng-cloak>'+
+        '  <form>'+
+        '    <md-toolbar class="md-warn">'+
+        '      <div class="md-toolbar-tools">'+
+        '        <h2>Delete Script</h2>'+
+        '        <span flex></span>'+
+        '      </div>'+
+        '    </md-toolbar>'+
+        '    <md-dialog-content flex>'+
+        '      <md-content flex layout-padding>'+
+        '        <p>Are you sure you want to delete this?</p>'+
+        '      </md-content>'+
+        '      <md-input-container flex layout="row" class="md-block">'+
+        '        <md-switch flex class="md-warn" ng-model="enable_delete" aria-label="Enable Delete">'+
+        '          Enable Delete'+
+        '        </md-switch>'+
+        '      </md-input-container>'+
+        '      <md-input-container flex layout="row" class="md-block">'+
+        '        <md-button flex ng-click="cancel()">Close</md-button>' +
+        '        <md-button flex class="md-raised md-warn" ng-click="deleteScript()" ng-disabled="!enable_delete">Delete Script</md-button>' +
+        '      </md-input-container>'+
+        '    </md-dialog-content>'+
+        '  </form>'+
+        '</md-dialog>';
+
       return {
         // Controllers
         GraphInfoController: GraphInfoController,
         InfoController: InfoController,
+        DeleteDialogController: DeleteDialogController,
 
         // Views
         outputInfoTemplate: outputInfoTemplate,
         graphInfoTemplate: graphInfoTemplate,
-        complexEditSettingsTemplate: complexEditSettingsTemplate
+        complexEditSettingsTemplate: complexEditSettingsTemplate,
+        deleteDialogTemplate: deleteDialogTemplate
       };
     });
