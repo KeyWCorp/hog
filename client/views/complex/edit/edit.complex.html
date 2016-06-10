@@ -36,13 +36,22 @@
             <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
             <md-button class="md-raised md-primary" ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export CSV</md-button>
-
-            <md-input-container>
+            <md-input-container flex="60" layout-align="end" style="float:right;">
+              <label> Latest Version: {{vm.latestVersion}}</label>
+            </md-input-container>
+            <md-input-container flex="60" layout-align="end" style="float:right;">
               <label>Version</label>
-              <md-select ng-model="vm.version" md-on-close="getVersion()">
-                  <md-option ng-value="vm.versions" ng-repeat="version in vm.versions">{{version}}</md-option>
+              <md-select ng-model="vm.version" md-on-close="vm.getVersion($index)">
+                  <md-option ng-value="vm.versions" ng-repeat="version in vm.versions track by $index">{{version.version}}</md-option>
               </md-select>
-               <md-button ng-disabled="vm.version != vm.latestVersion" ng-click="vm.bumpVersion()"></md-button>
+            </md-input-container>
+            <md-input-container flex="60" layout-align="end" style="float:right;">
+               <md-button class="md-raised md-primary" ng-disabled="vm.version != vm.latestVersion" ng-click="vm.bumpVersion()"> Bump Version</md-button>
+            </md-input-container>
+            <md-input-container flex="60" layout-align="end" style="float:right;">
+            
+               <md-button class="md-raised md-primary" ng-disabled="vm.version == vm.latestVersion" ng-click="vm.viewDif()"> View Changes</md-button>
+               
             </md-input-container>
 
 

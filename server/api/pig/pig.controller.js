@@ -120,7 +120,7 @@ exports.create = function (socket) {
         if (_ready)
         {
           var pig = Pig.create(JSON.parse(data));
-          pig.diff(null);
+          pig.diff('');
           console.log(pig);
           pig.save()
             .then(
@@ -152,14 +152,16 @@ exports.update = function (socket)
       {
         if (_ready)
         {
-          var oldData = JSON.parse(data);
-          Pig.findOne({_id: oldData.id})
+          console.log('updating', data.obj);
+          var oldData = JSON.parse(data.obj);
+          Pig.findOne({_id: oldData._id})
             .then(
               function(doc)
               {
                 if(oldData.version != doc.version)
                 {
-                  doc.diff(oldData);
+                  console.log('new version: ', oldData.version, 'Old version: ', doc.version);
+                  doc.diff(oldData, true);
                 }
                 if(oldData.name != doc.name)
                 {
@@ -351,4 +353,33 @@ exports.runAndTrack = function (socket) {
               });
         }
       });
-};
+ };
+      exports.bumpVersion = function(socket)
+      {
+        socket.on('bump',
+          function(id)
+          {
+            if (_ready)
+            {
+              console.log('finding and bumping', id);
+              Pig.findOne({_id: id})
+                .then(
+                  function(doc)
+                  {
+                    console.log(id, 'found attempting bump');
+                    
+                    var ver = doc.bump();
+                  
+                          console.log('finished bumping version', ver);
+                          //if (err) { return handleError(socket, err); }
+                          socket.emit('bumped', buildResponse(200, ver));
+                        
+                  },
+                  function(err)
+                  {
+                    if (err) { return handleError(socket, err); }
+                  });
+            }
+          });
+      }
+

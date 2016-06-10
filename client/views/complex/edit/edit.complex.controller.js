@@ -63,11 +63,12 @@ angular.module('hog')
             {
               vm.script = data.json;
               vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
+              vm.versions = vm.script.history;
               var strfy = _.flatMap(vm.script.args,
-                                          function(n)
-                                          {
-                return [n.arg, n.input];
-              });
+                function(n)
+                {
+                  return [n.arg, n.input];
+                });
               
               vm.args = strfy.join(" ");
               console.log('vm args', vm.args);
@@ -76,11 +77,13 @@ angular.module('hog')
               $scope.script_name = vm.script.name;
               $scope.script_args = vm.args;
             });
-      vm.getVersion = function()
+      vm.getVersion = function(idx)
       {
+        console.log('version changed:', idx, vm.version, vm.currentVersion);
         if (vm.version != vm.currentVersion)
         {
-          Runner.getVersion(vm.version)
+          vm.diff = vm.versions[idx];
+          /*Runner.getVersion(vm.version)
             .then(
                 function(data)
                 {
@@ -97,8 +100,23 @@ angular.module('hog')
                   vm.script_data = vm.script.data;
                   $scope.script_data = vm.script_data;
                 }
-            )
+            )*/
         }
+      }
+      vm.bumpVersion = function()
+      {
+        console.log('bump version');
+        Runner.bumpVersion(vm.script._id)
+          .then(
+            function(data)
+            {
+              console.log('new version');
+              vm.script.version = vm.latestVersion = vm.currentVersion = vm.version = data.json;
+            },
+            function(err)
+            {
+              console.log(err);
+            });
       }
       vm.modes = ['Pig_Latin'];
       vm.themes = ['monokai', 'twilight', 'none'];
@@ -167,7 +185,8 @@ angular.module('hog')
                 $scope.script_data = vm.script.data;
                 $scope.script_name = vm.script.name;
                 $scope.script_args = vm.args;
-
+                
+                vm.versions = vm.script.history;
                 vm.edited = false;
 
                 vm.name_edited = false;

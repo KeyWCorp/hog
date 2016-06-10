@@ -9,17 +9,18 @@ var path      = require('path');
 //var connect   = require('camo').connect;
 var Document  = require('camo').Document;
 var EmbeddedDocument  = require('camo').EmbeddedDocument;
+var diff = require('diff');
 
-class version extends EmbeddedDocument {
+class Version extends EmbeddedDocument {
   constructor()
   {
     super();
     this.version    = String;
     this.current    = Boolean;
-    this.diff       = String;
+    this.diff       = [];
     this.timeStamp  = {
       type: Date,
-      default: new Date().now()
+      default: Date().now
     };
   }
 }
@@ -27,14 +28,17 @@ class Pig extends Document {
   constructor()
   {
     super();
-
+    
     
     this.name         = String;
     this.data         = String;
     this.args         = [];
-    this.version      = String;
+    this.version      = {
+      type: String,
+      default: "0.0.0"
+    };
     this.script_loc   = String;
-    this.history      = [version];
+    this.history      = [Version];
     this.type         = String;
     this.graph_type   = String;
     this.graph_count  = Number;
@@ -104,6 +108,7 @@ class Pig extends Document {
   }
   bump()
   {
+    console.log('in bump')
     var v = this.version.split('.');
     var release = this.bumpRelease();
     var minor = v[1];
@@ -117,6 +122,7 @@ class Pig extends Document {
       }
     }
     this.version = ''.concat(major,'.',minor,'.',release);
+    return this.version;
   }
   preSave(d)
   {
@@ -183,6 +189,44 @@ class Pig extends Document {
           });
       });
     return p;
+  }
+  diff(newData, save)
+  {
+    console.log('starting diff');
+    var d = diff.diffTrimmedLines(this.data, newData.data)
+    if(save)
+    {
+      console.log('diff', d, 'creating new Version');
+      try {
+        var vers = Version.create({
+        version: newData.version,
+        current: true,
+        diff: d
+      });
+      } catch (error) {
+        console.log(error);
+      }
+      
+      console.log('version', vers, 'created');
+      this.history.forEach(function(e) { e.current = false;});
+      console.log('all currents set to false');
+      this.history.push(vers);
+      console.log('pushed new version');
+    }
+    return d;
+  }
+  update(data)
+  {
+    this.name         = data.name;
+    this.data         = data.data;
+    this.args         = data.args
+    this.version      = data.version;
+    this.script_loc   = data.script_loc;
+    this.type         = data.type;
+    this.graph_type   = data.graph_type;
+    this.graph_count  = data.graph_count;
+    this.nodes        = data.nodes;
+    this.links        = data.links;
   }
 }
 

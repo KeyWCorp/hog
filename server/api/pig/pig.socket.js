@@ -24,6 +24,7 @@ exports.register = function (io) {
         Pig.destroy(socket);
         Pig.run(socket);
         Pig.runAndTrack(socket);
+        Pig.bumpVersion(socket);
         /* insert your logic */
 
 
