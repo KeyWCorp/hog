@@ -2,7 +2,7 @@
 
 angular.module('hog')
 
-.controller('EditSimpleCtrl', function ($log, $scope, $state, $stateParams, HogTemplates, Runner, Pig, $mdToast, $mdDialog)
+.controller('EditSimpleCtrl', function ($log, $scope, $state, $stateParams, HogTemplates, Runner, Pig, $mdToast, $mdDialog, FileSaver, Blob)
     {
       var vm = this;
 
@@ -49,6 +49,14 @@ angular.module('hog')
         firstLineNumber: 1,
         onChange: vm.onEditorChange(),
         readOnly: true
+      };
+
+
+
+      vm.downloadScript = function()
+      {
+        var data = new Blob([vm.script.data], {type: 'text/plain;charset=utf-8'});
+        FileSaver.saveAs(data, vm.script.name + ".pig");
       };
 
 

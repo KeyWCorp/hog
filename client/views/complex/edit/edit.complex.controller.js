@@ -2,7 +2,7 @@
 
 angular.module('hog')
 
-.controller('EditComplexCtrl', function ($scope, $log, $state, $stateParams, HogTemplates, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog, PigCompleter)
+.controller('EditComplexCtrl', function ($scope, $log, $state, $stateParams, HogTemplates, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog, PigCompleter, FileSaver, Blob)
     {
       var vm = this;
       //vm.script =  Runner.getData();
@@ -18,7 +18,6 @@ angular.module('hog')
       vm.name_edited = false;
       vm.args_edited = false;
       vm.script_edited = false;
-
 
       vm.taskList = [];
       vm.running = false;
@@ -102,6 +101,10 @@ angular.module('hog')
       {
 
       };
+
+
+
+
       vm.editorOptions = {
         advanced: {
           enableSnippets: false,
@@ -116,6 +119,18 @@ angular.module('hog')
         firstLineNumber: 1,
         onChange: vm.onEditorChange()
       };
+
+
+
+      vm.downloadScript = function()
+      {
+        var data = new Blob([vm.script.data], {type: 'text/plain;charset=utf-8'});
+        FileSaver.saveAs(data, vm.script.name + ".pig");
+      };
+
+
+
+
       vm.save = function(graph, numOutput, cb)
       {
 
@@ -161,15 +176,23 @@ angular.module('hog')
               {
                 $log.error('error: ' +err);
               });
-      }
+      };
+
+
+
+
       vm.canceled = function(id) {
         $state.go('home.complex.list');
-      }
+      };
+
+
 
       vm.saveAndRun = function()
       {
         vm.save(null, null, vm.run);
       };
+
+
 
       vm.saveAndRunAndTrack = function()
       {
@@ -252,6 +275,9 @@ angular.module('hog')
                 }
               });
       };
+
+
+
       vm.runAndTrack = function()
       {
         vm.taskList = [];
@@ -325,6 +351,10 @@ angular.module('hog')
                 }
               });
       };
+
+
+
+
       vm.exists = function(item, list)
       {
         if(angular.isDefined(list) && angular.isDefined(item))
@@ -336,6 +366,10 @@ angular.module('hog')
           return false;
         }
       };
+
+
+
+
       vm.toggle = function(item, list)
       {
         if(angular.isDefined(list) && angular.isDefined(item))
@@ -345,11 +379,17 @@ angular.module('hog')
           else list.push(item);
         }
       };
+
+
+
+
       vm.index = function(list, item)
       {
         var indx = _.findIndex(list, 'arg', item);
         return indx;
-      }
+      };
+
+
 
       vm.parseOutput = function (data)
       {
@@ -397,6 +437,9 @@ angular.module('hog')
         }
       });
 
+
+
+
       $scope.$watch("script_args", function(newValue, oldValue)
       {
         if (vm.args !== "undefined")
@@ -412,6 +455,9 @@ angular.module('hog')
           updateEdit();
         }
       });
+
+
+
 
       $scope.$watch("script_data", function(newValue, oldValue)
       {
@@ -439,6 +485,8 @@ angular.module('hog')
         vm.edited = vm.name_edited || vm.args_edited || vm.script_edited;
       };
 
+
+
       vm.openGraphInfo = function(ev, graph_data, script)
       {
         $mdDialog.show({
@@ -454,6 +502,8 @@ angular.module('hog')
           },
         });
       };
+
+
 
       vm.openInfo = function(ev, filter_type)
       {
@@ -479,6 +529,7 @@ angular.module('hog')
       };
 
 
+
       vm.openSettings = function(ev)
       {
 
@@ -492,7 +543,7 @@ angular.module('hog')
 
         });
 
-      }
+      };
 
     });
 
