@@ -13,6 +13,6 @@ module.exports = function(done) {
 };
 
 gulp.task('ace-files', function() {
-  return gulp.src('../client/externals/mode-pig_latin.js')
-             .pipe(gulp.dest('../client/bower_components/ace-builds/src-min-noconflict/'));
+  return gulp.src('client/externals/mode-pig_latin.js')
+             .pipe(gulp.dest('client/bower_components/ace-builds/src-min-noconflict/'));
 });
