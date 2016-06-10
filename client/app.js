@@ -21,6 +21,7 @@ angular.module('hog', [
     'hog.hog-tracker',
     'pig.pig-flow',
     'pig.pig-flow-templates',
+    'pig.uploader',
     'hog.hog-templates',
     'mdColors',
     'luegg.directives',

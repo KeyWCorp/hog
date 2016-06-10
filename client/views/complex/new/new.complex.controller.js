@@ -58,10 +58,14 @@ angular.module('hog')
       };
 
 
+      vm.upload = function()
+      {
+        document.getElementById('fileInput').click();
+      };
 
       vm.uploadScript = function($fileContent)
       {
-        vm.file_data = $fileContent;
+        vm.script.data = $fileContent;
       };
 
 
