@@ -73,6 +73,34 @@ angular.module('hog')
           });
 
 
+      vm.deleteScript = function(ev, id)
+      {
+        $mdDialog.show({
+          template: HogTemplates.deleteDialogTemplate,
+          controller: HogTemplates.DeleteDialogController,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            script_id: id,
+            cb: function (data)
+            {
+              Runner.list()
+                .then(
+                    function(data)
+                    {
+                      vm.scripts = [];
+                      vm.scripts = data.json.filter(function (script)
+                        {
+                          return script.type === "simple";
+                        });
+                    });
+            }
+          },
+        });
+      };
+
+
       vm.kill = function(id)
       {
         Runner.kill(id)
