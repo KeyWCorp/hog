@@ -3,6 +3,7 @@
 angular.module('hog')
 .controller('NewComplexCtrl', function ($log, Runner, $mdToast, $state, PigCompleter)
     {
+
       var vm = this;
       angular.extend(vm, {
         name: 'NewComplexCtrl'
@@ -30,10 +31,17 @@ angular.module('hog')
         var langTools = ace.require("ace/ext/language_tools");
         langTools.addCompleter(PigCompleter);
       };
+
+
+
       vm.onEditorChange = function(_ace)
       {
 
       };
+
+
+
+
       vm.editorOptions = {
         advanced: {
           enableSnippets: false,
@@ -48,6 +56,16 @@ angular.module('hog')
         firstLineNumber: 1,
         onChange: vm.onEditorChange()
       };
+
+
+
+      vm.uploadScript = function($fileContent)
+      {
+        vm.file_data = $fileContent;
+      };
+
+
+
       vm.save = function()
       {
         vm.script.args = vm.args.split(" ");
@@ -67,6 +85,8 @@ angular.module('hog')
                 $state.go('^.edit', {id: vm.script._id});
               });
       }
+
+
 
       vm.run = function()
       {
@@ -109,11 +129,17 @@ angular.module('hog')
                 });
         }
       };
+
+
+
       vm.exists = function(item, list)
       {
         //$log.debug('Item, list', item, list);
         return list.indexOf(item) > -1;
       };
+
+
+
       vm.toggle = function(item, list)
       {
         var idx = list.indexOf(item);

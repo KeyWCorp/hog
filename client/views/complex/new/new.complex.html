@@ -10,12 +10,18 @@
           <input ng-model="vm.args">
         </md-input-container>
 
-        <div ui-ace="vm.editorOptions" ng-model="vm.script.data">
+        <div ui-ace="vm.editorOptions" ng-model="vm.script.data"></div>
 
+        <div layout="row">
+          <md-input-container layout-padding>
+            <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+          </md-input-container>
+
+          <md-input-container layout-padding>
+            <input type="file" class="md-raised md-primary" on-read-file="vm.uploadScript($fileContent)">Upload</input>
+          </md-input-container>
+
+          {{ vm.file_data }}
         </div>
-
-        <md-input-container layout-padding>
-          <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
-        </md-input-container>
     </section>
 </md-content>

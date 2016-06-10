@@ -2,7 +2,7 @@
 
 angular.module('hog')
 .service('Runner',
-    function (Pig, $rootScope, $log, $q, uuid4)
+    function (Pig, $rootScope, $timeout, $log, $q, uuid4)
     {
 
       var holdData = {};
@@ -171,7 +171,7 @@ angular.module('hog')
       function kill(id)
       {
         var deferred = $q.defer();
-        setTimeout(() => {
+        $timeout(function () {
           Pig.emit('kill', id);
           deferred.resolve({type: 'data', data: id});
         }, 2000);
@@ -293,3 +293,4 @@ angular.module('hog')
             });
       }
     });
+
