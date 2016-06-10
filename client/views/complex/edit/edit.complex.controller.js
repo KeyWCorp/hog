@@ -193,13 +193,6 @@ angular.module('hog')
 
 
 
-
-      vm.canceled = function(id) {
-        $state.go('home.complex.list');
-      };
-
-
-
       vm.saveAndRun = function()
       {
         vm.save(null, null, vm.run);
