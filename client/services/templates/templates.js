@@ -565,14 +565,14 @@ angular.module('hog.hog-templates', [])
         '      </md-input-container>'+
         '      <md-input-container flex layout="row" class="md-block">'+
         '        <md-switch flex class="md-warn" ng-model="enable_delete" aria-label="Enable Delete">'+
-        '          Enable Delete'+
+        '          Confirm Delete'+
         '        </md-switch>'+
         '        <md-button flex class="md-raised md-warn" ng-disabled="!enable_delete" ng-click="deleteScript()">'+
         '          Delete'+
         '        </md-button>'+
         '      </md-input-container>'+
         '      <md-input-container layout="row" class="md-block">'+
-        '        <md-button flex class="md-raised md-primary" ng-click="cancel()">Close</md-button>' +
+        '        <md-button flex class="md-raised md-primary" ng-click="cancel()">Cancel</md-button>' +
         '        <md-button flex class="md-raised md-primary" ng-click="save()">Save</md-button>' +
         '      </md-input-container>'+
         '     </md-dialog-content>'+
@@ -594,11 +594,11 @@ angular.module('hog.hog-templates', [])
         '      </md-content>'+
         '      <md-input-container flex layout="row" class="md-block">'+
         '        <md-switch flex class="md-warn" ng-model="enable_delete" aria-label="Enable Delete">'+
-        '          Enable Delete'+
+        '          Confirm Delete'+
         '        </md-switch>'+
         '      </md-input-container>'+
         '      <md-input-container flex layout="row" class="md-block">'+
-        '        <md-button flex ng-click="cancel()">Close</md-button>' +
+        '        <md-button flex ng-click="cancel()">Cancel</md-button>' +
         '        <md-button flex class="md-raised md-warn" ng-click="deleteScript()" ng-disabled="!enable_delete">Delete Script</md-button>' +
         '      </md-input-container>'+
         '    </md-dialog-content>'+

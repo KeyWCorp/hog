@@ -35,6 +35,6 @@ angular.module('hog', [
 })
   .config(function ( $urlRouterProvider , $locationProvider) {
     $urlRouterProvider
-        .otherwise('/');
+        .otherwise('/landing');
     $locationProvider.html5Mode(true);
   });

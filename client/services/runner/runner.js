@@ -171,10 +171,8 @@ angular.module('hog')
       function kill(id)
       {
         var deferred = $q.defer();
-        $timeout(function () {
-          Pig.emit('kill', id);
-          deferred.resolve({type: 'data', data: id});
-        }, 2000);
+        Pig.emit('kill', id);
+        deferred.resolve({type: 'data', data: id});
         return deferred.promise;
       }
       function run(id)

@@ -11,24 +11,24 @@
 
           <div flex="60" layout-align="end" style="float:right;">
             <md-menu ng-show="!vm.edited && !vm.running">
-              <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Execute</md-button>
+              <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Run</md-button>
               <md-menu-content width="4">
                 <md-menu-item>
-                  <md-button ng-disabled="vm.running" ng-click="vm.run()">Execute</md-button>
+                  <md-button ng-disabled="vm.running" ng-click="vm.run()">Run</md-button>
                 </md-menu-item>
                 <md-menu-item>
-                  <md-button ng-disabled="vm.running || true" ng-click="vm.runAndTrack()">Execute and Track</md-button>
+                  <md-button ng-disabled="vm.running || true" ng-click="vm.runAndTrack()">Run and Track</md-button>
                 </md-menu-item>
               </md-menu-content>
             </md-menu>
             <md-menu ng-show="vm.edited && !vm.running">
-              <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Save and Execute</md-button>
+              <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Save and Run</md-button>
               <md-menu-content width="4">
                 <md-menu-item>
-                  <md-button ng-disabled="vm.running" ng-click="vm.saveAndRun()">Save and Execute</md-button>
+                  <md-button ng-disabled="vm.running" ng-click="vm.saveAndRun()">Save and Run</md-button>
                 </md-menu-item>
                 <md-menu-item>
-                  <md-button ng-disabled="vm.running || true" ng-click="vm.saveAndRunAndTrack()">Save and Execute and Track</md-button>
+                  <md-button ng-disabled="vm.running || true" ng-click="vm.saveAndRunAndTrack()">Save and Run and Track</md-button>
                 </md-menu-item>
               </md-menu-content>
             </md-menu>
