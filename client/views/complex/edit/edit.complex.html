@@ -61,18 +61,18 @@
         </div>
 
         <div flex class='md-padding' layout="column" layout-padding ng-show="vm.info_outputs.length > 0">
-          <md-subheader class="md-primary">Display Output Logs</md-subheader>
+          <md-subheader class="md-primary">Display Outputs</md-subheader>
           <section layout="row">
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'all')" ng-if="vm.info_outputs.length > 0">
               Show All: #{{ vm.info_outputs.length }}
             </md-button>
 
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'output')" md-style-color="{'background-color': 'green.400'}" ng-if="vm.outputs.length > 0">
-              Show Outputs: #{{ vm.outputs.length }}
+              Show Results: #{{ vm.outputs.length }}
             </md-button>
 
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'log')" md-style-color="{'background-color': 'blue.400'}" ng-if="vm.logs.length > 0">
-              Show Logs: #{{ vm.logs.length }}
+              Show Info Logs: #{{ vm.logs.length }}
             </md-button>
 
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'warning')" md-style-color="{'background-color': 'orange.400'}" ng-if="vm.warnings.length > 0">
