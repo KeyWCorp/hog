@@ -41,8 +41,8 @@
             </md-input-container>
             <md-input-container flex="60" layout-align="end" style="float:right;">
               <label>Version</label>
-              <md-select ng-model="vm.version" md-on-close="vm.getVersion($index)">
-                  <md-option ng-value="vm.versions" ng-repeat="version in vm.versions track by $index">{{version.version}}</md-option>
+              <md-select ng-model="vm.version" md-on-close="vm.getVersion(vm.version)">
+                  <md-option ng-value="version" ng-repeat="version in vm.versions track by $index">{{version.version}}</md-option>
               </md-select>
             </md-input-container>
             <md-input-container flex="60" layout-align="end" style="float:right;">
@@ -100,7 +100,8 @@
         </div>
 
 
-        <div ui-ace="vm.editorOptions" ng-model="script_data" style="height: 600px;"></div>
+        <div id="right-editor" ui-ace="vm.editorOptions" ng-model="script_data" style="height: 600px;"></div>
+        <div id="left-editor" ui-ace="vm.editorOptions" ng-model="script_data" style="height: 600px;"></div>
         <div class="container" ng-class="{'visible' : !vm.running}">
           <md-progress-linear ng-if="vm.start" md-mode="indeterminate"></md-progress-linear>
 

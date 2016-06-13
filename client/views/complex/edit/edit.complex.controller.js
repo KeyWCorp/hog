@@ -79,7 +79,7 @@ angular.module('hog')
             });
       vm.getVersion = function(idx)
       {
-        console.log('version changed:', idx, vm.version, vm.currentVersion);
+        console.log('version changed:', idx, 'version', vm.version, 'cur', vm.currentVersion);
         if (vm.version != vm.currentVersion)
         {
           vm.diff = vm.versions[idx];
