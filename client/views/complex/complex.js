@@ -13,12 +13,12 @@ angular.module('hog')
               controllerAs: 'vm'
             },
             // sub-state insert
+            /*
             list: {
               templateUrl: '/views/complex/list/list.complex.html',
               controller: 'ListComplexCtrl',
               controllerAs: 'vm'
             },
-            /*
             edit: {
               templateUrl: 'edit.complex.html',
               controller: 'EditComplexCtrl',

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hog', [
-	'ngTable',
+    'ngTable',
     'ngRoute',
     'ngCookies',
     'ngResource',
@@ -28,7 +28,8 @@ angular.module('hog', [
     'ngCsv',
     'ngFileSaver'
 ]).config(function($mdThemingProvider) {
-  $mdThemingProvider.theme('default')
+  $mdThemingProvider
+    .theme('default')
     .primaryPalette('blue')
     .accentPalette('orange');
 })

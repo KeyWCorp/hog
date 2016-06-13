@@ -2,7 +2,7 @@
 
 angular.module('hog')
   .config(function ( $stateProvider ) {
-    
+
     $stateProvider
         .state('home',
         {
@@ -19,6 +19,6 @@ angular.module('hog')
                     controllerAs: 'vm'
                 }
             },
-        });    
-    
+        });
+
   });

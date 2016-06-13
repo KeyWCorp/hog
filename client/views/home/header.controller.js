@@ -17,10 +17,6 @@ angular.module('hog')
         name: 'Hog',
         menu: [
           {
-            name: 'Settings',
-            state: 'home.settings'
-          },
-          {
               name: 'Complex',
               state: 'home.complex',
               substates: [
@@ -56,13 +52,7 @@ angular.module('hog')
         ],
         toggleNav: function()
         {
-            $log.debug('clicked')
-            $mdSidenav('left').toggle()
-                .then(
-                    function()
-                    {
-                        $log.debug('slide');
-                    });
+            $mdSidenav('left').toggle();
         },
         originatorEv: null,
         openMenu: function($mdOpenMenu, ev)
