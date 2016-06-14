@@ -94,10 +94,10 @@
               </md-select>
             </md-input-container>
             <md-input-container flex layout-align="end" style="float:right;">
-              <md-button class="md-raised md-primary" ng-disabled="!vm.version || vm.version.version != vm.latestVersion && vm.currentVersion.version == vm.latestVersion" ng-click="vm.bumpVersion()"> Bump Version</md-button>
+              <md-button class="md-raised md-primary" ng-disabled="vm.version.version != vm.latestVersion && vm.currentVersion.version == vm.latestVersion" ng-click="vm.bumpVersion()"> Bump Version</md-button>
             </md-input-container>
             <md-input-container flex layout-align="end" style="float:right;">
-              <md-button class="md-raised md-primary" ng-disabled="!vm.version || vm.version.version == vm.latestVersion" ng-click="vm.openVersionDifferenceInfo($event)"> View Changes</md-button>
+              <md-button class="md-raised md-primary" ng-disabled="vm.version.version == vm.latestVersion" ng-click="vm.openVersionDifferenceInfo($event)"> View Changes</md-button>
             </md-input-container>
         </div>
 

@@ -1,5 +1,3 @@
 
-load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int);
-size2 = FOREACH load0 GENERATE SIZE(y);
-DUMP size2;
+load0 = LOAD '/Users/kmcoxe/Documents/IPI/test/test.data' USING PigStorage(' ') AS (x:int, y:int, ip:chararray);
 DUMP load0;
