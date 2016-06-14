@@ -156,7 +156,9 @@ angular.module("pig.pig-flow", [])
         vm.start = function ()
         {
 
-          // add lines
+          /*
+           * link data
+           */
           vm.link = vm.link
             .data(vm.links);
           vm.link.enter()
@@ -185,7 +187,10 @@ angular.module("pig.pig-flow", [])
           vm.link.exit()
             .remove();
 
-          // add node
+
+          /*
+           * node data
+           */
           vm.node = vm.node
             .data(vm.nodes);
           vm.node.enter()
@@ -193,7 +198,10 @@ angular.module("pig.pig-flow", [])
           vm.node.exit()
             .remove();
 
-          // add node body
+
+          /*
+           * body node data
+           */
           vm.node_body = vm.node_body
             .data(vm.nodes);
           vm.node_body
@@ -221,7 +229,10 @@ angular.module("pig.pig-flow", [])
           vm.node_body.exit()
             .remove();
 
-          // add node header
+
+          /*
+           * header node data
+           */
           vm.node_header = vm.node_header
             .data(vm.nodes);
           vm.node_header
@@ -264,7 +275,10 @@ angular.module("pig.pig-flow", [])
           vm.node_header.exit()
             .remove();
 
-          // close button
+
+          /*
+           * close node data
+           */
           vm.node_close = vm.node_close
             .data(vm.nodes);
           vm.node_close
@@ -308,7 +322,9 @@ angular.module("pig.pig-flow", [])
             .remove();
 
 
-          // edit button
+          /*
+           * edit node data
+           */
           vm.node_edit = vm.node_edit
             .data(vm.nodes);
           vm.node_edit
@@ -350,8 +366,9 @@ angular.module("pig.pig-flow", [])
             .remove();
 
 
-          // ====================================================
-          // input button
+          /*
+           * input node data
+           */
           vm.node_inputs = vm.node_inputs
             .data(function (d)
             {
@@ -422,6 +439,11 @@ angular.module("pig.pig-flow", [])
             });
           vm.node_inputs.exit()
             .remove();
+
+
+          /*
+           * output node data
+           */
           vm.node_outputs = vm.node_outputs
             .data(function (d)
             {
@@ -493,7 +515,10 @@ angular.module("pig.pig-flow", [])
           vm.node_outputs.exit()
             .remove();
 
-          // add type label to node
+
+          /*
+           * type label data
+           */
           vm.node_type_label = vm.node_type_label
             .data(vm.nodes);
           vm.node_type_label
@@ -529,7 +554,10 @@ angular.module("pig.pig-flow", [])
           vm.node_type_label.exit()
             .remove();
 
-          // add type label to node
+
+          /*
+           * node name data
+           */
           vm.node_name_label = vm.node_name_label
             .data(vm.nodes);
           vm.node_name_label
@@ -565,6 +593,10 @@ angular.module("pig.pig-flow", [])
           vm.node_name_label.exit()
             .remove();
 
+
+          /*
+           * update
+           */
           vm.force.start();
           vm.updateScript();
         };
@@ -781,6 +813,9 @@ angular.module("pig.pig-flow", [])
               d3.select(vm.source_node.node)
                 .style("fill", "rgba(50, 255, 50, 1.0)");
             }
+
+            t.data.value = d.output;
+
             vm.source_node = {
               data: d,
               node: n,
@@ -817,13 +852,23 @@ angular.module("pig.pig-flow", [])
                 };
 
                 // add output node link
+                if (!vm.source_node.data.output_nodes || vm.source_node.data.output_nodes.length <= 0)
+                {
+                  vm.source_node.data.output_nodes = [];
+                }
+                vm.source_node.data.output_nodes.push(vm.target_node.data.index);
                 vm.source_node.data.output_node = vm.target_node.data.index;
+
                 // add input node link
+                if (!vm.target_node.data.input_nodes || vm.target_node.data.input_nodes.length <= 0)
+                {
+                  vm.target_node.data.input_nodes = [];
+                }
+                vm.target_node.data.input_nodes.push(vm.source_node.data.index);
                 vm.target_node.data.input_node = vm.source_node.data.index;
                 vm.target_node.data.input = vm.source_node.data.output;
 
-                vm.links.push(
-                {
+                var tmp_obj = {
                   source: vm.source_node.data.index,
                   target: vm.target_node.data.index,
                   output_data: vm.source_node.output_data,
@@ -832,7 +877,9 @@ angular.module("pig.pig-flow", [])
                   y1: vm.source_node.y,
                   x2: vm.target_node.x,
                   y2: vm.target_node.y
-                });
+                };
+
+                vm.links.push(tmp_obj);
 
                 d3.select(vm.source_node.node)
                   .style("fill", "rgba(50, 255, 50, 1.0)");
@@ -997,6 +1044,7 @@ angular.module("pig.pig-flow", [])
 
         function removeLinks(d)
         {
+
           var newLinks = vm.links.filter(function (obj)
           {
             return obj.source === d || obj.target === d;
@@ -1010,6 +1058,7 @@ angular.module("pig.pig-flow", [])
 
         function removeLink(d)
         {
+
           var newLinks = vm.links.filter(function (obj)
           {
             return obj.source === d.source && obj.target === d.target;

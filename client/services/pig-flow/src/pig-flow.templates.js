@@ -1,6 +1,7 @@
 angular.module('pig.pig-flow-templates', [])
 .factory('FlowToScript', function()
     {
+      /*
       function FlowToScript (nodes, links)
       {
         this.raw_node_list = nodes || [];
@@ -81,6 +82,7 @@ angular.module('pig.pig-flow-templates', [])
             var script_obj = node.script || {};
             var script = script_obj.content || "";
 
+
             node.outputs.map(function (output, i)
                 {
                   var re = new RegExp("<output_" + output.label + ">", "g");
@@ -123,6 +125,11 @@ angular.module('pig.pig-flow-templates', [])
           {
             this.raw_link_list.forEach(function (link, i)
                 {
+
+                  //console.log("node: " + JSON.stringify(link,null,2));
+                  //console.log("input: " + link.source.index);
+                  //console.log("output: " + link.target.index);
+
                   self.node_list[link.source.index].outputs.push(link.target.index);
                   self.node_list[link.target.index].inputs.push(link.source.index);
 
@@ -244,6 +251,98 @@ angular.module('pig.pig-flow-templates', [])
         {
           var node_list_string = JSON.stringify(this.sorted_node_list, null, 2);
           return node_list_string;
+        };
+
+      };
+      */
+
+      function FlowToScript (nodes, links)
+      {
+        this.nodes = nodes || [];
+        this.links = links || [];
+
+        this.sorted_list = [];
+        this.output_script = "";
+
+        /*
+         * Start sorting
+         */
+        this.start = function (cb)
+        {
+          var self = this;
+
+          self.sorted_list = self.nodes.filter(function (node)
+          {
+            return node.inputs.length <= 0;
+          });
+
+          /*
+           * sort sorted_list by index
+           */
+          self.sorted_list.sort(function(a, b)
+          {
+            return a.index - b.index;
+          });
+
+          for(var i = 0; i < self.sorted_list.length; i++)
+          {
+            var node = self.sorted_list[i];
+            /*
+             * Get outputs for each node
+             */
+            if (node.output_nodes)
+            {
+              var tmp_child_list = node.output_nodes.map(function(output_index)
+              {
+                var tmp_o = self.nodes.filter(function(n)
+                  {
+                    return n.index === output_index;
+                  });
+                return tmp_o[0];
+              });
+
+              var child_queue = tmp_child_list.filter(function(child)
+              {
+                return self.sorted_list.filter(function(s_node)
+                {
+                  return s_node.index !== child.index;
+                }).length > 0;
+              });
+
+              child_queue.map(function(child)
+              {
+
+                if (child.input_nodes)
+                {
+                  var sorted_inputs = child.input_nodes.filter(function(c_input_index)
+                  {
+                    return self.sorted_list.filter(function(s_node)
+                    {
+                      return s_node.index === c_input_index;
+                    }).length > 0;
+                  });
+
+
+                  /*
+                   * check to see if all inputs are sorted
+                   */
+                  if (sorted_inputs.length === child.input_nodes.length)
+                  {
+                    self.sorted_list.push(child);
+                  }
+
+                }
+              });
+
+            }
+          }
+
+          /*
+           * Build output script
+           */
+
+
+
         };
 
       };
@@ -749,7 +848,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [],
           inputs: [
           {
-            label: "variable",
+            label: "item",
             value: ""
           }
           ],
@@ -758,7 +857,7 @@ angular.module('pig.pig-flow-templates', [])
             input_var: true,
             output_var: false,
             variables: [],
-            content: "DUMP <input_variable>;"
+            content: "DUMP <input_item>;"
           },
           description: "Takes in an input and outputs to standard out",
         }]
