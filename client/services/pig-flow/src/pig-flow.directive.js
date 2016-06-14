@@ -649,7 +649,10 @@ angular.module("pig.pig-flow", [])
             .attr("y", function (d)
             {
               return d.y;
-            });
+            })
+            // rounded corners
+            .attr("rx", 10)
+            .attr("ry", 10);
 
           vm.node_header
             .attr("width", function (d)
@@ -667,7 +670,10 @@ angular.module("pig.pig-flow", [])
             .attr("y", function (d)
             {
               return d.y;
-            });
+            })
+            // rounded corners
+            .attr("rx", 10)
+            .attr("ry", 10);
 
           vm.node_close
             .attr("x", function (d)

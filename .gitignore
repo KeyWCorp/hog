@@ -11,4 +11,6 @@ nbproject
 parser_table.py
 server/api/pig/pig.data.db
 client/index.html
+*.db
+*.mig
 .DS_Store

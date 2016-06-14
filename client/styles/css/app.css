@@ -20,7 +20,7 @@ svg.pig-flow {
   vector-effect: non-scaling-stroke; }
 
 .flow_link {
-  stroke: #000;
+  stroke: #455A64;
   stroke-width: 7px; }
 
 .path {
@@ -29,13 +29,13 @@ svg.pig-flow {
   stroke-width: 1.5px; }
 
 rect.node_header {
-  fill: lightsteelblue;
-  stroke: black;
+  fill: #2196F3;
+  stroke: #0c83e4;
   stroke-width: 1.5px; }
 
 rect.node_body {
-  fill: lightsteelblue;
-  stroke: steelblue;
+  fill: #BBDEFB;
+  stroke: #87c5f8;
   stroke-width: 1.5px; }
 
 text.node_close {
