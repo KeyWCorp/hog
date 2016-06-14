@@ -2,7 +2,8 @@
 
 angular.module('hog')
 
-.controller('EditComplexCtrl', function ($scope, $log, $state, $stateParams, HogTemplates, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog, PigCompleter)
+.controller('EditComplexCtrl',
+  function ($scope, $window, $timeout,$log, $state, $stateParams, HogTemplates, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog, PigCompleter)
     {
       var vm = this;
       //vm.script =  Runner.getData();
@@ -64,13 +65,21 @@ angular.module('hog')
               vm.script = data.json;
               vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
               vm.versions = vm.script.history;
-              var strfy = _.flatMap(vm.script.args,
-                function(n)
-                {
-                  return [n.arg, n.input];
-                });
-              
-              vm.args = strfy.join(" ");
+              vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
+              if(typeof vm.script.args[0] != String)
+              {
+                var strfy = _.flatMap(vm.script.args,
+                  function(n)
+                  {
+                    return [n.arg, n.input];
+                  });
+                
+                vm.args = strfy.join(" ").trim();
+              }
+              else
+              {
+                vm.args = vm.script.args.join(" ");
+              }
               console.log('vm args', vm.args);
               vm.script_data = vm.script.data;
               $scope.script_data = vm.script_data;
@@ -80,28 +89,10 @@ angular.module('hog')
       vm.getVersion = function(idx)
       {
         console.log('version changed:', idx, 'version', vm.version, 'cur', vm.currentVersion);
-        if (vm.version != vm.currentVersion)
+        /*if (vm.version.version != vm.currentVersion.version)
         {
-          vm.diff = vm.versions[idx];
-          /*Runner.getVersion(vm.version)
-            .then(
-                function(data)
-                {
-                  vm.version = vm.currentVersion = data.json.version;
-                  vm.script = data.json;
-                   var strfy = _.flatMap(vm.script.args,
-                                          function(n)
-                                          {
-                    return [n.arg, n.input];
-                  });
-              
-                  vm.args = strfy.join(" ");
-                  console.log('vm args', vm.args);
-                  vm.script_data = vm.script.data;
-                  $scope.script_data = vm.script_data;
-                }
-            )*/
-        }
+          
+        }*/
       }
       vm.bumpVersion = function()
       {
@@ -186,7 +177,10 @@ angular.module('hog')
                 $scope.script_name = vm.script.name;
                 $scope.script_args = vm.args;
                 
+                vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
                 vm.versions = vm.script.history;
+                vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
+              
                 vm.edited = false;
 
                 vm.name_edited = false;
@@ -474,7 +468,46 @@ angular.module('hog')
       {
         vm.edited = vm.name_edited || vm.args_edited || vm.script_edited;
       };
-
+      vm.openVersionDifferenceInfo = function(ev)
+      {
+        var dmp = new $window.diff_match_patch();
+        var htm = dmp.diff_prettyHtml(vm.version.diff);
+        console.log('text: ', vm.script.data, 'diffs: ', vm.currentVersion.diff, 'html: ', htm);
+        var p = dmp.patch_make('', vm.version.diff);
+        var s = dmp.patch_apply(p, vm.version.diff[0][1]);
+        console.log('patch: ', p, 'source: ', s);
+        $mdDialog.show({
+          templateUrl: HogTemplates.versionDiffTemplate,
+          controller: HogTemplates.VersionDiffController,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          bindToController: true,
+          locals: {
+            vm: {
+              leftDiff: vm.script.data,
+              leftVer: vm.currentVersion.version,
+              rightDiff: s[0],
+              rightVer: vm.version.version,
+            }
+          },
+        })
+        .then(
+          function(revert)
+          {
+            if(revert)
+            {
+              console.log('s is still around: ', s[0])
+              $timeout(
+                function()
+                {
+                  $scope.script_data = s[0];
+                  vm.currentVersion = vm.version;
+                });
+              
+            }
+          });
+      };
       vm.openGraphInfo = function(ev, graph_data, script)
       {
         $mdDialog.show({

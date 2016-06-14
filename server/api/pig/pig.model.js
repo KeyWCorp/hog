@@ -10,6 +10,8 @@ var path      = require('path');
 var Document  = require('camo').Document;
 var EmbeddedDocument  = require('camo').EmbeddedDocument;
 var diff = require('diff');
+var diffmatchpatch = require('diff-match-patch');
+var dmp = new diffmatchpatch();
 
 class Version extends EmbeddedDocument {
   constructor()
@@ -193,7 +195,9 @@ class Pig extends Document {
   diff(newData, save)
   {
     console.log('starting diff');
-    var d = diff.diffTrimmedLines(this.data, newData.data)
+    //var d = diff.diffTrimmedLines(this.data, newData.data)
+    var d = dmp.diff_main(this.data, newData.data);
+    dmp.diff_cleanupEfficiency(d);
     if(save)
     {
       console.log('diff', d, 'creating new Version');

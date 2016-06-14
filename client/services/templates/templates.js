@@ -347,6 +347,20 @@ angular.module('hog.hog-templates', [])
         };
       };
 
+      // Controller for Difference Modal
+      function VersionDiffController($mdDialog, $scope, $timeout, vm)
+      {
+        $scope.vm = vm;
+        $scope.revert = function(is_revert)
+        {
+          $mdDialog.hide(is_revert);
+        }
+        $scope.cancel = function()
+        {
+          $mdDialog.cancel();
+        };
+      }
+
       /*
        *
        * View Templates
@@ -534,10 +548,12 @@ angular.module('hog.hog-templates', [])
         // Controllers
         GraphInfoController: GraphInfoController,
         InfoController: InfoController,
-
+        VersionDiffController: VersionDiffController,
+        
         // Views
         outputInfoTemplate: outputInfoTemplate,
         graphInfoTemplate: graphInfoTemplate,
-        complexEditSettingsTemplate: complexEditSettingsTemplate
+        complexEditSettingsTemplate: complexEditSettingsTemplate,
+        versionDiffTemplate: 'views/complex/edit/edit.complex.diff.html'
       };
     });

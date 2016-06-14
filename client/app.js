@@ -24,7 +24,8 @@ angular.module('hog', [
     'hog.hog-templates',
     'mdColors',
     'luegg.directives',
-    'ngCsv'
+    'ngCsv',
+    'diff-match-patch'
 ]).config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')

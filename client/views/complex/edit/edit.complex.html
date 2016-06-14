@@ -46,11 +46,11 @@
               </md-select>
             </md-input-container>
             <md-input-container flex="60" layout-align="end" style="float:right;">
-               <md-button class="md-raised md-primary" ng-disabled="vm.version != vm.latestVersion" ng-click="vm.bumpVersion()"> Bump Version</md-button>
+               <md-button class="md-raised md-primary" ng-disabled="vm.version.version != vm.latestVersion && vm.currentVersion.version == vm.latestVersion" ng-click="vm.bumpVersion()"> Bump Version</md-button>
             </md-input-container>
             <md-input-container flex="60" layout-align="end" style="float:right;">
             
-               <md-button class="md-raised md-primary" ng-disabled="vm.version == vm.latestVersion" ng-click="vm.viewDif()"> View Changes</md-button>
+               <md-button class="md-raised md-primary" ng-disabled="vm.version.version == vm.latestVersion" ng-click="vm.openVersionDifferenceInfo($event)"> View Changes</md-button>
                
             </md-input-container>
 
@@ -100,9 +100,8 @@
         </div>
 
 
-        <div id="right-editor" ui-ace="vm.editorOptions" ng-model="script_data" style="height: 600px;"></div>
-        <div id="left-editor" ui-ace="vm.editorOptions" ng-model="script_data" style="height: 600px;"></div>
-        <div class="container" ng-class="{'visible' : !vm.running}">
+        <div ui-ace="vm.editorOptions" ng-model="script_data" style="height: 600px;"></div>
+       <div class="container" ng-class="{'visible' : !vm.running}">
           <md-progress-linear ng-if="vm.start" md-mode="indeterminate"></md-progress-linear>
 
           <div flex ng-show="vm.taskList.length > 0">

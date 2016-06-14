@@ -1,0 +1,24 @@
+<md-dialog flex ng-cloak>
+  <md-dialog-content>
+   
+        <md-card flex>
+          <md-card-header>
+            <h2>Version: {{vm.leftVer}} | {{vm.rightVer}}</h2>
+          </md-card-header>
+          <md-card-content>
+            
+            <pre class="textdiff" line-diff left-obj="vm.leftDiff" right-obj="vm.rightDiff"></pre>
+          </md-card-content>
+        </md-card>
+      
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="revert(true)">
+       Revert to {{vm.rightVer}}
+      </md-button>
+      <md-button ng-click="cancel()">
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+</md-dialog>
