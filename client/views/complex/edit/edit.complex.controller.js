@@ -496,7 +496,7 @@ angular.module('hog')
       vm.openGraphInfo = function(ev, graph_data, script)
       {
         $mdDialog.show({
-          template: HogTemplates.graphInfoTemplate,
+          templateUrl: HogTemplates.graphInfoTemplate,
           controller: HogTemplates.GraphInfoController,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
@@ -514,7 +514,7 @@ angular.module('hog')
       vm.openInfo = function(ev, filter_type)
       {
         $mdDialog.show({
-          template: HogTemplates.outputInfoTemplate,
+          templateUrl: HogTemplates.outputInfoTemplate,
           controller: HogTemplates.InfoController,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
@@ -541,7 +541,7 @@ angular.module('hog')
 
         $mdDialog.show({
           controller: SettingsController,
-          template: HogTemplates.complexEditSettingsTemplate,
+          templateUrl: HogTemplates.complexEditSettingsTemplate,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
           targetEvent: ev,

@@ -76,7 +76,7 @@ angular.module('hog')
       vm.deleteScript = function(ev, id)
       {
         $mdDialog.show({
-          template: HogTemplates.deleteDialogTemplate,
+          templateUrl: HogTemplates.deleteDialogTemplate,
           controller: HogTemplates.DeleteDialogController,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
@@ -216,7 +216,7 @@ angular.module('hog')
       vm.openGraphInfo = function(ev, idx)
       {
         $mdDialog.show({
-          template: HogTemplates.graphInfoTemplate,
+          templateUrl: HogTemplates.graphInfoTemplate,
           controller: HogTemplates.GraphInfoController,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
@@ -232,7 +232,7 @@ angular.module('hog')
       vm.openInfo = function(ev, idx, filter_type)
       {
         $mdDialog.show({
-          template: HogTemplates.outputInfoTemplate,
+          templateUrl: HogTemplates.outputInfoTemplate,
           controller: HogTemplates.InfoController,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
