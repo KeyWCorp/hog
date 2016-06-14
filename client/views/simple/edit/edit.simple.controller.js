@@ -171,8 +171,8 @@ angular.module('hog')
       vm.deleteScript = function(ev)
       {
         $mdDialog.show({
-          templateUrl: HogTemplates.deleteDialogTemplate,
           controller: HogTemplates.DeleteDialogController,
+          templateUrl: HogTemplates.deleteDialogTemplate,
           clickOutsideToClose: true,
           parent: angular.element(document.body),
           targetEvent: ev,
