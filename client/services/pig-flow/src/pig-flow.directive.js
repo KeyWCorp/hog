@@ -89,13 +89,13 @@ angular.module("pig.pig-flow", [])
           vm.container.append("g")
             .attr("class", "x axis")
             .selectAll("line")
-            .data(d3.range(0, container_width, 10))
+            .data(d3.range(0 - (container_width / 2), container_width, 10))
             .enter().append("line")
             .attr("x1", function (d)
             {
               return d;
             })
-            .attr("y1", 0)
+            .attr("y1", 0 - (container_height / 2))
             .attr("x2", function (d)
             {
               return d;
@@ -106,9 +106,9 @@ angular.module("pig.pig-flow", [])
           vm.container.append("g")
             .attr("class", "y axis")
             .selectAll("line")
-            .data(d3.range(0, container_height, 10))
+            .data(d3.range(0 - (container_height / 2), container_height, 10))
             .enter().append("line")
-            .attr("x1", 0)
+            .attr("x1", 0 - (container_width / 2))
             .attr("y1", function (d)
             {
               return d;
