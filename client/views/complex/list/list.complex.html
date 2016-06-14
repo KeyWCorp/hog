@@ -96,13 +96,13 @@
               <span flex></span>
               <div layout="row" layout-align="end center" flex>
                 <md-menu ng-show="!vm.running || vm.current_running_id !== pig._id">
-                  <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Execute</md-button>
+                  <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Run</md-button>
                   <md-menu-content width="4">
                     <md-menu-item>
-                      <md-button ng-disabled="vm.running" ng-click="vm.run(pig._id, $index)">Execute</md-button>
+                      <md-button ng-disabled="vm.running" ng-click="vm.run(pig._id, $index)">Run</md-button>
                     </md-menu-item>
                     <md-menu-item>
-                      <md-button ng-disabled="vm.running || true" ng-click="vm.runAndTrack(pig._id, $index)">Execute and Track</md-button>
+                      <md-button ng-disabled="vm.running || true" ng-click="vm.runAndTrack(pig._id, $index)">Run and Track</md-button>
                     </md-menu-item>
                   </md-menu-content>
                 </md-menu>
