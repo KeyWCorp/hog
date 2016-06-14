@@ -120,7 +120,7 @@ exports.create = function (socket) {
         if (_ready)
         {
           var pig = Pig.create(JSON.parse(data));
-          pig.diff('');
+          pig.diff('', true);
           console.log(pig);
           pig.save()
             .then(

@@ -203,7 +203,7 @@ class Pig extends Document {
       console.log('diff', d, 'creating new Version');
       try {
         var vers = Version.create({
-        version: newData.version,
+        version: newData.version || this.version,
         current: true,
         diff: d
       });

@@ -91,8 +91,11 @@ angular.module('hog')
         console.log('version changed:', idx, 'version', vm.version, 'cur', vm.currentVersion);
         /*if (vm.version.version != vm.currentVersion.version)
         {
-
+            
         }*/
+        vm.leftIdx = vm.versions.length-1;
+        vm.rightIdx = lodash.findIndex(vm.versions, ['version', vm.version.version]);
+        console.log('left index: ', vm.leftIdx, ' right index ', vm.rightIdx);
       }
       vm.bumpVersion = function()
       {
@@ -470,12 +473,12 @@ angular.module('hog')
       };
       vm.openVersionDifferenceInfo = function(ev)
       {
-        var dmp = new $window.diff_match_patch();
+        /*var dmp = new $window.diff_match_patch();
         var htm = dmp.diff_prettyHtml(vm.version.diff);
         console.log('text: ', vm.script.data, 'diffs: ', vm.currentVersion.diff, 'html: ', htm);
         var p = dmp.patch_make('', vm.version.diff);
         var s = dmp.patch_apply(p, vm.version.diff[0][1]);
-        console.log('patch: ', p, 'source: ', s);
+        console.log('patch: ', p, 'source: ', s);*/
         $mdDialog.show({
           templateUrl: HogTemplates.versionDiffTemplate,
           controller: HogTemplates.VersionDiffController,
@@ -485,10 +488,13 @@ angular.module('hog')
           bindToController: true,
           locals: {
             vm: {
-              leftDiff: vm.script.data,
-              leftVer: vm.currentVersion.version,
-              rightDiff: s[0],
-              rightVer: vm.version.version,
+              versions: vm.versions,
+              leftIdx: vm.leftIdx,
+              rightIdx: vm.rightIdx
+              //leftDiff: vm.script.data,
+              //leftVer: vm.currentVersion.version,
+              //rightDiff: s[0],
+              //rightVer: vm.version.version,
             }
           },
         })

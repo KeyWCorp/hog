@@ -9,7 +9,10 @@
           <label>Pig Arguments:</label>
           <input ng-model="vm.args">
         </md-input-container>
-
+         <md-input-container flex layout-align="end" style="float:right;">
+              <label>Version</label>
+              <input ng-disabled="false" value="{{vm.script.version}}">
+            </md-input-container>
         <div ui-ace="vm.editorOptions" ng-model="vm.script.data">
 
         </div>

@@ -348,12 +348,104 @@ angular.module('hog.hog-templates', [])
       };
 
       // Controller for Difference Modal
-      function VersionDiffController($mdDialog, $scope, $timeout, vm)
+      function VersionDiffController($mdDialog, $window, $scope, $timeout, $q, lodash, vm)
       {
-        $scope.vm = vm;
-        $scope.revert = function(is_revert)
+        var _ = lodash;
+        var dmp = new $window.diff_match_patch();
+        vm.loading = true;
+        vm.leftVers = vm.versions[vm.leftIdx];
+        vm.rightVers = vm.versions[vm.rightIdx];
+        vm.processDiff = function(lIdx, rIdx)
         {
-          $mdDialog.hide(is_revert);
+          var p = $q.defer();
+          
+          if(lIdx >= vm.versions.length || lIdx < 0 || rIdx >= vm.versions.length || rIdx < 0)
+          {
+            p.reject('Index out of bounds');
+          }
+          else
+          {
+            var leftDiff = vm.versions[lIdx].diff;
+            var rightDiff = vm.versions[rIdx].diff;
+            var lp = dmp.patch_make(leftDiff);
+            var lt = _.transform(leftDiff, function(result, e) {
+               if(e[0] == 0) 
+               {
+                 result.push(e[1]);
+                 return true;
+               }
+              }, []);
+            lt = lt.join(); 
+            var ls = dmp.patch_apply(lp, lt);
+            var rt = _.transform(leftDiff, function(result, e) {
+               if(e[0] == 0) 
+               {
+                 result.push(e[1]);
+                 return true;
+               }
+              }, []);
+            rt = rt.join(); 
+            var rp = dmp.patch_make(rightDiff);
+            var rs = dmp.patch_apply(rp, rt);
+             console.log('process left side: ', ls, 'right side:', rs);
+          // if(ls[1][0] == false || rs[1][0] == false)
+           // {
+            //  p.reject('patch failed to apply');
+           // }
+           // else
+           // {
+              p.resolve({ls: ls[0], rs: rs[0]});
+            //}
+          }
+          return p.promise;
+        }
+        vm.processDiff(vm.leftIdx, vm.rightIdx)
+          .then(
+            function(data)
+            {
+              $scope.vm.ls = data.ls;
+              $scope.vm.rs = data.rs;
+              $scope.vm.loading = false;
+              console.log('left side: ', $scope.vm.ls, 'right side:', $scope.vm.rs);
+            },
+            function(err)
+            {
+              console.error(err);
+            }
+          );
+          vm.setLIdx = function(vers)
+          {
+            vm.leftIdx = _.findIndex(vm.versions, ['version', vers.version])
+          }
+          vm.setRIdx = function(vers)
+          {
+            vm.rightIdx = _.findIndex(vm.versions, ['version', vers.version])
+          }
+          vm.diff = function()
+          {
+            $scope.vm.loading = true;
+            vm.processDiff(vm.leftIdx, vm.rightIdx)
+              .then(
+                function(data)
+                {
+                  $scope.vm.ls = data.ls;
+                  $scope.vm.rs = data.rs;
+              	  $scope.vm.loading = false;
+                   console.log('left side: ', $scope.vm.ls, 'right side:', $scope.vm.rs);
+                },
+                function(err)
+                {
+	                console.error(err);
+                });
+          }
+
+          $scope.vm = vm;
+        
+       
+        
+        $scope.revert = function(vIdx)
+        {
+          $mdDialog.hide(vIdx);
         }
         $scope.cancel = function()
         {
