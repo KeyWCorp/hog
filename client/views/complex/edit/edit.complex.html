@@ -36,23 +36,6 @@
             <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
             <md-button class="md-raised md-primary" ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export CSV</md-button>
-            <md-input-container flex="60" layout-align="end" style="float:right;">
-              <label> Latest Version: {{vm.latestVersion}}</label>
-            </md-input-container>
-            <md-input-container flex="60" layout-align="end" style="float:right;">
-              <label>Version</label>
-              <md-select ng-model="vm.version" md-on-close="vm.getVersion(vm.version)">
-                  <md-option ng-value="version" ng-repeat="version in vm.versions track by $index">{{version.version}}</md-option>
-              </md-select>
-            </md-input-container>
-            <md-input-container flex="60" layout-align="end" style="float:right;">
-               <md-button class="md-raised md-primary" ng-disabled="vm.version.version != vm.latestVersion && vm.currentVersion.version == vm.latestVersion" ng-click="vm.bumpVersion()"> Bump Version</md-button>
-            </md-input-container>
-            <md-input-container flex="60" layout-align="end" style="float:right;">
-            
-               <md-button class="md-raised md-primary" ng-disabled="vm.version.version == vm.latestVersion" ng-click="vm.openVersionDifferenceInfo($event)"> View Changes</md-button>
-               
-            </md-input-container>
 
 
           </div>
@@ -99,9 +82,27 @@
           </md-button>
         </div>
 
+        <div flex layout="row" layout-padding>
+            <md-input-container flex layout-align="end" style="float:right;">
+              <label>Latest Version</label>
+              <input ng-disabled="true" value="{{vm.latestVersion}}">
+            </md-input-container>
+            <md-input-container flex layout-align="end" style="float:right;">
+              <label>Version</label>
+              <md-select ng-model="vm.version" md-on-close="vm.getVersion(vm.version)">
+                <md-option ng-value="version" ng-repeat="version in vm.versions track by $index">{{version.version}}</md-option>
+              </md-select>
+            </md-input-container>
+            <md-input-container flex layout-align="end" style="float:right;">
+              <md-button class="md-raised md-primary" ng-disabled="!vm.version || vm.version.version != vm.latestVersion && vm.currentVersion.version == vm.latestVersion" ng-click="vm.bumpVersion()"> Bump Version</md-button>
+            </md-input-container>
+            <md-input-container flex layout-align="end" style="float:right;">
+              <md-button class="md-raised md-primary" ng-disabled="!vm.version || vm.version.version == vm.latestVersion" ng-click="vm.openVersionDifferenceInfo($event)"> View Changes</md-button>
+            </md-input-container>
+        </div>
 
         <div ui-ace="vm.editorOptions" ng-model="script_data" style="height: 600px;"></div>
-       <div class="container" ng-class="{'visible' : !vm.running}">
+        <div class="container" ng-class="{'visible' : !vm.running}">
           <md-progress-linear ng-if="vm.start" md-mode="indeterminate"></md-progress-linear>
 
           <div flex ng-show="vm.taskList.length > 0">

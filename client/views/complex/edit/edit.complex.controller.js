@@ -73,7 +73,7 @@ angular.module('hog')
                   {
                     return [n.arg, n.input];
                   });
-                
+
                 vm.args = strfy.join(" ").trim();
               }
               else
@@ -91,7 +91,7 @@ angular.module('hog')
         console.log('version changed:', idx, 'version', vm.version, 'cur', vm.currentVersion);
         /*if (vm.version.version != vm.currentVersion.version)
         {
-          
+
         }*/
       }
       vm.bumpVersion = function()
@@ -176,11 +176,11 @@ angular.module('hog')
                 $scope.script_data = vm.script.data;
                 $scope.script_name = vm.script.name;
                 $scope.script_args = vm.args;
-                
+
                 vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
                 vm.versions = vm.script.history;
                 vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
-              
+
                 vm.edited = false;
 
                 vm.name_edited = false;
@@ -504,7 +504,7 @@ angular.module('hog')
                   $scope.script_data = s[0];
                   vm.currentVersion = vm.version;
                 });
-              
+
             }
           });
       };
