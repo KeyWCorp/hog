@@ -10,6 +10,66 @@ angular.module('pig.pig-flow-templates', [])
         this.sorted_list = [];
         this.output_script = "";
 
+
+        /*
+         * Replace script contents
+         */
+        this.fillScript = function (node)
+        {
+          var self = this;
+
+
+          /*
+           * Build output script
+           */
+          var script = node.script.content;
+
+          /*
+           * replace input variables
+           */
+          node.inputs.map(function(input)
+              {
+                if (input.value !== "")
+                {
+                  var input_variable = self.nodes.filter(function(n_node)
+                  {
+                    return n_node.index === input.value;
+                  });
+
+                  input_variable = input_variable[0].output;
+
+                  var input_re = new RegExp("<input_" + input.label + ">", "g");
+                  script = script.replace(input_re, input_variable);
+                }
+              });
+
+          /*
+           * replace parameter variables
+           */
+          node.params.map(function(param)
+              {
+                if (param.value)
+                {
+                  var re = new RegExp("<"+ param.name +">","g");
+                  script = script.replace(re, param.value);
+                }
+              });
+
+          /*
+           * replace output variable
+           */
+          if (node.output)
+          {
+            var output_re = new RegExp("<output_variable>", "g");
+            script = script.replace(output_re, node.output);
+          }
+
+
+          self.output_script = self.output_script + "\n" + script;
+
+        };
+
+
         /*
          * Start sorting
          */
@@ -18,21 +78,19 @@ angular.module('pig.pig-flow-templates', [])
           var self = this;
 
           self.sorted_list = self.nodes.filter(function (node)
-          {
-            return !node.input_nodes || node.inputs.length <= 0;
-          });
+              {
+                return !node.input_nodes || node.inputs.length <= 0;
+              });
+
 
           /*
            * sort sorted_list by index
            */
           self.sorted_list.sort(function(a, b)
-          {
-            return a.index - b.index;
-          });
+              {
+                return a.index - b.index;
+              });
 
-          console.log("===================");
-          console.log("Start:");
-          console.log("-------------------");
           for(var i = 0; i < self.sorted_list.length; i++)
           {
             var node = self.sorted_list[i];
@@ -42,69 +100,73 @@ angular.module('pig.pig-flow-templates', [])
             if (node.output_nodes)
             {
               var tmp_child_list = node.output_nodes.map(function(output_index)
-              {
-                var tmp_o = self.nodes.filter(function(n)
                   {
-                    return n.index === output_index;
+                    var tmp_o = self.nodes.filter(function(n)
+                        {
+                          return n.index === output_index;
+                        });
+                    return tmp_o[0];
                   });
-                return tmp_o[0];
-              });
 
               var child_queue = tmp_child_list.filter(function(child)
-              {
-                return self.sorted_list.filter(function(s_node)
-                {
-                  return s_node.index !== child.index;
-                }).length > 0;
-              });
-
-              child_queue.map(function(child)
-              {
-
-                if (child.input_nodes)
-                {
-                  var sorted_inputs = child.input_nodes.filter(function(c_input_index)
                   {
                     return self.sorted_list.filter(function(s_node)
-                    {
-                      return s_node.index === c_input_index;
-                    }).length > 0;
+                        {
+                          return s_node.index !== child.index;
+                        }).length > 0;
                   });
 
-
-                  /*
-                   * check to see if all inputs are sorted
-                   */
-                  if (sorted_inputs.length === child.input_nodes.length)
+              child_queue.map(function(child)
                   {
-                    /*
-                     * Build output script
-                     */
-                    var script = child.script.content;
-                    //var output_re = new RegExp("<output_" + output.label + ">", "g");
-                    //script = script.replace(re, node.output);
-                    //var input_re = new RegExp("<input_" + input.label + ">", "g");
-                    //script = script.replace(re, input.value);
-                    //var re = new RegExp("<"+v+">","g");
-                    //script = script.replace(re, node.params[i].value);
 
-                    self.sorted_list.push(child);
-                  }
+                    if (child.input_nodes)
+                    {
+                      var sorted_inputs = child.input_nodes.filter(function(c_input_index)
+                          {
+                            return self.sorted_list.filter(function(s_node)
+                                {
+                                  return s_node.index === c_input_index;
+                                }).length > 0;
+                          });
 
-                }
-              });
+
+                      /*
+                       * check to see if all inputs are sorted
+                       */
+                      if (sorted_inputs.length === child.input_nodes.length)
+                      {
+                        var sorted_already = self.sorted_list.filter(function(node)
+                        {
+                          return node === child;
+                        }).length > 0;
+                        if (!sorted_already)
+                        {
+                          self.sorted_list.push(child);
+                        }
+                      }
+
+                    }
+                  });
 
             }
-            console.log(node);
+
+            if (i >= self.sorted_list.length -1)
+            {
+              /*
+              * call fill script
+              */
+              self.sorted_list.map(function(node)
+                  {
+                    self.fillScript(node);
+                  });
+            }
           }
-          console.log("-------------------");
-          console.log("End:");
-          console.log("===================");
 
 
-
+          cb(self.output_script);
 
         };
+
 
       };
 
@@ -156,71 +218,114 @@ angular.module('pig.pig-flow-templates', [])
       return main_template;
     })
 .factory('nodeTemplates', function() {
-  var headerTemplate = "<md-dialog flex='60'>"
-    + "  <form name='editForm'"
-    + "    <md-toolbar>"
-    + "        <div class='md-toolbar-tools'>"
-    + "            <h2>{{ node_info.name }}</h2>"
-    + "            <span flex></span>"
-    + "            <h3>{{ node_info.type }}</h3>"
-    + "        </div>"
-    + "    </md-toolbar>"
-    + "    <md-dialog-content layout='column' layout-margin>";
 
-  var footerTemplate = "    </md-dialog-content>"
-    + "    <div class='md-actions' layout='row'>"
-    + "        <span flex></span>"
-    + "        <md-button ng-click='cancel()'>Cancel</md-button>"
-    + "        <md-button ng-disabled='editForm.$invalid' ng-click='saveAndClose()'>Save</md-button>"
-    + "    </div>"
-    + "  </form>"
-    + "</md-dialog>";
+  /*
+   * Edit node controller
+   */
+  function EditNodeController($scope, $mdDialog, data, old_scope, templates, info)
+  {
+    var vm = $scope;
+    vm.node_info = data;
 
-  var basicTemplate = headerTemplate
-    + "      <div layout='row'>"
-    + "        <md-input-container flex>"
-    + "            <label>Name</label>"
-    + "            <input ng-model='tmp_node.name'>"
-    + "        </md-input-container>"
-    + "        <md-input-container flex>"
-    + "            <label>Type category</label>"
-    + "            <md-select ng-model='category' ng-disabled='!node_info'>"
-    + "              <md-option ng-repeat='category in categorys' value='{{ category }}'>"
-    + "                {{ category }}"
-    + "              </md-option>"
-    + "            </md-select>"
-    + "        </md-input-container>"
-    + "        <md-input-container flex>"
-    + "            <label>Type</label>"
-    + "            <md-select ng-model='type' ng-disabled='!category' md-on-close='save(type)'>"
-    + "              <md-option ng-repeat='type in types[category]' value='{{ type.name }}'>"
-    + "                {{ type.name }}"
-    + "              </md-option>"
-    + "            </md-select>"
-    + "        </md-input-container>"
-    + "      </div>"
-    + "      <div layout='column' ng-show='tmp_node.params[0].name'>"
-    + "        <md-input-container flex ng-repeat='param in params track by $index'>"
-    + "            <label>{{ param.name }}</label>"
-    + "            <input ng-if='param.required' required ng-trim='false' name='{{ param.name }}' ng-model='param.value'>"
-    + "            <input ng-if='!param.required' ng-trim='false' name='{{ param.name }}' ng-model='param.value'>"
-    + "        </md-input-container>"
-    + "      </div>"
-    + "      <div layout='column'>"
-    + "        <md-content flex layout-padding>"
-    + "          <md-subheader>Description</md-subheader>"
-    + "          <section>"
-    + "            <p>{{ tmp_node.description }}</p>"
-    + "          </section>"
-    + "        </md-content>"
-    + "      </div>";
+    vm.loadData = function ()
+    {
+      vm.types = Object.assign(
+          {}, old_scope.types);
+      vm.type = vm.node_info.type;
 
-  var loadTemplate = basicTemplate;
+      vm.category = vm.node_info.category;
+      vm.categorys = Object.keys(vm.types);
+
+      vm.tmp_param = [];
+      angular.copy(vm.node_info.params, vm.tmp_param);
+
+      vm.params = [];
+      vm.types[vm.category].map(function (t)
+          {
+            if (t.name === vm.type)
+            {
+              angular.copy(t.params, vm.params);
+              vm.script = t.script;
+              vm.description = t.description;
+              //vm.params = angular.copy(t.params, vm.params);
+            }
+          });
+
+      vm.params.map(function (p, i)
+          {
+            if (vm.tmp_param[i])
+            {
+              p.value = vm.tmp_param[i].value || p.value;
+            }
+          });
+
+      vm.tmp_node = {
+        name: vm.node_info.name,
+        category: vm.node_info.category,
+        description: vm.description,
+        type: vm.node_info.type,
+        params: vm.params,
+        script: vm.script
+      };
+    }
+    vm.loadData();
+
+    vm.saveAndClose = function ()
+    {
+      vm.save();
+      $mdDialog.hide({reload: false, data: vm.node_info});
+    };
+
+    vm.save = function (type)
+    {
+      if (type && type !== vm.node_info.type)
+      {
+        vm.node_info.name = vm.tmp_node.name;
+        vm.node_info.category = vm.category;
+        vm.node_info.type = vm.type;
+        vm.node_info.params = vm.params.splice(0);
+        vm.node_info.script = vm.script;
+
+        var added_width = Math.max(vm.node_info.inputs.length, vm.node_info.outputs.length) * 30;
+        vm.node_info.width += added_width;
+
+        vm.start();
+        vm.close(true);
+      }
+      else if (!type)
+      {
+        vm.node_info.name = vm.tmp_node.name;
+        vm.node_info.category = vm.category;
+        vm.node_info.type = vm.type;
+        vm.node_info.params = vm.params.splice(0);
+        vm.node_info.script = vm.script;
+
+        var added_width = Math.max(vm.node_info.inputs.length, vm.node_info.outputs.length) * 30;
+        vm.node_info.width += added_width;
+
+        vm.start();
+      }
+    };
+
+    vm.close = function (r)
+    {
+      $mdDialog.hide({reload: true, data: r} || {reload: false, data: vm.node_info});
+    };
+
+
+    vm.cancel = function ()
+    {
+      $mdDialog.hide({reload: false, data: data, cancel: true, info: info || false});
+    }
+  };
 
 
   return {
-    basic: basicTemplate + footerTemplate,
-    load: loadTemplate + footerTemplate
+    // views
+    basicEditTemplate: "services/pig-flow/src/html/basic.html",
+
+    // controllers
+    EditNodeController: EditNodeController
   };
 
 })

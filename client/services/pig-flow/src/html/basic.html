@@ -1,0 +1,57 @@
+<md-dialog flex='60'>
+  <form name='editForm'
+    <md-toolbar>
+      <div class='md-toolbar-tools'>
+        <h2>{{ node_info.name }}</h2>
+        <span flex></span>
+        <h3>{{ node_info.type }}</h3>
+      </div>
+    </md-toolbar>
+    <md-dialog-content layout='column' layout-margin>
+
+      <div layout='row'>
+        <md-input-container flex>
+          <label>Name</label>
+          <input ng-model='tmp_node.name'>
+        </md-input-container>
+        <md-input-container flex>
+          <label>Type category</label>
+          <md-select ng-model='category' ng-disabled='!node_info'>
+            <md-option ng-repeat='category in categorys' value='{{ category }}'>
+              {{ category }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container flex>
+          <label>Type</label>
+          <md-select ng-model='type' ng-disabled='!category' md-on-close='save(type)'>
+            <md-option ng-repeat='type in types[category]' value='{{ type.name }}'>
+              {{ type.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+      <div layout='column' ng-show='tmp_node.params[0].name'>
+        <md-input-container flex ng-repeat='param in params track by $index'>
+          <label>{{ param.name }}</label>
+          <input ng-if='param.required' required ng-trim='false' name='{{ param.name }}' ng-model='param.value'>
+          <input ng-if='!param.required' ng-trim='false' name='{{ param.name }}' ng-model='param.value'>
+        </md-input-container>
+      </div>
+      <div layout='column'>
+        <md-content flex layout-padding>
+          <md-subheader>Description</md-subheader>
+          <section>
+            <p>{{ tmp_node.description }}</p>
+          </section>
+        </md-content>
+      </div>
+
+    </md-dialog-content>
+    <div class='md-actions' layout='row'>
+      <span flex></span>
+      <md-button ng-click='cancel()'>Cancel</md-button>
+      <md-button ng-disabled='editForm.$invalid' ng-click='saveAndClose()'>Save</md-button>
+    </div>
+  </form>
+</md-dialog>

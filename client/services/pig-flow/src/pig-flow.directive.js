@@ -25,7 +25,7 @@ angular.module("pig.pig-flow", [])
         vm.nodes = [];
         vm.source_node;
         vm.target_node;
-        vm.types = nodeTypes;
+        vm.types = angular.copy(nodeTypes);
         vm.type_list = Object.keys(vm.types);
         vm.output_script = "";
 
@@ -73,8 +73,7 @@ angular.module("pig.pig-flow", [])
             .append("g")
             .attr("transform", "translate(" + -5 + "," + -5 + ")")
             .call(zoom)
-            .on("dblclick.zoom", null)
-            .on("dblclick", addNode);
+            .on("dblclick.zoom", null);
 
           vm.rect = vm.svg.append("rect")
             .attr("width", vm.width)
@@ -361,7 +360,7 @@ angular.module("pig.pig-flow", [])
             .on("click", function (d)
             {
               d3.event.stopPropagation();
-              editNode(d, true);
+              editNode(d, true, d.index);
             });
           vm.node_edit.exit()
             .remove();
@@ -390,6 +389,7 @@ angular.module("pig.pig-flow", [])
                       index: i,
                       length: n.inputs.length
                     };
+
                     input_list.push(tmp_obj);
                   });
                 }
@@ -970,10 +970,6 @@ angular.module("pig.pig-flow", [])
         {
           if (d)
           {
-            console.log("output_type: " + vm.source_node.data.type);
-            console.log("t: " + JSON.stringify(t, null, 2));
-            console.log("input_type: " + t.data.type);
-
             if (vm.source_node && vm.source_node.data.index != d.index)
             {
               // check that it is the right type
@@ -981,7 +977,7 @@ angular.module("pig.pig-flow", [])
                   t.data.category == vm.source_node.data.category ||
                   (!t.data.category && !t.data.type))
               {
-                t.data.value = vm.source_node.data.output;
+                t.data.value = vm.source_node.data.index;
 
                 vm.target_node = {
                   data: d,
@@ -1053,8 +1049,11 @@ angular.module("pig.pig-flow", [])
           vm.start();
         };
 
-        function editNode(d, info)
+        function editNode(l, info, index)
         {
+
+          var d = vm.nodes[index];
+
           function reloadDialog(reload)
           {
             $mdDialog.show(
@@ -1062,7 +1061,7 @@ angular.module("pig.pig-flow", [])
                 scope: vm,
                 preserveScope: true,
                 clickOutsideToClose: false,
-                template: nodeTemplates[d.type] || nodeTemplates["basic"],
+                templateUrl: nodeTemplates.basicEditTemplate,
                 locals:
                 {
                   data: d,
@@ -1070,102 +1069,7 @@ angular.module("pig.pig-flow", [])
                   templates: nodeTemplates,
                   info: info
                 },
-                controller: function DialogController($scope, $mdDialog, data, old_scope, templates, info)
-                {
-                  var vm = $scope;
-                  vm.node_info = data;
-
-                  vm.loadData = function ()
-                  {
-                    vm.types = Object.assign(
-                    {}, old_scope.types);
-                    vm.type = vm.node_info.type;
-
-                    vm.category = vm.node_info.category;
-                    vm.categorys = Object.keys(vm.types);
-
-                    vm.tmp_param = [];
-                    angular.copy(vm.node_info.params, vm.tmp_param);
-
-                    vm.params = [];
-                    vm.types[vm.category].map(function (t)
-                    {
-                      if (t.name === vm.type)
-                      {
-                        angular.copy(t.params, vm.params);
-                        vm.script = t.script;
-                        vm.description = t.description;
-                        //vm.params = angular.copy(t.params, vm.params);
-                      }
-                    });
-
-                    vm.params.map(function (p, i)
-                    {
-                      if (vm.tmp_param[i])
-                      {
-                        p.value = vm.tmp_param[i].value || p.value;
-                      }
-                    });
-
-                    vm.tmp_node = {
-                      name: vm.node_info.name,
-                      category: vm.node_info.category,
-                      description: vm.description,
-                      type: vm.node_info.type,
-                      params: vm.params,
-                      script: vm.script
-                    };
-                  }
-                  vm.loadData();
-
-                  vm.saveAndClose = function ()
-                  {
-                    vm.save();
-                    $mdDialog.hide({reload: false, data: vm.node_info});
-                  };
-
-                  vm.save = function (type)
-                  {
-                    if (type && type !== vm.node_info.type)
-                    {
-                      vm.node_info.name = vm.tmp_node.name;
-                      vm.node_info.category = vm.category;
-                      vm.node_info.type = vm.type;
-                      vm.node_info.params = vm.params.splice(0);
-                      vm.node_info.script = vm.script;
-
-                      var added_width = Math.max(vm.node_info.inputs.length, vm.node_info.outputs.length) * 30;
-                      vm.node_info.width += added_width;
-
-                      vm.start();
-                      vm.close(true);
-                    }
-                    else if (!type)
-                    {
-                      vm.node_info.name = vm.tmp_node.name;
-                      vm.node_info.category = vm.category;
-                      vm.node_info.type = vm.type;
-                      vm.node_info.params = vm.params.splice(0);
-                      vm.node_info.script = vm.script;
-
-                      var added_width = Math.max(vm.node_info.inputs.length, vm.node_info.outputs.length) * 30;
-                      vm.node_info.width += added_width;
-
-                      vm.start();
-                    }
-                  };
-
-                  vm.close = function (r)
-                  {
-                    $mdDialog.hide({reload: true, data: r} || {reload: false, data: vm.node_info});
-                  };
-
-
-                  vm.cancel = function ()
-                  {
-                    $mdDialog.hide({reload: false, data: data, cancel: true, info: info || false});
-                  }
-                }
+                controller: nodeTemplates.EditNodeController
               })
               .then(function (d)
               {
@@ -1217,41 +1121,6 @@ angular.module("pig.pig-flow", [])
           });
         };
 
-        function addNode()
-        {
-          var pos = d3.mouse(this);
-
-          var trans = d3.transform(vm.container.attr("transform"));
-          var tpos = trans.translate;
-          var tscale = trans.scale;
-          var tx = tpos[0];
-          var ty = tpos[1];
-          var mx = pos[0];
-          var my = pos[1];
-
-          // get position with translation and scaling
-          var dx = (mx - tx) / tscale[0] - 150;
-          var dy = (my - ty) / tscale[1] - 62;
-
-          var newNode = {
-            x: dx,
-            y: dy,
-            width: 300,
-            height: 124,
-            name: "new node " + vm.nodes.length,
-            category: "input",
-            type: "load",
-            params: vm.types["input"][0].params.slice(),
-            script: vm.types["input"][0].script,
-            output: "load" + (vm.nodes.length) || "load0",
-            fixed: true
-          };
-          vm.nodes.push(newNode);
-
-          vm.start();
-
-          editNode(newNode);
-        };
 
         function start_update()
         {
@@ -1280,49 +1149,6 @@ angular.module("pig.pig-flow", [])
           });
         };
 
-        function doIt(node, i, visitedNodes, cb)
-        {
-          if (node)
-          {
-            if (!visitedNodes[node.index])
-            {
-              var script_obj = node.script || {};
-              var script = script_obj.content || "";
-
-              node.outputs.map(function (output, i)
-              {
-                var re = new RegExp("<output_" + output.label + ">", "g");
-                script = script.replace(re, node.output);
-              });
-
-              node.inputs.map(function (input, i)
-              {
-                var re = new RegExp("<input_" + input.label + ">", "g");
-                script = script.replace(re, input.value);
-              });
-
-
-              script_obj.variables.map(function (v,i)
-              {
-                if (v)
-                {
-                  var re = new RegExp("<"+v+">","g");
-                  script = script.replace(re, node.params[i].value);
-                }
-              });
-
-              node.script.output = script;
-
-              visitedNodes[node.index] = i;
-              vm.output_script = script + "\n" + vm.output_script;
-              doIt(vm.nodes[node.input_node] || false, i + 1, visitedNodes, cb);
-            }
-          } else
-          {
-            cb();
-          }
-        };
-
 
         vm.addNode = function (c, t)
         {
@@ -1341,25 +1167,25 @@ angular.module("pig.pig-flow", [])
           var dx = (mx - tx) / tscale[0] - 150;
           var dy = (my - ty) / tscale[1] - 62;
 
-          var params = vm.types[c].filter(function (n)
+          var params = angular.copy(vm.types[c].filter(function (n)
           {
             return n.name === t;
-          })[0].params.slice();
+          })[0].params.slice());
 
-          var script = vm.types[c].filter(function (n)
+          var script = angular.copy(vm.types[c].filter(function (n)
           {
             return n.name === t;
-          })[0].script;
+          })[0].script);
 
-          var inputs = vm.types[c].filter(function (n)
+          var inputs = angular.copy(vm.types[c].filter(function (n)
           {
             return n.name === t;
-          })[0].inputs.slice();
+          })[0].inputs.slice());
 
-          var outputs = vm.types[c].filter(function (n)
+          var outputs = angular.copy(vm.types[c].filter(function (n)
           {
             return n.name === t;
-          })[0].outputs.slice();
+          })[0].outputs.slice());
 
           var newNode = {
             x: dx,
@@ -1380,7 +1206,7 @@ angular.module("pig.pig-flow", [])
 
           vm.start();
 
-          editNode(newNode);
+          editNode(newNode, null, newNode.index);
         };
 
         vm.toggleNodeList = function ()
