@@ -31,12 +31,12 @@ angular.module('pig.pig-flow-templates', [])
               {
                 if (input.value !== "")
                 {
-                  var input_variable = self.nodes.filter(function(n_node)
+                  var input_obj = self.nodes.filter(function(n_node)
                   {
                     return n_node.index === input.value;
                   });
 
-                  input_variable = input_variable[0].output;
+                  var input_variable = input_obj[0].output;
 
                   var input_re = new RegExp("<input_" + input.label + ">", "g");
                   script = script.replace(input_re, input_variable);
@@ -48,7 +48,23 @@ angular.module('pig.pig-flow-templates', [])
            */
           node.params.map(function(param)
               {
-                if (param.value)
+                if (!param.required)
+                {
+                  if (param.value)
+                  {
+                    var snippit_re = new RegExp("<"+ param.name +">","g");
+                    script = script.replace(snippit_re, param.snippit);
+
+                    var re = new RegExp("<"+ param.name +">","g");
+                    script = script.replace(re, param.value);
+                  }
+                  else
+                  {
+                    var default_re = new RegExp("<"+ param.name +">","g");
+                    script = script.replace(default_re, param.default);
+                  }
+                }
+                else if (param.value)
                 {
                   var re = new RegExp("<"+ param.name +">","g");
                   script = script.replace(re, param.value);
@@ -343,11 +359,15 @@ angular.module('pig.pig-flow-templates', [])
           {
             name: "format",
             required: false,
+            snippit: " AS <format>",
+            default: "",
             value: ""
           },
           {
             name: "separator",
             required: false,
+            snippit: " USING PigStorage('<separator>')",
+            default: "",
             value: ""
           }],
           description: "Load from a source",
@@ -367,7 +387,7 @@ angular.module('pig.pig-flow-templates', [])
               "format",
               "separator"
             ],
-            content: "<output_variable> = LOAD '<source>' USING PigStorage('<separator>') AS <format>;"
+            content: "<output_variable> = LOAD '<source>'<separator><format>;"
           }
         },
         {
@@ -375,7 +395,9 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
-            required: true,
+            required: false,
+            snippit: " BY <type>",
+            default: " ALL",
             value: ""
           }],
           description: "Takes in an input and groups by a type",
@@ -399,7 +421,7 @@ angular.module('pig.pig-flow-templates', [])
             variables: [
               "type"
             ],
-            content: "<output_variable> = GROUP <input_source> BY <type>;"
+            content: "<output_variable> = GROUP <input_source><type>;"
           }
         }],
         eval_functions: [
@@ -445,7 +467,9 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
-            required: true,
+            required: false,
+            snippit: ".<type>) AS <type>",
+            default: ")",
             value: ""
           }],
           description: "Take in an input and group and returns the average of the type",
@@ -474,7 +498,7 @@ angular.module('pig.pig-flow-templates', [])
             variables: [
               "type"
             ],
-            content: "<output_variable> = FOREACH <input_grouping> GENERATE AVG(<input_source>.<type>) AS <type>;"
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE AVG(<input_source><type>;"
           }
         },
         {
@@ -550,7 +574,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
-            required: false,
+            required: true,
             value: ""
           }],
           description: "Computes the maximum of the numeric values or chararrays in a single-column bag. MAX requires a preceding GROUP ALL statement for global maximums and a GROUP BY statement for group maximums.",
@@ -587,7 +611,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
-            required: false,
+            required: true,
             value: ""
           }],
           description: "Computes the minimum of the numeric values or chararrays in a single-column bag. MIN requires a preceding GROUP… ALL statement for global minimums and a GROUP … BY statement for group minimums.",
@@ -624,7 +648,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
-            required: false,
+            required: true,
             value: ""
           }],
           description: "Computes the number of elements based on any Pig data type.",
@@ -694,7 +718,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
-            required: false,
+            required: true,
             value: ""
           }],
           description: "Splits a string and outputs a bag of words.",
