@@ -474,7 +474,7 @@ angular.module('pig.pig-flow-templates', [])
             variables: [
               "type"
             ],
-            content: "<output_variable> = FOREACH <input_grouping> GENERATE AVE(<input_source>.<type>) AS <type>;"
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE AVG(<input_source>.<type>) AS <type>;"
           }
         },
         {
