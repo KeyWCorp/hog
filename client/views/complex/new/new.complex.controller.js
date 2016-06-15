@@ -16,7 +16,8 @@ angular.module('hog')
       vm.script = {
         name: '',
         data: '',
-        args: []
+        args: [],
+        version: ''
       };
 
       vm.onEditorLoad = function(_ace)

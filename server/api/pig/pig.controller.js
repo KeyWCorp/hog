@@ -120,7 +120,8 @@ exports.create = function (socket) {
         if (_ready)
         {
           var pig = Pig.create(JSON.parse(data));
-          pig.diff('', true);
+          console.log('pig: ', pig, ' data: ' , data);
+          pig.diff({data: ''}, true);
           console.log(pig);
           pig.save()
             .then(
@@ -153,31 +154,31 @@ exports.update = function (socket)
         if (_ready)
         {
           console.log('updating', data.obj);
-          var oldData = JSON.parse(data.obj);
-          Pig.findOne({_id: oldData._id})
+          var newData = JSON.parse(data.obj);
+          Pig.findOne({_id: newData._id})
             .then(
               function(doc)
               {
-                if(oldData.version != doc.version)
+                if(newData.version != doc.version)
                 {
-                  console.log('new version: ', oldData.version, 'Old version: ', doc.version);
-                  doc.diff(oldData, true);
+                  console.log('new version: ', newData.version, 'Old version: ', doc.version);
+                  doc.diff(doc, true, newData);
                 }
-                if(oldData.name != doc.name)
+                if(newData.name != doc.name)
                 {
-                  if (oldData.script_loc)
+                  if (newData.script_loc)
                   {
-                    script_location = oldData.script_loc;
+                    script_location = newData.script_loc;
                   }
                   else
                   {
-                    script_location = path.join(__dirname, '../../',  'scripts/pig/', oldData.name +  '.pig');
+                    script_location = path.join(__dirname, '../../',  'scripts/pig/', newData.name +  '.pig');
                   }
                   doc.rename(script_location)
                     .then(
                       function()
                       {
-                        doc.update(oldData);
+                        doc.update(newData);
                         doc.save()
                           .then(
                             function(obj)
@@ -198,7 +199,7 @@ exports.update = function (socket)
                 }
                 else
                 {
-                  doc.update(oldData);
+                  doc.update(newData);
                   doc.save()
                     .then(
                       function(obj)
@@ -354,32 +355,38 @@ exports.runAndTrack = function (socket) {
         }
       });
  };
-      exports.bumpVersion = function(socket)
+
+/**
+ * bumps the pigs version
+ *
+ * @param socket
+ */
+exports.bumpVersion = function(socket)
+{
+  socket.on('bump',
+    function(id)
+    {
+      if (_ready)
       {
-        socket.on('bump',
-          function(id)
-          {
-            if (_ready)
+        console.log('finding and bumping', id);
+        Pig.findOne({_id: id})
+          .then(
+            function(doc)
             {
-              console.log('finding and bumping', id);
-              Pig.findOne({_id: id})
-                .then(
-                  function(doc)
-                  {
-                    console.log(id, 'found attempting bump');
-                    
-                    var ver = doc.bump();
+              console.log(id, 'found attempting bump');
+              
+              var ver = doc.bump();
+            
+                    console.log('finished bumping version', ver);
+                    //if (err) { return handleError(socket, err); }
+                    socket.emit('bumped', buildResponse(200, ver));
                   
-                          console.log('finished bumping version', ver);
-                          //if (err) { return handleError(socket, err); }
-                          socket.emit('bumped', buildResponse(200, ver));
-                        
-                  },
-                  function(err)
-                  {
-                    if (err) { return handleError(socket, err); }
-                  });
-            }
-          });
+            },
+            function(err)
+            {
+              if (err) { return handleError(socket, err); }
+            });
       }
+    });
+}
 

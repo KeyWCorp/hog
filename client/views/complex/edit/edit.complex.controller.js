@@ -66,7 +66,8 @@ angular.module('hog')
               vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
               vm.versions = vm.script.history;
               vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
-              if(typeof vm.script.args[0] != String)
+              console.log('args ', vm.script.args, 'type: ', typeof vm.script.args[0]);
+              if(typeof vm.script.args[0] != 'string')
               {
                 var strfy = _.flatMap(vm.script.args,
                   function(n)
@@ -490,7 +491,8 @@ angular.module('hog')
             vm: {
               versions: vm.versions,
               leftIdx: vm.leftIdx,
-              rightIdx: vm.rightIdx
+              rightIdx: vm.rightIdx,
+              latest: vm.latestVersion
               //leftDiff: vm.script.data,
               //leftVer: vm.currentVersion.version,
               //rightDiff: s[0],

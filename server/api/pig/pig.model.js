@@ -9,7 +9,6 @@ var path      = require('path');
 //var connect   = require('camo').connect;
 var Document  = require('camo').Document;
 var EmbeddedDocument  = require('camo').EmbeddedDocument;
-var diff = require('diff');
 var diffmatchpatch = require('diff-match-patch');
 var dmp = new diffmatchpatch();
 
@@ -192,18 +191,31 @@ class Pig extends Document {
       });
     return p;
   }
-  diff(newData, save)
+  diff(oldData, save, newData)
   {
+    var d;
+    var version;
+    if(newData)
+    {
+      d = dmp.diff_main(this.data, newData.data);
+      version = newData.version;
+    }
+    else
+    {
+      d = dmp.diff_main(oldData.data, this.data)
+      version = this.version;
+    }
     console.log('starting diff');
     //var d = diff.diffTrimmedLines(this.data, newData.data)
-    var d = dmp.diff_main(this.data, newData.data);
+    //var d = dmp.diff_main(this.data, newData.data);
+    //var d = dmp.diff_main(oldData.data, this.data);
     dmp.diff_cleanupEfficiency(d);
     if(save)
     {
-      console.log('diff', d, 'creating new Version');
+      console.log('diff', d, 'creating new Version: ', version);
       try {
         var vers = Version.create({
-        version: newData.version || this.version,
+        version: version,
         current: true,
         diff: d
       });

@@ -375,19 +375,20 @@ angular.module('hog.hog-templates', [])
                  return true;
                }
               }, []);
-            lt = lt.join(); 
+            lt = lt.join(''); 
             var ls = dmp.patch_apply(lp, lt);
-            var rt = _.transform(leftDiff, function(result, e) {
+            var rt = _.transform(rightDiff, function(result, e) {
                if(e[0] == 0) 
                {
                  result.push(e[1]);
                  return true;
                }
               }, []);
-            rt = rt.join(); 
+              console.log('right transform: ', rt);
+            rt = rt.join(''); 
             var rp = dmp.patch_make(rightDiff);
             var rs = dmp.patch_apply(rp, rt);
-             console.log('process left side: ', ls, 'right side:', rs);
+             console.log('process left side: ', ls, lt, '\nright side:', rs, rt);
           // if(ls[1][0] == false || rs[1][0] == false)
            // {
             //  p.reject('patch failed to apply');
@@ -403,10 +404,14 @@ angular.module('hog.hog-templates', [])
           .then(
             function(data)
             {
-              $scope.vm.ls = data.ls;
-              $scope.vm.rs = data.rs;
-              $scope.vm.loading = false;
-              console.log('left side: ', $scope.vm.ls, 'right side:', $scope.vm.rs);
+              $timeout(function()
+              {
+                $scope.vm.ls = data.ls;
+                $scope.vm.rs = data.rs;
+                $scope.vm.loading = false;
+                console.log('left side: ', $scope.vm.ls, 'right side:', $scope.vm.rs);
+              })
+            
             },
             function(err)
             {
@@ -428,10 +433,13 @@ angular.module('hog.hog-templates', [])
               .then(
                 function(data)
                 {
-                  $scope.vm.ls = data.ls;
-                  $scope.vm.rs = data.rs;
-              	  $scope.vm.loading = false;
-                   console.log('left side: ', $scope.vm.ls, 'right side:', $scope.vm.rs);
+                  $timeout(function()
+                  {
+                    $scope.vm.ls = data.ls;
+                    $scope.vm.rs = data.rs;
+                    $scope.vm.loading = false;
+                    console.log('left side: ', $scope.vm.ls, 'right side:', $scope.vm.rs);
+                  })
                 },
                 function(err)
                 {
