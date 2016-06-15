@@ -31,7 +31,8 @@
     "lodash": "^4.13.1",
     "angular-scroll-glue": "^2.0.6",
     "ng-csv": "^0.3.6",
-    "angular-diff-match-patch": "^0.2.2"
+    "angular-diff-match-patch": "^0.2.2",
+    "angular-file-saver": "^1.1.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.7",

@@ -49,7 +49,7 @@ class Pig extends Document {
   static collectionName() {
         return 'pig.data';
     }
-  run(stdoutCB, stderrCB, stdlogCB, stdwarningCB, finishedCB)
+  run(stdoutCB, stderrCB, stdlogCB, stdwarningCB, finishedCB, killCB)
   {
     var script_location = '';
     if (this.script_loc)
@@ -61,9 +61,9 @@ class Pig extends Document {
       script_location = path.join(__dirname, '../../',  'scripts/pig/', this.name +  '.pig');
     }
 
-    pigParser.run(this.args, script_location, stdoutCB, stderrCB, stdlogCB, stdwarningCB, finishedCB);
+    pigParser.run(this.args, script_location, stdoutCB, stderrCB, stdlogCB, stdwarningCB, finishedCB, killCB);
   }
-  runAndTrack(stdoutCB, stderrCB, stdlogCB, stdwarningCB, finishedCB)
+  runAndTrack(stdoutCB, stderrCB, stdlogCB, stdwarningCB, trackerCB, finishedCB, killCB)
   {
     var script_location = '';
     if (this.script_loc)
@@ -75,7 +75,7 @@ class Pig extends Document {
       script_location = path.join(__dirname, '../../',  'scripts/pig/', this.name +  '.pig');
     }
 
-    pigParser.trackTasks(this.args, script_location, stdoutCB, stderrCB, stdlogCB, stdwarningCB, finishedCB);
+    pigParser.trackTasks(this.args, script_location, stdoutCB, stderrCB, stdlogCB, stdwarningCB, trackerCB, finishedCB, killCB);
   }
   bumpMajor()
   {

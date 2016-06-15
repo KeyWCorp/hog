@@ -2,7 +2,7 @@
 
 angular.module('hog')
 
-.controller('EditSimpleCtrl', function ($log, $scope, $state, $stateParams, HogTemplates, Runner, Pig, $mdToast, $mdDialog)
+.controller('EditSimpleCtrl', function ($log, $scope, $state, $stateParams, HogTemplates, Runner, Pig, $mdToast, $mdDialog, FileSaver, Blob)
     {
       var vm = this;
 
@@ -49,6 +49,14 @@ angular.module('hog')
         firstLineNumber: 1,
         onChange: vm.onEditorChange(),
         readOnly: true
+      };
+
+
+
+      vm.downloadScript = function()
+      {
+        var data = new Blob([vm.script.data], {type: 'text/plain;charset=utf-8'});
+        FileSaver.saveAs(data, vm.script.name + ".pig");
       };
 
 
@@ -159,6 +167,25 @@ angular.module('hog')
         $state.go('home.complex.edit', {id: vm.script._id});
       };
 
+
+      vm.deleteScript = function(ev)
+      {
+        $mdDialog.show({
+          template: HogTemplates.deleteDialogTemplate,
+          controller: HogTemplates.DeleteDialogController,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            script_id: vm.script._id,
+            cb: function (data)
+            {
+              $state.go('^.list');
+            }
+          },
+        });
+      };
+
       vm.save = function (cb)
       {
         vm.script.args = $scope.script_args.split(" ");
@@ -206,6 +233,16 @@ angular.module('hog')
             {
               vm.run();
             });
+      };
+
+      vm.kill = function()
+      {
+        Runner.kill(vm.script._id)
+          .then(
+              function(data)
+              {
+                console.log("Killed: " + JSON.stringify(data, null, 2));
+              });
       };
 
       vm.run = function()

@@ -7,6 +7,7 @@ angular.module('hog')
 
       vm.output_data = {};
       vm.running = false;
+      vm.current_running_id = "";
       vm.isRunning = {};
       vm.output = {};
 
@@ -61,6 +62,7 @@ angular.module('hog')
       Pig.on('run:finished', function ()
           {
             vm.running = false;
+            vm.current_running_id = "";
             Object.keys(vm.isRunning).map(function (key)
                 {
                   if (vm.isRunning[key] === true)
@@ -70,11 +72,51 @@ angular.module('hog')
                 });
           });
 
+
+      vm.deleteScript = function(ev, id)
+      {
+        $mdDialog.show({
+          template: HogTemplates.deleteDialogTemplate,
+          controller: HogTemplates.DeleteDialogController,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            script_id: id,
+            cb: function (data)
+            {
+              Runner.list()
+                .then(
+                    function(data)
+                    {
+                      vm.scripts = [];
+                      vm.scripts = data.json.filter(function (script)
+                        {
+                          return script.type === "simple";
+                        });
+                    });
+            }
+          },
+        });
+      };
+
+
+      vm.kill = function(id)
+      {
+        Runner.kill(id)
+          .then(
+              function(data)
+              {
+                console.log("Killed: " + JSON.stringify(data, null, 2));
+              });
+      };
+
       vm.run = function(id, idx)
       {
         vm.output[id] = [];
         vm.running = true;
         vm.isRunning[id] = true;
+        vm.current_running_id = id;
 
         vm.scripts[idx].info_outputs = [];
         vm.scripts[idx].outputs = [];

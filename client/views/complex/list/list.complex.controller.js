@@ -8,6 +8,8 @@ angular.module('hog')
     vm.isRunning = {};
     vm.running = false;
 
+    vm.current_running_id = "";
+
     vm.modes = ['Pig_Latin'];
     vm.themes = ['monokai', 'twilight', 'none'];
     vm.mode = vm.modes[0];
@@ -45,6 +47,7 @@ angular.module('hog')
     Pig.on('run:finished', function ()
         {
           vm.running = false;
+          vm.current_running_id = "";
         });
 
     angular.extend(vm, {
@@ -55,10 +58,43 @@ angular.module('hog')
         $state.go('^.edit', {id: id});
 
       },
+      deleteScript: function(ev, id)
+      {
+        $mdDialog.show({
+          template: HogTemplates.deleteDialogTemplate,
+          controller: HogTemplates.DeleteDialogController,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            script_id: id,
+            cb: function (data)
+            {
+              Runner.list()
+                .then(
+                    function(data)
+                    {
+                      vm.scripts = [];
+                      vm.scripts = data.json;
+                    });
+            }
+          },
+        });
+      },
+      kill: function(id)
+      {
+        Runner.kill(id)
+          .then(
+              function(data)
+              {
+                console.log("Killed: " + JSON.stringify(data, null, 2));
+              });
+      },
       run: function(id, idx)
       {
         vm.isRunning[id] = true;
         vm.running = true;
+        vm.current_running_id = id;
 
         vm.scripts[idx].info_outputs = [];
         vm.scripts[idx].outputs = [];

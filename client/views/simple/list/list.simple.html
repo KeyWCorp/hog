@@ -1,6 +1,6 @@
 <section id="List">
   <div class='md-padding' layout="column" layout-align="center center">
-    <div layout="row" flex ng-repeat="pig in vm.scripts track by $index">
+    <div layout="row" flex ng-repeat="pig in vm.scripts | orderBy: 'name'">
       <div flex>
         <md-card ng-model="vm.scripts" flex>
           <v-accordion class="vAccordion--default" flex>
@@ -26,6 +26,10 @@
               </v-pane-header>
               <v-pane-content flex>
                 <div style="min-width: 900px;" readonly ui-ace="vm.editorOptions" ng-model="pig.data" flex></div>
+
+                <md-button class="md-raised md-warn" ng-click="vm.deleteScript($event, pig._id)">
+                  Delete
+                </md-button>
               </v-pane-content>
             </v-pane>
           </v-accordion>
@@ -40,14 +44,14 @@
                 </md-button>
 
                 <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'output')" md-style-color="{'background-color': 'green.400'}" ng-if="pig.outputs.length > 0">
-                  Show Outputs: #{{ pig.outputs.length }}
+                  Show Results: #{{ pig.outputs.length }}
                   <md-tooltip>
                     Show Output
                   </md-tooltip>
                 </md-button>
 
                 <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'log')" md-style-color="{'background-color': 'blue.400'}" ng-if="pig.logs.length > 0">
-                  Show Logs: #{{ pig.logs.length }}
+                  Show Info Logs: #{{ pig.logs.length }}
                   <md-tooltip>
                     Show Logs
                   </md-tooltip>
@@ -72,8 +76,11 @@
             </div>
             <span flex></span>
             <div layout="row" layout-align="end center" flex>
-              <md-button class="md-primary md-raised" ng-disabled='vm.running' ng-click="vm.run(pig._id, $index)">
+              <md-button class="md-primary md-raised" ng-disabled="vm.running" ng-show='!vm.running || vm.current_running_id !== pig._id' ng-click="vm.run(pig._id, $index)">
                 Run
+              </md-button>
+              <md-button class="md-raised md-warn" ng-click="vm.kill(pig._id)" ng-show="vm.running && vm.current_running_id === pig._id">
+                Kill
               </md-button>
               <md-button class="md-primary md-raised" ng-click="vm.edit(pig._id)">
                 Edit

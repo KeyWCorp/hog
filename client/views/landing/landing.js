@@ -3,15 +3,15 @@
 angular.module('hog')
 .config(function (  $stateProvider ) {
   $stateProvider
-    .state('home.simple',
+    .state('home.landing',
         {
-          url: 'simple',
+          url: 'landing',
           views: {
             '': {
-              templateUrl: 'views/simple/simple.html',
-              controller: 'SimpleCtrl',
+              templateUrl: 'views/landing/landing.html',
+              controller: 'LandingCtrl',
               controllerAs: 'vm'
-            },
+            }
           }
         });
 });

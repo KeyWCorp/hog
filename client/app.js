@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hog', [
-	'ngTable',
+    'ngTable',
     'ngRoute',
     'ngCookies',
     'ngResource',
@@ -21,18 +21,21 @@ angular.module('hog', [
     'hog.hog-tracker',
     'pig.pig-flow',
     'pig.pig-flow-templates',
+    'pig.uploader',
     'hog.hog-templates',
     'mdColors',
     'luegg.directives',
     'ngCsv',
-    'diff-match-patch'
+    'diff-match-patch',
+    'ngFileSaver'
 ]).config(function($mdThemingProvider) {
-  $mdThemingProvider.theme('default')
+  $mdThemingProvider
+    .theme('default')
     .primaryPalette('blue')
     .accentPalette('orange');
 })
   .config(function ( $urlRouterProvider , $locationProvider) {
     $urlRouterProvider
-        .otherwise('/');
+        .otherwise('/landing');
     $locationProvider.html5Mode(true);
   });

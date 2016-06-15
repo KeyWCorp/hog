@@ -10,34 +10,44 @@
           </md-input-container>
 
           <div flex="60" layout-align="end" style="float:right;">
-            <md-menu ng-show="!vm.edited">
-              <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Execute</md-button>
+            <md-menu ng-show="!vm.edited && !vm.running">
+              <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Run</md-button>
               <md-menu-content width="4">
                 <md-menu-item>
-                  <md-button ng-disabled="vm.running" ng-click="vm.run()">Execute</md-button>
+                  <md-button ng-disabled="vm.running" ng-click="vm.run()">Run</md-button>
                 </md-menu-item>
                 <md-menu-item>
-                  <md-button ng-disabled="vm.running" ng-click="vm.runAndTrack()">Execute and Track</md-button>
+                  <md-button ng-disabled="vm.running || true" ng-click="vm.runAndTrack()">Run and Track</md-button>
                 </md-menu-item>
               </md-menu-content>
             </md-menu>
-            <md-menu ng-show="vm.edited">
-              <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Save and Execute</md-button>
+            <md-menu ng-show="vm.edited && !vm.running">
+              <md-button class="md-raised md-primary" ng-disabled="vm.running" ng-click="$mdOpenMenu()">Save and Run</md-button>
               <md-menu-content width="4">
                 <md-menu-item>
-                  <md-button ng-disabled="vm.running" ng-click="vm.saveAndRun()">Save and Execute</md-button>
+                  <md-button ng-disabled="vm.running" ng-click="vm.saveAndRun()">Save and Run</md-button>
                 </md-menu-item>
                 <md-menu-item>
-                  <md-button ng-disabled="vm.running" ng-click="vm.saveAndRunAndTrack()">Save and Execute and Track</md-button>
+                  <md-button ng-disabled="vm.running || true" ng-click="vm.saveAndRunAndTrack()">Save and Run and Track</md-button>
                 </md-menu-item>
               </md-menu-content>
             </md-menu>
+            <md-button class="md-raised md-warn" ng-click="vm.kill()" ng-show="vm.running">Kill</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="!vm.edited">Save</md-button>
-            <md-button class="md-raised md-primary" ng-click="vm.canceled(item.id)">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="vm.openSettings($event)">Settings</md-button>
-            <md-button class="md-raised md-primary" ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export CSV</md-button>
-
-
+            <md-menu>
+              <md-button ng-click="$mdOpenMenu($event)" class="md-raised md-primary">
+                Download/Export
+              </md-button>
+              <md-menu-content flex width="4">
+                <md-menu-item>
+                  <md-button ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export Output To CSV</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-disabled="!vm.script.data" ng-click="vm.downloadScript()">Download Script</md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
           </div>
 
         </div>
@@ -50,18 +60,18 @@
         </div>
 
         <div flex class='md-padding' layout="column" layout-padding ng-show="vm.info_outputs.length > 0">
-          <md-subheader class="md-primary">Display Output Logs</md-subheader>
+          <md-subheader class="md-primary">Display Outputs</md-subheader>
           <section layout="row">
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'all')" ng-if="vm.info_outputs.length > 0">
               Show All: #{{ vm.info_outputs.length }}
             </md-button>
 
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'output')" md-style-color="{'background-color': 'green.400'}" ng-if="vm.outputs.length > 0">
-              Show Outputs: #{{ vm.outputs.length }}
+              Show Results: #{{ vm.outputs.length }}
             </md-button>
 
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'log')" md-style-color="{'background-color': 'blue.400'}" ng-if="vm.logs.length > 0">
-              Show Logs: #{{ vm.logs.length }}
+              Show Info Logs: #{{ vm.logs.length }}
             </md-button>
 
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'warning')" md-style-color="{'background-color': 'orange.400'}" ng-if="vm.warnings.length > 0">
@@ -102,6 +112,7 @@
         </div>
 
         <div ui-ace="vm.editorOptions" ng-model="script_data" style="height: 600px;"></div>
+
         <div class="container" ng-class="{'visible' : !vm.running}">
           <md-progress-linear ng-if="vm.start" md-mode="indeterminate"></md-progress-linear>
 

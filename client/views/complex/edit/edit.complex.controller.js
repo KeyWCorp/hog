@@ -3,7 +3,7 @@
 angular.module('hog')
 
 .controller('EditComplexCtrl',
-  function ($scope, $window, $timeout,$log, $state, $stateParams, HogTemplates, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog, PigCompleter)
+  function ($scope, $window, $timeout, $log, $state, $stateParams, HogTemplates, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog, PigCompleter, FileSaver, Blob)
     {
       var vm = this;
       //vm.script =  Runner.getData();
@@ -19,7 +19,6 @@ angular.module('hog')
       vm.name_edited = false;
       vm.args_edited = false;
       vm.script_edited = false;
-
 
       vm.taskList = [];
       vm.running = false;
@@ -143,6 +142,10 @@ angular.module('hog')
       {
 
       };
+
+
+
+
       vm.editorOptions = {
         advanced: {
           enableSnippets: false,
@@ -157,6 +160,31 @@ angular.module('hog')
         firstLineNumber: 1,
         onChange: vm.onEditorChange()
       };
+
+
+
+      vm.downloadScript = function()
+      {
+        var data = new Blob([vm.script.data], {type: 'text/plain;charset=utf-8'});
+        FileSaver.saveAs(data, vm.script.name + ".pig");
+      };
+
+
+
+
+      vm.deleteScript = function()
+      {
+        Runner.destroy(vm.script._id)
+          .then(
+              function(data)
+              {
+                $state.go('^.list');
+              });
+      };
+
+
+
+
       vm.save = function(graph, numOutput, cb)
       {
 
@@ -206,19 +234,31 @@ angular.module('hog')
               {
                 $log.error('error: ' +err);
               });
-      }
-      vm.canceled = function(id) {
-        $state.go('home.complex.list');
-      }
+      };
+
+
 
       vm.saveAndRun = function()
       {
         vm.save(null, null, vm.run);
       };
 
+
+
       vm.saveAndRunAndTrack = function()
       {
         vm.save(null, null, vm.runAndTrack);
+      };
+
+
+      vm.kill = function()
+      {
+        Runner.kill(vm.script._id)
+          .then(
+              function(data)
+              {
+                console.log("Killed: " + JSON.stringify(data, null, 2));
+              });
       };
 
       vm.run = function()
@@ -286,6 +326,9 @@ angular.module('hog')
                 }
               });
       };
+
+
+
       vm.runAndTrack = function()
       {
         vm.taskList = [];
@@ -359,6 +402,10 @@ angular.module('hog')
                 }
               });
       };
+
+
+
+
       vm.exists = function(item, list)
       {
         if(angular.isDefined(list) && angular.isDefined(item))
@@ -370,6 +417,10 @@ angular.module('hog')
           return false;
         }
       };
+
+
+
+
       vm.toggle = function(item, list)
       {
         if(angular.isDefined(list) && angular.isDefined(item))
@@ -379,11 +430,17 @@ angular.module('hog')
           else list.push(item);
         }
       };
+
+
+
+
       vm.index = function(list, item)
       {
         var indx = _.findIndex(list, 'arg', item);
         return indx;
-      }
+      };
+
+
 
       vm.parseOutput = function (data)
       {
@@ -431,6 +488,9 @@ angular.module('hog')
         }
       });
 
+
+
+
       $scope.$watch("script_args", function(newValue, oldValue)
       {
         if (vm.args !== "undefined")
@@ -446,6 +506,9 @@ angular.module('hog')
           updateEdit();
         }
       });
+
+
+
 
       $scope.$watch("script_data", function(newValue, oldValue)
       {
@@ -501,21 +564,23 @@ angular.module('hog')
           },
         })
         .then(
-          function(revert)
+          function(data)
           {
-            if(revert)
+            console.log('reverting: ', data, vm.versions.length);
+            if(data.revertIdx >= 0 && data.revertIdx < vm.versions.length)
             {
-              console.log('s is still around: ', s[0])
+              //console.log('s is still around: ', s[0])
               $timeout(
                 function()
                 {
-                  $scope.script_data = s[0];
-                  vm.currentVersion = vm.version;
+                  console.log('setting reverted data', data.source, vm.versions[data.revertIdx]);
+                  $scope.script_data = data.source;
+                 vm.version = vm.currentVersion = vm.versions[data.revertIdx];
                 });
-
             }
           });
       };
+
       vm.openGraphInfo = function(ev, graph_data, script)
       {
         $mdDialog.show({
@@ -531,6 +596,8 @@ angular.module('hog')
           },
         });
       };
+
+
 
       vm.openInfo = function(ev, filter_type)
       {
@@ -556,6 +623,7 @@ angular.module('hog')
       };
 
 
+
       vm.openSettings = function(ev)
       {
 
@@ -569,7 +637,7 @@ angular.module('hog')
 
         });
 
-      }
+      };
 
     });
 
@@ -594,6 +662,12 @@ function SettingsController( $mdDialog, $scope, vm)
   $scope.graph[$scope.graph_type] = true;
 
   $scope.graph_output_count = $scope.vm.script.graph_count;
+
+  $scope.deleteScript = function()
+  {
+    $scope.vm.deleteScript();
+    $scope.cancel();
+  };
 
   $scope.save = function()
   {
