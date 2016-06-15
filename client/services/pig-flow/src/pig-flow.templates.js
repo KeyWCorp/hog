@@ -79,7 +79,7 @@ angular.module('pig.pig-flow-templates', [])
 
           self.sorted_list = self.nodes.filter(function (node)
               {
-                return !node.input_nodes || node.inputs.length <= 0;
+                return !node.input_nodes || node.input_nodes.length <= 0 || node.inputs.length <= 0;
               });
 
 
@@ -118,7 +118,6 @@ angular.module('pig.pig-flow-templates', [])
 
               child_queue.map(function(child)
                   {
-
                     if (child.input_nodes)
                     {
                       var sorted_inputs = child.input_nodes.filter(function(c_input_index)

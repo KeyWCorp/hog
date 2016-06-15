@@ -955,7 +955,6 @@ angular.module("pig.pig-flow", [])
             vm.source_node = {
               data: d,
               node: n,
-              output_data: t.data,
               x: t.x - d.x,
               y: t.y - d.y
             };
@@ -982,7 +981,6 @@ angular.module("pig.pig-flow", [])
                 vm.target_node = {
                   data: d,
                   node: n,
-                  input_data: t.data,
                   x: t.x - d.x,
                   y: t.y - d.y
                 };
@@ -1004,13 +1002,10 @@ angular.module("pig.pig-flow", [])
                   vm.target_node.data.input_nodes = [];
                 }
                 vm.target_node.data.input_nodes.push(vm.source_node.data.index);
-                vm.target_node.data.input_node = vm.source_node.data.index;
 
                 var tmp_obj = {
                   source: vm.source_node.data.index,
                   target: vm.target_node.data.index,
-                  output_data: vm.source_node.output_data,
-                  input_data: vm.target_node.input_data,
                   x1: vm.source_node.x,
                   y1: vm.source_node.y,
                   x2: vm.target_node.x,
@@ -1044,8 +1039,9 @@ angular.module("pig.pig-flow", [])
 
         function removeNode(d)
         {
-          vm.nodes.splice(d.index, 1);
           removeLinks(d);
+          updateNodeIndexs(d.index);
+          vm.nodes.splice(d.index, 1);
           vm.start();
         };
 
@@ -1105,6 +1101,35 @@ angular.module("pig.pig-flow", [])
         function removeLink(d)
         {
 
+          /*
+           * remove from source output_nodes
+           */
+          d.source.output_nodes = d.source.output_nodes.filter(function(output_index)
+          {
+            return output_index !== d.target.index;
+          });
+
+
+          /*
+           * remove from target input_nodes
+           */
+          d.target.input_nodes = d.target.input_nodes.filter(function(input_index)
+          {
+            return input_index !== d.source.index;
+          });
+
+
+          /*
+           * remove from target inputs
+           */
+          d.target.inputs.map(function(input)
+          {
+            if (input.value === d.source.index)
+            {
+              input.value = "";
+            }
+          });
+
           var newLinks = vm.links.filter(function (obj)
           {
             return obj.source === d.source && obj.target === d.target;
@@ -1112,13 +1137,71 @@ angular.module("pig.pig-flow", [])
 
           newLinks.map(function (l)
           {
-            // remove output node link
-            delete l.source.output_node;
-
-            // remove input node link
-            delete l.target.input_node;
             vm.links.splice(vm.links.indexOf(l), 1);
           });
+        };
+
+
+        function updateNodeIndexs (deleted_index)
+        {
+
+          vm.nodes.map(function(node)
+          {
+            /*
+             * shift indexs in inputs
+             */
+            if (node.inputs)
+            {
+              node.inputs.map(function(input)
+              {
+                if (input.value > deleted_index)
+                {
+                  input.value = input.value - 1;
+                }
+                else if (input.value === deleted_index)
+                {
+                  input.value = "";
+                }
+              });
+            }
+
+            /*
+             * shift indexs in output_nodes
+             */
+            if (node.output_nodes)
+            {
+              node.output_nodes.map(function(output_index, idx)
+              {
+                if (output_index > deleted_index)
+                {
+                  node.output_nodes[idx] = output_index - 1;
+                }
+                else if (output_index === deleted_index)
+                {
+                  delete node.output_nodes.splice(idx, 1);
+                }
+              });
+            }
+
+            /*
+             * shift indexs in input_nodes
+             */
+            if (node.input_nodes)
+            {
+              node.input_nodes.map(function(input_index, idx)
+              {
+                if (input_index > deleted_index)
+                {
+                  node.input_nodes[idx] = input_index - 1;
+                }
+                else if (input_index === deleted_index)
+                {
+                  delete node.input_nodes.splice(idx, 1);
+                }
+              });
+            }
+          });
+
         };
 
 
