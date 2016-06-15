@@ -1,4 +1,21 @@
 
+$node-input-color: rgba(50, 255, 50, 1.0);
+$node-output-color: $node-input-color;
+$node-close-color: rgba(255, 50, 50, 1.0);
+
+$node-input-label-color: #999;
+
+$node-header-color: #2196F3;
+$node-body-color: #BBDEFB;
+
+$link-color: #455A64;
+
+@mixin color-with-stroke($base) {
+  fill: $base;
+  stroke: darken($base, 25%);
+}
+
+
 svg.pig-flow {
   border: solid 1px #800;
 }
@@ -11,7 +28,7 @@ svg.pig-flow {
 }
 
 .flow_link {
-  stroke: #455A64;
+  stroke: $link-color;
   stroke-width: 7px;
 }
 
@@ -22,30 +39,30 @@ svg.pig-flow {
 }
 
 rect.node_header {
-  fill: #2196F3;
-  stroke: #0c83e4;
+  @include color-with-stroke($node-header-color);
   stroke-width: 1.5px;
 }
 
 rect.node_body {
-  fill: #BBDEFB;
-  stroke: #87c5f8;
+  @include color-with-stroke($node-body-color);
   stroke-width: 1.5px;
 }
 
+text.node_input_label {
+  font-size: 20px;
+  @include color-with-stroke($node-input-label-color);
+}
+
 text.node_close {
-  fill: rgba(255, 50, 50, 1.0);
-  stroke: rgba(255, 50, 50, 1.0);
+  @include color-with-stroke($node-close-color);
 }
 
 circle.node_inputs {
-  fill: rgba(50, 255, 50, 1.0);
-  stroke: rgba(90, 150, 200, 1.0);
+  @include color-with-stroke($node-input-color);
 }
 
 circle.node_outputs {
-  fill: rgba(50, 255, 50, 1.0);
-  stroke: rgba(90, 150, 200, 1.0);
+  @include color-with-stroke($node-output-color);
 }
 
 circle.node_outputs.dragging {

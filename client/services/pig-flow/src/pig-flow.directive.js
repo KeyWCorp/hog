@@ -140,6 +140,7 @@ angular.module("pig.pig-flow", [])
           vm.node_edit = vm.container.selectAll(".node_edit");
           vm.node_input = vm.container.selectAll(".node_input");
           vm.node_inputs = vm.container.selectAll(".node_inputs");
+          vm.node_input_label = vm.container.selectAll(".node_input_label");
           vm.node_output = vm.container.selectAll(".node_output");
           vm.node_outputs = vm.container.selectAll(".node_outputs");
           vm.node_body = vm.container.selectAll(".node_body");
@@ -442,6 +443,78 @@ angular.module("pig.pig-flow", [])
 
 
           /*
+           * input label node data
+           */
+          vm.node_input_label = vm.node_input_label
+            .data(function (d)
+            {
+              var input_list = [];
+              vm.nodes.map(function (n,j)
+              {
+                if (n.inputs)
+                {
+                  n.inputs.map(function (input, i)
+                  {
+                    var middle = (n.x + n.width * 0.5);
+                    var offset = middle - ((n.inputs.length - 1) * 25) * 0.5;
+                    var tmp_obj = {
+                      data: input,
+                      p: n,
+                      x: offset + i * 25,
+                      y: n.y,
+                      index: i,
+                      length: n.inputs.length
+                    };
+                    input_list.push(tmp_obj);
+                  });
+                }
+              });
+              return input_list;
+            });
+          vm.node_input_label
+            .attr("class", "node_input_label")
+            .text(function (d)
+            {
+              return d.data.label;
+            })
+            .attr("x", function (d, i)
+            {
+              return d.x;
+            })
+            .attr("y", function (d, i)
+            {
+              return d.y;
+            })
+            .attr("transform", function(d, i)
+            {
+              return "rotate(45," + (d.x + 10) + "," + (d.y - 10) + ")";
+            });
+          vm.node_input_label.enter()
+            .append("text")
+            .attr("class", "node_input_label")
+            .attr("text-anchor", "end")
+            .text(function (d)
+            {
+              return d.data.label;
+            })
+            .attr("x", function (d, i)
+            {
+              return d.x;
+            })
+            .attr("y", function (d, i)
+            {
+              return d.y;
+            })
+            .attr("transform", function(d, i)
+            {
+              return "rotate(45," + (d.x + 10) + "," + (d.y - 10) + ")";
+            })
+            .style("pointer-events", "none");
+          vm.node_input_label.exit()
+            .remove();
+
+
+          /*
            * output node data
            */
           vm.node_outputs = vm.node_outputs
@@ -632,7 +705,9 @@ angular.module("pig.pig-flow", [])
         function tick()
         {
 
-          // line
+          /*
+           * Move Links
+           */
           vm.link
             .attr("x1", function (d)
             {
@@ -655,6 +730,10 @@ angular.module("pig.pig-flow", [])
               return d.target.y + d.y2;
             });
 
+
+          /*
+           * move Nodes
+           */
           vm.node
             .attr("x", function (d)
             {
@@ -665,6 +744,10 @@ angular.module("pig.pig-flow", [])
               return d.y;
             });
 
+
+          /*
+           * move node body
+           */
           vm.node_body
             .attr("width", function (d)
             {
@@ -686,6 +769,10 @@ angular.module("pig.pig-flow", [])
             .attr("rx", 10)
             .attr("ry", 10);
 
+
+          /*
+           * move node header
+           */
           vm.node_header
             .attr("width", function (d)
             {
@@ -707,6 +794,10 @@ angular.module("pig.pig-flow", [])
             .attr("rx", 10)
             .attr("ry", 10);
 
+
+          /*
+           * move node close button
+           */
           vm.node_close
             .attr("x", function (d)
             {
@@ -720,6 +811,10 @@ angular.module("pig.pig-flow", [])
               return d.y + (th - 5);
             });
 
+
+          /*
+           * move node edit button
+           */
           vm.node_edit
             .attr("x", function (d)
             {
@@ -734,6 +829,10 @@ angular.module("pig.pig-flow", [])
               return d.y + (th - 5);
             });
 
+
+          /*
+           * move node inputs
+           */
           vm.node_inputs
             .attr("r", 10)
             .attr("class", "node_inputs")
@@ -750,6 +849,10 @@ angular.module("pig.pig-flow", [])
               return d.y;
             });
 
+
+          /*
+           * move node outputs
+           */
           vm.node_outputs
             .attr("r", 10)
             .attr("class", "node_outputs")
@@ -766,6 +869,34 @@ angular.module("pig.pig-flow", [])
               return d.y;
             });
 
+
+          /*
+           * move node output labels
+           */
+          vm.node_input_label
+            .attr("class", "node_input_label")
+            .attr("transform", "rotate(-45)")
+            .attr("x", function (d, i)
+            {
+              var middle = (d.p.x + d.p.width * 0.5);
+              var offset = middle - ((d.length - 1) * 25) * 0.5;
+              d.x = offset + d.index * 25;
+              return d.x;
+            })
+            .attr("y", function (d, i)
+            {
+              d.y = d.p.y;
+              return d.y;
+            })
+            .attr("transform", function(d, i)
+            {
+              return "rotate(45," + (d.x + 10) + "," + (d.y - 10) + ")";
+            });
+
+
+          /*
+           * move node name label
+           */
           vm.node_name_label
             .attr("x", function (d)
             {
@@ -779,7 +910,12 @@ angular.module("pig.pig-flow", [])
               var mh = 20;
               return d.y + (mh + th * 0.5);
 
-            })
+            });
+
+
+          /*
+           * move node type label
+           */
           vm.node_type_label
             .attr("x", function (d)
             {
@@ -834,6 +970,10 @@ angular.module("pig.pig-flow", [])
         {
           if (d)
           {
+            console.log("output_type: " + vm.source_node.data.type);
+            console.log("t: " + JSON.stringify(t, null, 2));
+            console.log("input_type: " + t.data.type);
+
             if (vm.source_node && vm.source_node.data.index != d.index)
             {
               // check that it is the right type
@@ -851,22 +991,24 @@ angular.module("pig.pig-flow", [])
                   y: t.y - d.y
                 };
 
-                // add output node link
+                /*
+                 * add output node link
+                 */
                 if (!vm.source_node.data.output_nodes || vm.source_node.data.output_nodes.length <= 0)
                 {
                   vm.source_node.data.output_nodes = [];
                 }
                 vm.source_node.data.output_nodes.push(vm.target_node.data.index);
-                vm.source_node.data.output_node = vm.target_node.data.index;
 
-                // add input node link
+                /*
+                 * add input node link
+                 */
                 if (!vm.target_node.data.input_nodes || vm.target_node.data.input_nodes.length <= 0)
                 {
                   vm.target_node.data.input_nodes = [];
                 }
                 vm.target_node.data.input_nodes.push(vm.source_node.data.index);
                 vm.target_node.data.input_node = vm.source_node.data.index;
-                vm.target_node.data.input = vm.source_node.data.output;
 
                 var tmp_obj = {
                   source: vm.source_node.data.index,

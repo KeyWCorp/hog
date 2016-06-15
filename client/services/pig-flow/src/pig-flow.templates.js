@@ -1,260 +1,6 @@
 angular.module('pig.pig-flow-templates', [])
 .factory('FlowToScript', function()
     {
-      /*
-      function FlowToScript (nodes, links)
-      {
-        this.raw_node_list = nodes || [];
-        this.raw_link_list = links || [];
-
-        this.node_list = [];
-        this.link_list = [];
-
-        this.sorted_node_list = [];
-
-        this.start = function (cb)
-        {
-          var self = this;
-          this.buildStructure(function ()
-              {
-                self.buildScript(function (d)
-                    {
-                      self.updateScript(d, 0, cb, "");
-                    });
-              });
-        };
-
-        this.buildStructure = function (cb)
-        {
-          this.buldNodeList(function (self)
-              {
-                self.linkNodes(cb);
-              });
-        };
-
-        this.buildScript = function (cb)
-        {
-          var self = this;
-          var sorted_list = [];
-          if (self.sorted_node_list.length > 0)
-          {
-            self.sorted_node_list.forEach(function (node, i)
-                {
-                  sorted_list.push(node.data);
-                  if (i >= self.sorted_node_list.length - 1)
-                  {
-                    cb(sorted_list);
-                  }
-
-                });
-          }
-          else
-          {
-            cb(sorted_list);
-          }
-
-        };
-
-        this.buldNodeList = function (cb)
-        {
-          var self = this;
-
-          this.raw_node_list.map(function (node)
-              {
-                self.node_list[node.index] = {
-                  data: node,
-                  index: node.index,
-                  inputs: [],
-                  outputs: []
-                };
-              });
-
-          cb(self);
-        };
-
-        this.updateScript = function(data_list, index, cb, output_script)
-        {
-          var self = this;
-          if (data_list[index])
-          {
-            var node = data_list[index];
-
-            var script_obj = node.script || {};
-            var script = script_obj.content || "";
-
-
-            node.outputs.map(function (output, i)
-                {
-                  var re = new RegExp("<output_" + output.label + ">", "g");
-                  script = script.replace(re, node.output);
-                });
-
-            node.inputs.map(function (input, i)
-                {
-                  var re = new RegExp("<input_" + input.label + ">", "g");
-                  script = script.replace(re, input.value);
-                });
-
-
-            script_obj.variables.map(function (v,i)
-                {
-                  if (v)
-                  {
-                    var re = new RegExp("<"+v+">","g");
-                    script = script.replace(re, node.params[i].value);
-                  }
-                });
-
-            node.script.output = script;
-            output_script = output_script + "\n" + script;
-
-            index++;
-            self.updateScript(data_list, index, cb, output_script);
-          }
-          else
-          {
-            cb(output_script);
-          }
-        };
-
-        this.linkNodes = function (cb)
-        {
-          var self = this;
-
-          if (this.raw_link_list.length > 0)
-          {
-            this.raw_link_list.forEach(function (link, i)
-                {
-
-                  //console.log("node: " + JSON.stringify(link,null,2));
-                  //console.log("input: " + link.source.index);
-                  //console.log("output: " + link.target.index);
-
-                  self.node_list[link.source.index].outputs.push(link.target.index);
-                  self.node_list[link.target.index].inputs.push(link.source.index);
-
-                  if (i >= self.raw_link_list.length - 1)
-                  {
-                    self.node_list.forEach(function (node, i)
-                        {
-                          self.sortList(node);
-                          if (i >= self.node_list.length - 1)
-                          {
-                            cb();
-                          }
-                        });
-                  }
-                });
-          }
-          else
-          {
-            self.node_list.forEach(function (node, i)
-                {
-                  self.sortList(node);
-                  if (i >= self.node_list.length - 1)
-                  {
-                    cb();
-                  }
-                });
-          }
-
-
-        };
-
-        this.sortList = function (node)
-        {
-          var self = this;
-
-          if (node !== null)
-          {
-
-            if (self.sorted_node_list.indexOf(node) == -1)
-            {
-              // node not visited yet
-
-              // check if it has inputs
-              if (node.inputs.length > 0)
-              {
-                // check to make sure all inputs have been visited
-                var input_match_list = node.inputs.filter(function (input_index)
-                    {
-                      return self.sorted_node_list.filter(function (sorted_node)
-                          {
-                            return sorted_node.index == input_index;
-                          }).length > 0;
-                    });
-
-                // check to see if all inputs have been visited
-                if (input_match_list.length == node.inputs.length)
-                {
-
-                  // check if node has been visited
-                  if (self.sorted_node_list.indexOf(node) == -1)
-                  {
-                    // visit node
-                    self.sorted_node_list.push(node);
-                  }
-                }
-                else
-                {
-                  return;
-                }
-
-              }
-
-              // check if node has been visited
-              if (self.sorted_node_list.indexOf(node) == -1)
-              {
-                // visit node
-                self.sorted_node_list.push(node);
-              }
-
-              // check if node has outputs
-              if (node.outputs.length > 0)
-              {
-                // visit outputs
-                var output_match_list = node.outputs.filter(function (output_index)
-                    {
-                      return self.sorted_node_list.filter(function (sorted_node)
-                          {
-                            return sorted_node.index == output_index;
-                          }).length > 0;
-                    });
-
-                // check if all outputs have been visited
-                if (output_match_list.length == node.outputs.length)
-                {
-                  return;
-                }
-                else if (output_match_list.length > 0)
-                {
-                  output_match_list.forEach(function (matched_index)
-                      {
-                        self.sortList(self.node_list[matched_index]);
-                      });
-                }
-                else
-                {
-                  node.outputs.forEach(function (output_index)
-                      {
-                        self.sortList(self.node_list[output_index]);
-                      });
-                }
-              }
-
-            }
-
-          }
-        };
-
-        this.printNodes = function ()
-        {
-          var node_list_string = JSON.stringify(this.sorted_node_list, null, 2);
-          return node_list_string;
-        };
-
-      };
-      */
 
       function FlowToScript (nodes, links)
       {
@@ -273,7 +19,7 @@ angular.module('pig.pig-flow-templates', [])
 
           self.sorted_list = self.nodes.filter(function (node)
           {
-            return node.inputs.length <= 0;
+            return !node.input_nodes || node.inputs.length <= 0;
           });
 
           /*
@@ -284,6 +30,9 @@ angular.module('pig.pig-flow-templates', [])
             return a.index - b.index;
           });
 
+          console.log("===================");
+          console.log("Start:");
+          console.log("-------------------");
           for(var i = 0; i < self.sorted_list.length; i++)
           {
             var node = self.sorted_list[i];
@@ -328,6 +77,17 @@ angular.module('pig.pig-flow-templates', [])
                    */
                   if (sorted_inputs.length === child.input_nodes.length)
                   {
+                    /*
+                     * Build output script
+                     */
+                    var script = child.script.content;
+                    //var output_re = new RegExp("<output_" + output.label + ">", "g");
+                    //script = script.replace(re, node.output);
+                    //var input_re = new RegExp("<input_" + input.label + ">", "g");
+                    //script = script.replace(re, input.value);
+                    //var re = new RegExp("<"+v+">","g");
+                    //script = script.replace(re, node.params[i].value);
+
                     self.sorted_list.push(child);
                   }
 
@@ -335,11 +95,12 @@ angular.module('pig.pig-flow-templates', [])
               });
 
             }
+            console.log(node);
           }
+          console.log("-------------------");
+          console.log("End:");
+          console.log("===================");
 
-          /*
-           * Build output script
-           */
 
 
 
@@ -441,7 +202,8 @@ angular.module('pig.pig-flow-templates', [])
     + "      <div layout='column' ng-show='tmp_node.params[0].name'>"
     + "        <md-input-container flex ng-repeat='param in params track by $index'>"
     + "            <label>{{ param.name }}</label>"
-    + "            <input required ng-trim='false' name='{{ param.name }}' ng-model='param.value'>"
+    + "            <input ng-if='param.required' required ng-trim='false' name='{{ param.name }}' ng-model='param.value'>"
+    + "            <input ng-if='!param.required' ng-trim='false' name='{{ param.name }}' ng-model='param.value'>"
     + "        </md-input-container>"
     + "      </div>"
     + "      <div layout='column'>"
@@ -471,14 +233,17 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "source",
+            required: true,
             value: ""
           },
           {
             name: "format",
+            required: false,
             value: ""
           },
           {
             name: "separator",
+            required: false,
             value: ""
           }],
           description: "Load from a source",
@@ -506,6 +271,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            required: true,
             value: ""
           }],
           description: "Takes in an input and groups by a type",
@@ -538,6 +304,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            required: true,
             value: ""
           }],
           description: "Take in an input and group and returns the sum of the type",
@@ -574,6 +341,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            required: true,
             value: ""
           }],
           description: "Take in an input and group and returns the average of the type",
@@ -607,8 +375,7 @@ angular.module('pig.pig-flow-templates', [])
         },
         {
           name: "count",
-          params: [
-          ],
+          params: [],
           description: "Take in an input and group and returns the count of the type",
           output: "",
           inputs: [
@@ -642,10 +409,12 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type1",
+            required: true,
             value: ""
           },
           {
             name: "type2",
+            required: true,
             value: ""
           }],
           description: "Compares two fields in a tuple.",
@@ -677,6 +446,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            required: false,
             value: ""
           }],
           description: "Computes the maximum of the numeric values or chararrays in a single-column bag. MAX requires a preceding GROUP ALL statement for global maximums and a GROUP BY statement for group maximums.",
@@ -713,6 +483,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            required: false,
             value: ""
           }],
           description: "Computes the minimum of the numeric values or chararrays in a single-column bag. MIN requires a preceding GROUP… ALL statement for global minimums and a GROUP … BY statement for group minimums.",
@@ -749,6 +520,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            required: false,
             value: ""
           }],
           description: "Computes the number of elements based on any Pig data type.",
@@ -780,10 +552,12 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type1",
+            required: true,
             value: ""
           },
           {
             name: "type2",
+            required: true,
             value: ""
           }],
           description: "Bags subtraction, SUBTRACT(bag1, bag2) = bags composed of bag1 elements not in bag2",
@@ -816,6 +590,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            required: false,
             value: ""
           }],
           description: "Splits a string and outputs a bag of words.",
@@ -848,7 +623,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [],
           inputs: [
           {
-            label: "item",
+            label: "variable",
             value: ""
           }
           ],
@@ -857,7 +632,7 @@ angular.module('pig.pig-flow-templates', [])
             input_var: true,
             output_var: false,
             variables: [],
-            content: "DUMP <input_item>;"
+            content: "DUMP <input_variable>;"
           },
           description: "Takes in an input and outputs to standard out",
         }]
