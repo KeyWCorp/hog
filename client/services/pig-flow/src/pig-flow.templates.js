@@ -575,6 +575,37 @@ angular.module('pig.pig-flow-templates', [])
           }
         },
         {
+          name: "count_star",
+          params: [],
+          description: "Computes the number of elements in a bag",
+          output: "",
+          inputs: [
+          {
+            label: "grouping",
+            type: "group",
+            value: ""
+          },
+          {
+            label: "source",
+            type: "load",
+            value: ""
+          },
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            variables: [
+            ],
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE COUNT_STAR(<input_source>);"
+          }
+        },
+        {
           name: "diff",
           params: [
           {
