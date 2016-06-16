@@ -640,7 +640,7 @@ angular.module('pig.pig-flow-templates', [])
             variables: [
               "type"
             ],
-            content: "<output_variable> = FOREACH <input_grouping>, MIN(<input_source>.<type>);"
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE MIN(<input_source>.<type>);"
           }
         },
         {
@@ -675,6 +675,9 @@ angular.module('pig.pig-flow-templates', [])
             content: "<output_variable> = FOREACH <input_source> GENERATE SIZE(<type>);"
           }
         },
+        /*
+         * Remove subtract until further instructions
+         *
         {
           name: "subtract",
           params: [
@@ -713,6 +716,7 @@ angular.module('pig.pig-flow-templates', [])
             content: "<output_variable> = FOREACH <input_source> GENERATE SUBTRACT(<type1>,<type2>);"
           }
         },
+        */
         {
           name: "tokenize",
           params: [
