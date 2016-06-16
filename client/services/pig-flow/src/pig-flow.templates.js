@@ -423,6 +423,49 @@ angular.module('pig.pig-flow-templates', [])
             ],
             content: "<output_variable> = GROUP <input_source><type>;"
           }
+        },
+        {
+          name: "join",
+          params: [
+          {
+            name: "type1",
+            required: true,
+            value: ""
+          },
+          {
+            name: "type2",
+            required: true,
+            value: ""
+          }],
+          description: "Performs an inner join of two or more relations based on common field values",
+          output: "",
+          inputs: [
+          {
+            label: "source1",
+            type: "load",
+            value: ""
+          },
+          {
+            label: "source2",
+            type: "load",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            variables: [
+              "type1",
+              "type2"
+            ],
+            content: "<output_variable> = JOIN <input_source1> BY <type1>, <input_source2> BY <type2>;"
+          }
         }],
         eval_functions: [
         {
@@ -465,7 +508,7 @@ angular.module('pig.pig-flow-templates', [])
           }
         },
         {
-          name: "bagToString",
+          name: "bagtostring",
           params: [
           {
             name: "type",
@@ -512,7 +555,7 @@ angular.module('pig.pig-flow-templates', [])
           }
         },
         {
-          name: "CONCAT",
+          name: "concat",
           params: [
           {
             name: "expression",
@@ -642,6 +685,40 @@ angular.module('pig.pig-flow-templates', [])
             content: "<output_variable> = FOREACH <input_source> GENERATE DIFF(<type1>,<type2>);"
           }
         },
+        /*
+         * Remove subtract until further instructions
+         *
+        {
+          name: "isempty",
+          params: [],
+          description: "Checks if a bag or map is empty",
+          output: "",
+          inputs: [
+          {
+            label: "join",
+            type: "join",
+            value: ""
+          },
+          {
+            label: "source",
+            type: "load",
+            value: ""
+          },
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            variables: [],
+            content: "<output_variable> = FILTER <input_join> BY IsEmpty(<input_source>);"
+          }
+        },
+        */
         {
           name: "max",
           params: [
