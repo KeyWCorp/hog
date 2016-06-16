@@ -29,6 +29,7 @@ angular.module('hog')
           console.log('session: ', _ace.getSession());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
         }
+        _ace.$blockScrolling = Infinity;
         var langTools = ace.require("ace/ext/language_tools");
         langTools.addCompleter(PigCompleter);
       };

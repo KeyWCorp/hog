@@ -91,7 +91,7 @@ angular.module('hog')
         console.log('version changed:', idx, 'version', vm.version, 'cur', vm.currentVersion);
         /*if (vm.version.version != vm.currentVersion.version)
         {
-            
+
         }*/
         vm.leftIdx = vm.versions.length-1;
         vm.rightIdx = lodash.findIndex(vm.versions, ['version', vm.version.version]);
