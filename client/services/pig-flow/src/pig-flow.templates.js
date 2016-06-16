@@ -426,43 +426,6 @@ angular.module('pig.pig-flow-templates', [])
         }],
         eval_functions: [
         {
-          name: "sum",
-          params: [
-          {
-            name: "type",
-            required: true,
-            value: ""
-          }],
-          description: "Take in an input and group and returns the sum of the type",
-          output: "",
-          inputs: [
-          {
-            label: "grouping",
-            type: "group",
-            value: ""
-          },
-          {
-            label: "source",
-            type: "load",
-            value: ""
-          },
-          ],
-          outputs: [
-          {
-            label: "variable",
-            value: ""
-          }
-          ],
-          script: {
-            input_var: true,
-            output_var: true,
-            variables: [
-              "type"
-            ],
-            content: "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;"
-          }
-        },
-        {
           name: "average",
           params: [
           {
@@ -499,6 +462,85 @@ angular.module('pig.pig-flow-templates', [])
               "type"
             ],
             content: "<output_variable> = FOREACH <input_grouping> GENERATE AVG(<input_source><type>;"
+          }
+        },
+        {
+          name: "bagToString",
+          params: [
+          {
+            name: "type",
+            required: false,
+            snippit: ".<type>",
+            default: "",
+            value: ""
+          },
+          {
+            name: "delimiter",
+            required: false,
+            snippit: ", '<delimiter>'",
+            default: "",
+            value: ""
+          }],
+          description: "Concatenate the elements of a Bag into a chararray string, placing an optional delimiter between each value",
+          output: "",
+          inputs: [
+          {
+            label: "grouping",
+            type: "group",
+            value: ""
+          },
+          {
+            label: "source",
+            type: "load",
+            value: ""
+          },
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            variables: [
+              "type",
+              "delimiter"
+            ],
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE BagToString(<input_source><type><delimiter>);"
+          }
+        },
+        {
+          name: "CONCAT",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            value: ""
+          }],
+          description: "Concatenates two or more expressions of identical type",
+          output: "",
+          inputs: [
+          {
+            label: "source",
+            type: "load",
+            value: ""
+          },
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            variables: [
+              "expression"
+            ],
+            content: "<output_variable> = FOREACH <input_source> GENERATE CONCAT(<expression>);"
           }
         },
         {
@@ -717,6 +759,43 @@ angular.module('pig.pig-flow-templates', [])
           }
         },
         */
+        {
+          name: "sum",
+          params: [
+          {
+            name: "type",
+            required: true,
+            value: ""
+          }],
+          description: "Take in an input and group and returns the sum of the type",
+          output: "",
+          inputs: [
+          {
+            label: "grouping",
+            type: "group",
+            value: ""
+          },
+          {
+            label: "source",
+            type: "load",
+            value: ""
+          },
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            variables: [
+              "type"
+            ],
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;"
+          }
+        },
         {
           name: "tokenize",
           params: [
