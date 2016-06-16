@@ -20,9 +20,6 @@
         </md-input-container>
         <div ui-ace="vm.editorOptions" ng-model="vm.script.data">
         </div>
-        <md-input-container layout-padding>
-          <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
-        </md-input-container>
         <input id="fileInput" type="file" ng-hide="true" on-read-file="vm.uploadScript($fileContent)">
         <md-input-container flex layout-padding>
           <md-button class="md-raised md-primary" ng-click="vm.upload()">

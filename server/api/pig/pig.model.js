@@ -21,7 +21,7 @@ class Version extends EmbeddedDocument {
     this.diff       = [];
     this.timeStamp  = {
       type: Date,
-      default: Date().now
+      default: Date.now
     };
   }
 }

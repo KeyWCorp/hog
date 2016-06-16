@@ -119,7 +119,10 @@ exports.create = function (socket) {
       {
         if (_ready)
         {
-          var pig = Pig.create(JSON.parse(data));
+          var d = JSON.parse(data);
+          d.version = d.version == '' ? null : d.version;
+          console.log('d: ', d);
+          var pig = Pig.create(d);
           console.log('pig: ', pig, ' data: ' , data);
           pig.diff({data: ''}, true);
           console.log(pig);
