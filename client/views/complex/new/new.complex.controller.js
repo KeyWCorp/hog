@@ -17,7 +17,8 @@ angular.module('hog')
       vm.script = {
         name: '',
         data: '',
-        args: []
+        args: [],
+        version: ''
       };
 
       vm.onEditorLoad = function(_ace)
@@ -28,6 +29,7 @@ angular.module('hog')
           console.log('session: ', _ace.getSession());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
         }
+        _ace.$blockScrolling = Infinity;
         var langTools = ace.require("ace/ext/language_tools");
         langTools.addCompleter(PigCompleter);
       };

@@ -10,6 +10,20 @@
   border-right-style: solid;
   height: 100%; }
 
+.match,
+.textdiff span {
+  color: gray; }
+
+.ins,
+ins {
+  color: black;
+  background: #bbffbb; }
+
+.del,
+del {
+  color: black;
+  background: #ffbbbb; }
+
 svg.pig-flow {
   border: solid 1px #800; }
 
