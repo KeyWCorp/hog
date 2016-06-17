@@ -607,7 +607,7 @@ angular.module('pig.pig-flow-templates', [])
           },
           {
             label: "source",
-            type: ["load"],
+            category: ["relational_operators", "tuple_bag_map_functions"],
             required: true,
             default: "",
             value: ""
