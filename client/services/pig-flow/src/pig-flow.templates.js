@@ -426,6 +426,7 @@ angular.module('pig.pig-flow-templates', [])
           {
             name: "source",
             required: true,
+            default: "",
             value: ""
           },
           {
@@ -457,11 +458,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            variables: [
-              "source",
-              "format",
-              "separator"
-            ],
             content: "<output_variable> = LOAD '<source>'<input_storage_type><format>;"
           }
         },
@@ -495,9 +491,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-              "type"
-            ],
             content: "<output_variable> = GROUP <input_source><type>;"
           }
         },
@@ -541,10 +534,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-              "type1",
-              "type2"
-            ],
             content: "<output_variable> = JOIN <input_source1> BY <type1>, <input_source2> BY <type2>;"
           }
         }],
@@ -586,9 +575,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-              "type"
-            ],
             content: "<output_variable> = FOREACH <input_grouping> GENERATE AVG(<input_source><type>;"
           }
         },
@@ -636,10 +622,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-              "type",
-              "delimiter"
-            ],
             content: "<output_variable> = FOREACH <input_grouping> GENERATE BagToString(<input_source><type><delimiter>);"
           }
         },
@@ -671,9 +653,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-              "expression"
-            ],
             content: "<output_variable> = FOREACH <input_source> GENERATE CONCAT(<expression>);"
           }
         },
@@ -707,8 +686,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-            ],
             content: "<output_variable> = FOREACH <input_grouping> GENERATE COUNT(<input_source>);"
           }
         },
@@ -742,8 +719,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-            ],
             content: "<output_variable> = FOREACH <input_grouping> GENERATE COUNT_STAR(<input_source>);"
           }
         },
@@ -779,10 +754,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-              "type1",
-              "type2"
-            ],
             content: "<output_variable> = FOREACH <input_source> GENERATE DIFF(<type1>,<type2>);"
           }
         },
@@ -819,7 +790,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [],
             content: "<output_variable> = FILTER <input_join> BY IsEmpty(<input_source>);"
           }
         },
@@ -859,9 +829,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-              "type"
-            ],
             content: "<output_variable> = FOREACH <input_grouping> GENERATE MAX(<input_source>.<type>);"
           }
         },
@@ -900,9 +867,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-              "type"
-            ],
             content: "<output_variable> = FOREACH <input_grouping> GENERATE MIN(<input_source>.<type>);"
           }
         },
@@ -934,9 +898,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-              "type"
-            ],
             content: "<output_variable> = FOREACH <input_source> GENERATE SIZE(<type>);"
           }
         },
@@ -976,10 +937,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-              "type1",
-              "type2"
-            ],
             content: "<output_variable> = FOREACH <input_source> GENERATE SUBTRACT(<type1>,<type2>);"
           }
         },
@@ -1019,9 +976,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-              "type"
-            ],
             content: "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;"
           }
         },
@@ -1053,9 +1007,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: true,
-            variables: [
-              "type"
-            ],
             content: "<output_variable> = FOREACH <input_source> GENERATE TOKENIZE(<type>);"
           }
         }],
@@ -1088,7 +1039,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: false,
-            variables: [],
             content: "STORE <input_variable> INTO '<location>'<input_storage_type>;"
           }
         }
@@ -1115,7 +1065,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            variables: [],
             content: " USING JsonLoader(<schema>)"
           }
         },
@@ -1133,7 +1082,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            variables: [],
             content: " USING TextLoader()"
           }
         },
@@ -1153,7 +1101,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            variables: [],
             content: " USING BinStorage()"
           }
         },
@@ -1171,7 +1118,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            variables: [],
             content: " USING JsonLoader()"
           }
         },
@@ -1189,7 +1135,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            variables: [],
             content: " USING PigDump()"
           }
         },
@@ -1222,7 +1167,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            variables: [],
             content: " USING PigStorage(<field_delimiter><options>)"
           }
         },
@@ -1254,7 +1198,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            variables: [],
             content: " USING org.apache.pig.backend.hadoop.hbase.HBaseStorage('<columns>'<options>)"
           }
         },
@@ -1286,7 +1229,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            variables: [],
             content: " USING AvroStorage('<schema>'<options>)"
           }
         },
@@ -1318,7 +1260,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            variables: [],
             content: " USING TrevniStorage('<schema>'<options>)"
           }
         },
@@ -1350,7 +1291,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            variables: [],
             content: " USING org.apache.pig.backend.hadoop.accumulo.AccumuloStorage('<columns>'<options>)"
           }
         },
@@ -1376,8 +1316,158 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            variables: [],
             content: " USING OrcStorage(<options>)"
+          }
+        }
+        ],
+        tuple_bag_map_functions: [
+        {
+          name: "totuple",
+          params: [
+          {
+            name: "expression",
+            required: false,
+            snippit: "<expression>",
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Converts one or more expressions to type tuple",
+          inputs: [
+          {
+            label: "source",
+            type: ["load"],
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: "<output_variable> = FOREACH <input_source> GENERATE TOTUPLE(<expression>);"
+          }
+        },
+        {
+          name: "tobag",
+          params: [
+          {
+            name: "expression",
+            required: false,
+            snippit: "<expression>",
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Converts one or more expressions to type bag",
+          inputs: [
+          {
+            label: "source",
+            type: ["load"],
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: "<output_variable> = FOREACH <input_source> GENERATE TOBAG(<expression>);"
+          }
+        },
+        {
+          name: "tomap",
+          params: [
+          {
+            name: "key_expression",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            name: "value_expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Converts key/value expression pairs into a map",
+          inputs: [
+          {
+            label: "source",
+            type: ["load"],
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: "<output_variable> = FOREACH <input_source> GENERATE TOMAP(<key_expression>, <value_expression>);"
+          }
+        },
+        {
+          name: "top",
+          params: [
+          {
+            name: "topN",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            name: "column",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the top-n tuples from a bag of tuples",
+          inputs: [
+          {
+            label: "grouping",
+            type: ["group"],
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            label: "source",
+            type: ["load"],
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE TOP(<topN>, <column>, <input_source>);"
           }
         }
         ],
@@ -1398,7 +1488,6 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: true,
             output_var: false,
-            variables: [],
             content: "DUMP <input_variable>;"
           },
           description: "Takes in an input and outputs to standard out",
