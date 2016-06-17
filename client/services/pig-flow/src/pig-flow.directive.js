@@ -972,7 +972,6 @@ angular.module("pig.pig-flow", [])
             if (vm.source_node && vm.source_node.data.index != d.index)
             {
 
-              console.log("TYPE: " + t.data.type + " CATEGORY: " + t.data.category);
               var same_category = true;
               var same_type = true;
 
@@ -994,11 +993,9 @@ angular.module("pig.pig-flow", [])
                 }).length > 0;
               }
 
-              console.log("SAME_TYPE: " + same_type + " SAME_CATEGORY: " + same_category);
-
 
               // check that it is the right type
-              if (same_type || same_category ||
+              if ((same_type && same_category) ||
                   (!t.data.category && !t.data.type))
               {
                 t.data.value = vm.source_node.data.index;
@@ -1302,7 +1299,6 @@ angular.module("pig.pig-flow", [])
           }).length > 0;
           if (is_variable)
           {
-            console.log("type: " + t + " category: " + c);
             output = "" + script.content;
           }
 

@@ -441,7 +441,7 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "storage_type",
-            type: ["storage_types"],
+            category: ["storage_types", "load_types"],
             required: false,
             snippit: "<input_storage_type>",
             default: "",
@@ -1078,6 +1078,7 @@ angular.module('pig.pig-flow-templates', [])
           },
           {
             label: "storage_type",
+            category: ["storage_types"],
             required: true,
             default: "",
             value: ""
@@ -1117,7 +1118,25 @@ angular.module('pig.pig-flow-templates', [])
             variables: [],
             content: " USING JsonLoader(<schema>)"
           }
-        }
+        },
+        {
+          name: "textloader",
+          params: [],
+          description: "Loads unstructured data in UTF-8 format",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            variables: [],
+            content: " USING TextLoader()"
+          }
+        },
         ],
         storage_types: [
         {
@@ -1183,7 +1202,15 @@ angular.module('pig.pig-flow-templates', [])
             snippit: "'<field_delimiter>'",
             default: "",
             value: ""
-          }],
+          },
+          {
+            name: "options",
+            required: false,
+            snippit: ", '<options>'",
+            default: "",
+            value: ""
+          }
+          ],
           description: "Loads and stores data as structured text files",
           inputs: [],
           outputs: [
@@ -1196,7 +1223,161 @@ angular.module('pig.pig-flow-templates', [])
             input_var: false,
             output_var: true,
             variables: [],
-            content: " USING PigStorage(<field_delimiter>)"
+            content: " USING PigStorage(<field_delimiter><options>)"
+          }
+        },
+        {
+          name: "hbasestorage",
+          params: [
+          {
+            name: "columns",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            name: "options",
+            required: false,
+            snippit: ", '<options>'",
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Loads and stores data from an HBase table",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            variables: [],
+            content: " USING org.apache.pig.backend.hadoop.hbase.HBaseStorage('<columns>'<options>)"
+          }
+        },
+        {
+          name: "avrostorage",
+          params: [
+          {
+            name: "schema",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            name: "options",
+            required: false,
+            snippit: ", '<options>'",
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Loads and stores data from Avro files",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            variables: [],
+            content: " USING AvroStorage('<schema>'<options>)"
+          }
+        },
+        {
+          name: "trevnistorage",
+          params: [
+          {
+            name: "schema",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            name: "options",
+            required: false,
+            snippit: ", '<options>'",
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Loads and stores data from Trevni files",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            variables: [],
+            content: " USING TrevniStorage('<schema>'<options>)"
+          }
+        },
+        {
+          name: "accumulostorage",
+          params: [
+          {
+            name: "columns",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            name: "options",
+            required: false,
+            snippit: ", '<options>'",
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Loads or stores data from an Accumulo table. The first element in a Tuple is equivalent to the 'row' from the Accumulo Key, while the columns in that row are can be grouped in various static or wildcarded ways. Basic wildcarding functionality exists to group various columns families/qualifiers into a Map for LOADs, or serialize a Map into some group of column families or qualifiers on STOREs",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            variables: [],
+            content: " USING org.apache.pig.backend.hadoop.accumulo.AccumuloStorage('<columns>'<options>)"
+          }
+        },
+        {
+          name: "orcstorage",
+          params: [
+          {
+            name: "options",
+            required: false,
+            snippit: ", '<options>'",
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Loads from or stores data to Orc file",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            variables: [],
+            content: " USING OrcStorage(<options>)"
           }
         }
         ],
