@@ -18,70 +18,142 @@ angular.module('pig.pig-flow-templates', [])
         {
           var self = this;
 
+          /*
+           * check if node is a variable
+           */
+          var is_variable = node.outputs.filter(function(o)
+          {
+            return o.label === "content";
+          }).length > 0;
 
           /*
-           * Build output script
-           */
+          * Build output script
+          */
           var script = node.script.content;
 
-          /*
-           * replace input variables
-           */
-          node.inputs.map(function(input)
-              {
-                if (input.value !== "")
+          if (is_variable)
+          {
+
+            /*
+            * replace parameter variables
+            */
+            node.params.map(function(param)
                 {
-                  var input_obj = self.nodes.filter(function(n_node)
+                  if (!param.required)
                   {
-                    return n_node.index === input.value;
-                  });
+                    if (param.value)
+                    {
+                      var snippit_re = new RegExp("<"+ param.name +">","g");
+                      script = script.replace(snippit_re, param.snippit);
 
-                  var input_variable = input_obj[0].output;
-
-                  var input_re = new RegExp("<input_" + input.label + ">", "g");
-                  script = script.replace(input_re, input_variable);
-                }
-              });
-
-          /*
-           * replace parameter variables
-           */
-          node.params.map(function(param)
-              {
-                if (!param.required)
-                {
-                  if (param.value)
+                      var re = new RegExp("<"+ param.name +">","g");
+                      script = script.replace(re, param.value);
+                    }
+                    else
+                    {
+                      var default_re = new RegExp("<"+ param.name +">","g");
+                      script = script.replace(default_re, param.default);
+                    }
+                  }
+                  else if (param.value)
                   {
-                    var snippit_re = new RegExp("<"+ param.name +">","g");
-                    script = script.replace(snippit_re, param.snippit);
-
                     var re = new RegExp("<"+ param.name +">","g");
                     script = script.replace(re, param.value);
                   }
+                });
+
+            node.output = script;
+          }
+          else
+          {
+
+            /*
+            * replace input variables
+            */
+            node.inputs.map(function(input)
+                {
+                  if (input.required)
+                  {
+                    if (input.value !== "")
+                    {
+                      var input_obj = self.nodes.filter(function(n_node)
+                      {
+                        return n_node.index === input.value;
+                      });
+
+                      var input_variable = input_obj[0].output;
+
+                      var input_re = new RegExp("<input_" + input.label + ">", "g");
+                      script = script.replace(input_re, input_variable);
+                    }
+                    else
+                    {
+                      var input_re = new RegExp("<input_" + input.label + ">", "g");
+                      script = script.replace(input_re, input.default);
+                    }
+                  }
                   else
                   {
-                    var default_re = new RegExp("<"+ param.name +">","g");
-                    script = script.replace(default_re, param.default);
+                    if (input.value !== "")
+                    {
+                      var input_obj = self.nodes.filter(function(n_node)
+                      {
+                        return n_node.index === input.value;
+                      });
+
+                      var input_variable = input_obj[0].output;
+
+                      var input_re = new RegExp("<input_" + input.label + ">", "g");
+                      script = script.replace(input_re, input_variable);
+                    }
+                    else
+                    {
+                      var input_re = new RegExp("<input_" + input.label + ">", "g");
+                      script = script.replace(input_re, input.default);
+                    }
                   }
-                }
-                else if (param.value)
+                });
+
+            /*
+            * replace parameter variables
+            */
+            node.params.map(function(param)
                 {
-                  var re = new RegExp("<"+ param.name +">","g");
-                  script = script.replace(re, param.value);
-                }
-              });
+                  if (!param.required)
+                  {
+                    if (param.value !== "")
+                    {
+                      var snippit_re = new RegExp("<"+ param.name +">","g");
+                      script = script.replace(snippit_re, param.snippit);
 
-          /*
-           * replace output variable
-           */
-          if (node.output)
-          {
-            var output_re = new RegExp("<output_variable>", "g");
-            script = script.replace(output_re, node.output);
+                      var re = new RegExp("<"+ param.name +">","g");
+                      script = script.replace(re, param.value);
+                    }
+                    else
+                    {
+                      var default_re = new RegExp("<"+ param.name +">","g");
+                      script = script.replace(default_re, param.default);
+                    }
+                  }
+                  else if (param.value)
+                  {
+                    var re = new RegExp("<"+ param.name +">","g");
+                    script = script.replace(re, param.value);
+                  }
+                });
+
+            /*
+            * replace output variable
+            */
+            if (node.output)
+            {
+              var output_re = new RegExp("<output_variable>", "g");
+              script = script.replace(output_re, node.output);
+            }
+
+
+            self.output_script = self.output_script + "\n" + script;
           }
-
-
-          self.output_script = self.output_script + "\n" + script;
 
         };
 
@@ -316,7 +388,7 @@ angular.module('pig.pig-flow-templates', [])
         vm.node_info.script = vm.script;
 
         var added_width = Math.max(vm.node_info.inputs.length, vm.node_info.outputs.length) * 30;
-        vm.node_info.width += added_width;
+        vm.node_info.width = vm.node_info.default_width + added_width;
 
         vm.start();
       }
@@ -362,17 +434,20 @@ angular.module('pig.pig-flow-templates', [])
             snippit: " AS <format>",
             default: "",
             value: ""
-          },
-          {
-            name: "separator",
-            required: false,
-            snippit: " USING PigStorage('<separator>')",
-            default: "",
-            value: ""
-          }],
+          }
+          ],
           description: "Load from a source",
           output: "",
-          inputs: [],
+          inputs: [
+          {
+            label: "storage_type",
+            type: ["storage_types"],
+            required: false,
+            snippit: "<input_storage_type>",
+            default: "",
+            value: ""
+          }
+          ],
           outputs: [
           {
             label: "variable",
@@ -387,7 +462,7 @@ angular.module('pig.pig-flow-templates', [])
               "format",
               "separator"
             ],
-            content: "<output_variable> = LOAD '<source>'<separator><format>;"
+            content: "<output_variable> = LOAD '<source>'<input_storage_type><format>;"
           }
         },
         {
@@ -405,7 +480,9 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "source",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           }
           ],
@@ -442,12 +519,16 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "source1",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           },
           {
             label: "source2",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           }
           ],
@@ -483,12 +564,16 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "grouping",
-            type: "group",
+            type: ["group"],
+            required: true,
+            default: "",
             value: ""
           },
           {
             label: "source",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           },
           ],
@@ -529,12 +614,16 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "grouping",
-            type: "group",
+            type: ["group"],
+            required: true,
+            default: "",
             value: ""
           },
           {
             label: "source",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           },
           ],
@@ -567,7 +656,9 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "source",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           },
           ],
@@ -594,12 +685,16 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "grouping",
-            type: "group",
+            type: ["group"],
+            required: true,
+            default: "",
             value: ""
           },
           {
             label: "source",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           },
           ],
@@ -625,12 +720,16 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "grouping",
-            type: "group",
+            type: ["group"],
+            required: true,
+            default: "",
             value: ""
           },
           {
             label: "source",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           },
           ],
@@ -666,6 +765,8 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "source",
+            required: true,
+            default: "",
             value: ""
           },
           ],
@@ -696,12 +797,16 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "join",
-            type: "join",
+            type: ["join"],
+            required: true,
+            default: "",
             value: ""
           },
           {
             label: "source",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           },
           ],
@@ -732,12 +837,16 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "grouping",
-            type: "group",
+            type: ["group"],
+            required: true,
+            default: "",
             value: ""
           },
           {
             label: "source",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           },
           ],
@@ -769,12 +878,16 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "grouping",
-            type: "group",
+            type: ["group"],
+            required: true,
+            default: "",
             value: ""
           },
           {
             label: "source",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           },
           ],
@@ -806,7 +919,9 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "source",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           },
           ],
@@ -846,7 +961,9 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "source",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           },
           ],
@@ -880,12 +997,16 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "grouping",
-            type: "group",
+            type: ["group"],
+            required: true,
+            default: "",
             value: ""
           },
           {
             label: "source",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           },
           ],
@@ -917,7 +1038,9 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "source",
-            type: "load",
+            type: ["load"],
+            required: true,
+            default: "",
             value: ""
           },
           ],
@@ -936,6 +1059,147 @@ angular.module('pig.pig-flow-templates', [])
             content: "<output_variable> = FOREACH <input_source> GENERATE TOKENIZE(<type>);"
           }
         }],
+        load_store_functions: [
+        {
+          name: "storage",
+          params: [
+          {
+            name: "location",
+            required: true,
+            value: ""
+          }],
+          description: "Store variable into location, requires a storage type",
+          inputs: [
+          {
+            label: "variable",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            label: "storage_type",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [],
+          script: {
+            input_var: true,
+            output_var: false,
+            variables: [],
+            content: "STORE <input_variable> INTO '<location>'<input_storage_type>;"
+          }
+        }
+        ],
+        load_types: [
+        {
+          name: "jsonloader",
+          params: [
+          {
+            name: "schema",
+            required: false,
+            snippit: "'<schema>'",
+            default: "",
+            value: ""
+          }],
+          description: "Load JSON data",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            variables: [],
+            content: " USING JsonLoader(<schema>)"
+          }
+        }
+        ],
+        storage_types: [
+        {
+          name: "binstorage",
+          params: [],
+          description: "Loads and stores data in machine-readable format",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            variables: [],
+            content: " USING BinStorage()"
+          }
+        },
+        {
+          name: "jsonstorage",
+          params: [],
+          description: "Store JSON data",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            variables: [],
+            content: " USING JsonLoader()"
+          }
+        },
+        {
+          name: "pigdump",
+          params: [],
+          description: "Stores data in UTF-8 format",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            variables: [],
+            content: " USING PigDump()"
+          }
+        },
+        {
+          name: "pigstorage",
+          params: [
+          {
+            name: "field_delimiter",
+            required: false,
+            snippit: "'<field_delimiter>'",
+            default: "",
+            value: ""
+          }],
+          description: "Loads and stores data as structured text files",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            variables: [],
+            content: " USING PigStorage(<field_delimiter>)"
+          }
+        }
+        ],
         output: [
         {
           name: "dump",
@@ -943,10 +1207,13 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "variable",
+            required: true,
+            default: "",
             value: ""
           }
           ],
-          outputs: [],
+          outputs: [
+          ],
           script: {
             input_var: true,
             output_var: false,

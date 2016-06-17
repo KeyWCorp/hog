@@ -61,11 +61,11 @@
 
     <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
       <md-button flex ng-if="!vm.edited && !vm.running" ng-disabled="!vm.script.data || scriptForm.$invalid || vm.running" class="md-raised md-primary" ng-click="vm.run()">Run</md-button>
-      <md-button flex ng-if="vm.edited && !vm.running" ng-disabled="!vm.script.data || scriptForm.$invalid || vm.running" class="md-raised md-primary" ng-click="vm.saveAndRun()">Save and Run</md-button>
+      <md-button flex ng-if="vm.edited && !vm.running" ng-disabled="scriptForm.$invalid || vm.running" class="md-raised md-primary" ng-click="vm.saveAndRun()">Save and Run</md-button>
 
       <md-button flex ng-if="vm.running" class="md-raised md-warn" ng-click="vm.kill()" ng-show="vm.running">Kill</md-button>
 
-      <md-button flex ng-disabled="!vm.edited || !vm.script.data || scriptForm.$invalid" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+      <md-button flex ng-disabled="!vm.edited || scriptForm.$invalid" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
 
       <md-menu flex layout="row">
         <md-button flex class="md-raised md-primary" ng-click="$mdOpenMenu($event)">

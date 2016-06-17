@@ -971,9 +971,34 @@ angular.module("pig.pig-flow", [])
           {
             if (vm.source_node && vm.source_node.data.index != d.index)
             {
+
+              console.log("TYPE: " + t.data.type + " CATEGORY: " + t.data.category);
+              var same_category = true;
+              var same_type = true;
+
+              // check category is the same
+              if (t.data.category)
+              {
+                same_category = t.data.category.filter(function(category)
+                {
+                  return category === vm.source_node.data.category;
+                }).length > 0;
+              }
+
+              // check type is the same
+              if (t.data.type)
+              {
+                same_type = t.data.type.filter(function(type)
+                {
+                  return type === vm.source_node.data.type;
+                }).length > 0;
+              }
+
+              console.log("SAME_TYPE: " + same_type + " SAME_CATEGORY: " + same_category);
+
+
               // check that it is the right type
-              if (t.data.type == vm.source_node.data.type ||
-                  t.data.category == vm.source_node.data.category ||
+              if (same_type || same_category ||
                   (!t.data.category && !t.data.type))
               {
                 t.data.value = vm.source_node.data.index;
@@ -1270,9 +1295,22 @@ angular.module("pig.pig-flow", [])
             return n.name === t;
           })[0].outputs.slice());
 
+          var output = t + (vm.nodes.length);
+          var is_variable = outputs.filter(function(o)
+          {
+            return o.label === "content";
+          }).length > 0;
+          if (is_variable)
+          {
+            console.log("type: " + t + " category: " + c);
+            output = "" + script.content;
+          }
+
           var newNode = {
             x: dx,
             y: dy,
+            default_width: 300,
+            default_height: 124,
             width: 300,
             height: 124,
             name: "new node " + vm.nodes.length,
@@ -1282,7 +1320,7 @@ angular.module("pig.pig-flow", [])
             script: script,
             inputs: inputs,
             outputs: outputs,
-            output: t + (vm.nodes.length),
+            output: output,
             fixed: true
           };
           vm.nodes.push(newNode);
