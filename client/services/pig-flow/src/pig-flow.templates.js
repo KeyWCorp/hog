@@ -1700,6 +1700,1059 @@ angular.module('pig.pig-flow-templates', [])
           }
         }
         ],
+        math_functions: [
+        {
+          name: "abs",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the absolute value of an expression",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " ABS(<expression>);"
+          }
+        },
+        {
+          name: "acos",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the arc cosine of an expression",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " ACOS(<expression>);"
+          }
+        },
+        {
+          name: "asin",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the arc sine of an expression",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " ASIN(<expression>);"
+          }
+        },
+        {
+          name: "atan",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the arc tangent of an expression",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " ATAN(<expression>);"
+          }
+        },
+        {
+          name: "cbrt",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the cube root of an expression",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " CBRT(<expression>);"
+          }
+        },
+        {
+          name: "ceil",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the value of an expression rounded up to the nearest integer",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " CEIL(<expression>);"
+          }
+        },
+        {
+          name: "cos",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the trigonometric cosine of an expression",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " COS(<expression>);"
+          }
+        },
+        {
+          name: "cosh",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the hyperbolic cosine of an expression",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " COSH(<expression>);"
+          }
+        },
+        {
+          name: "exp",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns Euler's number e raised to the power of x",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " EXP(<expression>);"
+          }
+        },
+        {
+          name: "floor",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the value of an expression rounded down to the nearest integer",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " FLOOR(<expression>);"
+          }
+        },
+        {
+          name: "log",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the natural logarithm (base e) of an expression",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " LOG(<expression>);"
+          }
+        },
+        {
+          name: "log10",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the natural logarithm (base 10) of an expression",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " LOG10(<expression>);"
+          }
+        },
+        {
+          name: "random",
+          params: [],
+          description: "Returns a pseudo random number",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " RANDOM();"
+          }
+        },
+        {
+          name: "round",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the value of an expression rounded to an integer",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " ROUND(<expression>);"
+          }
+        },
+        {
+          name: "round_to",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the value of an expression rounded to a fixed number of decimal digits",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " ROUND_TO(<expression>);"
+          }
+        },
+        {
+          name: "sin",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the sine of an expression",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " SIN(<expression>);"
+          }
+        },
+        {
+          name: "sinh",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the hyperbolic sine of an expression",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " SINH(<expression>);"
+          }
+        },
+        {
+          name: "sqrt",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the positive square root of an expression",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " SQRT(<expression>);"
+          }
+        },
+        {
+          name: "tan",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the trignometric tangent of an angle",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " TAN(<expression>);"
+          }
+        },
+        {
+          name: "tanh",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the hyperbolic tangent of an expression",
+          inputs: [],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " TANH(<expression>);"
+          }
+        },
+        ],
+        string_functions: [
+        {
+          name: "endswith",
+          params: [
+          {
+            name: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Tests inputs to determine if the first argument ends with the string in the second",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " ENDSWITH(<string>, <input_string>);"
+          }
+        },
+        {
+          name: "equalsignorecase",
+          params: [],
+          description: "Compares two Strings ignoring case considerations",
+          inputs: [
+          {
+            label: "string1",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            label: "string2",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " EQUALSIGNORECASE(<input_string1>, <input_string2>);"
+          }
+        },
+        {
+          name: "indexof",
+          params: [
+          {
+            name: "character",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            name: "start_index",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the index of the first occurrence of a character in a string, searching forward from a start index",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " INDEXOF(<input_string>, '<character>', <start_index>);"
+          }
+        },
+        {
+          name: "lastindexof",
+          params: [
+          {
+            name: "character",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns the index of the last occurrence of a character in a string, searching backward from the end of the string",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " LAST_INDEX_OF(<input_string>, '<character>');"
+          }
+        },
+        {
+          name: "lcfirst",
+          params: [],
+          description: "Converts the first character in a string to lower case",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " LCFIRST(<input_string>);"
+          }
+        },
+        {
+          name: "lower",
+          params: [],
+          description: "Converts all characters in a string to lower case",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " LOWER(<input_string>);"
+          }
+        },
+        {
+          name: "ltrim",
+          params: [],
+          description: "Returns a copy of a string with only leading white space removed",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " LTRIM(<input_string>);"
+          }
+        },
+        {
+          name: "regex_extract",
+          params: [
+          {
+            name: "regex",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            name: "index",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Performs regular expression matching and extracts the matched group defined by an index parameter",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " REGEX_EXTRACT(<input_string>, '<regex>', <index>);"
+          }
+        },
+        {
+          name: "regex_extract_all",
+          params: [
+          {
+            name: "regex",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Performs regular expression matching and extracts all matched groups",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " REGEX_EXTRACT_ALL(<input_string>, '<regex>');"
+          }
+        },
+        {
+          name: "replace",
+          params: [
+          {
+            name: "regex",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            name: "new_char",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Replaces existing characters in a string with new characters",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " REPLACE(<input_string>, '<regex>', 'new_char');"
+          }
+        },
+        {
+          name: "rtrim",
+          params: [],
+          description: "Returns a copy of a string with only trailing white space removed",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " RTRIM(<input_string>);"
+          }
+        },
+        {
+          name: "sprintf",
+          params: [
+          {
+            name: "format",
+            required: false,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Formats a set of values according to a printf-style template, using the native Java Formatter library",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " SPRINTF(<format>, <input_string>);"
+          }
+        },
+        {
+          name: "startswith",
+          params: [
+          {
+            name: "string",
+            required: false,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Tests inputs to determine if the first argument starts with the string in the second",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " STARTSWITH(<string>, <input_string>);"
+          }
+        },
+        {
+          name: "strsplit",
+          params: [
+          {
+            name: "regex",
+            required: false,
+            default: "",
+            value: ""
+          },
+          {
+            name: "limit",
+            required: false,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Splits a string around matches of a given regular expression",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " STRSPLIT(<input_string>, <regex>, <limit>);"
+          }
+        },
+        {
+          name: "strsplittobag",
+          params: [
+          {
+            name: "regex",
+            required: false,
+            default: "",
+            value: ""
+          },
+          {
+            name: "limit",
+            required: false,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Splits a string around matches of a given regular expression and returns a databag",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " STRSPLITTOBAG(<input_string>, <regex>, <limit>);"
+          }
+        },
+        {
+          name: "substring",
+          params: [
+          {
+            name: "start_index",
+            required: false,
+            default: "",
+            value: ""
+          },
+          {
+            name: "stop_index",
+            required: false,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns a substring from a given string",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " SUBSTRING(<input_string>, <start_index>, <stop_index>);"
+          }
+        },
+        {
+          name: "trim",
+          params: [],
+          description: "Returns a copy of a string with leading and trailing white space removed",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " TRIM(<input_string>);"
+          }
+        },
+        {
+          name: "ucfirst",
+          params: [],
+          description: "Returns a string with the first character converted to upper case",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " UCFIRST(<input_string>);"
+          }
+        },
+        {
+          name: "upper",
+          params: [],
+          description: "Returns a string converted to upper case",
+          inputs: [
+          {
+            label: "string",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "content",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: " UPPER(<input_string>);"
+          }
+        }
+        ],
+        datetime_functions: [],
         tuple_bag_map_functions: [
         {
           name: "totuple",
