@@ -519,7 +519,7 @@ angular.module('pig.pig-flow-templates', [])
             label: "function2",
             type: ["rollup"],
             required: false,
-            snippit: ", <input_function2>",
+            snippit: ",<input_function2>",
             default: "",
             value: ""
           }
@@ -582,6 +582,64 @@ angular.module('pig.pig-flow-templates', [])
             input_var: false,
             output_var: true,
             content: " ROLLUP(<expression>)"
+          }
+        },
+        {
+          name: "distinct",
+          params: [],
+          description: "Removes duplicate tuples in a relation",
+          output: "",
+          inputs: [
+          {
+            label: "source",
+            type: ["load"],
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            content: "<output_variable> = DISTINCT <input_source>;"
+          }
+        },
+        {
+          name: "filter",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }],
+          description: "Selects tuples from a relation based on some condition",
+          output: "",
+          inputs: [
+          {
+            label: "source",
+            type: ["load"],
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            content: "<output_variable> = FILTER <input_source> BY <expression>;"
           }
         },
         {

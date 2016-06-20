@@ -33,7 +33,7 @@
       </div>
       <div layout='column' ng-show='tmp_node.params[0].name'>
         <md-input-container flex ng-repeat='param in params track by $index'>
-          <label>{{ param.name }}</label>
+          <label>*{{ param.name }}</label>
           <input ng-if='param.required' required ng-trim='false' name='{{ param.name }}' ng-model='param.value'>
           <input ng-if='!param.required' ng-trim='false' name='{{ param.name }}' ng-model='param.value'>
         </md-input-container>
