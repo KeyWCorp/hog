@@ -15,7 +15,7 @@ angular.module("pig.pig-flow", [])
         outputData: "=",
         id: "@"
       },
-      template: pigFlowTemplate,
+      templateUrl: pigFlowTemplate,
       link: function ($scope, element, attrs)
       {
         var vm = $scope;

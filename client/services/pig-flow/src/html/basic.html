@@ -32,11 +32,21 @@
         </md-input-container>
       </div>
       <div layout='column' ng-show='tmp_node.params[0].name'>
-        <md-input-container flex ng-repeat='param in params track by $index'>
-          <label>*{{ param.name }}</label>
-          <input ng-if='param.required' required ng-trim='false' name='{{ param.name }}' ng-model='param.value'>
-          <input ng-if='!param.required' ng-trim='false' name='{{ param.name }}' ng-model='param.value'>
-        </md-input-container>
+        <div layout='row' ng-repeat='param in params track by $index'>
+          <md-input-container ng-if='param.required' flex>
+            <input required ng-trim='false' name='{{ param.name }}' ng-model='param.value'>
+            <label>*{{ param.name }}</label>
+          </md-input-container>
+
+          <md-input-container ng-if='!param.required' flex>
+            <input ng-trim='false' name='{{ param.name }}' ng-model='param.value'>
+            <label>{{ param.name }}</label>
+          </md-input-container>
+
+          <md-input-container flex="30" ng-if='param.multiple' flex>
+            <md-button class="md-raised md-primary" ng-click="addInput(param)">Add</md-button>
+          </md-input-container>
+        </div>
       </div>
       <div layout='column'>
         <md-content flex layout-padding>

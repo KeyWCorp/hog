@@ -19,6 +19,7 @@ angular.module('hog', [
     'chart.js',
     'md.data.table',
     'hog.hog-tracker',
+    'pig.filters',
     'pig.pig-flow',
     'pig.pig-flow-templates',
     'pig.uploader',

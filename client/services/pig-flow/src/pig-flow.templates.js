@@ -132,7 +132,7 @@ angular.module('pig.pig-flow-templates', [])
                       var re = new RegExp("<"+ param.name +">","g");
                       script = script.replace(re, param.value);
                     }
-                    else
+                    else if (!param.multiple)
                     {
                       var default_re = new RegExp("<"+ param.name +">","g");
                       script = script.replace(default_re, param.default);
@@ -266,46 +266,7 @@ angular.module('pig.pig-flow-templates', [])
     })
 .factory('pigFlowTemplate', function()
     {
-
-      var sidebar =
-        "<md-sidenav style='height: {{ window.innerHeight }}' class='md-sidenav-right md-whiteframe-z2' md-component-id='right'>"
-        + "  <md-toolbar class='md-theme-light'>"
-        + "    <h1 class='md-toolbar-tools'>Node Types</h1>"
-        + "  </md-toolbar>"
-        + "  <md-content layout-padding>"
-        + "    <md-list>"
-        + "      <div ng-repeat='type in type_list'>"
-        + "        <md-subheader layout='row' layout-align='center center' class='md-no-sticky'>{{ type | uppercase }} NODES</md-subheader>"
-        + "        <md-list-item class='md-3-line' ng-repeat='node in types[type]' layout='row' layout-align='start center'>"
-        + "          <div class='md-list-item-text' layout='column' >"
-        + "            <md-button style='border-radius: 6px; border:1px solid black' class='md-raised' ng-click='addNode(type, node.name)'>"
-        + "              <h3> {{node.name | uppercase}}</h3>"
-        + "            </md-button>"
-        + "            <div layout='row' layout-align='center center' layout-padding layout-margin layout-fill>"
-        + "              <p style='text-align: center;'>{{ node.description }}</p>"
-        + "            </div>"
-        + "          </div>"
-        + "        </md-list-item>"
-        + "        <md-divider ></md-divider>"
-        + "      </div>"
-        + ""
-        + "    </md-list>"
-        + "</md-sidenav>";
-
-      var main_template =
-        "<md-content class='md-padding' flex layout='row'>"
-        + "  <span flex></span>"
-        + ""
-        + "  <md-button class='md-fab' aria-label='Add' ng-click='toggleNodeList()'>"
-        + "    <md-icon md-font-set='material-icons'> add </md-icon>"
-        + "    <md-tooltip>Toggle Node list</md-tooltip>"
-        + "  </md-button>"
-        + ""
-        + "</md-content>"
-        + sidebar;
-
-
-      return main_template;
+      return "services/pig-flow/src/html/pigFlowTemplate.html";
     })
 .factory('nodeTemplates', function() {
 
@@ -330,24 +291,25 @@ angular.module('pig.pig-flow-templates', [])
       angular.copy(vm.node_info.params, vm.tmp_param);
 
       vm.params = [];
+      angular.copy(vm.node_info.params, vm.params);
       vm.types[vm.category].map(function (t)
           {
             if (t.name === vm.type)
             {
-              angular.copy(t.params, vm.params);
+              //angular.copy(t.params, vm.params);
               vm.script = t.script;
               vm.description = t.description;
               //vm.params = angular.copy(t.params, vm.params);
             }
           });
 
-      vm.params.map(function (p, i)
-          {
-            if (vm.tmp_param[i])
-            {
-              p.value = vm.tmp_param[i].value || p.value;
-            }
-          });
+      //vm.params.map(function (p, i)
+      //    {
+      //      if (vm.tmp_param[i])
+      //      {
+      //        p.value = vm.tmp_param[i].value || p.value;
+      //      }
+      //    });
 
       vm.tmp_node = {
         name: vm.node_info.name,
@@ -364,6 +326,47 @@ angular.module('pig.pig-flow-templates', [])
     {
       vm.save();
       $mdDialog.hide({reload: false, data: vm.node_info});
+    };
+
+    vm.addInput = function(param)
+    {
+      if (param.value !== "")
+      {
+        var tmp_input = {
+          label: param.value,
+          required: true,
+          default: "",
+          value: ""
+        };
+
+        var new_param = {
+          name: "function" + vm.node_info.params.length,
+          required: true,
+          default: param.value,
+          value: param.value
+        };
+
+        // make a copy of the old node
+        var old_node = {};
+        angular.copy(vm.node_info, old_node);
+
+        // update params
+        vm.params.push(new_param);
+
+        // update script
+        var script_re = RegExp("<function>", "g");
+        old_node.script.content.replace(script_re, "<function><input_" + new_param.name + ">");
+
+        // make new input and param
+        old_node.inputs.push(tmp_input);
+        old_node.params.push(new_param);
+
+        // copy back to node
+        angular.copy(old_node, vm.node_info);
+        param.value = "";
+
+      }
+
     };
 
     vm.save = function (type)
@@ -576,7 +579,8 @@ angular.module('pig.pig-flow-templates', [])
             required: true,
             default: "",
             value: ""
-          }],
+          }
+          ],
           description: "Selects tuples from a relation based on some condition",
           output: "",
           inputs: [
@@ -598,6 +602,41 @@ angular.module('pig.pig-flow-templates', [])
             input_var: true,
             output_var: true,
             content: "<output_variable> = FILTER <input_source> BY <expression>;"
+          }
+        },
+        {
+          name: "foreach",
+          params: [
+          {
+            name: "function",
+            multiple: true,
+            required: false,
+            snippit: " {<function>}",
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Generates data transformations based on columns of data",
+          output: "",
+          inputs: [
+          {
+            label: "grouping",
+            type: ["group"],
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            content: "<output_variable> = FOREACH <input_grouping> {<function>};"
           }
         },
         {
@@ -725,7 +764,7 @@ angular.module('pig.pig-flow-templates', [])
             value: ""
           }
           ],
-          description: "Load from a source",
+          description: "Loads data from the file system",
           output: "",
           inputs: [
           {
@@ -2752,7 +2791,8 @@ angular.module('pig.pig-flow-templates', [])
           }
         }
         ],
-        datetime_functions: [],
+        datetime_functions: [
+        ],
         tuple_bag_map_functions: [
         {
           name: "totuple",
