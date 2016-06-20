@@ -424,47 +424,6 @@ angular.module('pig.pig-flow-templates', [])
       var nodeTypes = {
         relational_operators: [
         {
-          name: "load",
-          params: [
-          {
-            name: "source",
-            required: true,
-            default: "",
-            value: ""
-          },
-          {
-            name: "format",
-            required: false,
-            snippit: " AS <format>",
-            default: "",
-            value: ""
-          }
-          ],
-          description: "Load from a source",
-          output: "",
-          inputs: [
-          {
-            label: "storage_type",
-            category: ["storage_types", "load_types"],
-            required: false,
-            snippit: "<input_storage_type>",
-            default: "",
-            value: ""
-          }
-          ],
-          outputs: [
-          {
-            label: "variable",
-            value: ""
-          }
-          ],
-          script: {
-            input_var: false,
-            output_var: true,
-            content: "<output_variable> = LOAD '<source>'<input_storage_type><format>;"
-          }
-        },
-        {
           name: "cross",
           params: [],
           description: "Computes the cross product of two or more relations",
@@ -503,7 +462,6 @@ angular.module('pig.pig-flow-templates', [])
           inputs: [
           {
             label: "source",
-            type: ["load"],
             required: true,
             default: "",
             value: ""
@@ -717,7 +675,248 @@ angular.module('pig.pig-flow-templates', [])
             output_var: true,
             content: "<output_variable> = JOIN <input_source1> BY <type1>, <input_source2> BY <type2>;"
           }
-        }],
+        },
+        {
+          name: "limit",
+          params: [
+          {
+            name: "number",
+            required: true,
+            snippit: " <number>",
+            default: "",
+            value: ""
+          }],
+          description: "Limits the number of output tuples",
+          output: "",
+          inputs: [
+          {
+            label: "source",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            content: "<output_variable> = LIMIT <input_source> <number>;"
+          }
+        },
+        {
+          name: "load",
+          params: [
+          {
+            name: "source",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            name: "format",
+            required: false,
+            snippit: " AS <format>",
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Load from a source",
+          output: "",
+          inputs: [
+          {
+            label: "storage_type",
+            category: ["storage_types", "load_types"],
+            required: false,
+            snippit: "<input_storage_type>",
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: "<output_variable> = LOAD '<source>'<input_storage_type><format>;"
+          }
+        },
+        {
+          name: "orderby",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Sorts a relation based on one or more fields",
+          output: "",
+          inputs: [
+          {
+            label: "source",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            content: "<output_variable> = ORDER <input_source> BY <expression>;"
+          }
+        },
+        {
+          name: "rank",
+          params: [
+          {
+            name: "expression",
+            required: false,
+            snippit: " BY <expression>",
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Returns each tuple with the rank within a relation",
+          output: "",
+          inputs: [
+          {
+            label: "source",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            content: "<output_variable> = RANK <input_source><expression>;"
+          }
+        },
+        {
+          name: "sample",
+          params: [
+          {
+            name: "size",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Selects a random sample of data based on the specified sample size",
+          output: "",
+          inputs: [
+          {
+            label: "source",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            content: "<output_variable> = SAMPLE <input_source> <size>;"
+          }
+        },
+        {
+          name: "stream",
+          params: [
+          {
+            name: "expression",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            name: "schema",
+            required: false,
+            snippit: " AS <schema>",
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Sends data to an external script or program",
+          output: "",
+          inputs: [
+          {
+            label: "source",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            content: "<output_variable> = STREAM <input_source> THROUGH <expression><schema>;"
+          }
+        },
+        {
+          name: "union",
+          params: [],
+          description: "Computes the union of two or more relations",
+          output: "",
+          inputs: [
+          {
+            label: "source1",
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            label: "source2",
+            required: true,
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: true,
+            output_var: true,
+            content: "<output_variable> = UNION <input_source1> <input_source2>;"
+          }
+        },
+        ],
         eval_functions: [
         {
           name: "average",
