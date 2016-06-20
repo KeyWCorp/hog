@@ -406,4 +406,17 @@ exports.runAndTrack = function (socket) {
               });
         }
       });
+      
+};
+/**
+ * Gets a list of the most recently changed scripts up to the limit passed in
+ *
+ * @param socket
+ */
+exports.getRecent = function (socket) {
+  socket.on('recent',
+    function(countntype)
+    {
+      Pig.find({type: countntype.type}, {limit: countntype.count, sort: lastModified})
+    })
 };

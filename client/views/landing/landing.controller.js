@@ -5,8 +5,16 @@ angular.module('hog')
 
     var vm = this;
 
-    angular.extend(this, {
-      name: 'LandingCtrl'
+    angular.extend(vm, {
+      name: 'LandingCtrl',
+      simplePigs: [{
+        name: 'testSimple'
+      }],
+      complexPigs: [{
+        name: 'testComplex'
+      }]
+
+
     });
 
   });

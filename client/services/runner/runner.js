@@ -47,7 +47,16 @@ angular.module('hog')
               });
         return temp;
       }
-
+      function getMostRecet(count)
+      {
+        var deferred = $q.defer();
+        Pig.emit('recent', count);
+        Pig.on('recents',
+          function(indata)
+          {
+            deferred.resolve(indata);
+          });
+      }
       function save(data)
       {
         console.log(' IN RUNNER SAVE FUNCTION');

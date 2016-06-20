@@ -24,6 +24,7 @@ class Pig extends Document {
     this.args        = [];
     this.version     = String;
     this.script_loc  = String;
+    
   }
   static collectionName() {
         return 'pig.data';
