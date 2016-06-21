@@ -26,7 +26,9 @@ angular.module('hog', [
     'mdColors',
     'luegg.directives',
     'ngCsv',
-    'ngFileSaver'
+    'diff-match-patch',
+    'ngFileSaver',
+    'angularMoment'
 ]).config(function($mdThemingProvider) {
   $mdThemingProvider
     .theme('default')

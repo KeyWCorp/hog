@@ -346,7 +346,115 @@ angular.module('hog.hog-templates', [])
           $mdDialog.cancel();
         };
       };
-
+      // Controller for Difference Modal
+      function VersionDiffController($mdDialog, $window, $scope, $timeout, $q, lodash, vm)
+      {
+        var _ = lodash;
+        var dmp = new $window.diff_match_patch();
+        vm.loading = true;
+        vm.leftVers = vm.versions[vm.leftIdx];
+        vm.rightVers = vm.versions[vm.rightIdx];
+        vm.processDiff = function(lIdx, rIdx)
+        {
+          var p = $q.defer();
+          
+          if(lIdx >= vm.versions.length || lIdx < 0 || rIdx >= vm.versions.length || rIdx < 0)
+          {
+            p.reject('Index out of bounds');
+          }
+          else
+          {
+            var leftDiff = vm.versions[lIdx].diff;
+            var rightDiff = vm.versions[rIdx].diff;
+            var lp = dmp.patch_make(leftDiff);
+            var lt = _.transform(leftDiff, function(result, e) {
+               if(e[0] == 0) 
+               {
+                 result.push(e[1]);
+                 return true;
+               }
+              }, []);
+            lt = lt.join(''); 
+            var ls = dmp.patch_apply(lp, lt);
+            var rt = _.transform(rightDiff, function(result, e) {
+               if(e[0] == 0) 
+               {
+                 result.push(e[1]);
+                 return true;
+               }
+              }, []);
+              console.log('right transform: ', rt);
+            rt = rt.join(''); 
+            var rp = dmp.patch_make(rightDiff);
+            var rs = dmp.patch_apply(rp, rt);
+             console.log('process left side: ', ls, lt, '\nright side:', rs, rt);
+          // if(ls[1][0] == false || rs[1][0] == false)
+           // {
+            //  p.reject('patch failed to apply');
+           // }
+           // else
+           // {
+              p.resolve({ls: ls[0], rs: rs[0]});
+            //}
+          }
+          return p.promise;
+        }
+        vm.processDiff(vm.leftIdx, vm.rightIdx)
+          .then(
+            function(data)
+            {
+              $timeout(function()
+              {
+                $scope.vm.ls = data.ls;
+                $scope.vm.rs = data.rs;
+                $scope.vm.loading = false;
+                console.log('left side: ', $scope.vm.ls, 'right side:', $scope.vm.rs);
+              })
+            
+            },
+            function(err)
+            {
+              console.error(err);
+            }
+          );
+          vm.setLIdx = function(vers)
+          {
+            vm.leftIdx = _.findIndex(vm.versions, ['version', vers.version])
+          }
+          vm.setRIdx = function(vers)
+          {
+            vm.rightIdx = _.findIndex(vm.versions, ['version', vers.version])
+          }
+          vm.diff = function()
+          {
+            $scope.vm.loading = true;
+            vm.processDiff(vm.leftIdx, vm.rightIdx)
+              .then(
+                function(data)
+                {
+                  $timeout(function()
+                  {
+                    $scope.vm.ls = data.ls;
+                    $scope.vm.rs = data.rs;
+                    $scope.vm.loading = false;
+                    console.log('left side: ', $scope.vm.ls, 'right side:', $scope.vm.rs);
+                  })
+                },
+                function(err)
+                {
+	                console.error(err);
+                });
+          }
+        $scope.vm = vm;
+        $scope.revert = function(vIdx, source)
+        {
+          $mdDialog.hide({revertIdx: vIdx, source: source});
+        }
+        $scope.cancel = function()
+        {
+          $mdDialog.cancel();
+        };
+      };
 
 
       // Controller for Info Modal
@@ -375,17 +483,11 @@ angular.module('hog.hog-templates', [])
                         });
                 });
         };
-
         $scope.cancel = function()
         {
           $mdDialog.cancel();
         };
       };
-
-
-
-
-
 
       /*
        *
@@ -609,12 +711,14 @@ angular.module('hog.hog-templates', [])
         // Controllers
         GraphInfoController: GraphInfoController,
         InfoController: InfoController,
+        VersionDiffController: VersionDiffController,
         DeleteDialogController: DeleteDialogController,
 
         // Views
         outputInfoTemplate: outputInfoTemplate,
         graphInfoTemplate: graphInfoTemplate,
         complexEditSettingsTemplate: complexEditSettingsTemplate,
+        versionDiffTemplate: 'views/complex/edit/edit.complex.diff.html',
         deleteDialogTemplate: deleteDialogTemplate
       };
     });

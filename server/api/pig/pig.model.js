@@ -8,23 +8,45 @@ var path      = require('path');
 //var ds        = require('nedb');
 //var connect   = require('camo').connect;
 var Document  = require('camo').Document;
+var EmbeddedDocument  = require('camo').EmbeddedDocument;
+var diffmatchpatch = require('diff-match-patch');
+var dmp = new diffmatchpatch();
 
+class Version extends EmbeddedDocument {
+  constructor()
+  {
+    super();
+    this.version    = String;
+    this.current    = Boolean;
+    this.diff       = [];
+    this.timeStamp  = {
+      type: Date,
+      default: Date.now
+    };
+  }
+}
 class Pig extends Document {
   constructor()
   {
     super();
-
-    this.name        = String;
-    this.data        = String;
-    this.type        = String;
-    this.graph_type  = String;
-    this.graph_count = Number;
-    this.nodes       = [];
-    this.links       = [];
-    this.args        = [];
-    this.version     = String;
-    this.script_loc  = String;
-    
+    this.name         = String;
+    this.data         = String;
+    this.args         = [];
+    this.version      = {
+      type: String,
+      default: "0.0.0"
+    };
+    this.script_loc   = String;
+    this.history      = [Version];
+    this.type         = String;
+    this.graph_type   = String;
+    this.graph_count  = Number;
+    this.nodes        = [];
+    this.links        = [];
+    this.lastModified = {
+      type: Date,
+      default: Date.now
+    }
   }
   static collectionName() {
         return 'pig.data';
@@ -89,6 +111,7 @@ class Pig extends Document {
   }
   bump()
   {
+    console.log('in bump')
     var v = this.version.split('.');
     var release = this.bumpRelease();
     var minor = v[1];
@@ -102,32 +125,43 @@ class Pig extends Document {
       }
     }
     this.version = ''.concat(major,'.',minor,'.',release);
+    return this.version;
   }
   preSave(d)
   {
     //this.bump();
     console.log('in presave', d);
     var that = this;
-
+    try {
+      console.log('creating a new time for modification')
+    this.lastModified = Date.now();
+    } catch (error) {
+      console.log('caught: ', error);
+    }
+    
+    console.log('returning the promise')
       return Promise.all([this.saveScript()])
   }
-  rename(oldPath)
+  rename(newPath)
   {
     var that = this;
     var script_location;
+    console.log('beginning rename');
     if (this.script_loc)
     {
       script_location = this.script_loc;
+      console.log('script location 3: ', script_location)
     }
     else
     {
       script_location = path.join(__dirname, '../../',  'scripts/pig/', this.name +  '.pig');
+      console.log('script location 4: ', script_location)
     }
-    console.log('renaming ', oldPath, ' to ', script_location);
+    console.log('renaming ', script_location, ' to ', newPath);
     var p = new Promise(
       function(resolve, reject)
       {
-        fs.rename(oldPath, script_location,
+        fs.rename(script_location, newPath,
           function(err)
           {
             console.log('finished renaming', err);
@@ -137,6 +171,7 @@ class Pig extends Document {
             }
             else
             {
+              that.script_loc = newPath;
               resolve();
             }
           });
@@ -168,6 +203,59 @@ class Pig extends Document {
           });
       });
     return p;
+  }
+  diff(oldData, save, newData)
+  {
+    var d;
+    var version;
+    if(newData)
+    {
+      d = dmp.diff_main(this.data, newData.data);
+      version = newData.version;
+    }
+    else
+    {
+      d = dmp.diff_main(oldData.data, this.data)
+      version = this.version;
+    }
+    console.log('starting diff');
+    //var d = diff.diffTrimmedLines(this.data, newData.data)
+    //var d = dmp.diff_main(this.data, newData.data);
+    //var d = dmp.diff_main(oldData.data, this.data);
+    dmp.diff_cleanupEfficiency(d);
+    if(save)
+    {
+      console.log('diff', d, 'creating new Version: ', version);
+      try {
+        var vers = Version.create({
+        version: version,
+        current: true,
+        diff: d
+      });
+      } catch (error) {
+        console.log(error);
+      }
+      
+      console.log('version', vers, 'created');
+      this.history.forEach(function(e) { e.current = false;});
+      console.log('all currents set to false');
+      this.history.push(vers);
+      console.log('pushed new version');
+    }
+    return d;
+  }
+  update(data)
+  {
+    this.name         = data.name;
+    this.data         = data.data;
+    this.args         = data.args
+    this.version      = data.version;
+    this.script_loc   = data.script_loc;
+    this.type         = data.type;
+    this.graph_type   = data.graph_type;
+    this.graph_count  = data.graph_count;
+    this.nodes        = data.nodes;
+    this.links        = data.links;
   }
 }
 
