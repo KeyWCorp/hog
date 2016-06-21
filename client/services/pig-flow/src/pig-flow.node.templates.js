@@ -1,5 +1,7 @@
+/**
+ */
 
-//angular.module('pig.pig-flow-templates', [])
+'use strict';
 
 if (PigFlowModule === undefined)
 {
