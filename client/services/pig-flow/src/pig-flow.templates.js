@@ -122,18 +122,28 @@ angular.module('pig.pig-flow-templates', [])
             */
             node.params.map(function(param)
                 {
+                  console.log("Param: " + JSON.stringify(param, null, 2));
                   if (!param.required)
                   {
+                    console.log("required(" + param.required +")");
                     if (param.value !== "")
                     {
+                      console.log("value(" + param.value +")");
                       var snippit_re = new RegExp("<"+ param.name +">","g");
                       script = script.replace(snippit_re, param.snippit);
 
                       var re = new RegExp("<"+ param.name +">","g");
                       script = script.replace(re, param.value);
                     }
-                    else if (!param.multiple)
+                    else if (param.multiple)
                     {
+                      console.log("multiple(" + param.multiple +")");
+                      var re = new RegExp("<"+ param.name +">","g");
+                      script = script.replace(re, param.default);
+                    }
+                    else
+                    {
+                      console.log("other");
                       var default_re = new RegExp("<"+ param.name +">","g");
                       script = script.replace(default_re, param.default);
                     }
@@ -332,6 +342,12 @@ angular.module('pig.pig-flow-templates', [])
     {
       if (param.value !== "")
       {
+
+        if (vm.node_info.script.content !== vm.script.content)
+        {
+          angular.copy(vm.node_info.script, vm.script);
+        }
+
         var tmp_input = {
           label: param.value,
           required: true,
@@ -353,9 +369,13 @@ angular.module('pig.pig-flow-templates', [])
         // update params
         vm.params.push(new_param);
 
+        console.log("before: " + vm.script.content);
+
         // update script
         var script_re = RegExp("<function>", "g");
-        old_node.script.content.replace(script_re, "<function><input_" + new_param.name + ">");
+        vm.script.content = vm.script.content.replace(script_re, "GENERATE<input_" + tmp_input.label + ">;<function>");
+
+        console.log("after: " + vm.script.content);
 
         // make new input and param
         old_node.inputs.push(tmp_input);
@@ -363,6 +383,7 @@ angular.module('pig.pig-flow-templates', [])
 
         // copy back to node
         angular.copy(old_node, vm.node_info);
+        angular.copy(vm.script, vm.node_info.script);
         param.value = "";
 
       }
@@ -502,6 +523,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -526,6 +548,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -576,6 +599,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -604,6 +628,7 @@ angular.module('pig.pig-flow-templates', [])
             content: "<output_variable> = FILTER <input_source> BY <expression>;"
           }
         },
+        /*
         {
           name: "foreach",
           params: [
@@ -611,7 +636,7 @@ angular.module('pig.pig-flow-templates', [])
             name: "function",
             multiple: true,
             required: false,
-            snippit: " {<function>}",
+            snippit: "<function>",
             default: "",
             value: ""
           }
@@ -639,11 +664,13 @@ angular.module('pig.pig-flow-templates', [])
             content: "<output_variable> = FOREACH <input_grouping> {<function>};"
           }
         },
+        */
         {
           name: "group",
           params: [
           {
             name: "type",
+            multiple: false,
             required: false,
             snippit: " BY <type>",
             default: " ALL",
@@ -677,11 +704,13 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type1",
+            multiple: false,
             required: true,
             value: ""
           },
           {
             name: "type2",
+            multiple: false,
             required: true,
             value: ""
           }],
@@ -720,6 +749,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "number",
+            multiple: false,
             required: true,
             snippit: " <number>",
             default: "",
@@ -752,12 +782,14 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "source",
+            multiple: false,
             required: true,
             default: "",
             value: ""
           },
           {
             name: "format",
+            multiple: false,
             required: false,
             snippit: " AS <format>",
             default: "",
@@ -793,6 +825,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -825,6 +858,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: false,
             snippit: " BY <expression>",
             default: "",
@@ -858,6 +892,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "size",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -890,12 +925,14 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
           },
           {
             name: "schema",
+            multiple: false,
             required: false,
             snippit: " AS <schema>",
             default: "",
@@ -962,6 +999,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            multiple: false,
             required: false,
             snippit: ".<type>) AS <type>",
             default: ")",
@@ -1002,6 +1040,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            multiple: false,
             required: false,
             snippit: ".<type>",
             default: "",
@@ -1009,6 +1048,7 @@ angular.module('pig.pig-flow-templates', [])
           },
           {
             name: "delimiter",
+            multiple: false,
             required: false,
             snippit: ", '<delimiter>'",
             default: "",
@@ -1049,6 +1089,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             value: ""
           }],
@@ -1146,11 +1187,13 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type1",
+            multiple: false,
             required: true,
             value: ""
           },
           {
             name: "type2",
+            multiple: false,
             required: true,
             value: ""
           }],
@@ -1218,6 +1261,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            multiple: false,
             required: true,
             value: ""
           }],
@@ -1256,6 +1300,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            multiple: false,
             required: true,
             value: ""
           }],
@@ -1294,6 +1339,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            multiple: false,
             required: true,
             value: ""
           }],
@@ -1328,11 +1374,13 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type1",
+            multiple: false,
             required: true,
             value: ""
           },
           {
             name: "type2",
+            multiple: false,
             required: true,
             value: ""
           }],
@@ -1365,6 +1413,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            multiple: false,
             required: true,
             value: ""
           }],
@@ -1403,6 +1452,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "type",
+            multiple: false,
             required: true,
             value: ""
           }],
@@ -1435,6 +1485,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "location",
+            multiple: false,
             required: true,
             value: ""
           }],
@@ -1468,6 +1519,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "schema",
+            multiple: false,
             required: false,
             snippit: "'<schema>'",
             default: "",
@@ -1562,6 +1614,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "field_delimiter",
+            multiple: false,
             required: false,
             snippit: "'<field_delimiter>'",
             default: "",
@@ -1569,6 +1622,7 @@ angular.module('pig.pig-flow-templates', [])
           },
           {
             name: "options",
+            multiple: false,
             required: false,
             snippit: ", '<options>'",
             default: "",
@@ -1594,12 +1648,14 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "columns",
+            multiple: false,
             required: true,
             default: "",
             value: ""
           },
           {
             name: "options",
+            multiple: false,
             required: false,
             snippit: ", '<options>'",
             default: "",
@@ -1625,12 +1681,14 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "schema",
+            multiple: false,
             required: true,
             default: "",
             value: ""
           },
           {
             name: "options",
+            multiple: false,
             required: false,
             snippit: ", '<options>'",
             default: "",
@@ -1656,12 +1714,14 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "schema",
+            multiple: false,
             required: true,
             default: "",
             value: ""
           },
           {
             name: "options",
+            multiple: false,
             required: false,
             snippit: ", '<options>'",
             default: "",
@@ -1687,12 +1747,14 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "columns",
+            multiple: false,
             required: true,
             default: "",
             value: ""
           },
           {
             name: "options",
+            multiple: false,
             required: false,
             snippit: ", '<options>'",
             default: "",
@@ -1718,6 +1780,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "options",
+            multiple: false,
             required: false,
             snippit: ", '<options>'",
             default: "",
@@ -1739,12 +1802,14 @@ angular.module('pig.pig-flow-templates', [])
           }
         }
         ],
+        /*
         math_functions: [
         {
           name: "abs",
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -1761,7 +1826,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " ABS(<expression>);"
+            content: " ABS(<expression>)"
           }
         },
         {
@@ -1769,6 +1834,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -1785,7 +1851,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " ACOS(<expression>);"
+            content: " ACOS(<expression>)"
           }
         },
         {
@@ -1793,6 +1859,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -1809,7 +1876,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " ASIN(<expression>);"
+            content: " ASIN(<expression>)"
           }
         },
         {
@@ -1817,6 +1884,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -1833,7 +1901,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " ATAN(<expression>);"
+            content: " ATAN(<expression>)"
           }
         },
         {
@@ -1841,6 +1909,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -1857,7 +1926,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " CBRT(<expression>);"
+            content: " CBRT(<expression>)"
           }
         },
         {
@@ -1865,6 +1934,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -1881,7 +1951,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " CEIL(<expression>);"
+            content: " CEIL(<expression>)"
           }
         },
         {
@@ -1889,6 +1959,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -1905,7 +1976,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " COS(<expression>);"
+            content: " COS(<expression>)"
           }
         },
         {
@@ -1913,6 +1984,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -1929,7 +2001,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " COSH(<expression>);"
+            content: " COSH(<expression>)"
           }
         },
         {
@@ -1937,6 +2009,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -1953,7 +2026,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " EXP(<expression>);"
+            content: " EXP(<expression>)"
           }
         },
         {
@@ -1961,6 +2034,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -1977,7 +2051,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " FLOOR(<expression>);"
+            content: " FLOOR(<expression>)"
           }
         },
         {
@@ -1985,6 +2059,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2001,7 +2076,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " LOG(<expression>);"
+            content: " LOG(<expression>)"
           }
         },
         {
@@ -2009,6 +2084,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2025,7 +2101,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " LOG10(<expression>);"
+            content: " LOG10(<expression>)"
           }
         },
         {
@@ -2042,7 +2118,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " RANDOM();"
+            content: " RANDOM()"
           }
         },
         {
@@ -2050,6 +2126,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2066,7 +2143,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " ROUND(<expression>);"
+            content: " ROUND(<expression>)"
           }
         },
         {
@@ -2074,6 +2151,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2090,7 +2168,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " ROUND_TO(<expression>);"
+            content: " ROUND_TO(<expression>)"
           }
         },
         {
@@ -2098,6 +2176,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2114,7 +2193,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " SIN(<expression>);"
+            content: " SIN(<expression>)"
           }
         },
         {
@@ -2122,6 +2201,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2138,7 +2218,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " SINH(<expression>);"
+            content: " SINH(<expression>)"
           }
         },
         {
@@ -2146,6 +2226,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2162,7 +2243,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " SQRT(<expression>);"
+            content: " SQRT(<expression>)"
           }
         },
         {
@@ -2170,6 +2251,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2186,7 +2268,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " TAN(<expression>);"
+            content: " TAN(<expression>)"
           }
         },
         {
@@ -2194,6 +2276,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2210,16 +2293,19 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " TANH(<expression>);"
+            content: " TANH(<expression>)"
           }
         },
         ],
+        */
+        /*
         string_functions: [
         {
           name: "endswith",
           params: [
           {
             name: "string",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2243,7 +2329,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " ENDSWITH(<string>, <input_string>);"
+            content: " ENDSWITH(<string>, <input_string>)"
           }
         },
         {
@@ -2273,7 +2359,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " EQUALSIGNORECASE(<input_string1>, <input_string2>);"
+            content: " EQUALSIGNORECASE(<input_string1>, <input_string2>)"
           }
         },
         {
@@ -2281,12 +2367,14 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "character",
+            multiple: false,
             required: true,
             default: "",
             value: ""
           },
           {
             name: "start_index",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2310,7 +2398,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " INDEXOF(<input_string>, '<character>', <start_index>);"
+            content: " INDEXOF(<input_string>, '<character>', <start_index>)"
           }
         },
         {
@@ -2318,6 +2406,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "character",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2341,7 +2430,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " LAST_INDEX_OF(<input_string>, '<character>');"
+            content: " LAST_INDEX_OF(<input_string>, '<character>')"
           }
         },
         {
@@ -2365,7 +2454,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " LCFIRST(<input_string>);"
+            content: " LCFIRST(<input_string>)"
           }
         },
         {
@@ -2389,7 +2478,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " LOWER(<input_string>);"
+            content: " LOWER(<input_string>)"
           }
         },
         {
@@ -2413,7 +2502,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " LTRIM(<input_string>);"
+            content: " LTRIM(<input_string>)"
           }
         },
         {
@@ -2421,12 +2510,14 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "regex",
+            multiple: false,
             required: true,
             default: "",
             value: ""
           },
           {
             name: "index",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2450,7 +2541,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " REGEX_EXTRACT(<input_string>, '<regex>', <index>);"
+            content: " REGEX_EXTRACT(<input_string>, '<regex>', <index>)"
           }
         },
         {
@@ -2458,6 +2549,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "regex",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2481,7 +2573,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " REGEX_EXTRACT_ALL(<input_string>, '<regex>');"
+            content: " REGEX_EXTRACT_ALL(<input_string>, '<regex>')"
           }
         },
         {
@@ -2489,6 +2581,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "regex",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2518,7 +2611,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " REPLACE(<input_string>, '<regex>', 'new_char');"
+            content: " REPLACE(<input_string>, '<regex>', 'new_char')"
           }
         },
         {
@@ -2542,7 +2635,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " RTRIM(<input_string>);"
+            content: " RTRIM(<input_string>)"
           }
         },
         {
@@ -2550,6 +2643,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "format",
+            multiple: false,
             required: false,
             default: "",
             value: ""
@@ -2573,7 +2667,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " SPRINTF(<format>, <input_string>);"
+            content: " SPRINTF(<format>, <input_string>)"
           }
         },
         {
@@ -2581,6 +2675,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "string",
+            multiple: false,
             required: false,
             default: "",
             value: ""
@@ -2604,7 +2699,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " STARTSWITH(<string>, <input_string>);"
+            content: " STARTSWITH(<string>, <input_string>)"
           }
         },
         {
@@ -2612,6 +2707,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "regex",
+            multiple: false,
             required: false,
             default: "",
             value: ""
@@ -2641,7 +2737,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " STRSPLIT(<input_string>, <regex>, <limit>);"
+            content: " STRSPLIT(<input_string>, <regex>, <limit>)"
           }
         },
         {
@@ -2649,6 +2745,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "regex",
+            multiple: false,
             required: false,
             default: "",
             value: ""
@@ -2678,7 +2775,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " STRSPLITTOBAG(<input_string>, <regex>, <limit>);"
+            content: " STRSPLITTOBAG(<input_string>, <regex>, <limit>)"
           }
         },
         {
@@ -2686,12 +2783,14 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "start_index",
+            multiple: false,
             required: false,
             default: "",
             value: ""
           },
           {
             name: "stop_index",
+            multiple: false,
             required: false,
             default: "",
             value: ""
@@ -2715,7 +2814,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " SUBSTRING(<input_string>, <start_index>, <stop_index>);"
+            content: " SUBSTRING(<input_string>, <start_index>, <stop_index>)"
           }
         },
         {
@@ -2739,7 +2838,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " TRIM(<input_string>);"
+            content: " TRIM(<input_string>)"
           }
         },
         {
@@ -2763,7 +2862,7 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " UCFIRST(<input_string>);"
+            content: " UCFIRST(<input_string>)"
           }
         },
         {
@@ -2787,18 +2886,22 @@ angular.module('pig.pig-flow-templates', [])
           script: {
             input_var: false,
             output_var: true,
-            content: " UPPER(<input_string>);"
+            content: " UPPER(<input_string>)"
           }
         }
         ],
+        */
+        /*
         datetime_functions: [
         ],
+        */
         tuple_bag_map_functions: [
         {
           name: "totuple",
           params: [
           {
             name: "expression",
+            multiple: false,
             required: false,
             snippit: "<expression>",
             default: "",
@@ -2832,6 +2935,7 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "expression",
+            multiple: false,
             required: false,
             snippit: "<expression>",
             default: "",
@@ -2865,12 +2969,14 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "key_expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
           },
           {
             name: "value_expression",
+            multiple: false,
             required: true,
             default: "",
             value: ""
@@ -2903,12 +3009,14 @@ angular.module('pig.pig-flow-templates', [])
           params: [
           {
             name: "topN",
+            multiple: false,
             required: true,
             default: "",
             value: ""
           },
           {
             name: "column",
+            multiple: false,
             required: true,
             default: "",
             value: ""
