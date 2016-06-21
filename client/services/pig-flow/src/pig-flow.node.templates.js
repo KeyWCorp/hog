@@ -140,8 +140,7 @@ PigFlowModule
           output: "",
           inputs: [
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -156,7 +155,7 @@ PigFlowModule
           script: {
             input_var: true,
             output_var: true,
-            content: "<output_variable> = DISTINCT <input_source>;"
+            content: "<output_variable> = DISTINCT <input_variable>;"
           }
         },
         {
@@ -174,8 +173,7 @@ PigFlowModule
           output: "",
           inputs: [
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -190,7 +188,7 @@ PigFlowModule
           script: {
             input_var: true,
             output_var: true,
-            content: "<output_variable> = FILTER <input_source> BY <expression>;"
+            content: "<output_variable> = FILTER <input_variable> BY <expression>;"
           }
         },
         /*
@@ -245,8 +243,7 @@ PigFlowModule
           output: "",
           inputs: [
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -261,7 +258,7 @@ PigFlowModule
           script: {
             input_var: true,
             output_var: true,
-            content: "<output_variable> = GROUP <input_source><type>;"
+            content: "<output_variable> = GROUP <input_variable><type>;"
           }
         },
         {
@@ -283,15 +280,13 @@ PigFlowModule
           output: "",
           inputs: [
           {
-            label: "source1",
-            type: ["load"],
+            label: "variable1",
             required: true,
             default: "",
             value: ""
           },
           {
-            label: "source2",
-            type: ["load"],
+            label: "variable2",
             required: true,
             default: "",
             value: ""
@@ -306,7 +301,7 @@ PigFlowModule
           script: {
             input_var: true,
             output_var: true,
-            content: "<output_variable> = JOIN <input_source1> BY <type1>, <input_source2> BY <type2>;"
+            content: "<output_variable> = JOIN <input_variable1> BY <type1>, <input_variable2> BY <type2>;"
           }
         },
         {
@@ -581,8 +576,7 @@ PigFlowModule
             value: ""
           },
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -597,7 +591,7 @@ PigFlowModule
           script: {
             input_var: true,
             output_var: true,
-            content: "<output_variable> = FOREACH <input_grouping> GENERATE AVG(<input_source><type>;"
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE AVG(<input_variable><type>;"
           }
         },
         {
@@ -662,8 +656,7 @@ PigFlowModule
           output: "",
           inputs: [
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -678,7 +671,7 @@ PigFlowModule
           script: {
             input_var: true,
             output_var: true,
-            content: "<output_variable> = FOREACH <input_source> GENERATE CONCAT(<expression>);"
+            content: "<output_variable> = FOREACH <input_variable> GENERATE CONCAT(<expression>);"
           }
         },
         {
@@ -695,8 +688,7 @@ PigFlowModule
             value: ""
           },
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -711,7 +703,7 @@ PigFlowModule
           script: {
             input_var: true,
             output_var: true,
-            content: "<output_variable> = FOREACH <input_grouping> GENERATE COUNT(<input_source>);"
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE COUNT(<input_variable>);"
           }
         },
         {
@@ -728,8 +720,7 @@ PigFlowModule
             value: ""
           },
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -744,7 +735,7 @@ PigFlowModule
           script: {
             input_var: true,
             output_var: true,
-            content: "<output_variable> = FOREACH <input_grouping> GENERATE COUNT_STAR(<input_source>);"
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE COUNT_STAR(<input_variable>);"
           }
         },
         {
@@ -841,8 +832,7 @@ PigFlowModule
             value: ""
           },
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -857,7 +847,7 @@ PigFlowModule
           script: {
             input_var: true,
             output_var: true,
-            content: "<output_variable> = FOREACH <input_grouping> GENERATE MAX(<input_source>.<type>);"
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE MAX(<input_variable>.<type>);"
           }
         },
         {
@@ -880,8 +870,7 @@ PigFlowModule
             value: ""
           },
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -896,7 +885,7 @@ PigFlowModule
           script: {
             input_var: true,
             output_var: true,
-            content: "<output_variable> = FOREACH <input_grouping> GENERATE MIN(<input_source>.<type>);"
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE MIN(<input_variable>.<type>);"
           }
         },
         {
@@ -912,8 +901,7 @@ PigFlowModule
           output: "",
           inputs: [
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -928,7 +916,7 @@ PigFlowModule
           script: {
             input_var: true,
             output_var: true,
-            content: "<output_variable> = FOREACH <input_source> GENERATE SIZE(<type>);"
+            content: "<output_variable> = FOREACH <input_variable> GENERATE SIZE(<type>);"
           }
         },
         /*
@@ -993,8 +981,7 @@ PigFlowModule
             value: ""
           },
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -1009,7 +996,7 @@ PigFlowModule
           script: {
             input_var: true,
             output_var: true,
-            content: "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_source>.<type>) AS <type>;"
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE SUM(<input_variable>.<type>) AS <type>;"
           }
         },
         {
@@ -1025,8 +1012,7 @@ PigFlowModule
           output: "",
           inputs: [
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -1041,7 +1027,7 @@ PigFlowModule
           script: {
             input_var: true,
             output_var: true,
-            content: "<output_variable> = FOREACH <input_source> GENERATE TOKENIZE(<type>);"
+            content: "<output_variable> = FOREACH <input_variable> GENERATE TOKENIZE(<type>);"
           }
         }],
         load_store_functions: [
@@ -2476,8 +2462,7 @@ PigFlowModule
           description: "Converts one or more expressions to type tuple",
           inputs: [
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -2492,7 +2477,7 @@ PigFlowModule
           script: {
             input_var: false,
             output_var: true,
-            content: "<output_variable> = FOREACH <input_source> GENERATE TOTUPLE(<expression>);"
+            content: "<output_variable> = FOREACH <input_variable> GENERATE TOTUPLE(<expression>);"
           }
         },
         {
@@ -2510,8 +2495,7 @@ PigFlowModule
           description: "Converts one or more expressions to type bag",
           inputs: [
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -2526,7 +2510,7 @@ PigFlowModule
           script: {
             input_var: false,
             output_var: true,
-            content: "<output_variable> = FOREACH <input_source> GENERATE TOBAG(<expression>);"
+            content: "<output_variable> = FOREACH <input_variable> GENERATE TOBAG(<expression>);"
           }
         },
         {
@@ -2550,8 +2534,7 @@ PigFlowModule
           description: "Converts key/value expression pairs into a map",
           inputs: [
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -2566,7 +2549,7 @@ PigFlowModule
           script: {
             input_var: false,
             output_var: true,
-            content: "<output_variable> = FOREACH <input_source> GENERATE TOMAP(<key_expression>, <value_expression>);"
+            content: "<output_variable> = FOREACH <input_variable> GENERATE TOMAP(<key_expression>, <value_expression>);"
           }
         },
         {
@@ -2597,8 +2580,7 @@ PigFlowModule
             value: ""
           },
           {
-            label: "source",
-            type: ["load"],
+            label: "variable",
             required: true,
             default: "",
             value: ""
@@ -2613,7 +2595,7 @@ PigFlowModule
           script: {
             input_var: false,
             output_var: true,
-            content: "<output_variable> = FOREACH <input_grouping> GENERATE TOP(<topN>, <column>, <input_source>);"
+            content: "<output_variable> = FOREACH <input_grouping> GENERATE TOP(<topN>, <column>, <input_variable>);"
           }
         }
         ],

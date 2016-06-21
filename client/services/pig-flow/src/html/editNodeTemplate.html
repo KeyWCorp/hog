@@ -60,8 +60,8 @@
     </md-dialog-content>
     <div class='md-actions' layout='row'>
       <span flex></span>
-      <md-button ng-click='cancel()'>Cancel</md-button>
       <md-button ng-disabled='editForm.$invalid' ng-click='saveAndClose()'>Save</md-button>
+      <md-button class="md-warn" ng-click='cancel()'>Cancel</md-button>
     </div>
   </form>
 </md-dialog>
