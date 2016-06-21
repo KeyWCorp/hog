@@ -3,8 +3,12 @@
 
 'use strict';
 
-angular.module("pig.pig-flow", [])
-  .directive("pigFlow", function ($mdDialog, $mdSidenav, pigFlowTemplate, nodeTemplates, nodeTypes, FlowToScript)
+if (PigFlowModule === undefined)
+{
+  var PigFlowModule = angular.module("pig.pig-flow", [])
+}
+PigFlowModule
+  .directive("pigFlow", function ($mdDialog, $mdSidenav, pigFlowTemplate, editNodeTemplates, nodeTypes, FlowToScript)
   {
     return {
       restraints: "AE",
@@ -1079,15 +1083,15 @@ angular.module("pig.pig-flow", [])
                 scope: vm,
                 preserveScope: true,
                 clickOutsideToClose: false,
-                templateUrl: nodeTemplates.basicEditTemplate,
+                templateUrl: editNodeTemplates.editNodeViewTemplate,
                 locals:
                 {
                   data: d,
                   old_scope: vm,
-                  templates: nodeTemplates,
+                  templates: editNodeTemplates,
                   info: info
                 },
-                controller: nodeTemplates.EditNodeController
+                controller: editNodeTemplates.EditNodeControllerTemplate
               })
               .then(function (d)
               {
