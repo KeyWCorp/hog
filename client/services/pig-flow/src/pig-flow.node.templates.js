@@ -1,4 +1,40 @@
 /**
+ * Node Types for PigFlow
+ *
+ * nodeTypes: Object
+ *  - categories
+ *    - list of nodes in that category
+ *      - node: object
+ *        - name: String
+ *        - prams: List
+ *          - param: Object
+ *            - name: String
+ *            - multiple: boolean
+ *            - required: boolean
+ *            - snippit: String
+ *            - default: String
+ *            - value: String
+ *        - description: String
+ *        - output: String
+ *        - inputs: List
+ *          - input: Object
+ *            - label: String
+ *            - type: List / none
+ *            - category: List / none
+ *            - required: boolean
+ *            - snippit: String
+ *            - default: String
+ *            - value: String
+ *        - outputs: List
+ *          - output: Object
+ *            - label: String
+ *            - value: String
+ *        - script: Object
+ *          - input_var: boolean
+ *          - output_var: boolean
+ *          - content: String
+ *
+ *
  */
 
 'use strict';
