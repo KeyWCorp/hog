@@ -23,6 +23,7 @@ angular.module('hog', [
     'pig.pig-flow',
     'pig.uploader',
     'hog.hog-templates',
+    'pig.output-table',
     'mdColors',
     'luegg.directives',
     'ngCsv',
