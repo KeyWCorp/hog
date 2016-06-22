@@ -90,13 +90,9 @@ PigFlowModule
         // update params
         vm.params.push(new_param);
 
-        console.log("before: " + vm.script.content);
-
         // update script
         var script_re = RegExp("<function>", "g");
         vm.script.content = vm.script.content.replace(script_re, "GENERATE<input_" + tmp_input.label + ">;<function>");
-
-        console.log("after: " + vm.script.content);
 
         // make new input and param
         old_node.inputs.push(tmp_input);

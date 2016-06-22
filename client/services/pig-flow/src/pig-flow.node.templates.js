@@ -374,49 +374,6 @@ PigFlowModule
           }
         },
         {
-          name: "load",
-          params: [
-          {
-            name: "source",
-            multiple: false,
-            required: true,
-            default: "",
-            value: ""
-          },
-          {
-            name: "format",
-            multiple: false,
-            required: false,
-            snippit: " AS <format>",
-            default: "",
-            value: ""
-          }
-          ],
-          description: "Loads data from the file system",
-          output: "",
-          inputs: [
-          {
-            label: "storage_type",
-            category: ["storage_types", "load_types"],
-            required: false,
-            snippit: "<input_storage_type>",
-            default: "",
-            value: ""
-          }
-          ],
-          outputs: [
-          {
-            label: "variable",
-            value: ""
-          }
-          ],
-          script: {
-            input_var: false,
-            output_var: true,
-            content: "<output_variable> = LOAD '<source>'<input_storage_type><format>;"
-          }
-        },
-        {
           name: "orderby",
           params: [
           {
@@ -1067,6 +1024,49 @@ PigFlowModule
           }
         }],
         load_store_functions: [
+        {
+          name: "load",
+          params: [
+          {
+            name: "source",
+            multiple: false,
+            required: true,
+            default: "",
+            value: ""
+          },
+          {
+            name: "format",
+            multiple: false,
+            required: false,
+            snippit: " AS <format>",
+            default: "",
+            value: ""
+          }
+          ],
+          description: "Loads data from the file system",
+          output: "",
+          inputs: [
+          {
+            label: "storage_type",
+            category: ["storage_types", "load_types"],
+            required: false,
+            snippit: "<input_storage_type>",
+            default: "",
+            value: ""
+          }
+          ],
+          outputs: [
+          {
+            label: "variable",
+            value: ""
+          }
+          ],
+          script: {
+            input_var: false,
+            output_var: true,
+            content: "<output_variable> = LOAD '<source>'<input_storage_type><format>;"
+          }
+        },
         {
           name: "storage",
           params: [

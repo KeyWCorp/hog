@@ -74,7 +74,7 @@ angular.module('hog')
       {
         vm.script.args = vm.args.split(" ");
 
-        vm.script.name = vm.script.name.replace(/[\s]/g, "_");
+        vm.script.name = vm.script.name.replace(/[\s,\.]/g, "_");
         Runner.create(vm.script)
           .then(
               function(data)

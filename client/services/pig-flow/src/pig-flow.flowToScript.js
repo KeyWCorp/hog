@@ -131,13 +131,10 @@ PigFlowModule
             */
             node.params.map(function(param)
                 {
-                  console.log("Param: " + JSON.stringify(param, null, 2));
                   if (!param.required)
                   {
-                    console.log("required(" + param.required +")");
                     if (param.value !== "")
                     {
-                      console.log("value(" + param.value +")");
                       var snippit_re = new RegExp("<"+ param.name +">","g");
                       script = script.replace(snippit_re, param.snippit);
 
@@ -146,13 +143,11 @@ PigFlowModule
                     }
                     else if (param.multiple)
                     {
-                      console.log("multiple(" + param.multiple +")");
                       var re = new RegExp("<"+ param.name +">","g");
                       script = script.replace(re, param.default);
                     }
                     else
                     {
-                      console.log("other");
                       var default_re = new RegExp("<"+ param.name +">","g");
                       script = script.replace(default_re, param.default);
                     }

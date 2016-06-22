@@ -189,7 +189,7 @@ angular.module('hog')
       vm.save = function (cb)
       {
         vm.script.args = $scope.script_args.split(" ");
-        vm.script.name = $scope.script_name.replace(/\s/g, "_");
+        vm.script.name = $scope.script_name.replace(/[\s,\.]/g, "_");
 
         Runner.save(vm.script)
           .then(
