@@ -34,7 +34,7 @@ svg.pig-flow {
   vector-effect: non-scaling-stroke; }
 
 .flow_link {
-  stroke: #000;
+  stroke: #455A64;
   stroke-width: 7px; }
 
 .path {
@@ -43,26 +43,31 @@ svg.pig-flow {
   stroke-width: 1.5px; }
 
 rect.node_header {
-  fill: lightsteelblue;
-  stroke: black;
+  fill: #2196F3;
+  stroke: #08528d;
   stroke-width: 1.5px; }
 
 rect.node_body {
-  fill: lightsteelblue;
-  stroke: steelblue;
+  fill: #BBDEFB;
+  stroke: #43a4f4;
   stroke-width: 1.5px; }
+
+text.node_input_label {
+  font-size: 20px;
+  fill: #999;
+  stroke: #595959; }
 
 text.node_close {
   fill: #ff3232;
-  stroke: #ff3232; }
+  stroke: #b20000; }
 
 circle.node_inputs {
   fill: #32ff32;
-  stroke: #5a96c8; }
+  stroke: #00b200; }
 
 circle.node_outputs {
   fill: #32ff32;
-  stroke: #5a96c8; }
+  stroke: #00b200; }
 
 circle.node_outputs.dragging {
   fill: #323232;

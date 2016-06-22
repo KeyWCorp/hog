@@ -1,0 +1,35 @@
+<md-content class='md-padding' flex layout='row'>
+  <span flex></span>
+  <md-button class='md-fab' aria-label='Add' ng-click='toggleNodeList()'>
+    <md-icon md-font-set='material-icons'> add </md-icon>
+    <md-tooltip>Toggle Node list</md-tooltip>
+  </md-button>
+</md-content>
+<md-sidenav style='height: {{ window.innerHeight }}' class='md-sidenav-right md-whiteframe-z2' md-component-id='right'>
+  <md-toolbar class='md-theme-light'>
+    <h1 class='md-toolbar-tools'>Node Types</h1>
+  </md-toolbar>
+  <md-content layout-padding>
+    <md-list flex>
+      <v-accordion class='vAccordion--default'>
+        <v-pane ng-repeat='type in type_list' expanded='pane.isExpanded'>
+          <v-pane-header>
+            {{ type | replaceWithSpaces | uppercase }}
+          </v-pane-header>
+          <v-pane-content>
+            <md-list-item class='md-3-line' ng-repeat='node in types[type]' layout='row' layout-align='start center'>
+              <div class='md-list-item-text' layout='column' >
+                <md-button style='border-radius: 6px; border:1px solid black' class='md-raised' ng-click='addNode(type, node.name)'>
+                  <h3> {{node.name | replaceWithSpaces | uppercase}}</h3>
+                </md-button>
+                <div layout='row' layout-align='center center' layout-padding layout-margin layout-fill>
+                  <p style='text-align: center;'>{{ node.description }}</p>
+                </div>
+              </div>
+            </md-list-item>
+            <md-divider ></md-divider>
+          </v-pane-content>
+        </v-pane>
+      </v-accordion>
+    </md-list>
+</md-sidenav>

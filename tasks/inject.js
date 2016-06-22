@@ -21,6 +21,7 @@ module.exports = function () {
     }))
     .pipe(inject(
       gulp.src(toInject).pipe(fileSort()), { relative: true }
+      //gulp.src(toInject), { relative: true }
     ))
     .pipe(gulp.dest('client'));
 };

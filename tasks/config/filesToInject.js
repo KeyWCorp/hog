@@ -4,6 +4,7 @@
  */
 
 module.exports = [
+
   'client/app.js',
   'client/animations/*.js',
   'client/directives/**/*.js', '!client/directives/**/*.spec.js',

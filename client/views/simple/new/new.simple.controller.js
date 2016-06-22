@@ -43,7 +43,7 @@ angular.module('hog')
           vm.script.args = ["-x", "local"];
         }
 
-        vm.script.name = vm.script.name.replace(/\s/g, "_");
+        vm.script.name = vm.script.name.replace(/[\s,\.]/g, "_");
 
         console.log("BEFORE: " + JSON.stringify(vm.script, null, 2));
 

@@ -1,0 +1,67 @@
+<md-dialog flex='60'>
+  <form name='editForm'
+    <md-toolbar>
+      <div class='md-toolbar-tools'>
+        <h2>{{ node_info.name }}</h2>
+        <span flex></span>
+        <h3>{{ node_info.type }}</h3>
+      </div>
+    </md-toolbar>
+    <md-dialog-content layout='column' layout-margin>
+
+      <div layout='row'>
+        <md-input-container flex>
+          <label>Name</label>
+          <input ng-model='tmp_node.name'>
+        </md-input-container>
+        <md-input-container flex>
+          <label>Type category</label>
+          <md-select ng-model='category' ng-disabled='!node_info'>
+            <md-option ng-repeat='category in categorys' value='{{ category }}'>
+              {{ category }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container flex>
+          <label>Type</label>
+          <md-select ng-model='type' ng-disabled='!category' md-on-close='save(type)'>
+            <md-option ng-repeat='type in types[category]' value='{{ type.name }}'>
+              {{ type.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+      <div layout='column' ng-show='tmp_node.params[0].name'>
+        <div layout='row' ng-repeat='param in params track by $index'>
+          <md-input-container ng-if='param.required' flex>
+            <input required ng-trim='false' name='{{ param.name }}' ng-model='param.value'>
+            <label>*{{ param.name }}</label>
+          </md-input-container>
+
+          <md-input-container ng-if='!param.required' flex>
+            <input ng-trim='false' name='{{ param.name }}' ng-model='param.value'>
+            <label>{{ param.name }}</label>
+          </md-input-container>
+
+          <md-input-container flex="30" ng-if='param.multiple' flex>
+            <md-button class="md-raised md-primary" ng-click="addInput(param)">Add</md-button>
+          </md-input-container>
+        </div>
+      </div>
+      <div layout='column'>
+        <md-content flex layout-padding>
+          <md-subheader>Description</md-subheader>
+          <section>
+            <p>{{ tmp_node.description }}</p>
+          </section>
+        </md-content>
+      </div>
+
+    </md-dialog-content>
+    <div class='md-actions' layout='row'>
+      <span flex></span>
+      <md-button ng-disabled='editForm.$invalid' ng-click='saveAndClose()'>Save</md-button>
+      <md-button class="md-warn" ng-click='cancel()'>Cancel</md-button>
+    </div>
+  </form>
+</md-dialog>

@@ -3,8 +3,12 @@
 
 'use strict';
 
-angular.module("pig.pig-flow", [])
-  .directive("pigFlow", function ($mdDialog, $mdSidenav, pigFlowTemplate, nodeTemplates, nodeTypes, FlowToScript)
+if (PigFlowModule === undefined)
+{
+  var PigFlowModule = angular.module("pig.pig-flow", [])
+}
+PigFlowModule
+  .directive("pigFlow", function ($mdDialog, $mdSidenav, pigFlowTemplate, editNodeTemplates, nodeTypes, FlowToScript)
   {
     return {
       restraints: "AE",
@@ -15,7 +19,7 @@ angular.module("pig.pig-flow", [])
         outputData: "=",
         id: "@"
       },
-      template: pigFlowTemplate,
+      templateUrl: pigFlowTemplate,
       link: function ($scope, element, attrs)
       {
         var vm = $scope;
@@ -25,7 +29,7 @@ angular.module("pig.pig-flow", [])
         vm.nodes = [];
         vm.source_node;
         vm.target_node;
-        vm.types = nodeTypes;
+        vm.types = angular.copy(nodeTypes);
         vm.type_list = Object.keys(vm.types);
         vm.output_script = "";
 
@@ -73,8 +77,7 @@ angular.module("pig.pig-flow", [])
             .append("g")
             .attr("transform", "translate(" + -5 + "," + -5 + ")")
             .call(zoom)
-            .on("dblclick.zoom", null)
-            .on("dblclick", addNode);
+            .on("dblclick.zoom", null);
 
           vm.rect = vm.svg.append("rect")
             .attr("width", vm.width)
@@ -89,13 +92,13 @@ angular.module("pig.pig-flow", [])
           vm.container.append("g")
             .attr("class", "x axis")
             .selectAll("line")
-            .data(d3.range(0, container_width, 10))
+            .data(d3.range(0 - (container_width / 2), container_width, 10))
             .enter().append("line")
             .attr("x1", function (d)
             {
               return d;
             })
-            .attr("y1", 0)
+            .attr("y1", 0 - (container_height / 2))
             .attr("x2", function (d)
             {
               return d;
@@ -106,9 +109,9 @@ angular.module("pig.pig-flow", [])
           vm.container.append("g")
             .attr("class", "y axis")
             .selectAll("line")
-            .data(d3.range(0, container_height, 10))
+            .data(d3.range(0 - (container_height / 2), container_height, 10))
             .enter().append("line")
-            .attr("x1", 0)
+            .attr("x1", 0 - (container_width / 2))
             .attr("y1", function (d)
             {
               return d;
@@ -140,6 +143,7 @@ angular.module("pig.pig-flow", [])
           vm.node_edit = vm.container.selectAll(".node_edit");
           vm.node_input = vm.container.selectAll(".node_input");
           vm.node_inputs = vm.container.selectAll(".node_inputs");
+          vm.node_input_label = vm.container.selectAll(".node_input_label");
           vm.node_output = vm.container.selectAll(".node_output");
           vm.node_outputs = vm.container.selectAll(".node_outputs");
           vm.node_body = vm.container.selectAll(".node_body");
@@ -156,7 +160,9 @@ angular.module("pig.pig-flow", [])
         vm.start = function ()
         {
 
-          // add lines
+          /*
+           * link data
+           */
           vm.link = vm.link
             .data(vm.links);
           vm.link.enter()
@@ -185,7 +191,10 @@ angular.module("pig.pig-flow", [])
           vm.link.exit()
             .remove();
 
-          // add node
+
+          /*
+           * node data
+           */
           vm.node = vm.node
             .data(vm.nodes);
           vm.node.enter()
@@ -193,7 +202,10 @@ angular.module("pig.pig-flow", [])
           vm.node.exit()
             .remove();
 
-          // add node body
+
+          /*
+           * body node data
+           */
           vm.node_body = vm.node_body
             .data(vm.nodes);
           vm.node_body
@@ -221,7 +233,10 @@ angular.module("pig.pig-flow", [])
           vm.node_body.exit()
             .remove();
 
-          // add node header
+
+          /*
+           * header node data
+           */
           vm.node_header = vm.node_header
             .data(vm.nodes);
           vm.node_header
@@ -264,7 +279,10 @@ angular.module("pig.pig-flow", [])
           vm.node_header.exit()
             .remove();
 
-          // close button
+
+          /*
+           * close node data
+           */
           vm.node_close = vm.node_close
             .data(vm.nodes);
           vm.node_close
@@ -308,7 +326,9 @@ angular.module("pig.pig-flow", [])
             .remove();
 
 
-          // edit button
+          /*
+           * edit node data
+           */
           vm.node_edit = vm.node_edit
             .data(vm.nodes);
           vm.node_edit
@@ -344,14 +364,15 @@ angular.module("pig.pig-flow", [])
             .on("click", function (d)
             {
               d3.event.stopPropagation();
-              editNode(d, true);
+              editNode(d, true, d.index);
             });
           vm.node_edit.exit()
             .remove();
 
 
-          // ====================================================
-          // input button
+          /*
+           * input node data
+           */
           vm.node_inputs = vm.node_inputs
             .data(function (d)
             {
@@ -372,6 +393,7 @@ angular.module("pig.pig-flow", [])
                       index: i,
                       length: n.inputs.length
                     };
+
                     input_list.push(tmp_obj);
                   });
                 }
@@ -422,6 +444,83 @@ angular.module("pig.pig-flow", [])
             });
           vm.node_inputs.exit()
             .remove();
+
+
+          /*
+           * input label node data
+           */
+          vm.node_input_label = vm.node_input_label
+            .data(function (d)
+            {
+              var input_list = [];
+              vm.nodes.map(function (n,j)
+              {
+                if (n.inputs)
+                {
+                  n.inputs.map(function (input, i)
+                  {
+                    var middle = (n.x + n.width * 0.5);
+                    var offset = middle - ((n.inputs.length - 1) * 25) * 0.5;
+                    var tmp_obj = {
+                      data: input,
+                      p: n,
+                      x: offset + i * 25,
+                      y: n.y,
+                      index: i,
+                      length: n.inputs.length
+                    };
+                    input_list.push(tmp_obj);
+                  });
+                }
+              });
+              return input_list;
+            });
+          vm.node_input_label
+            .attr("class", "node_input_label")
+            .text(function (d)
+            {
+              return d.data.label;
+            })
+            .attr("x", function (d, i)
+            {
+              return d.x;
+            })
+            .attr("y", function (d, i)
+            {
+              return d.y;
+            })
+            .attr("transform", function(d, i)
+            {
+              return "rotate(45," + (d.x + 10) + "," + (d.y - 10) + ")";
+            });
+          vm.node_input_label.enter()
+            .append("text")
+            .attr("class", "node_input_label")
+            .attr("text-anchor", "end")
+            .text(function (d)
+            {
+              return d.data.label;
+            })
+            .attr("x", function (d, i)
+            {
+              return d.x;
+            })
+            .attr("y", function (d, i)
+            {
+              return d.y;
+            })
+            .attr("transform", function(d, i)
+            {
+              return "rotate(45," + (d.x + 10) + "," + (d.y - 10) + ")";
+            })
+            .style("pointer-events", "none");
+          vm.node_input_label.exit()
+            .remove();
+
+
+          /*
+           * output node data
+           */
           vm.node_outputs = vm.node_outputs
             .data(function (d)
             {
@@ -493,7 +592,10 @@ angular.module("pig.pig-flow", [])
           vm.node_outputs.exit()
             .remove();
 
-          // add type label to node
+
+          /*
+           * type label data
+           */
           vm.node_type_label = vm.node_type_label
             .data(vm.nodes);
           vm.node_type_label
@@ -529,7 +631,10 @@ angular.module("pig.pig-flow", [])
           vm.node_type_label.exit()
             .remove();
 
-          // add type label to node
+
+          /*
+           * node name data
+           */
           vm.node_name_label = vm.node_name_label
             .data(vm.nodes);
           vm.node_name_label
@@ -565,6 +670,10 @@ angular.module("pig.pig-flow", [])
           vm.node_name_label.exit()
             .remove();
 
+
+          /*
+           * update
+           */
           vm.force.start();
           vm.updateScript();
         };
@@ -600,7 +709,9 @@ angular.module("pig.pig-flow", [])
         function tick()
         {
 
-          // line
+          /*
+           * Move Links
+           */
           vm.link
             .attr("x1", function (d)
             {
@@ -623,6 +734,10 @@ angular.module("pig.pig-flow", [])
               return d.target.y + d.y2;
             });
 
+
+          /*
+           * move Nodes
+           */
           vm.node
             .attr("x", function (d)
             {
@@ -633,6 +748,10 @@ angular.module("pig.pig-flow", [])
               return d.y;
             });
 
+
+          /*
+           * move node body
+           */
           vm.node_body
             .attr("width", function (d)
             {
@@ -649,8 +768,15 @@ angular.module("pig.pig-flow", [])
             .attr("y", function (d)
             {
               return d.y;
-            });
+            })
+            // rounded corners
+            .attr("rx", 10)
+            .attr("ry", 10);
 
+
+          /*
+           * move node header
+           */
           vm.node_header
             .attr("width", function (d)
             {
@@ -667,8 +793,15 @@ angular.module("pig.pig-flow", [])
             .attr("y", function (d)
             {
               return d.y;
-            });
+            })
+            // rounded corners
+            .attr("rx", 10)
+            .attr("ry", 10);
 
+
+          /*
+           * move node close button
+           */
           vm.node_close
             .attr("x", function (d)
             {
@@ -682,6 +815,10 @@ angular.module("pig.pig-flow", [])
               return d.y + (th - 5);
             });
 
+
+          /*
+           * move node edit button
+           */
           vm.node_edit
             .attr("x", function (d)
             {
@@ -696,6 +833,10 @@ angular.module("pig.pig-flow", [])
               return d.y + (th - 5);
             });
 
+
+          /*
+           * move node inputs
+           */
           vm.node_inputs
             .attr("r", 10)
             .attr("class", "node_inputs")
@@ -712,6 +853,10 @@ angular.module("pig.pig-flow", [])
               return d.y;
             });
 
+
+          /*
+           * move node outputs
+           */
           vm.node_outputs
             .attr("r", 10)
             .attr("class", "node_outputs")
@@ -728,6 +873,34 @@ angular.module("pig.pig-flow", [])
               return d.y;
             });
 
+
+          /*
+           * move node output labels
+           */
+          vm.node_input_label
+            .attr("class", "node_input_label")
+            .attr("transform", "rotate(-45)")
+            .attr("x", function (d, i)
+            {
+              var middle = (d.p.x + d.p.width * 0.5);
+              var offset = middle - ((d.length - 1) * 25) * 0.5;
+              d.x = offset + d.index * 25;
+              return d.x;
+            })
+            .attr("y", function (d, i)
+            {
+              d.y = d.p.y;
+              return d.y;
+            })
+            .attr("transform", function(d, i)
+            {
+              return "rotate(45," + (d.x + 10) + "," + (d.y - 10) + ")";
+            });
+
+
+          /*
+           * move node name label
+           */
           vm.node_name_label
             .attr("x", function (d)
             {
@@ -741,7 +914,12 @@ angular.module("pig.pig-flow", [])
               var mh = 20;
               return d.y + (mh + th * 0.5);
 
-            })
+            });
+
+
+          /*
+           * move node type label
+           */
           vm.node_type_label
             .attr("x", function (d)
             {
@@ -775,10 +953,12 @@ angular.module("pig.pig-flow", [])
               d3.select(vm.source_node.node)
                 .style("fill", "rgba(50, 255, 50, 1.0)");
             }
+
+            t.data.value = d.output;
+
             vm.source_node = {
               data: d,
               node: n,
-              output_data: t.data,
               x: t.x - d.x,
               y: t.y - d.y
             };
@@ -795,38 +975,70 @@ angular.module("pig.pig-flow", [])
           {
             if (vm.source_node && vm.source_node.data.index != d.index)
             {
+
+              var same_category = true;
+              var same_type = true;
+
+              // check category is the same
+              if (t.data.category)
+              {
+                same_category = t.data.category.filter(function(category)
+                {
+                  return category === vm.source_node.data.category;
+                }).length > 0;
+              }
+
+              // check type is the same
+              if (t.data.type)
+              {
+                same_type = t.data.type.filter(function(type)
+                {
+                  return type === vm.source_node.data.type;
+                }).length > 0;
+              }
+
+
               // check that it is the right type
-              if (t.data.type == vm.source_node.data.type ||
-                  t.data.category == vm.source_node.data.category ||
+              if ((same_type && same_category) ||
                   (!t.data.category && !t.data.type))
               {
-                t.data.value = vm.source_node.data.output;
+                t.data.value = vm.source_node.data.index;
 
                 vm.target_node = {
                   data: d,
                   node: n,
-                  input_data: t.data,
                   x: t.x - d.x,
                   y: t.y - d.y
                 };
 
-                // add output node link
-                vm.source_node.data.output_node = vm.target_node.data.index;
-                // add input node link
-                vm.target_node.data.input_node = vm.source_node.data.index;
-                vm.target_node.data.input = vm.source_node.data.output;
-
-                vm.links.push(
+                /*
+                 * add output node link
+                 */
+                if (!vm.source_node.data.output_nodes || vm.source_node.data.output_nodes.length <= 0)
                 {
+                  vm.source_node.data.output_nodes = [];
+                }
+                vm.source_node.data.output_nodes.push(vm.target_node.data.index);
+
+                /*
+                 * add input node link
+                 */
+                if (!vm.target_node.data.input_nodes || vm.target_node.data.input_nodes.length <= 0)
+                {
+                  vm.target_node.data.input_nodes = [];
+                }
+                vm.target_node.data.input_nodes.push(vm.source_node.data.index);
+
+                var tmp_obj = {
                   source: vm.source_node.data.index,
                   target: vm.target_node.data.index,
-                  output_data: vm.source_node.output_data,
-                  input_data: vm.target_node.input_data,
                   x1: vm.source_node.x,
                   y1: vm.source_node.y,
                   x2: vm.target_node.x,
                   y2: vm.target_node.y
-                });
+                };
+
+                vm.links.push(tmp_obj);
 
                 d3.select(vm.source_node.node)
                   .style("fill", "rgba(50, 255, 50, 1.0)");
@@ -853,13 +1065,17 @@ angular.module("pig.pig-flow", [])
 
         function removeNode(d)
         {
-          vm.nodes.splice(d.index, 1);
           removeLinks(d);
+          updateNodeIndexs(d.index);
+          vm.nodes.splice(d.index, 1);
           vm.start();
         };
 
-        function editNode(d, info)
+        function editNode(l, info, index)
         {
+
+          var d = vm.nodes[index];
+
           function reloadDialog(reload)
           {
             $mdDialog.show(
@@ -867,110 +1083,15 @@ angular.module("pig.pig-flow", [])
                 scope: vm,
                 preserveScope: true,
                 clickOutsideToClose: false,
-                template: nodeTemplates[d.type] || nodeTemplates["basic"],
+                templateUrl: editNodeTemplates.editNodeViewTemplate,
                 locals:
                 {
                   data: d,
                   old_scope: vm,
-                  templates: nodeTemplates,
+                  templates: editNodeTemplates,
                   info: info
                 },
-                controller: function DialogController($scope, $mdDialog, data, old_scope, templates, info)
-                {
-                  var vm = $scope;
-                  vm.node_info = data;
-
-                  vm.loadData = function ()
-                  {
-                    vm.types = Object.assign(
-                    {}, old_scope.types);
-                    vm.type = vm.node_info.type;
-
-                    vm.category = vm.node_info.category;
-                    vm.categorys = Object.keys(vm.types);
-
-                    vm.tmp_param = [];
-                    angular.copy(vm.node_info.params, vm.tmp_param);
-
-                    vm.params = [];
-                    vm.types[vm.category].map(function (t)
-                    {
-                      if (t.name === vm.type)
-                      {
-                        angular.copy(t.params, vm.params);
-                        vm.script = t.script;
-                        vm.description = t.description;
-                        //vm.params = angular.copy(t.params, vm.params);
-                      }
-                    });
-
-                    vm.params.map(function (p, i)
-                    {
-                      if (vm.tmp_param[i])
-                      {
-                        p.value = vm.tmp_param[i].value || p.value;
-                      }
-                    });
-
-                    vm.tmp_node = {
-                      name: vm.node_info.name,
-                      category: vm.node_info.category,
-                      description: vm.description,
-                      type: vm.node_info.type,
-                      params: vm.params,
-                      script: vm.script
-                    };
-                  }
-                  vm.loadData();
-
-                  vm.saveAndClose = function ()
-                  {
-                    vm.save();
-                    $mdDialog.hide({reload: false, data: vm.node_info});
-                  };
-
-                  vm.save = function (type)
-                  {
-                    if (type && type !== vm.node_info.type)
-                    {
-                      vm.node_info.name = vm.tmp_node.name;
-                      vm.node_info.category = vm.category;
-                      vm.node_info.type = vm.type;
-                      vm.node_info.params = vm.params.splice(0);
-                      vm.node_info.script = vm.script;
-
-                      var added_width = Math.max(vm.node_info.inputs.length, vm.node_info.outputs.length) * 30;
-                      vm.node_info.width += added_width;
-
-                      vm.start();
-                      vm.close(true);
-                    }
-                    else if (!type)
-                    {
-                      vm.node_info.name = vm.tmp_node.name;
-                      vm.node_info.category = vm.category;
-                      vm.node_info.type = vm.type;
-                      vm.node_info.params = vm.params.splice(0);
-                      vm.node_info.script = vm.script;
-
-                      var added_width = Math.max(vm.node_info.inputs.length, vm.node_info.outputs.length) * 30;
-                      vm.node_info.width += added_width;
-
-                      vm.start();
-                    }
-                  };
-
-                  vm.close = function (r)
-                  {
-                    $mdDialog.hide({reload: true, data: r} || {reload: false, data: vm.node_info});
-                  };
-
-
-                  vm.cancel = function ()
-                  {
-                    $mdDialog.hide({reload: false, data: data, cancel: true, info: info || false});
-                  }
-                }
+                controller: editNodeTemplates.EditNodeControllerTemplate
               })
               .then(function (d)
               {
@@ -991,6 +1112,7 @@ angular.module("pig.pig-flow", [])
 
         function removeLinks(d)
         {
+
           var newLinks = vm.links.filter(function (obj)
           {
             return obj.source === d || obj.target === d;
@@ -1004,6 +1126,36 @@ angular.module("pig.pig-flow", [])
 
         function removeLink(d)
         {
+
+          /*
+           * remove from source output_nodes
+           */
+          d.source.output_nodes = d.source.output_nodes.filter(function(output_index)
+          {
+            return output_index !== d.target.index;
+          });
+
+
+          /*
+           * remove from target input_nodes
+           */
+          d.target.input_nodes = d.target.input_nodes.filter(function(input_index)
+          {
+            return input_index !== d.source.index;
+          });
+
+
+          /*
+           * remove from target inputs
+           */
+          d.target.inputs.map(function(input)
+          {
+            if (input.value === d.source.index)
+            {
+              input.value = "";
+            }
+          });
+
           var newLinks = vm.links.filter(function (obj)
           {
             return obj.source === d.source && obj.target === d.target;
@@ -1011,50 +1163,73 @@ angular.module("pig.pig-flow", [])
 
           newLinks.map(function (l)
           {
-            // remove output node link
-            delete l.source.output_node;
-
-            // remove input node link
-            delete l.target.input_node;
             vm.links.splice(vm.links.indexOf(l), 1);
           });
         };
 
-        function addNode()
+
+        function updateNodeIndexs (deleted_index)
         {
-          var pos = d3.mouse(this);
 
-          var trans = d3.transform(vm.container.attr("transform"));
-          var tpos = trans.translate;
-          var tscale = trans.scale;
-          var tx = tpos[0];
-          var ty = tpos[1];
-          var mx = pos[0];
-          var my = pos[1];
+          vm.nodes.map(function(node)
+          {
+            /*
+             * shift indexs in inputs
+             */
+            if (node.inputs)
+            {
+              node.inputs.map(function(input)
+              {
+                if (input.value > deleted_index)
+                {
+                  input.value = input.value - 1;
+                }
+                else if (input.value === deleted_index)
+                {
+                  input.value = "";
+                }
+              });
+            }
 
-          // get position with translation and scaling
-          var dx = (mx - tx) / tscale[0] - 150;
-          var dy = (my - ty) / tscale[1] - 62;
+            /*
+             * shift indexs in output_nodes
+             */
+            if (node.output_nodes)
+            {
+              node.output_nodes.map(function(output_index, idx)
+              {
+                if (output_index > deleted_index)
+                {
+                  node.output_nodes[idx] = output_index - 1;
+                }
+                else if (output_index === deleted_index)
+                {
+                  delete node.output_nodes.splice(idx, 1);
+                }
+              });
+            }
 
-          var newNode = {
-            x: dx,
-            y: dy,
-            width: 300,
-            height: 124,
-            name: "new node " + vm.nodes.length,
-            category: "input",
-            type: "load",
-            params: vm.types["input"][0].params.slice(),
-            script: vm.types["input"][0].script,
-            output: "load" + (vm.nodes.length) || "load0",
-            fixed: true
-          };
-          vm.nodes.push(newNode);
+            /*
+             * shift indexs in input_nodes
+             */
+            if (node.input_nodes)
+            {
+              node.input_nodes.map(function(input_index, idx)
+              {
+                if (input_index > deleted_index)
+                {
+                  node.input_nodes[idx] = input_index - 1;
+                }
+                else if (input_index === deleted_index)
+                {
+                  delete node.input_nodes.splice(idx, 1);
+                }
+              });
+            }
+          });
 
-          vm.start();
-
-          editNode(newNode);
         };
+
 
         function start_update()
         {
@@ -1083,49 +1258,6 @@ angular.module("pig.pig-flow", [])
           });
         };
 
-        function doIt(node, i, visitedNodes, cb)
-        {
-          if (node)
-          {
-            if (!visitedNodes[node.index])
-            {
-              var script_obj = node.script || {};
-              var script = script_obj.content || "";
-
-              node.outputs.map(function (output, i)
-              {
-                var re = new RegExp("<output_" + output.label + ">", "g");
-                script = script.replace(re, node.output);
-              });
-
-              node.inputs.map(function (input, i)
-              {
-                var re = new RegExp("<input_" + input.label + ">", "g");
-                script = script.replace(re, input.value);
-              });
-
-
-              script_obj.variables.map(function (v,i)
-              {
-                if (v)
-                {
-                  var re = new RegExp("<"+v+">","g");
-                  script = script.replace(re, node.params[i].value);
-                }
-              });
-
-              node.script.output = script;
-
-              visitedNodes[node.index] = i;
-              vm.output_script = script + "\n" + vm.output_script;
-              doIt(vm.nodes[node.input_node] || false, i + 1, visitedNodes, cb);
-            }
-          } else
-          {
-            cb();
-          }
-        };
-
 
         vm.addNode = function (c, t)
         {
@@ -1144,29 +1276,41 @@ angular.module("pig.pig-flow", [])
           var dx = (mx - tx) / tscale[0] - 150;
           var dy = (my - ty) / tscale[1] - 62;
 
-          var params = vm.types[c].filter(function (n)
+          var params = angular.copy(vm.types[c].filter(function (n)
           {
             return n.name === t;
-          })[0].params.slice();
+          })[0].params.slice());
 
-          var script = vm.types[c].filter(function (n)
+          var script = angular.copy(vm.types[c].filter(function (n)
           {
             return n.name === t;
-          })[0].script;
+          })[0].script);
 
-          var inputs = vm.types[c].filter(function (n)
+          var inputs = angular.copy(vm.types[c].filter(function (n)
           {
             return n.name === t;
-          })[0].inputs.slice();
+          })[0].inputs.slice());
 
-          var outputs = vm.types[c].filter(function (n)
+          var outputs = angular.copy(vm.types[c].filter(function (n)
           {
             return n.name === t;
-          })[0].outputs.slice();
+          })[0].outputs.slice());
+
+          var output = t + (vm.nodes.length);
+          var is_variable = outputs.filter(function(o)
+          {
+            return o.label === "content";
+          }).length > 0;
+          if (is_variable)
+          {
+            output = "" + script.content;
+          }
 
           var newNode = {
             x: dx,
             y: dy,
+            default_width: 300,
+            default_height: 124,
             width: 300,
             height: 124,
             name: "new node " + vm.nodes.length,
@@ -1176,14 +1320,14 @@ angular.module("pig.pig-flow", [])
             script: script,
             inputs: inputs,
             outputs: outputs,
-            output: t + (vm.nodes.length),
+            output: output,
             fixed: true
           };
           vm.nodes.push(newNode);
 
           vm.start();
 
-          editNode(newNode);
+          editNode(newNode, null, newNode.index);
         };
 
         vm.toggleNodeList = function ()

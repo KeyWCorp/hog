@@ -1,0 +1,109 @@
+<md-dialog flex="80" ng-cloak>
+  <form>
+    <md-toolbar layout="column" md-scroll-shrink="false">
+      <div flex class="md-toolbar-tools">
+        <h2>Graph Info<span ng-if="script_name"> for {{ script_name }}</span></h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+    <md-dialog-content layout="column">
+      <md-tabs class="md-primary" md-dynamic-height md-border-bottom md-selected="selectedIndex" md-autoselect>
+        <md-tab label="Settings">
+          <md-content class="md-padding">
+            <div flex layout="column" layou-padding>
+              <md-input-container>
+                <label>Output with #</label>
+                <md-select ng-model="output_selection">
+                  <md-option ng-repeat="(key, value) in graph_structure" value="{{ key }}">
+                    {{ key }}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+            <div flex layout="row" layout-padding>
+              <div flex>
+                <md-subheader class="md-primary">Data layout</md-subheader>
+                <div layout="row">
+                  [<span ng-repeat="item in graph_layout track by $index"><span ng-if="!$first"> </span>{{ item }}<span ng-if="!$last">,</span></span> ]
+                </div>
+              </div>
+            </div>
+            <md-divider ></md-divider>
+            <div flex layout="row" layout-padding>
+              <div flex>
+                <md-menu>
+                  <md-button flex class="md-raised" aria-label="X Axis" ng-click="$mdOpenMenu($event)">
+                    X Axis
+                  </md-button>
+                  <md-menu-content width="6">
+                    <md-menu-item>
+                      <md-button ng-click="setX(-1)">
+                        Index
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-item ng-repeat="item in indexs">
+                      <md-button ng-disabled="item.disabled" ng-click="setX($index)">
+                        {{ item.value }}
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </div>
+              <div flex>
+                <md-menu>
+                  <md-button flex class="md-raised" aria-label="Y Axis" ng-click="$mdOpenMenu($event)">
+                    Y Axis
+                  </md-button>
+                  <md-menu-content width="6">
+                    <md-menu-item ng-repeat="item in indexs">
+                      <md-button ng-disabled="item.disabled" ng-click="setY($index)">
+                        {{ item.value }}
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </div>
+            </div>
+          </md-content>
+        </md-tab>
+        <md-tab label="Graph" ng-disabled="!show_graph" ng-click="showGraph()">
+          <md-toolbar md-scroll-shrink="false">
+            <div class="md-toolbar-tools">
+              <md-button class="md-primary md-raised" ng-click="showGraph('Bar')">
+                Bar Graph
+              </md-button>
+              <md-button class="md-primary md-raised" ng-click="showGraph('Line')">
+                Line Graph
+              </md-button>
+              <md-button class="md-primary md-raised" ng-click="showGraph('Radar')">
+                Radar Graph
+              </md-button>
+            </div>
+          </md-toolbar>
+          <div layout-padding flex>
+            <md-input-container>
+              <label>Output with #</label>
+              <md-select ng-model="output_selection">
+                <md-option ng-repeat="(key, value) in graph_structure" value="{{ key }}">
+                  {{ key }}
+                </md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+          <md-content class="md-padding">
+            <canvas class="chart chart-bar" id="myChart" chart-legend="true"></canvas>
+          </md-content>
+          <div layout-padding flex>
+            <br/>
+            <br/>
+            <md-slider md-discrete ng-model="sliderNum" min="0" max="{{ slider_max }}" aria-label="blue" id="blue-slider" class="md-primary"></md-slider>
+          </div>
+        </md-tab>
+      </md-tabs>
+      <md-divider ></md-divider>
+    </md-dialog-content>
+    <div class="md-actions" layout="row" layout-align="end center">
+      <md-button class="md-raised" ng-click="cancel()">Close</md-button>
+    </div>
+  </form>
+</md-dialog>
