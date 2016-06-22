@@ -20,11 +20,14 @@ angular.module('hog')
           console.log('piggies', vm.complexPigs, 'data', data.json);
         });
 
-    vm.edit = function(id)
+    vm.editComplex = function(id)
     {
       $state.go('home.complex.edit', {id: id});
     }
-
+	  vm.editSimple = function(id)
+    {
+      $state.go('home.simple.edit', {id: id});
+    }
 
     angular.extend(vm, {
       name: 'LandingCtrl',

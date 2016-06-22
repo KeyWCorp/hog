@@ -1,4 +1,4 @@
-<md-content>
+<md-content ng-cloak>
   <section id="input">
     <md-card>
         <md-card-content layout="row"> 
@@ -24,39 +24,38 @@
         </md-card-content>
     </md-card>
   </section>
-  <md-card >
+  <md-card>
     <md-card-content layout="row">
-     <md-card flex>
-       <md-card-content>
-     <!--<md-whiteframe class="md-whiteframe-2dp" flex-sm="50" flex-gt-sm="50" flex-gt-md="50" layout layout-align="center center">-->
-      <md-list>
-        <md-list-item layout="row" ng-click="vm.edit(pig._id)" ng-repeat= "pig in vm.simplePigs">
-            <h4>{{pig.name}}</h4>
-            <div layout-align="center end">
-            <span am-time-ago="pig.lastModified"></span>
-            </div>
-        </md-list-item>
-      </md-list>
-       </md-card-content>
-     <!--</md-whiteframe>-->
-     </md-card>
-    <md-card flex>
-      <md-card-content>
-     <!--<md-whiteframe class="md-whiteframe-2dp" flex-sm="50" flex-gt-sm="50" flex-gt-md="50" layout layout-align="center center">-->
-      <md-list flex>
-        <md-list-item class="md-3-line" ng-click="vm.edit(pig._id)" ng-repeat= "pig in vm.complexPigs">
-            <h4>{{pig.name}}</h4>
-            <p></p>
-            <div style="float:right;" am-time-ago="pig.lastModified"></div>
-            
-            <md-divider ></md-divider>
-           
-        </md-list-item>
-      </md-list>
-      </md-card-content>
-     <!--</md-whiteframe>-->
-    </md-card>
-  
+      <div flex>
+        <md-card flex>
+          <md-card-content>
+            <md-list ng-show="vm.simplePigs.length > 0" flex>
+              <md-list-item class="md-3-line" ng-click="vm.editSimple(pig._id)" ng-repeat= "pig in vm.simplePigs">
+                <h4>{{pig.name}}</h4>
+                <p></p>
+                <div style="float:right;" am-time-ago="pig.lastModified"></div>
+                <md-divider  ng-if="!$last"></md-divider>
+              </md-list-item>
+            </md-list>
+            <h4 ng-hide="vm.simplePigs.length > 0"> No Simple Scripts</h4>
+          </md-card-content>
+        </md-card>
+      </div>
+      <div flex>
+        <md-card flex>
+          <md-card-content>
+            <md-list ng-show="vm.complexPigs.length > 0" flex>
+              <md-list-item class="md-3-line" ng-click="vm.editComplex(pig._id)" ng-repeat= "pig in vm.complexPigs">
+                <h4>{{pig.name}}</h4>
+                <p></p>
+                <div style="float:right;" am-time-ago="pig.lastModified"></div>
+                <md-divider  ng-if="!$last"></md-divider>
+              </md-list-item>
+            </md-list>
+            <h4 ng-hide="vm.complexPigs.length > 0"> No Complex Scripts</h4>
+          </md-card-content>
+        </md-card>
+      </div>
     </md-card-content>
   </md-card>
 </md-content>
