@@ -29,7 +29,8 @@ angular.module('hog')
         kill: kill,
         run: run,
         runAndTrack: runAndTrack,
-        save: update
+        save: update,
+        bumpVersion: bump
       };
 
       return service;
@@ -47,7 +48,26 @@ angular.module('hog')
               });
         return temp;
       }
-
+      function bump(id)
+      {
+        console.log('bumping');
+        var deferred = $q.defer();
+        Pig.emit('bump', id);
+        Pig.on('bumped',
+          function(data)
+          {
+            console.log('data');
+            deferred.resolve(data);
+           
+          });
+          Pig.on('error',
+            function(err)
+            {
+              $log.debug('error in saving data: ', err);
+              deferred.reject(err);
+            });
+          return deferred.promise;
+      }
       function save(data)
       {
         console.log(' IN RUNNER SAVE FUNCTION');

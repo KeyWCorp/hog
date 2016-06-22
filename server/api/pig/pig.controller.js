@@ -119,7 +119,12 @@ exports.create = function (socket) {
       {
         if (_ready)
         {
-          var pig = Pig.create(JSON.parse(data));
+          var d = JSON.parse(data);
+          d.version = d.version == '' ? null : d.version;
+          console.log('d: ', d);
+          var pig = Pig.create(d);
+          console.log('pig: ', pig, ' data: ' , data);
+          pig.diff({data: ''}, true);
           console.log(pig);
           pig.save()
             .then(
@@ -151,39 +156,44 @@ exports.update = function (socket)
       {
         if (_ready)
         {
-          var oldData = JSON.parse(data.obj);
-          Pig.findOneAndUpdate({_id: data.id}, oldData, {upsert: true})
+          console.log('updating', data.obj);
+          var newData = JSON.parse(data.obj);
+          Pig.findOne({_id: newData._id})
             .then(
               function(doc)
               {
-                console.log('old name: ', oldData.name, 'new name: ', doc.name)
-                if(doc.name != oldData.name)
+                if(newData.version != doc.version)
                 {
-                  var script_location; // Old location of the script
-                  if (oldData.script_loc)
+                  console.log('new version: ', newData.version, 'Old version: ', doc.version);
+                  doc.diff(doc, true, newData);
+                }
+                if(newData.name != doc.name)
+                {
+                  if (newData.script_loc)
                   {
-                    script_location = oldData.script_loc;
+                    script_location = newData.script_loc;
                   }
                   else
                   {
-                    script_location = path.join(__dirname, '../../',  'scripts/pig/', oldData.name +  '.pig');
+                    script_location = path.join(__dirname, '../../',  'scripts/pig/', newData.name +  '.pig');
                   }
                   doc.rename(script_location)
                     .then(
                       function()
                       {
-                        doc.saveScript()
+                        doc.update(newData);
+                        doc.save()
                           .then(
-                            function()
+                            function(obj)
                             {
-                              console.log('finished updating', doc);
+                              console.log('finished updating', obj);
                               //if (err) { return handleError(socket, err); }
-                              socket.emit('update', buildResponse(200, doc.toJSON()));
+                              socket.emit('update', buildResponse(200, obj.toJSON()));
                             },
                             function(err)
                             {
                               if (err) { return handleError(socket, err); }
-                            });
+                            }); 
                       },
                       function(err)
                       {
@@ -192,50 +202,25 @@ exports.update = function (socket)
                 }
                 else
                 {
-                  doc.saveScript()
+                  doc.update(newData);
+                  doc.save()
                     .then(
-                      function()
+                      function(obj)
                       {
-                        console.log('finished updating', doc);
+                        console.log('finished updating', obj);
                         //if (err) { return handleError(socket, err); }
-                        socket.emit('update', buildResponse(200, doc.toJSON()));
+                        socket.emit('update', buildResponse(200, obj.toJSON()));
                       },
                       function(err)
                       {
                         if (err) { return handleError(socket, err); }
                       });
-                }
+                }               
               },
               function(err)
               {
                 if (err) { return handleError(socket, err); }
               });
-          console.log('saving ', data);
-         /* Pig.findOne({_id: data.id}, JSON.parse(data.obj))
-            .then(
-              function(doc)
-              {
-                if(doc.name != data.name)
-                {
-                  doc.rename();
-                }
-                doc.save()
-                  .then(
-                    function(obj)
-                    {
-                      console.log('finished updating', obj);
-                    //if (err) { return handleError(socket, err); }
-                      socket.emit('update', buildResponse(200, obj.toJSON()));
-                    },
-                    function(err)
-                    {
-                      if (err) { return handleError(socket, err); }
-                    });
-              },
-              function(err)
-              {
-                if (err) { return handleError(socket, err); }
-              });*/
         }
       });
 };
@@ -406,4 +391,39 @@ exports.runAndTrack = function (socket) {
               });
         }
       });
-};
+ };
+
+/**
+ * bumps the pigs version
+ *
+ * @param socket
+ */
+exports.bumpVersion = function(socket)
+{
+  socket.on('bump',
+    function(id)
+    {
+      if (_ready)
+      {
+        console.log('finding and bumping', id);
+        Pig.findOne({_id: id})
+          .then(
+            function(doc)
+            {
+              console.log(id, 'found attempting bump');
+              
+              var ver = doc.bump();
+            
+                    console.log('finished bumping version', ver);
+                    //if (err) { return handleError(socket, err); }
+                    socket.emit('bumped', buildResponse(200, ver));
+                  
+            },
+            function(err)
+            {
+              if (err) { return handleError(socket, err); }
+            });
+      }
+    });
+}
+
