@@ -191,7 +191,7 @@ angular.module('hog')
         vm.script.data = $scope.script_data;
         vm.script.name = $scope.script_name.replace(/[\s,\.]/g, "_");
         vm.script.args = $scope.script_args.split(" ");
-
+        vm.script.type = 'complex';
         console.log('in vm .save', graph, numOutput);
         vm.script.graph_count = numOutput;
         vm.script.graph_type = graph;

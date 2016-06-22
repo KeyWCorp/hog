@@ -29,8 +29,6 @@ class Pig extends Document {
   constructor()
   {
     super();
-    
-    
     this.name         = String;
     this.data         = String;
     this.args         = [];
@@ -45,6 +43,10 @@ class Pig extends Document {
     this.graph_count  = Number;
     this.nodes        = [];
     this.links        = [];
+    this.lastModified = {
+      type: Date,
+      default: Date.now
+    }
   }
   static collectionName() {
         return 'pig.data';
@@ -130,26 +132,36 @@ class Pig extends Document {
     //this.bump();
     console.log('in presave', d);
     var that = this;
-
+    try {
+      console.log('creating a new time for modification')
+    this.lastModified = Date.now();
+    } catch (error) {
+      console.log('caught: ', error);
+    }
+    
+    console.log('returning the promise')
       return Promise.all([this.saveScript()])
   }
-  rename(oldPath)
+  rename(newPath)
   {
     var that = this;
     var script_location;
+    console.log('beginning rename');
     if (this.script_loc)
     {
       script_location = this.script_loc;
+      console.log('script location 3: ', script_location)
     }
     else
     {
       script_location = path.join(__dirname, '../../',  'scripts/pig/', this.name +  '.pig');
+      console.log('script location 4: ', script_location)
     }
-    console.log('renaming ', oldPath, ' to ', script_location);
+    console.log('renaming ', script_location, ' to ', newPath);
     var p = new Promise(
       function(resolve, reject)
       {
-        fs.rename(oldPath, script_location,
+        fs.rename(script_location, newPath,
           function(err)
           {
             console.log('finished renaming', err);
@@ -159,6 +171,7 @@ class Pig extends Document {
             }
             else
             {
+              that.script_loc = newPath;
               resolve();
             }
           });

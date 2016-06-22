@@ -1,5 +1,6 @@
 node_modules/
 client/bower_components/
+bower_components/
 #client/styles/css
 .idea/
 dist/
@@ -12,5 +13,7 @@ parser_table.py
 server/api/pig/pig.data.db
 client/index.html
 *.db
+**.db.**
 *.mig
+.vscode/
 .DS_Store

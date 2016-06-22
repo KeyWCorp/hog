@@ -30,7 +30,8 @@ angular.module('hog')
         run: run,
         runAndTrack: runAndTrack,
         save: update,
-        bumpVersion: bump
+        bumpVersion: bump,
+        recent: getMostRecent
       };
 
       return service;
@@ -47,6 +48,19 @@ angular.module('hog')
                 ////      console.log(script);
               });
         return temp;
+      }
+
+      function getMostRecent(_count, _type)
+      {
+        var deferred = $q.defer();
+        Pig.emit('recent', {count: _count, type: _type});
+        Pig.on('recents-'+_type,
+          function(indata)
+          {
+            console.log('recents returned: ', indata);
+            deferred.resolve(indata);
+          });
+        return deferred.promise;
       }
       function bump(id)
       {

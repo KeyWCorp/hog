@@ -158,10 +158,12 @@ exports.update = function (socket)
         {
           console.log('updating', data.obj);
           var newData = JSON.parse(data.obj);
+          console.log('json parsed: ', newData);
           Pig.findOne({_id: newData._id})
             .then(
               function(doc)
               {
+                console.log('Found One: ', doc);
                 if(newData.version != doc.version)
                 {
                   console.log('new version: ', newData.version, 'Old version: ', doc.version);
@@ -169,19 +171,21 @@ exports.update = function (socket)
                 }
                 if(newData.name != doc.name)
                 {
-                  if (newData.script_loc)
-                  {
-                    script_location = newData.script_loc;
-                  }
-                  else
-                  {
-                    script_location = path.join(__dirname, '../../',  'scripts/pig/', newData.name +  '.pig');
-                  }
+                  //console.log('updating before renaming');
+                  //doc.update(newData);
+                  console.log('renaming script to: ', newData.name);
+                  
+                  var script_location = path.join(__dirname, '../../',  'scripts/pig/', newData.name +  '.pig');
+                    console.log('script location 2: ', script_location)
+                  
+                  console.log('starting rename');
                   doc.rename(script_location)
                     .then(
                       function()
                       {
+                        console.log('rename successful, updating')
                         doc.update(newData);
+                        console.log('Saving');
                         doc.save()
                           .then(
                             function(obj)
@@ -391,7 +395,30 @@ exports.runAndTrack = function (socket) {
               });
         }
       });
- };
+      
+};
+/**
+ * Gets a list of the most recently changed scripts up to the limit passed in
+ *
+ * @param socket
+ */
+exports.getRecent = function (socket) {
+  socket.on('recent',
+    function(countntype)
+    {
+      Pig.find({type: countntype.type}, {populate: ['name'], limit: countntype.count, sort: '-lastModified'})
+        .then(
+            function(docs)
+            {
+              console.log('count: ', countntype.count, 'type: ', countntype.type, 'docs: ', docs);
+              socket.emit('recents-'+countntype.type, buildResponse(200, docs));
+            },
+            function(err)
+            {
+              if (err) { return handleError(socket, err); }
+            });
+    })
+};
 
 /**
  * bumps the pigs version

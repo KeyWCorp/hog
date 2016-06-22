@@ -58,6 +58,7 @@
     <script src="bower_components/google-diff-match-patch/diff_match_patch.js"></script>
     <script src="bower_components/blob-polyfill/Blob.js"></script>
     <script src="bower_components/file-saver.js/FileSaver.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
     <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
@@ -65,6 +66,7 @@
     <script src="bower_components/list-to-tree/dist/list-to-tree.js"></script>
     <script src="bower_components/angular-diff-match-patch/angular-diff-match-patch.js"></script>
     <script src="bower_components/angular-file-saver/dist/angular-file-saver.bundle.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
     <!-- endinject -->
 
     <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
@@ -73,48 +75,42 @@
 
     <!-- inject:js -->
     <script src="app.js"></script>
-    <script src="services/completers/pig_completer.js"></script>
-    <script src="services/file-upload/uploader.js"></script>
-    <script src="services/filters/filters.js"></script>
-    <script src="services/mdColors/mdColors.js"></script>
-    <script src="services/pig/pig.js"></script>
-    <script src="services/runner/runner.js"></script>
-    <script src="services/settings/setting.js"></script>
-    <script src="services/settings/settings.js"></script>
-    <script src="services/templates/templates.js"></script>
-    <script src="services/hog-tracker/src/hog-tracker.directive.js"></script>
-    <script src="services/pig-flow/src/pig-flow.directive.js"></script>
-    <script src="services/pig-flow/src/pig-flow.editNode.templates.js"></script>
-    <script src="services/pig-flow/src/pig-flow.flowToScript.js"></script>
-    <script src="services/pig-flow/src/pig-flow.node.templates.js"></script>
-    <script src="services/pig-flow/src/pig-flow.templates.js"></script>
-    <script src="views/complex/complex.controller.js"></script>
-    <script src="views/complex/complex.js"></script>
-    <script src="views/home/header.controller.js"></script>
-    <script src="views/home/home.controller.js"></script>
-    <script src="views/home/home.js"></script>
-    <script src="views/landing/landing.controller.js"></script>
-    <script src="views/landing/landing.js"></script>
-    <script src="views/settings/settings.controller.js"></script>
-    <script src="views/settings/settings.js"></script>
-    <script src="views/simple/simple.controller.js"></script>
-    <script src="views/simple/simple.js"></script>
-    <script src="views/complex/edit/edit.complex.controller.js"></script>
-    <script src="views/complex/edit/edit.complex.js"></script>
-    <script src="views/complex/list/list.complex.controller.js"></script>
-    <script src="views/complex/list/list.complex.js"></script>
-    <script src="views/complex/states/complex.new.controller.js"></script>
-    <script src="views/complex/new/new.complex.controller.js"></script>
-    <script src="views/complex/new/new.complex.js"></script>
-    <script src="views/complex/testview/testview.complex.controller.js"></script>
-    <script src="views/complex/testview/testview.js"></script>
-    <script src="views/simple/edit/edit.simple.controller.js"></script>
-    <script src="views/simple/edit/edit.simple.js"></script>
-    <script src="views/simple/list/list.simple.controller.js"></script>
-    <script src="views/simple/list/list.simple.js"></script>
-    <script src="views/simple/new/new.simple.controller.js"></script>
     <script src="views/simple/new/new.simple.js"></script>
-    <script src="bower_components/ace-builds/src-min-noconflict/ext-language_tools.js"></script>
+    <script src="views/simple/new/new.simple.controller.js"></script>
+    <script src="views/simple/list/list.simple.js"></script>
+    <script src="views/simple/list/list.simple.controller.js"></script>
+    <script src="views/simple/edit/edit.simple.js"></script>
+    <script src="views/simple/edit/edit.simple.controller.js"></script>
+    <script src="views/complex/testview/testview.js"></script>
+    <script src="views/complex/testview/testview.complex.controller.js"></script>
+    <script src="views/complex/states/complex.new.controller.js"></script>
+    <script src="views/complex/new/new.complex.js"></script>
+    <script src="views/complex/new/new.complex.controller.js"></script>
+    <script src="views/complex/list/list.complex.js"></script>
+    <script src="views/complex/list/list.complex.controller.js"></script>
+    <script src="views/complex/edit/edit.complex.js"></script>
+    <script src="views/complex/edit/edit.complex.controller.js"></script>
+    <script src="views/simple/simple.js"></script>
+    <script src="views/simple/simple.controller.js"></script>
+    <script src="views/home/home.js"></script>
+    <script src="views/home/home.controller.js"></script>
+    <script src="views/home/header.controller.js"></script>
+    <script src="views/settings/settings.js"></script>
+    <script src="views/settings/settings.controller.js"></script>
+    <script src="views/landing/landing.js"></script>
+    <script src="views/landing/landing.controller.js"></script>
+    <script src="views/complex/complex.js"></script>
+    <script src="views/complex/complex.controller.js"></script>
+    <script src="services/pig-flow/src/pig-flow.templates.js"></script>
+    <script src="services/pig-flow/src/pig-flow.directive.js"></script>
+    <script src="services/hog-tracker/src/hog-tracker.directive.js"></script>
+    <script src="services/templates/templates.js"></script>
+    <script src="services/settings/settings.js"></script>
+    <script src="services/settings/setting.js"></script>
+    <script src="services/completers/pig_completer.js"></script>
+    <script src="services/runner/runner.js"></script>
+    <script src="services/pig/pig.js"></script>
+    <script src="services/mdColors/mdColors.js"></script>
     <!-- endinject -->
 
     <!-- endbuild -->

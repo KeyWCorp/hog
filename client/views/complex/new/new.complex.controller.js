@@ -18,7 +18,8 @@ angular.module('hog')
         name: '',
         data: '',
         args: [],
-        version: ''
+        version: '',
+        type: 'complex'
       };
 
       vm.onEditorLoad = function(_ace)
