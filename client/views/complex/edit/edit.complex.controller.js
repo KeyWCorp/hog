@@ -23,17 +23,6 @@ angular.module('hog')
       vm.taskList = [];
       vm.running = false;
 
-      vm.test_data = [
-        [12, 1, "127.0.0.1"],
-        [11, 2, "127.0.0.2"],
-        [10, 3, "127.0.0.3"],
-        [1, 12, "127.0.0.4"],
-        [21, 3, "127.0.0.5"],
-        [14, 2, "127.0.0.5"],
-        [13, 5, "127.0.0.6"],
-        [10, 9, "127.0.0.8"],
-      ];
-
       Pig.on('tracker:update', function (data)
           {
             vm.taskList = data;

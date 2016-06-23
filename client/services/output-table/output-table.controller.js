@@ -11,9 +11,10 @@ if (OutputTableModule === undefined)
 OutputTableModule
 .factory("pigTableController", function ($mdDialog, lodash)
     {
-      var pigTableController = function ($scope, inputData)
+      var pigTableController = function ($scope, inputData, scriptName)
       {
         $scope.inputData = inputData;
+        $scope.scriptName = scriptName;
         $scope.totalData = [];
         $scope.tableData = [];
 

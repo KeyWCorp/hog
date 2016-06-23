@@ -15,38 +15,25 @@
       <section layout="row">
         <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'all')" ng-if="vm.info_outputs.length > 0">
           Show All: #{{ vm.info_outputs.length }}
-          <md-tooltip>
-            Show All Logs
-          </md-tooltip>
         </md-button>
 
         <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'output')" md-style-color="{'background-color': 'green.400'}" ng-if="vm.outputs.length > 0">
           Show Results: #{{ vm.outputs.length }}
-          <md-tooltip>
-            Show Output
-          </md-tooltip>
         </md-button>
 
         <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'log')" md-style-color="{'background-color': 'blue.400'}" ng-if="vm.logs.length > 0">
           Show Info Logs: #{{ vm.logs.length }}
-          <md-tooltip>
-            Show Logs
-          </md-tooltip>
         </md-button>
 
         <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'warning')" md-style-color="{'background-color': 'orange.400'}" ng-if="vm.warnings.length > 0">
           Show Warnings: #{{ vm.warnings.length }}
-          <md-tooltip>
-            Show Warning Logs
-          </md-tooltip>
         </md-button>
 
         <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'error')" md-style-color="{'background-color': 'red.400'}" ng-if="vm.errors.length > 0">
           Show Errors: #{{ vm.errors.length }}
-          <md-tooltip>
-            Show Error Logs
-          </md-tooltip>
         </md-button>
+
+        <pig-table input-data="vm.pigList" script-name="vm.script.name" ng-if="vm.pigList.length > 0"></pig-table>
 
         <md-divider ></md-divider>
       </section>

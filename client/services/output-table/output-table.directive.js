@@ -13,7 +13,8 @@ OutputTableModule
     return {
       restraints: "E",
       scope: {
-        inputData: "="
+        inputData: "=",
+        scriptName: "="
       },
       templateUrl: "services/output-table/html/outputTemplate.html",
       link: function ($scope, element, attrs)
@@ -28,7 +29,8 @@ OutputTableModule
             targetEvent: ev,
             clickOutsideToClose:true,
             locals: {
-              inputData: vm.inputData
+              inputData: vm.inputData,
+              scriptName: vm.scriptName
             },
             controller: pigTableController,
           })
