@@ -12,11 +12,16 @@ OutputTableModule
   {
     return {
       restraints: "E",
+      scope: {
+        inputData: "="
+      },
       templateUrl: "services/output-table/html/outputTemplate.html",
       //template: "<md-button class='md-raised'>YOLO</md-button>",
       link: function ($scope, element, attrs)
       {
         var vm = $scope;
+
+        console.log(vm.inputData);
 
         vm.openTable = function (ev)
         {
@@ -25,12 +30,15 @@ OutputTableModule
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose:true,
+            locals: {
+              inputData: vm.inputData
+            },
             controller: pigTableController,
           })
           .then(function(answer) {
-            $scope.status = 'You said the information was "' + answer + '".';
+            console.log('You said the information was "' + answer + '".');
           }, function() {
-            $scope.status = 'You cancelled the dialog.';
+            console.log('You cancelled the dialog.');
           });
         };
       }

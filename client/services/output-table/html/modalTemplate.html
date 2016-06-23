@@ -1,19 +1,35 @@
-<md-dialog flex='60'>
-  <form name='editForm'
-    <md-toolbar>
-      <div class='md-toolbar-tools'>
-        <h2>TEST</h2>
+<md-dialog flex="80" ng-cloak>
+  <form>
+    <md-toolbar layout="column">
+      <div flex class="md-toolbar-tools">
+        <h2>Test</h2>
         <span flex></span>
       </div>
     </md-toolbar>
-    <md-dialog-content layout='column' layout-margin>
+    <md-dialog-content>
+      <md-content flex layout-padding>
 
-      <h1>Hello</h1>
+        <md-table-container>
+          <table md-table>
+            <thead md-head md-order="myOrder.order" md-on-reorder="updateData">
+              <tr md-row>
+                <th md-column ng-repeat="header in headers" md-order-by="{{ header }}">index {{ header }}</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="output in tableData">
+                <td md-cell ng-repeat="column in output">{{ column }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+        <md-table-pagination md-limit="myLimit" md-limit-options="[5, 10, 15]" md-page="myPage" md-total="{{ tableData.length }}" md-on-paginate="updateData" md-page-select></md-table-pagination>
 
+      </md-content>
+      <md-divider ></md-divider>
     </md-dialog-content>
-    <div class='md-actions' layout='row'>
-      <span flex></span>
-      <md-button ng-click='close()'>Close</md-button>
+    <div class="md-actions" layout="row" layout-align="end center">
+      <md-button class="md-raised" ng-click="cancel()">Close</md-button>
     </div>
   </form>
 </md-dialog>

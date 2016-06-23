@@ -59,12 +59,6 @@
           </md-input-container>
         </div>
 
-        <div layout="row" layout-align="start center">
-          <md-input-container flex>
-            <pig-table></pig-table>
-          </md-input-container>
-        </div>
-
         <div flex class='md-padding' layout="column" layout-padding ng-show="vm.info_outputs.length > 0">
           <md-subheader class="md-primary">Display Outputs</md-subheader>
           <section layout="row">
@@ -87,6 +81,8 @@
             <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'error')" md-style-color="{'background-color': 'red.400'}" ng-if="vm.errors.length > 0">
               Show Errors: #{{ vm.errors.length }}
             </md-button>
+
+            <pig-table input-data="vm.pigList" ng-if="vm.pigList.length > 0"></pig-table>
 
             <md-divider ></md-divider>
           </section>
