@@ -14,34 +14,42 @@ OutputTableModule
       var pigTableController = function ($scope, inputData)
       {
         $scope.inputData = inputData;
+        $scope.totalData = [];
         $scope.tableData = [];
+
+        $scope.query = {
+          order: "0",
+          limit: 5,
+          page: 1
+        };
 
         $scope.inputData.map(function(data)
             {
               var tmp_data = lodash.extend({}, data);
-              $scope.tableData.push(tmp_data);
+              $scope.totalData.push(tmp_data);
             });
 
-        $scope.headers = Object.keys($scope.tableData[0]);
+        $scope.headers = Object.keys($scope.totalData[0]);
 
-        $scope.updateData = function(data)
+        $scope.updateData = function(data, limit)
         {
 
-          if (typeof data === "string")
+          if (typeof limit === "undefined" && typeof data !== "undefined")
           {
-            var sign = (data[0] === "-" ? -1 : 1);
+            $scope.query.order = data;
+            var sign = ($scope.query.order[0] === "-" ? -1 : 1);
 
             // reorder data
-            $scope.tableData.sort(function(a, b)
+            $scope.totalData.sort(function(a, b)
                 {
                   try {
-                    var A = Number(a[Number(data) * sign]);
-                    var B = Number(b[Number(data) * sign]);
+                    var A = Number(a[Number($scope.query.order) * sign]);
+                    var B = Number(b[Number($scope.query.order) * sign]);
 
                     if (isNaN(A) || isNaN(B))
                     {
-                      A = a[Number(data) * sign].toUpperCase();
-                      B = b[Number(data) * sign].toUpperCase();
+                      A = a[Number($scope.query.order) * sign].toUpperCase();
+                      B = b[Number($scope.query.order) * sign].toUpperCase();
 
                       var ip_re = /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/g;
                       if (A.match(ip_re))
@@ -65,7 +73,23 @@ OutputTableModule
                   }
                 });
           }
+          else if (typeof limit !== "undefined" && typeof data !== "undefined")
+          {
+            $scope.query.page = data;
+            $scope.query.limit = limit;
+          }
+
+          var start = ($scope.query.page * $scope.query.limit) - $scope.query.limit;
+          var end = start + $scope.query.limit;
+
+          if (end > $scope.totalData.length - 1)
+          {
+            end = $scope.totalData.length;
+          }
+
+          $scope.tableData = $scope.totalData.slice(start, end);
         };
+        $scope.updateData($scope.query.order);
 
         $scope.close = function ()
         {

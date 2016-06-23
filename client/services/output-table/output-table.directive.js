@@ -16,12 +16,9 @@ OutputTableModule
         inputData: "="
       },
       templateUrl: "services/output-table/html/outputTemplate.html",
-      //template: "<md-button class='md-raised'>YOLO</md-button>",
       link: function ($scope, element, attrs)
       {
         var vm = $scope;
-
-        console.log(vm.inputData);
 
         vm.openTable = function (ev)
         {
