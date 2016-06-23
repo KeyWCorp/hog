@@ -18,7 +18,10 @@ angular.module('hog')
       vm.selectedArgs = [];
       vm.editorModel = '';
       vm.progress = 0;
-
+      vm.filter_disabled = false;
+      vm.filter_noCache = false;
+      vm.searchText = "";
+      vm.selectedItem = null;
       vm.onEditorLoad = function(_ace)
       {
         vm.modeChanged = function () {
@@ -255,4 +258,20 @@ angular.module('hog')
       angular.extend(vm, {
         name: 'ListSimpleCtrl',
       });
+      
+      // * Create filter function for a query string
+
+      vm.createFilterFor = function(query)
+      {
+        var lowercaseQuery = angular.lowercase(query);
+        return function filterFn(script)
+        {
+          return (angular.lowercase(script.name).indexOf(lowercaseQuery) === 0);
+        };
+      }
+      vm.querySearch = function(query)
+      {
+        var results = query ? vm.scripts.filter( vm.createFilterFor(query) ) : vm.scripts;
+        return results;
+      }
     });

@@ -2,25 +2,23 @@
 
   <div layout="row" layout-align="end center">
     <md-autocomplete
-                    ng-disabled="vm.isDisabled"
-                    md-no-cache="vm.noCache"
+                    ng-disabled="vm.filter_disabled"
+                    md-no-cache="vm.filter_noCache"
                     md-selected-item="vm.selectedItem"
-                    md-search-text-change="vm.searchTextChange(vm.searchText)"
                     md-search-text="vm.searchText"
-                    md-selected-item-change="vm.selectedItemChange(item)"
                     md-items="item in vm.querySearch(vm.searchText)"
                     md-item-text="item.name"
                     md-min-length="0"
                     placeholder="Filter">
       <md-item-template>
-        <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+        <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.name}}</span>
       </md-item-template>
     </md-autocomplete>
   </div>
   <div class='md-padding' layout="column" layout-align="center center">
-    <div layout="row" flex ng-repeat="pig in vm.scripts | orderBy: 'name'">
+    <div layout="row" flex ng-repeat="pig in vm.scripts | orderBy: 'name' | filter:{name:vm.searchText}">
       <div flex>
-        <md-card ng-model="vm.scripts" flex>
+        <md-card  flex>
           <v-accordion class="vAccordion--default" flex>
             <v-pane flex>
               <v-pane-header>
