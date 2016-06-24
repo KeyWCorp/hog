@@ -134,7 +134,9 @@ class Pig extends Document {
     var that = this;
     try {
       console.log('creating a new time for modification')
-    this.lastModified = Date.now();
+      console.log('time: ', this.lastModified, typeof this.lastModified);
+    //that.lastModified = null; //new Date();
+      console.log('time again: ', this.lastModified, typeof this.lastModified);
     } catch (error) {
       console.log('caught: ', error);
     }
@@ -256,6 +258,7 @@ class Pig extends Document {
     this.graph_count  = data.graph_count;
     this.nodes        = data.nodes;
     this.links        = data.links;
+    this.lastModified = new Date();
   }
 }
 
