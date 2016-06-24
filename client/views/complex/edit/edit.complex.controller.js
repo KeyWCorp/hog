@@ -187,53 +187,104 @@ angular.module('hog')
 
       vm.save = function(graph, numOutput, cb)
       {
-
-        vm.script.data = $scope.script_data;
-        vm.script.name = $scope.script_name.replace(/[\s,\.]/g, "_");
-        vm.script.args = $scope.script_args.split(" ");
-        vm.script.type = 'complex';
-        console.log('in vm .save', graph, numOutput);
-        vm.script.graph_count = numOutput;
-        vm.script.graph_type = graph;
-
-        Runner.update(vm.script)
-          .then(
+        if (vm.script.type == 'simple')
+        {
+          vm.script.data = $scope.script_data;
+          vm.script.name = $scope.script_name.replace(/[\s,\.]/g, "_");
+          vm.script.args = $scope.script_args.split(" ");
+          vm.script.type = 'complex';
+          console.log('in vm .save', graph, numOutput);
+          vm.script.graph_count = numOutput;
+          vm.script.graph_type = graph;
+          vm.script._id = null;
+          Runner.create(vm.script)
+            .then(
               function(data)
               {
                 $log.debug('saved: ' + data);
 
-                vm.script = data.json;
-                vm.args = vm.script.args.join(" ");
+                  vm.script = data.json;
+                  vm.args = vm.script.args.join(" ");
 
-                $scope.script_data = vm.script.data;
-                $scope.script_name = vm.script.name;
-                $scope.script_args = vm.args;
+                  $scope.script_data = vm.script.data;
+                  $scope.script_name = vm.script.name;
+                  $scope.script_args = vm.args;
 
-                vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
-                vm.versions = vm.script.history;
-                vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
+                  vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
+                  vm.versions = vm.script.history;
+                  vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
 
-                vm.edited = false;
+                  vm.edited = false;
 
-                vm.name_edited = false;
-                vm.args_edited = false;
-                vm.script_edited = false;
+                  vm.name_edited = false;
+                  vm.args_edited = false;
+                  vm.script_edited = false;
 
 
-                $mdToast.show(
-                  $mdToast.simple()
-                  .content('Script Saved!')
-                  .hideDelay(3000)
-                );
-                if (cb)
+                  $mdToast.show(
+                    $mdToast.simple()
+                    .content('Script Saved!')
+                    .hideDelay(3000)
+                  );
+                  if (cb)
+                  {
+                    cb();
+                  }
+                },
+                function(err)
                 {
-                  cb();
-                }
-              },
-              function(err)
-              {
-                $log.error('error: ' +err);
-              });
+                  $log.error('error: ' +err);
+                });
+        }
+        else
+        {
+          vm.script.data = $scope.script_data;
+          vm.script.name = $scope.script_name.replace(/[\s,\.]/g, "_");
+          vm.script.args = $scope.script_args.split(" ");
+          vm.script.type = 'complex';
+          console.log('in vm .save', graph, numOutput);
+          vm.script.graph_count = numOutput;
+          vm.script.graph_type = graph;
+
+          Runner.update(vm.script)
+            .then(
+                function(data)
+                {
+                  $log.debug('saved: ' + data);
+
+                  vm.script = data.json;
+                  vm.args = vm.script.args.join(" ");
+
+                  $scope.script_data = vm.script.data;
+                  $scope.script_name = vm.script.name;
+                  $scope.script_args = vm.args;
+
+                  vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
+                  vm.versions = vm.script.history;
+                  vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
+
+                  vm.edited = false;
+
+                  vm.name_edited = false;
+                  vm.args_edited = false;
+                  vm.script_edited = false;
+
+
+                  $mdToast.show(
+                    $mdToast.simple()
+                    .content('Script Saved!')
+                    .hideDelay(3000)
+                  );
+                  if (cb)
+                  {
+                    cb();
+                  }
+                },
+                function(err)
+                {
+                  $log.error('error: ' +err);
+                });
+        }
       };
 
 
