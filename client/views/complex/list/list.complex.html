@@ -75,7 +75,9 @@
                     Show Errors: #{{ pig.errors.length }}
                   </md-button>
 
-                  <pig-table input-data="pig.pigList" script-name="pig.name" ng-if="pig.pigList.length > 0"></pig-table>
+                  <md-button class="md-raised chip-btn" ng-click="vm.openGraphInfo($event, $index)" ng-if="pig.pigList.length > 0">
+                    Show Graph Info: #{{ pig.pigList.length }}
+                  </md-button>
 
                   <md-divider ></md-divider>
                 </section>
@@ -104,10 +106,8 @@
               </div>
             </div>
           </div>
-          <div flex layout="column" layout-padding ng-if="pig.pigList.length > 0">
-            <md-button flex ng-click="vm.openGraphInfo($event, $index)">
-              Show Graph Info: #{{ pig.pigList.length }}
-            </md-button>
+          <div flex layout="column" layout-padding>
+            <pig-table flex layout="row" input-data="pig.pigList" script-name="pig.name" ng-if="pig.pigList.length > 0"></pig-table>
           </div>
         </md-card>
       </div>
