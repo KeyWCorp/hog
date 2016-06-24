@@ -25,8 +25,6 @@ angular.module('hog')
     {
       vm.modeChanged = function () {
         console.log('changing mode to: ' + vm.mode.toLowerCase());
-        console.log('ace: ', _ace);
-        console.log('session: ', _ace.getSession());
         _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
       }
       _ace.$blockScrolling = Infinity;
@@ -265,7 +263,6 @@ angular.module('hog')
     {
       var currentPer = current;
       var top = 95;
-      //console.log(currentPer);
       if (currentPer < top)
       {
         currentPer = currentPer + 3;
@@ -283,8 +280,6 @@ angular.module('hog')
           {
             // Might Need to Parse it
             vm.scripts = data.json;
-            //  console.log(data.json);
-            // console.log(vm.scripts);
           });
 
     vm.openGraphInfo = function(ev, idx)

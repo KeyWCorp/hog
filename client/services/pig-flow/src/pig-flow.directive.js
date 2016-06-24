@@ -32,6 +32,7 @@ PigFlowModule
         vm.types = angular.copy(nodeTypes);
         vm.type_list = Object.keys(vm.types);
         vm.output_script = "";
+        vm.initial_load = true;
 
 
         var zoom = d3.behavior.zoom()
@@ -235,6 +236,45 @@ PigFlowModule
 
 
           /*
+           * type label data
+           */
+          vm.node_type_label = vm.node_type_label
+            .data(vm.nodes);
+          vm.node_type_label
+            .text(function (d)
+            {
+              return d.type;
+            })
+            .attr("x", function (d)
+            {
+              return d.width * 1.5
+            })
+            .attr("y", function (d)
+            {
+              return d.height * 1.5
+            })
+            .style("pointer-events", "none");
+          vm.node_type_label.enter()
+            .append("text")
+            .attr("class", "node_type_label")
+            .text(function (d)
+            {
+              return d.type;
+            })
+            .attr("x", function (d)
+            {
+              return d.width * 1.5
+            })
+            .attr("y", function (d)
+            {
+              return d.height * 1.5
+            })
+            .style("pointer-events", "none");
+          vm.node_type_label.exit()
+            .remove();
+
+
+          /*
            * header node data
            */
           vm.node_header = vm.node_header
@@ -277,6 +317,45 @@ PigFlowModule
           vm.node_header
             .call(vm.drag);
           vm.node_header.exit()
+            .remove();
+
+
+          /*
+           * node name data
+           */
+          vm.node_name_label = vm.node_name_label
+            .data(vm.nodes);
+          vm.node_name_label
+            .text(function (d)
+            {
+              return d.name;
+            })
+            .attr("x", function (d)
+            {
+              return d.width * 1.5
+            })
+            .attr("y", function (d)
+            {
+              return d.height * 1.5
+            })
+            .style("pointer-events", "none");
+          vm.node_name_label.enter()
+            .append("text")
+            .attr("class", "node_name_label")
+            .text(function (d)
+            {
+              return d.name;
+            })
+            .attr("x", function (d)
+            {
+              return d.width * 1.5
+            })
+            .attr("y", function (d)
+            {
+              return d.height * 1.5
+            })
+            .style("pointer-events", "none");
+          vm.node_name_label.exit()
             .remove();
 
 
@@ -447,78 +526,6 @@ PigFlowModule
 
 
           /*
-           * input label node data
-           */
-          vm.node_input_label = vm.node_input_label
-            .data(function (d)
-            {
-              var input_list = [];
-              vm.nodes.map(function (n,j)
-              {
-                if (n.inputs)
-                {
-                  n.inputs.map(function (input, i)
-                  {
-                    var middle = (n.x + n.width * 0.5);
-                    var offset = middle - ((n.inputs.length - 1) * 25) * 0.5;
-                    var tmp_obj = {
-                      data: input,
-                      p: n,
-                      x: offset + i * 25,
-                      y: n.y,
-                      index: i,
-                      length: n.inputs.length
-                    };
-                    input_list.push(tmp_obj);
-                  });
-                }
-              });
-              return input_list;
-            });
-          vm.node_input_label
-            .attr("class", "node_input_label")
-            .text(function (d)
-            {
-              return d.data.label;
-            })
-            .attr("x", function (d, i)
-            {
-              return d.x;
-            })
-            .attr("y", function (d, i)
-            {
-              return d.y;
-            })
-            .attr("transform", function(d, i)
-            {
-              return "rotate(45," + (d.x + 10) + "," + (d.y - 10) + ")";
-            });
-          vm.node_input_label.enter()
-            .append("text")
-            .attr("class", "node_input_label")
-            .attr("text-anchor", "end")
-            .text(function (d)
-            {
-              return d.data.label;
-            })
-            .attr("x", function (d, i)
-            {
-              return d.x;
-            })
-            .attr("y", function (d, i)
-            {
-              return d.y;
-            })
-            .attr("transform", function(d, i)
-            {
-              return "rotate(45," + (d.x + 10) + "," + (d.y - 10) + ")";
-            })
-            .style("pointer-events", "none");
-          vm.node_input_label.exit()
-            .remove();
-
-
-          /*
            * output node data
            */
           vm.node_outputs = vm.node_outputs
@@ -594,80 +601,74 @@ PigFlowModule
 
 
           /*
-           * type label data
+           * input label node data
            */
-          vm.node_type_label = vm.node_type_label
-            .data(vm.nodes);
-          vm.node_type_label
+          vm.node_input_label = vm.node_input_label
+            .data(function (d)
+            {
+              var input_list = [];
+              vm.nodes.map(function (n,j)
+              {
+                if (n.inputs)
+                {
+                  n.inputs.map(function (input, i)
+                  {
+                    var middle = (n.x + n.width * 0.5);
+                    var offset = middle - ((n.inputs.length - 1) * 25) * 0.5;
+                    var tmp_obj = {
+                      data: input,
+                      p: n,
+                      x: offset + i * 25,
+                      y: n.y,
+                      index: i,
+                      length: n.inputs.length
+                    };
+                    input_list.push(tmp_obj);
+                  });
+                }
+              });
+              return input_list;
+            });
+          vm.node_input_label
+            .attr("class", "node_input_label")
             .text(function (d)
             {
-              return d.type;
+              return d.data.label;
             })
-            .attr("x", function (d)
+            .attr("x", function (d, i)
             {
-              return d.width * 1.5
+              return d.x;
             })
-            .attr("y", function (d)
+            .attr("y", function (d, i)
             {
-              return d.height * 1.5
+              return d.y;
             })
-            .style("pointer-events", "none");
-          vm.node_type_label.enter()
+            .attr("transform", function(d, i)
+            {
+              return "rotate(45," + (d.x + 10) + "," + (d.y - 10) + ")";
+            });
+          vm.node_input_label.enter()
             .append("text")
-            .attr("class", "node_type_label")
+            .attr("class", "node_input_label")
+            .attr("text-anchor", "end")
             .text(function (d)
             {
-              return d.type;
+              return d.data.label;
             })
-            .attr("x", function (d)
+            .attr("x", function (d, i)
             {
-              return d.width * 1.5
+              return d.x;
             })
-            .attr("y", function (d)
+            .attr("y", function (d, i)
             {
-              return d.height * 1.5
+              return d.y;
+            })
+            .attr("transform", function(d, i)
+            {
+              return "rotate(45," + (d.x + 10) + "," + (d.y - 10) + ")";
             })
             .style("pointer-events", "none");
-          vm.node_type_label.exit()
-            .remove();
-
-
-          /*
-           * node name data
-           */
-          vm.node_name_label = vm.node_name_label
-            .data(vm.nodes);
-          vm.node_name_label
-            .text(function (d)
-            {
-              return d.name;
-            })
-            .attr("x", function (d)
-            {
-              return d.width * 1.5
-            })
-            .attr("y", function (d)
-            {
-              return d.height * 1.5
-            })
-            .style("pointer-events", "none");
-          vm.node_name_label.enter()
-            .append("text")
-            .attr("class", "node_name_label")
-            .text(function (d)
-            {
-              return d.name;
-            })
-            .attr("x", function (d)
-            {
-              return d.width * 1.5
-            })
-            .attr("y", function (d)
-            {
-              return d.height * 1.5
-            })
-            .style("pointer-events", "none");
-          vm.node_name_label.exit()
+          vm.node_input_label.exit()
             .remove();
 
 
@@ -775,6 +776,24 @@ PigFlowModule
 
 
           /*
+           * move node type label
+           */
+          vm.node_type_label
+            .attr("x", function (d)
+            {
+              var tw = Math.round(this.getBBox().width);
+              var mw = d.width * 0.5;
+              return d.x + (mw - tw * 0.5);
+            })
+            .attr("y", function (d)
+            {
+              var th = Math.round(this.getBBox().height);
+              var mh = (d.height - 40);
+              return d.y + (mh + th * 0.5);
+            })
+
+
+          /*
            * move node header
            */
           vm.node_header
@@ -797,6 +816,24 @@ PigFlowModule
             // rounded corners
             .attr("rx", 10)
             .attr("ry", 10);
+
+
+          /*
+           * move node name label
+           */
+          vm.node_name_label
+            .attr("x", function (d)
+            {
+              var tw = Math.round(this.getBBox().width);
+              var mw = d.width * 0.5;
+              return d.x + (mw - tw * 0.5);
+            })
+            .attr("y", function (d)
+            {
+              var th = Math.round(this.getBBox().height);
+              var mh = 20;
+              return d.y + (mh + th * 0.5);
+            });
 
 
           /*
@@ -875,7 +912,7 @@ PigFlowModule
 
 
           /*
-           * move node output labels
+           * move node input labels
            */
           vm.node_input_label
             .attr("class", "node_input_label")
@@ -896,43 +933,6 @@ PigFlowModule
             {
               return "rotate(45," + (d.x + 10) + "," + (d.y - 10) + ")";
             });
-
-
-          /*
-           * move node name label
-           */
-          vm.node_name_label
-            .attr("x", function (d)
-            {
-              var tw = Math.round(this.getBBox().width);
-              var mw = d.width * 0.5;
-              return d.x + (mw - tw * 0.5);
-            })
-            .attr("y", function (d)
-            {
-              var th = Math.round(this.getBBox().height);
-              var mh = 20;
-              return d.y + (mh + th * 0.5);
-
-            });
-
-
-          /*
-           * move node type label
-           */
-          vm.node_type_label
-            .attr("x", function (d)
-            {
-              var tw = Math.round(this.getBBox().width);
-              var mw = d.width * 0.5;
-              return d.x + (mw - tw * 0.5);
-            })
-            .attr("y", function (d)
-            {
-              var th = Math.round(this.getBBox().height);
-              var mh = (d.height - 40);
-              return d.y + (mh + th * 0.5);
-            })
 
         }
 

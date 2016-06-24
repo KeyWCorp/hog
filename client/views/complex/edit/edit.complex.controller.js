@@ -65,7 +65,6 @@ angular.module('hog')
               vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
               vm.versions = vm.script.history;
               vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
-              console.log('args ', vm.script.args, 'type: ', typeof vm.script.args[0]);
               if(typeof vm.script.args[0] != 'string')
               {
                 var strfy = _.flatMap(vm.script.args,
@@ -80,7 +79,6 @@ angular.module('hog')
               {
                 vm.args = vm.script.args.join(" ");
               }
-              console.log('vm args', vm.args);
               vm.script_data = vm.script.data;
               $scope.script_data = vm.script_data;
               $scope.script_name = vm.script.name;
@@ -88,23 +86,15 @@ angular.module('hog')
             });
       vm.getVersion = function(idx)
       {
-        console.log('version changed:', idx, 'version', vm.version, 'cur', vm.currentVersion);
-        /*if (vm.version.version != vm.currentVersion.version)
-        {
-
-        }*/
         vm.leftIdx = vm.versions.length-1;
         vm.rightIdx = lodash.findIndex(vm.versions, ['version', vm.version.version]);
-        console.log('left index: ', vm.leftIdx, ' right index ', vm.rightIdx);
       }
       vm.bumpVersion = function()
       {
-        console.log('bump version');
         Runner.bumpVersion(vm.script._id)
           .then(
             function(data)
             {
-              console.log('new version');
               vm.script.version = vm.latestVersion = vm.currentVersion = vm.version = data.json;
             },
             function(err)
@@ -130,8 +120,6 @@ angular.module('hog')
         //_ace.setKeyboardHandler("ace/keyboard/vim");
         vm.modeChanged = function () {
           console.log('changing mode to: ' + vm.mode.toLowerCase());
-          console.log('ace: ', _ace);
-          console.log('session: ', _ace.getSession());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
         };
         _ace.$blockScrolling = Infinity;
@@ -187,6 +175,7 @@ angular.module('hog')
 
       vm.save = function(graph, numOutput, cb)
       {
+<<<<<<< HEAD
         if (vm.script.type == 'simple')
         {
           vm.script.data = $scope.script_data;
@@ -199,6 +188,18 @@ angular.module('hog')
           vm.script._id = null;
           Runner.create(vm.script)
             .then(
+=======
+
+        vm.script.data = $scope.script_data;
+        vm.script.name = $scope.script_name.replace(/[\s,\.]/g, "_");
+        vm.script.args = $scope.script_args.split(" ");
+        vm.script.type = 'complex';
+        vm.script.graph_count = numOutput;
+        vm.script.graph_type = graph;
+
+        Runner.update(vm.script)
+          .then(
+>>>>>>> 1182559c3560242290b53f81f83dfdd83d7f9a47
               function(data)
               {
                 $log.debug('saved: ' + data);
@@ -588,12 +589,6 @@ angular.module('hog')
       };
       vm.openVersionDifferenceInfo = function(ev)
       {
-        /*var dmp = new $window.diff_match_patch();
-        var htm = dmp.diff_prettyHtml(vm.version.diff);
-        console.log('text: ', vm.script.data, 'diffs: ', vm.currentVersion.diff, 'html: ', htm);
-        var p = dmp.patch_make('', vm.version.diff);
-        var s = dmp.patch_apply(p, vm.version.diff[0][1]);
-        console.log('patch: ', p, 'source: ', s);*/
         $mdDialog.show({
           templateUrl: HogTemplates.versionDiffTemplate,
           controller: HogTemplates.VersionDiffController,
@@ -607,24 +602,17 @@ angular.module('hog')
               leftIdx: vm.leftIdx,
               rightIdx: vm.rightIdx,
               latest: vm.latestVersion
-              //leftDiff: vm.script.data,
-              //leftVer: vm.currentVersion.version,
-              //rightDiff: s[0],
-              //rightVer: vm.version.version,
             }
           },
         })
         .then(
           function(data)
           {
-            console.log('reverting: ', data, vm.versions.length);
             if(data.revertIdx >= 0 && data.revertIdx < vm.versions.length)
             {
-              //console.log('s is still around: ', s[0])
               $timeout(
                 function()
                 {
-                  console.log('setting reverted data', data.source, vm.versions[data.revertIdx]);
                   $scope.script_data = data.source;
                  vm.version = vm.currentVersion = vm.versions[data.revertIdx];
                 });
