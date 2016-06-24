@@ -1,6 +1,6 @@
 <section id="List">
   <div class='md-padding' layout="column" layout-align="center center">
-    <div layout="row" flex ng-repeat="pig in vm.scripts | orderBy: 'name'">
+    <div layout="row" flex ng-repeat="pig in vm.scripts">
       <div flex>
         <md-card ng-model="vm.scripts" flex>
           <v-accordion class="vAccordion--default" flex>
@@ -38,38 +38,25 @@
               <section layout="row">
                 <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'all')" ng-if="pig.info_outputs.length > 0">
                   Show All: #{{ pig.info_outputs.length }}
-                  <md-tooltip>
-                    Show All Logs
-                  </md-tooltip>
                 </md-button>
 
                 <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'output')" md-style-color="{'background-color': 'green.400'}" ng-if="pig.outputs.length > 0">
                   Show Results: #{{ pig.outputs.length }}
-                  <md-tooltip>
-                    Show Output
-                  </md-tooltip>
                 </md-button>
 
                 <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'log')" md-style-color="{'background-color': 'blue.400'}" ng-if="pig.logs.length > 0">
                   Show Info Logs: #{{ pig.logs.length }}
-                  <md-tooltip>
-                    Show Logs
-                  </md-tooltip>
                 </md-button>
 
                 <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'warning')" md-style-color="{'background-color': 'orange.400'}" ng-if="pig.warnings.length > 0">
                   Show Warnings: #{{ pig.warnings.length }}
-                  <md-tooltip>
-                    Show Warning Logs
-                  </md-tooltip>
                 </md-button>
 
                 <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'error')" md-style-color="{'background-color': 'red.400'}" ng-if="pig.errors.length > 0">
                   Show Errors: #{{ pig.errors.length }}
-                  <md-tooltip>
-                    Show Error Logs
-                  </md-tooltip>
                 </md-button>
+
+                <pig-table input-data="pig.pigList" script-name="pig.name" ng-if="pig.pigList.length > 0"></pig-table>
 
                 <md-divider ></md-divider>
               </section>

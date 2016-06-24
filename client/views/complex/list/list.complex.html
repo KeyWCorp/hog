@@ -18,7 +18,7 @@
     </md-autocomplete>
   </div>
   <div class='md-padding' layout="column" layout-align="center center">
-    <div layout="row" flex ng-repeat="pig in vm.scripts | orderBy: 'name'">
+    <div layout="row" flex ng-repeat="pig in vm.scripts">
       <div flex>
         <md-card ng-model="vm.scripts" flex>
           <v-accordion class="vAccordion--default" flex>
@@ -74,6 +74,8 @@
                   <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, $index, 'error')" md-style-color="{'background-color': 'red.400'}" ng-if="pig.errors.length > 0">
                     Show Errors: #{{ pig.errors.length }}
                   </md-button>
+
+                  <pig-table input-data="pig.pigList" script-name="pig.name" ng-if="pig.pigList.length > 0"></pig-table>
 
                   <md-divider ></md-divider>
                 </section>
