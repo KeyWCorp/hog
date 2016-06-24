@@ -138,7 +138,7 @@ class Pig extends Document {
     } catch (error) {
       console.log('caught: ', error);
     }
-    
+
     console.log('returning the promise')
       return Promise.all([this.saveScript()])
   }
@@ -235,7 +235,7 @@ class Pig extends Document {
       } catch (error) {
         console.log(error);
       }
-      
+
       console.log('version', vers, 'created');
       this.history.forEach(function(e) { e.current = false;});
       console.log('all currents set to false');

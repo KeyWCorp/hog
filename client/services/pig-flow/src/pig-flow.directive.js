@@ -32,6 +32,7 @@ PigFlowModule
         vm.types = angular.copy(nodeTypes);
         vm.type_list = Object.keys(vm.types);
         vm.output_script = "";
+        vm.initial_load = true;
 
 
         var zoom = d3.behavior.zoom()
