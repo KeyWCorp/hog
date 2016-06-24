@@ -21,8 +21,7 @@ PigFlowModule
 
     vm.loadData = function ()
     {
-      vm.types = Object.assign(
-          {}, old_scope.types);
+      vm.types = Object.assign({}, old_scope.types);
       vm.type = vm.node_info.type;
 
       vm.category = vm.node_info.category;
@@ -32,11 +31,22 @@ PigFlowModule
       angular.copy(vm.node_info.params, vm.tmp_param);
 
       vm.params = [];
-      angular.copy(vm.node_info.params, vm.params);
+
+      console.log(vm.node_info.type);
+
+      if (vm.type === vm.node_info.type)
+      {
+        angular.copy(vm.node_info.params, vm.params);
+      }
+
       vm.types[vm.category].map(function (t)
           {
             if (t.name === vm.type)
             {
+              if (vm.type !== vm.node_info.type)
+              {
+                angular.copy(t.params, vm.params);
+              }
               vm.script = t.script;
               vm.description = t.description;
             }
@@ -55,7 +65,16 @@ PigFlowModule
 
     vm.saveAndClose = function ()
     {
-      vm.save();
+      vm.node_info.name = vm.tmp_node.name;
+      vm.node_info.category = vm.category;
+      vm.node_info.type = vm.type;
+      vm.node_info.params = vm.params.splice(0);
+      vm.node_info.script = vm.script;
+
+      var added_width = Math.max(vm.node_info.inputs.length, vm.node_info.outputs.length) * 30;
+      vm.node_info.width = vm.node_info.default_width + added_width;
+
+      old_scope.start();
       $mdDialog.hide({reload: false, data: vm.node_info});
     };
 
@@ -107,36 +126,6 @@ PigFlowModule
 
     };
 
-    vm.save = function (type)
-    {
-      if (type && type !== vm.node_info.type)
-      {
-        vm.node_info.name = vm.tmp_node.name;
-        vm.node_info.category = vm.category;
-        vm.node_info.type = vm.type;
-        vm.node_info.params = vm.params.splice(0);
-        vm.node_info.script = vm.script;
-
-        var added_width = Math.max(vm.node_info.inputs.length, vm.node_info.outputs.length) * 30;
-        vm.node_info.width += added_width;
-
-        vm.start();
-        vm.close(true);
-      }
-      else if (!type)
-      {
-        vm.node_info.name = vm.tmp_node.name;
-        vm.node_info.category = vm.category;
-        vm.node_info.type = vm.type;
-        vm.node_info.params = vm.params.splice(0);
-        vm.node_info.script = vm.script;
-
-        var added_width = Math.max(vm.node_info.inputs.length, vm.node_info.outputs.length) * 30;
-        vm.node_info.width = vm.node_info.default_width + added_width;
-
-        vm.start();
-      }
-    };
 
     vm.close = function (r)
     {

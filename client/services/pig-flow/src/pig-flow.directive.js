@@ -855,27 +855,7 @@ PigFlowModule
 
 
           /*
-           * move node outputs
-           */
-          vm.node_outputs
-            .attr("r", 10)
-            .attr("class", "node_outputs")
-            .attr("cx", function (d, i)
-            {
-              var middle = (d.p.x + d.p.width * 0.5);
-              var offset = middle - ((d.length - 1) * 25) * 0.5;
-              d.x = offset + d.index * 25;
-              return d.x;
-            })
-            .attr("cy", function (d, i)
-            {
-              d.y = d.p.y + d.p.height;
-              return d.y;
-            });
-
-
-          /*
-           * move node output labels
+           * move node input labels
            */
           vm.node_input_label
             .attr("class", "node_input_label")
@@ -899,21 +879,22 @@ PigFlowModule
 
 
           /*
-           * move node name label
+           * move node outputs
            */
-          vm.node_name_label
-            .attr("x", function (d)
+          vm.node_outputs
+            .attr("r", 10)
+            .attr("class", "node_outputs")
+            .attr("cx", function (d, i)
             {
-              var tw = Math.round(this.getBBox().width);
-              var mw = d.width * 0.5;
-              return d.x + (mw - tw * 0.5);
+              var middle = (d.p.x + d.p.width * 0.5);
+              var offset = middle - ((d.length - 1) * 25) * 0.5;
+              d.x = offset + d.index * 25;
+              return d.x;
             })
-            .attr("y", function (d)
+            .attr("cy", function (d, i)
             {
-              var th = Math.round(this.getBBox().height);
-              var mh = 20;
-              return d.y + (mh + th * 0.5);
-
+              d.y = d.p.y + d.p.height;
+              return d.y;
             });
 
 
@@ -933,6 +914,25 @@ PigFlowModule
               var mh = (d.height - 40);
               return d.y + (mh + th * 0.5);
             })
+
+
+          /*
+           * move node name label
+           */
+          vm.node_name_label
+            .attr("x", function (d)
+            {
+              var tw = Math.round(this.getBBox().width);
+              var mw = d.width * 0.5;
+              return d.x + (mw - tw * 0.5);
+            })
+            .attr("y", function (d)
+            {
+              var th = Math.round(this.getBBox().height);
+              var mh = 20;
+              return d.y + (mh + th * 0.5);
+
+            });
 
         }
 
