@@ -175,11 +175,10 @@ angular.module('hog')
 
       vm.save = function(graph, numOutput, cb)
       {
-<<<<<<< HEAD
         if (vm.script.type == 'simple')
         {
           vm.script.data = $scope.script_data;
-          vm.script.name = $scope.script_name.replace(/[\s,\.]/g, "_");
+          vm.script.name = $scope.script_name.replace(/[\s,\.]/g, "_") + "_complex";
           vm.script.args = $scope.script_args.split(" ");
           vm.script.type = 'complex';
           console.log('in vm .save', graph, numOutput);
@@ -188,18 +187,6 @@ angular.module('hog')
           vm.script._id = null;
           Runner.create(vm.script)
             .then(
-=======
-
-        vm.script.data = $scope.script_data;
-        vm.script.name = $scope.script_name.replace(/[\s,\.]/g, "_");
-        vm.script.args = $scope.script_args.split(" ");
-        vm.script.type = 'complex';
-        vm.script.graph_count = numOutput;
-        vm.script.graph_type = graph;
-
-        Runner.update(vm.script)
-          .then(
->>>>>>> 1182559c3560242290b53f81f83dfdd83d7f9a47
               function(data)
               {
                 $log.debug('saved: ' + data);
