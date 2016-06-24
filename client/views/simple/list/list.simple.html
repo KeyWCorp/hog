@@ -15,7 +15,7 @@
     </md-autocomplete>
   </div>
   <div class='md-padding' layout="column" layout-align="center center">
-    <div layout="row" flex ng-repeat="pig in vm.scripts | orderBy: 'name' | filter:{name:vm.searchText}">
+    <div layout="row" flex ng-repeat="pig in vm.scripts | filter:{name:vm.searchText}">
   <md-button style="position:fixed;" class="md-fab md-primary md-fab-bottom-right"  ui-sref="home.simple.new" aria-label="new complex">
       <ng-md-icon icon="add"></ng-md-icon>
     </md-button>

@@ -20,7 +20,7 @@
     </md-button>
 
   <div class='md-padding' layout="column" layout-align="center center">
-    <div layout="row" flex ng-repeat="pig in vm.scripts | orderBy: 'name' | filter:{name:vm.searchText}">
+    <div layout="row" flex ng-repeat="pig in vm.scripts | filter:{name:vm.searchText}">
       <div flex>
         <md-card  flex>
           <v-accordion class="vAccordion--default" flex>
