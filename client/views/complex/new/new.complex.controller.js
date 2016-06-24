@@ -26,8 +26,6 @@ angular.module('hog')
       {
         vm.modeChanged = function () {
           console.log('changing mode to: ' + vm.mode.toLowerCase());
-          console.log('ace: ', _ace);
-          console.log('session: ', _ace.getSession());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
         }
         _ace.$blockScrolling = Infinity;
@@ -97,7 +95,6 @@ angular.module('hog')
 
       vm.run = function()
       {
-        console.log('vm.script.id ' + vm.script._id );
         if (angular.isDefined(vm.script._id))
         {
 

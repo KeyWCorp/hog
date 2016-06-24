@@ -1,5 +1,4 @@
 'use strict';
-console.log
 
 angular.module('hog')
 .controller('NewSimpleCtrl', function ($scope, $state, $log, Runner, $mdToast)
@@ -30,11 +29,6 @@ angular.module('hog')
             vm.script.type = "simple";
           });
 
-      vm.update = function (d)
-      {
-        console.log(JSON.stringify(d, null, 2));
-      };
-
       vm.save = function ()
       {
         vm.script.args = vm.args.split(" ");
@@ -44,9 +38,6 @@ angular.module('hog')
         }
 
         vm.script.name = vm.script.name.replace(/[\s,\.]/g, "_");
-
-        console.log("BEFORE: " + JSON.stringify(vm.script, null, 2));
-
 
         Runner.create(vm.script)
           .then(

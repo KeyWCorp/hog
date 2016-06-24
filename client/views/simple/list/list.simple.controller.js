@@ -26,8 +26,6 @@ angular.module('hog')
       {
         vm.modeChanged = function () {
           console.log('changing mode to: ' + vm.mode.toLowerCase());
-          console.log('ace: ', _ace);
-          console.log('session: ', _ace.getSession());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
         }
         _ace.$blockScrolling = Infinity;
@@ -258,7 +256,7 @@ angular.module('hog')
       angular.extend(vm, {
         name: 'ListSimpleCtrl',
       });
-      
+
       // * Create filter function for a query string
 
       vm.createFilterFor = function(query)
