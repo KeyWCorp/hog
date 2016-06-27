@@ -89,6 +89,24 @@ angular.module('hog')
       {
         vm.leftIdx = vm.versions.length-1;
         vm.rightIdx = lodash.findIndex(vm.versions, ['version', vm.version.version]);
+        //var leftVers = vm.versions[vm.leftIdx];
+        //var rightVers = vm.versions[vm.rightIdx];
+        var dmp = new $window.diff_match_patch();
+
+            var rightDiff = vm.versions[vm.rightIdx].diff;
+           // console.log('diff: ', rightDiff);
+            var rt = _.transform(rightDiff, function(result, e) {
+               if(e[0] == 0)
+               {
+                 result.push(e[1]);
+                 return true;
+               }
+              }, []);
+             // console.log('right transform: ', rt);
+            rt = rt.join('');
+            var rp = dmp.patch_make(rightDiff);
+            var rs = dmp.patch_apply(rp, rt);
+            $scope.script_data = rs[0];
       }
       vm.bumpVersion = function()
       {
