@@ -217,7 +217,7 @@ angular.module('hog')
                   );
                   if (cb)
                   {
-                    
+
                     cb();
                   }
                   $state.go('home.complex.edit', {id: vm.script._id});
@@ -646,7 +646,7 @@ angular.module('hog')
             filter_type: filter_type,
             graph_data: vm.pigList,
             openGraphInfo: vm.openGraphInfo,
-            script_index: null
+            script_id: null
           },
         });
       };

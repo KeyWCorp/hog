@@ -377,7 +377,7 @@ angular.module('hog')
             filter_type: filter_type,
             graph_data: vm.pigList,
             openGraphInfo: vm.openGraphInfo,
-            script_index: null
+            script_id: null
           },
         });
       };
