@@ -62,6 +62,7 @@ angular.module('hog')
             function(data)
             {
               vm.script = data.json;
+
               vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
               vm.versions = vm.script.history;
               vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
@@ -683,6 +684,8 @@ function SettingsController( $mdDialog, $scope, vm)
     Line: false,
     Radar: false
   };
+
+
 
   $scope.graph_type = $scope.vm.script.graph_type || "Bar";
   $scope.graph[$scope.graph_type] = true;
