@@ -62,6 +62,7 @@ angular.module('hog')
             function(data)
             {
               vm.script = data.json;
+
               vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
               vm.versions = vm.script.history;
               vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
@@ -668,6 +669,3 @@ angular.module('hog')
       };
 
     });
-
-
-

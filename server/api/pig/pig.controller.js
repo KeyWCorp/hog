@@ -174,10 +174,10 @@ exports.update = function (socket)
                   //console.log('updating before renaming');
                   //doc.update(newData);
                   console.log('renaming script to: ', newData.name);
-                  
+
                   var script_location = path.join(__dirname, '../../',  'scripts/pig/', newData.name +  '.pig');
                     console.log('script location 2: ', script_location)
-                  
+
                   console.log('starting rename');
                   doc.rename(script_location)
                     .then(
@@ -197,7 +197,7 @@ exports.update = function (socket)
                             function(err)
                             {
                               if (err) { return handleError(socket, err); }
-                            }); 
+                            });
                       },
                       function(err)
                       {
@@ -219,7 +219,7 @@ exports.update = function (socket)
                       {
                         if (err) { return handleError(socket, err); }
                       });
-                }               
+                }
               },
               function(err)
               {
@@ -395,7 +395,7 @@ exports.runAndTrack = function (socket) {
               });
         }
       });
-      
+
 };
 /**
  * Gets a list of the most recently changed scripts up to the limit passed in
@@ -438,13 +438,13 @@ exports.bumpVersion = function(socket)
             function(doc)
             {
               console.log(id, 'found attempting bump');
-              
+
               var ver = doc.bump();
-            
+
                     console.log('finished bumping version', ver);
                     //if (err) { return handleError(socket, err); }
                     socket.emit('bumped', buildResponse(200, ver));
-                  
+
             },
             function(err)
             {
