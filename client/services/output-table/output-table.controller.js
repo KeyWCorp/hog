@@ -49,8 +49,23 @@ OutputTableModule
 
                     if (isNaN(A) || isNaN(B))
                     {
-                      A = a[Number($scope.query.order) * sign].toUpperCase();
-                      B = b[Number($scope.query.order) * sign].toUpperCase();
+                      if (typeof a[Number($scope.query.order) * sign] !== "undefined")
+                      {
+                        A = a[Number($scope.query.order) * sign].toUpperCase();
+                      }
+                      else
+                      {
+                        A = "";
+                      }
+
+                      if (typeof b[Number($scope.query.order) * sign] !== "undefined")
+                      {
+                        B = b[Number($scope.query.order) * sign].toUpperCase();
+                      }
+                      else
+                      {
+                        B = "";
+                      }
 
                       var ip_re = /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/g;
                       if (A.match(ip_re))
