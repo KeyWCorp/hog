@@ -489,12 +489,65 @@ angular.module('hog.hog-templates', [])
         };
       };
 
+      // Controller for edit settings
+      // Controller for Settings Modal
+      function SettingsController( $mdDialog, $scope, vm)
+      {
+        $scope.vm = vm;
+        $scope.cancel = function()
+        {
+          $mdDialog.cancel();
+        };
+
+
+        $scope.graph = {
+          Bar: false,
+          Line: false,
+          Radar: false
+        };
+
+        $scope.graph_type = $scope.vm.script.graph_type || "Bar";
+        $scope.graph[$scope.graph_type] = true;
+
+        $scope.graph_output_count = $scope.vm.script.graph_count;
+
+        $scope.deleteScript = function()
+        {
+          $scope.vm.deleteScript();
+          $scope.cancel();
+        };
+
+        $scope.save = function()
+        {
+          if ($scope.graph.Bar)
+          {
+            $scope.graph_type = "Bar";
+          }
+          else if ($scope.graph.Line)
+          {
+            $scope.graph_type = "Line";
+          }
+          else if ($scope.graph.Radar)
+          {
+            $scope.graph_type = "Radar";
+          }
+          else
+          {
+            $scope.graph_type = "Bar";
+          }
+
+          $scope.vm.save($scope.graph_type, $scope.graph_output_count);
+          $scope.cancel();
+        }
+      };
+
       return {
         // Controllers
         GraphInfoController: GraphInfoController,
         InfoController: InfoController,
         VersionDiffController: VersionDiffController,
         DeleteDialogController: DeleteDialogController,
+        SettingsController: SettingsController,
 
         // Views
         outputInfoTemplate: "services/templates/html/outputInfoTemplate.html",
