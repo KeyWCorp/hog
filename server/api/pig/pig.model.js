@@ -29,7 +29,10 @@ class Pig extends Document {
   constructor()
   {
     super();
-    this.name         = String;
+    this.name         = {
+      type: String,
+      unique: true
+    };
     this.data         = String;
     this.args         = [];
     this.version      = {
@@ -39,8 +42,14 @@ class Pig extends Document {
     this.script_loc   = String;
     this.history      = [Version];
     this.type         = String;
-    this.graph_type   = String;
-    this.graph_count  = Number;
+    this.graph_type   = {
+      type: String,
+      default: "Bar"
+    },
+    this.graph_count  = {
+      type: String,
+      default: "10"
+    },
     this.nodes        = [];
     this.links        = [];
     this.lastModified = {
