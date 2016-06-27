@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hog')
-.controller('ListSimpleCtrl', function ($log, $scope, $state, HogTemplates, Runner, Pig, $mdDialog)
+.controller('ListSimpleCtrl', function ($log, $scope, $state, HogTemplates, Runner, Pig, $mdDialog, lodash)
     {
       var vm = this;
 
@@ -10,6 +10,7 @@ angular.module('hog')
       vm.current_running_id = "";
       vm.isRunning = {};
       vm.output = {};
+      vm.scripts = {};
 
       vm.modes = ['Pig_Latin'];
       vm.themes = ['monokai', 'twilight', 'none'];
@@ -52,10 +53,13 @@ angular.module('hog')
           .then(
               function (data)
               {
-                vm.scripts = data.json.filter(function (script)
-                    {
-                      return script.type === "simple";
-                    });
+                vm.scripts = {};
+                var tmp_scripts = data.json.filter(function (script)
+                {
+                  return script.type === "simple";
+                });
+
+                vm.scripts = lodash.keyBy(tmp_scripts, '_id');
               });
       };
       vm.getScripts();
@@ -90,11 +94,13 @@ angular.module('hog')
                 .then(
                     function(data)
                     {
-                      vm.scripts = [];
-                      vm.scripts = data.json.filter(function (script)
-                        {
-                          return script.type === "simple";
-                        });
+                      vm.scripts = {};
+                      var tmp_scripts = data.json.filter(function (script)
+                      {
+                        return script.type === "simple";
+                      });
+
+                      vm.scripts = lodash.keyBy(tmp_scripts, '_id');
                     });
             }
           },
@@ -112,19 +118,19 @@ angular.module('hog')
               });
       };
 
-      vm.run = function(id, idx)
+      vm.run = function(id)
       {
         vm.output[id] = [];
         vm.running = true;
         vm.isRunning[id] = true;
         vm.current_running_id = id;
 
-        vm.scripts[idx].info_outputs = [];
-        vm.scripts[idx].outputs = [];
-        vm.scripts[idx].pigList = [];
-        vm.scripts[idx].logs = [];
-        vm.scripts[idx].warnings = [];
-        vm.scripts[idx].errors = [];
+        vm.scripts[id].info_outputs = [];
+        vm.scripts[id].outputs = [];
+        vm.scripts[id].pigList = [];
+        vm.scripts[id].logs = [];
+        vm.scripts[id].warnings = [];
+        vm.scripts[id].errors = [];
 
         $log.debug('running: ', id);
         Runner.run(id)
@@ -141,44 +147,44 @@ angular.module('hog')
               {
                 if (update.type == 'progress')
                 {
-                  vm.scripts[idx].progress = update.data.json;
+                  vm.scripts[id].progress = update.data.json;
                 }
                 else if (update.type == 'log')
                 {
                   if (update.data.json !== "null")
                   {
-                    vm.scripts[idx].logs.push(update.data.json);
-                    vm.scripts[idx].info_outputs.push({data: update.data.json, type: "log", color: {'color': 'blue.400'}});
+                    vm.scripts[id].logs.push(update.data.json);
+                    vm.scripts[id].info_outputs.push({data: update.data.json, type: "log", color: {'color': 'blue.400'}});
                   }
                 }
                 else if (update.type == 'warning')
                 {
                   if (update.data.json !== "null")
                   {
-                    vm.scripts[idx].warnings.push(update.data.json);
-                    vm.scripts[idx].info_outputs.push({data: update.data.json, type: "warning", color: {'color': 'orange.400'}});
+                    vm.scripts[id].warnings.push(update.data.json);
+                    vm.scripts[id].info_outputs.push({data: update.data.json, type: "warning", color: {'color': 'orange.400'}});
                   }
                 }
                 else if (update.type == 'output')
                 {
                   if (update.data.json !== "null")
                   {
-                    vm.scripts[idx].outputs.push(update.data.json);
-                    vm.parseOutput(idx, update.data.json);
+                    vm.scripts[id].outputs.push(update.data.json);
+                    vm.parseOutput(id, update.data.json);
 
 
-                    vm.scripts[idx].info_outputs.push({data: update.data.json, type: "output", color: {'color': 'green.400'}});
+                    vm.scripts[id].info_outputs.push({data: update.data.json, type: "output", color: {'color': 'green.400'}});
                   }
                 }
                 else if (update.type == 'error')
                 {
-                  vm.scripts[idx].errors.push(update.data.json);
-                  vm.scripts[idx].info_outputs.push({data: update.data.json, type: "error", color: {'color': 'red.400'}});
+                  vm.scripts[id].errors.push(update.data.json);
+                  vm.scripts[id].info_outputs.push({data: update.data.json, type: "error", color: {'color': 'red.400'}});
                 }
               });
       };
 
-      vm.parseOutput = function (idx, data)
+      vm.parseOutput = function (id, data)
       {
         var failed = false;
         try
@@ -198,7 +204,7 @@ angular.module('hog')
         {
           if (!failed)
           {
-            vm.scripts[idx].pigList.push(output_data);
+            vm.scripts[id].pigList.push(output_data);
           }
         }
 
@@ -214,7 +220,7 @@ angular.module('hog')
         return JSON.stringify(d);
       };
 
-      vm.openGraphInfo = function(ev, idx)
+      vm.openGraphInfo = function(ev, id)
       {
         $mdDialog.show({
           templateUrl: HogTemplates.graphInfoTemplate,
@@ -224,13 +230,13 @@ angular.module('hog')
           targetEvent: ev,
           bindToController: true,
           locals: {
-            graph_data: vm.scripts[idx].pigList,
-            script: vm.scripts[idx]
+            graph_data: vm.scripts[id].pigList,
+            script: vm.scripts[id]
           },
         });
       };
 
-      vm.openInfo = function(ev, idx, filter_type)
+      vm.openInfo = function(ev, id, filter_type)
       {
         $mdDialog.show({
           templateUrl: HogTemplates.outputInfoTemplate,
@@ -239,16 +245,16 @@ angular.module('hog')
           parent: angular.element(document.body),
           targetEvent: ev,
           locals: {
-            script_name: vm.scripts[idx].name,
-            info_outputs: vm.scripts[idx].info_outputs,
-            outputs: vm.scripts[idx].outputs,
-            logs: vm.scripts[idx].logs,
-            warnings: vm.scripts[idx].warnings,
-            errors: vm.scripts[idx].errors,
+            script_name: vm.scripts[id].name,
+            info_outputs: vm.scripts[id].info_outputs,
+            outputs: vm.scripts[id].outputs,
+            logs: vm.scripts[id].logs,
+            warnings: vm.scripts[id].warnings,
+            errors: vm.scripts[id].errors,
             filter_type: filter_type,
-            graph_data: vm.scripts[idx].pigList,
+            graph_data: vm.scripts[id].pigList,
             openGraphInfo: vm.openGraphInfo,
-            script_index: idx
+            script_id: id
           },
         });
       };
@@ -261,15 +267,15 @@ angular.module('hog')
 
       vm.createFilterFor = function(query)
       {
-        var lowercaseQuery = angular.lowercase(query);
+        var lowercaseQuery = lodash.toLower(query);
         return function filterFn(script)
         {
-          return (angular.lowercase(script.name).indexOf(lowercaseQuery) === 0);
+          return (lodash.toLower(script.name).indexOf(lowercaseQuery) !== -1);
         };
       }
       vm.querySearch = function(query)
       {
-        var results = query ? vm.scripts.filter( vm.createFilterFor(query) ) : vm.scripts;
+        var results = query ? lodash.filter( vm.scripts, vm.createFilterFor(query) ) : vm.scripts;
         return results;
       }
     });

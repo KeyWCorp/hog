@@ -288,7 +288,7 @@ angular.module('hog.hog-templates', [])
           filter_type,
           graph_data,
           openGraphInfo,
-          script_index)
+          script_id)
       {
         $scope.script_name = script_name;
         $scope.info_outputs = info_outputs;
@@ -300,7 +300,7 @@ angular.module('hog.hog-templates', [])
 
         $scope.graph_data = graph_data;
         $scope.openGraphInfo = openGraphInfo;
-        $scope.script_index = script_index;
+        $scope.script_id = script_id;
 
         $scope.filteredInfo = function ()
         {
