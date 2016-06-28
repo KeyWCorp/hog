@@ -138,20 +138,11 @@ class Pig extends Document {
   }
   preSave(d)
   {
-    //this.bump();
-    console.log('in presave', d);
-    var that = this;
-    try {
-      console.log('creating a new time for modification')
-      console.log('time: ', this.lastModified, typeof this.lastModified);
-    //that.lastModified = null; //new Date();
-      console.log('time again: ', this.lastModified, typeof this.lastModified);
-    } catch (error) {
-      console.log('caught: ', error);
-    }
-
-    console.log('returning the promise')
       return Promise.all([this.saveScript()])
+  }
+  updateModified()
+  {
+    this.lastModified = new Date();
   }
   rename(newPath)
   {
@@ -267,7 +258,8 @@ class Pig extends Document {
     this.graph_count  = data.graph_count;
     this.nodes        = data.nodes;
     this.links        = data.links;
-    this.lastModified = new Date();
+    this.updateModified();
+    //this.lastModified = new Date();
   }
 }
 

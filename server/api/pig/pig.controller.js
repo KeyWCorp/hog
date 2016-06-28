@@ -171,6 +171,7 @@ exports.create = function (socket) {
           console.log('pig: ', pig, ' data: ' , data);
           pig.diff({data: ''}, true);
           console.log(pig);
+          pig.updateModified();
           pig.save()
             .then(
               function(obj)
