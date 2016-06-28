@@ -64,7 +64,7 @@ angular.module('hog')
               vm.script = data.json;
 
               vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
-              vm.versions = vm.script.history;
+              vm.versions = lodash.filter(vm.script.history, 'version');
               vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
               if(typeof vm.script.args[0] != 'string')
               {
@@ -84,6 +84,7 @@ angular.module('hog')
               $scope.script_data = vm.script_data;
               $scope.script_name = vm.script.name;
               $scope.script_args = vm.args;
+
             });
       vm.getVersion = function(idx)
       {
