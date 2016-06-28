@@ -196,103 +196,84 @@ angular.module('hog')
       {
         if (vm.script.type == 'simple')
         {
-          vm.script.data = $scope.script_data;
-          vm.script.name = $scope.script_name.replace(/[\s,\.]/g, "_") + "_complex";
-          vm.script.args = $scope.script_args.split(" ");
-          vm.script.type = 'complex';
-          console.log('in vm .save', graph, numOutput);
-          vm.script.graph_count = numOutput || vm.script.graph_count;
-          vm.script.graph_type = graph || vm.script.graph_type;
           vm.script._id = null;
+          vm.script.type = 'complex';
+          vm.script.data = $scope.script_data;
+          vm.script.args = $scope.script_args.split(" ");
+          vm.script.graph_type = graph || vm.script.graph_type;
+          vm.script.graph_count = numOutput || vm.script.graph_count;
+          vm.script.name = $scope.script_name.replace(/[\s,\.]/g, "_") + "_complex";
+
           Runner.create(vm.script)
+            .then(
+              function(data)
+              {
+                vm.script = data.json;
+
+                $mdToast.show(
+                  $mdToast.simple()
+                  .content('Script Saved!')
+                  .hideDelay(3000)
+                );
+
+                if (cb)
+                {
+                  cb();
+                }
+
+                $state.go('home.complex.edit', {id: vm.script._id});
+              },
+              function(err)
+              {
+                $log.error('error: ' +err);
+              });
+        }
+        else
+        {
+          vm.script.type = 'complex';
+          vm.script.data = $scope.script_data;
+          vm.script.args = $scope.script_args.split(" ");
+          vm.script.graph_type = graph || vm.script.graph_type;
+          vm.script.graph_count = numOutput || vm.script.graph_count;
+          vm.script.name = $scope.script_name.replace(/[\s,\.]/g, "_");
+
+          Runner.update(vm.script)
             .then(
               function(data)
               {
                 $log.debug('saved: ' + data);
 
-                  vm.script = data.json;
-                  vm.args = vm.script.args.join(" ");
+                vm.script = data.json;
+                vm.args = vm.script.args.join(" ");
 
-                  $scope.script_data = vm.script.data;
-                  $scope.script_name = vm.script.name;
-                  $scope.script_args = vm.args;
+                $scope.script_args = vm.args;
+                $scope.script_data = vm.script.data;
+                $scope.script_name = vm.script.name;
 
-                  vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
-                  vm.versions = vm.script.history;
-                  vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
+                vm.versions = vm.script.history;
+                vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
+                vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
 
-                  vm.edited = false;
+                vm.edited = false;
+                vm.name_edited = false;
+                vm.args_edited = false;
+                vm.script_edited = false;
 
-                  vm.name_edited = false;
-                  vm.args_edited = false;
-                  vm.script_edited = false;
+                $mdToast.show(
+                  $mdToast.simple()
+                  .content('Script Saved!')
+                  .hideDelay(3000)
+                );
 
-
-                  $mdToast.show(
-                    $mdToast.simple()
-                    .content('Script Saved!')
-                    .hideDelay(3000)
-                  );
-                  if (cb)
-                  {
-
-                    cb();
-                  }
-                  $state.go('home.complex.edit', {id: vm.script._id});
-                },
-                function(err)
+                if (cb)
                 {
-                  $log.error('error: ' +err);
-                });
-        }
-        else
-        {
-          vm.script.data = $scope.script_data;
-          vm.script.name = $scope.script_name.replace(/[\s,\.]/g, "_");
-          vm.script.args = $scope.script_args.split(" ");
-          vm.script.type = 'complex';
-          console.log('in vm .save', graph, numOutput);
-          vm.script.graph_count = numOutput || vm.script.graph_count;
-          vm.script.graph_type = graph || vm.script.graph_type;
-
-          Runner.update(vm.script)
-            .then(
-                function(data)
-                {
-                  $log.debug('saved: ' + data);
-
-                  vm.script = data.json;
-                  vm.args = vm.script.args.join(" ");
-
-                  $scope.script_data = vm.script.data;
-                  $scope.script_name = vm.script.name;
-                  $scope.script_args = vm.args;
-
-                  vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
-                  vm.versions = vm.script.history;
-                  vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
-
-                  vm.edited = false;
-
-                  vm.name_edited = false;
-                  vm.args_edited = false;
-                  vm.script_edited = false;
-
-
-                  $mdToast.show(
-                    $mdToast.simple()
-                    .content('Script Saved!')
-                    .hideDelay(3000)
-                  );
-                  if (cb)
-                  {
-                    cb();
-                  }
-                },
-                function(err)
-                {
-                  $log.error('error: ' +err);
-                });
+                  cb();
+                }
+              },
+              function(err)
+              {
+                $log.error('error: ' +err);
+              });
         }
       };
 

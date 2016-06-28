@@ -49,17 +49,12 @@ angular.module('hog')
 
       vm.getScripts = function ()
       {
-        Runner.list()
+        Runner.simpleList()
           .then(
               function (data)
               {
                 vm.scripts = {};
-                var tmp_scripts = data.json.filter(function (script)
-                {
-                  return script.type === "simple";
-                });
-
-                vm.scripts = lodash.keyBy(tmp_scripts, '_id');
+                vm.scripts = data.json;
               });
       };
       vm.getScripts();
@@ -90,17 +85,12 @@ angular.module('hog')
             script_id: id,
             cb: function (data)
             {
-              Runner.list()
+              Runner.simpleList()
                 .then(
                     function(data)
                     {
                       vm.scripts = {};
-                      var tmp_scripts = data.json.filter(function (script)
-                      {
-                        return script.type === "simple";
-                      });
-
-                      vm.scripts = lodash.keyBy(tmp_scripts, '_id');
+                      vm.scripts = data.json;
                     });
             }
           },

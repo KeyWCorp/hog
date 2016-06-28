@@ -77,7 +77,7 @@ angular.module('hog')
                     function(data)
                     {
                       vm.scripts = {};
-                      vm.scripts = lodash.keyBy(data.json, '_id');
+                      vm.scripts = data.json;
                     });
             }
           },
@@ -205,8 +205,8 @@ angular.module('hog')
           function(data)
           {
             // Might Need to Parse it
-            //vm.scripts = data.json;
-            vm.scripts = lodash.keyBy(data.json, '_id');
+            vm.scripts = {};
+            vm.scripts = data.json;
           });
 
     vm.openGraphInfo = function(ev, id)

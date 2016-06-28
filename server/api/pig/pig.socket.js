@@ -18,6 +18,7 @@ exports.register = function (io) {
             );
         Pig.init(socket);
         Pig.index(socket);
+        Pig.simpleIndex(socket);
         Pig.show(socket);
         Pig.create(socket);
         Pig.update(socket);

@@ -1,6 +1,7 @@
 'use strict';
 
 var fs      = require('fs');
+var _       = require('lodash');
 var path    = require('path');
 var Pigs    = require('./pig.model');
 var logger  = require('../../config/logger.js');
@@ -65,7 +66,51 @@ exports.index = function (socket) {
                 {
                   //
                   console.log('index sent')
-                  socket.emit('index', buildResponse(200, pigs));
+
+                  console.log(pigs);
+
+                  /*
+                   * convert array to object
+                   */
+                  var pigs_obj = _.keyBy(pigs, '_id');
+
+                  socket.emit('index', buildResponse(200, pigs_obj));
+                },
+                function(err)
+                {
+                  if (err) { return handleError(socket, err); }
+                });
+          }
+        });
+};
+/**
+ * Get list of simple Pig
+ *
+ * @param req
+ * @param res
+ */
+exports.simpleIndex = function (socket) {
+  logger.debug('in index function')
+    socket.on('simpleIndex',
+        function()
+        {
+          if (_ready)
+          {
+            console.log('Index requested');
+            logger.debug('Index requested');
+            Pig.find({type: 'simple'})
+              .then(
+                function (pigs)
+                {
+                  //
+                  console.log('index sent')
+
+                  /*
+                   * convert array to object
+                   */
+                  var pigs_obj = _.keyBy(pigs, '_id');
+
+                  socket.emit('simpleIndex', buildResponse(200, pigs_obj));
                 },
                 function(err)
                 {

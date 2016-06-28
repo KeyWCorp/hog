@@ -21,6 +21,7 @@ angular.module('hog')
         // send: sendData,
         // create: createProc,
         list: list,
+        simpleList: simpleList,
         create: create,
         get: get,
         getData: getData,
@@ -72,7 +73,7 @@ angular.module('hog')
           {
             console.log('data');
             deferred.resolve(data);
-           
+
           });
           Pig.on('error',
             function(err)
@@ -109,6 +110,28 @@ angular.module('hog')
         Pig.emit('index');
         $log.debug('requested index data');
         Pig.on('index',
+            function(data)
+            {
+              $log.debug('returned index with data: ', data);
+
+              deferred.notify({type: 'list', data: data});
+              deferred.resolve(data);
+            });
+        Pig.on('error',
+            function(err)
+            {
+              $log.debug('error in index data: ', err);
+              deferred.reject(err);
+            });
+        return deferred.promise;
+      }
+      function simpleList()
+      {
+        //console.log('LSDJFLSDJFLSDKfj');
+        var deferred = $q.defer();
+        Pig.emit('simpleIndex');
+        $log.debug('requested simple index data');
+        Pig.on('simpleIndex',
             function(data)
             {
               $log.debug('returned index with data: ', data);
