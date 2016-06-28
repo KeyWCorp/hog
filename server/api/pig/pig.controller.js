@@ -222,7 +222,9 @@ exports.update = function (socket)
                   console.log('renaming script to: ', newData.name);
 
                   var script_location = path.join(__dirname, '../../',  'scripts/pig/', newData.name +  '.pig');
-                    console.log('script location 2: ', script_location)
+                  console.log('script location 2: ', script_location);
+
+                  newData.script_loc = script_location;
 
                   console.log('starting rename');
                   doc.rename(script_location)
