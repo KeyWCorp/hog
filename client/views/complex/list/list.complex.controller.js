@@ -263,5 +263,6 @@ angular.module('hog')
       var results = query ? lodash.filter( vm.scripts, vm.createFilterFor(query) ) : vm.scripts;
       return results;
     }
+
   });
 

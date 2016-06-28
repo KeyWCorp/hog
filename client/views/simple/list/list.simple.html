@@ -7,7 +7,7 @@
                     md-search-text="vm.searchText"
                     md-items="item in vm.querySearch(vm.searchText)"
                     md-item-text="item.name"
-                    md-min-length="0"
+                    md-min-length="1"
                     placeholder="Filter">
       <md-item-template>
         <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.name}}</span>
