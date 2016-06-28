@@ -197,6 +197,8 @@ angular.module('hog')
         if (vm.script.type == 'simple')
         {
           vm.script._id = null;
+          vm.script.nodes = [];
+          vm.script.links = [];
           vm.script.type = 'complex';
           vm.script.data = $scope.script_data;
           vm.script.args = $scope.script_args.split(" ");
