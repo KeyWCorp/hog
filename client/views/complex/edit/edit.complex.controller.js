@@ -288,13 +288,6 @@ angular.module('hog')
       };
 
 
-
-      vm.saveAndRunAndTrack = function()
-      {
-        vm.save(null, null, vm.runAndTrack);
-      };
-
-
       vm.kill = function()
       {
         Runner.kill(vm.script._id)
@@ -370,83 +363,6 @@ angular.module('hog')
                 }
               });
       };
-
-
-
-      vm.runAndTrack = function()
-      {
-        vm.taskList = [];
-        vm.outputs = [];
-        // start progress bar
-        vm.pigList = [];
-        vm.running = true;
-        vm.graph_data = false;
-        vm.errors = [];
-
-        $log.debug('running: ', vm.script._id);
-        vm.info_outputs = [];
-        vm.logs = [];
-        vm.warnings = [];
-        Runner.runAndTrack(vm.script._id)
-          .then(
-              function(end)
-              {
-                console.log("END");
-              },
-              function(error)
-              {
-                console.log("ERROR: " + JSON.stringify(error));
-              },
-              function(update)
-              {
-                if (update.type == 'progress')
-                {
-                  vm.progress = update.data.json;
-                }
-                else if (update.type == 'log')
-                {
-                  if (update.data.json !== "null")
-                  {
-                    vm.logs.push(update.data.json);
-                    vm.info_outputs.push({data: update.data.json, type: "log", color: {'color': 'blue.400'}});
-                  }
-                }
-                else if (update.type == 'warning')
-                {
-                  if (update.data.json !== "null")
-                  {
-                    vm.warnings.push(update.data.json);
-                    vm.info_outputs.push({data: update.data.json, type: "warning", color: {'color': 'orange.400'}});
-                  }
-                }
-                else if (update.type == 'output')
-                {
-                  if (update.data.json !== "null")
-                  {
-                    var tmp_output = "(";
-                    for (var i = 0; i < Object.keys(update.data.json).length; i++) {
-                      var key = Object.keys(update.data.json)[i];
-                      tmp_output += update.data.json[key];
-                      if (i + 1 < Object.keys(update.data.json).length) {
-                        tmp_output += ", ";
-                      }
-                    }
-                    tmp_output += ")\n";
-
-                    vm.outputs.push(tmp_output);
-                    vm.info_outputs.push({data: tmp_output, type: "output", color: {'color': 'green.400'}});
-                    vm.parseOutput(tmp_output);
-                    vm.graph_data = true;
-                  }
-                }
-                else if (update.type == 'error')
-                {
-                  vm.errors.push(update.data.json);
-                  vm.info_outputs.push({data: update.data.json, type: "error", color: {'color': 'red.400'}});
-                }
-              });
-      };
-
 
 
 
