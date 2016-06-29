@@ -46,10 +46,6 @@
               </v-pane-header>
               <v-pane-content flex>
                 <div style="min-width: 900px;" readonly ui-ace="vm.editorOptions" ng-model="pig.data" flex></div>
-
-                <md-button class="md-raised md-warn" ng-click="vm.deleteScript($event, pig._id)">
-                  Delete
-                </md-button>
               </v-pane-content>
             </v-pane>
           </v-accordion>
@@ -97,6 +93,11 @@
 
                 <md-button class="md-primary md-raised" ng-click="vm.edit(pig._id)">
                   Edit
+                </md-button>
+
+                <md-button class="md-raised md-warn" ng-click="vm.deleteScript($event, pig._id)">
+                  Delete
+                  <md-icon md-font-set='material-icons'>delete</md-icon>
                 </md-button>
               </div>
             </div>
