@@ -82,7 +82,7 @@
             <md-input-container flex layout-align="end" style="float:right;">
               <label>Version</label>
               <md-select ng-model="vm.version" md-on-close="vm.getVersion(vm.version)">
-                <md-option ng-value="version" ng-repeat="version in vm.versions track by $index">{{version.version}}</md-option>
+                <md-option ng-value="version" ng-repeat="version in vm.versions">{{version.version}}</md-option>
               </md-select>
             </md-input-container>
             <md-input-container flex layout-align="end" style="float:right;">

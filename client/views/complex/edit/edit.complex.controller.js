@@ -115,7 +115,10 @@ angular.module('hog')
           .then(
             function(data)
             {
-              vm.script.version = vm.latestVersion = vm.currentVersion = vm.version = data.json;
+              $timeout(function()
+              {
+                vm.script.version = vm.latestVersion = vm.currentVersion = vm.version['version'] = data.json;
+              });
             },
             function(err)
             {
@@ -254,9 +257,11 @@ angular.module('hog')
                 $scope.script_name = vm.script.name;
 
                 vm.versions = vm.script.history;
-                vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
-                vm.latestVersion = vm.currentVersion = vm.version = vm.script.version;
 
+                vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
+                console.log('vm1: ', vm);
+                vm.latestVersion = vm.script.version;
+                console.log('vm: ', vm);
                 vm.edited = false;
                 vm.name_edited = false;
                 vm.args_edited = false;
