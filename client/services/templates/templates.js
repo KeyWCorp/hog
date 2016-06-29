@@ -511,12 +511,6 @@ angular.module('hog.hog-templates', [])
 
         $scope.graph_output_count = $scope.vm.script.graph_count;
 
-        $scope.deleteScript = function()
-        {
-          $scope.vm.deleteScript();
-          $scope.cancel();
-        };
-
         $scope.save = function()
         {
           if ($scope.graph.Bar)

@@ -180,14 +180,22 @@ angular.module('hog')
 
 
 
-      vm.deleteScript = function()
+      vm.deleteScript = function(ev)
       {
-        Runner.destroy(vm.script._id)
-          .then(
-              function(data)
-              {
-                $state.go('^.list');
-              });
+        $mdDialog.show({
+          controller: HogTemplates.DeleteDialogController,
+          templateUrl: HogTemplates.deleteDialogTemplate,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            script_id: vm.script._id,
+            cb: function (data)
+            {
+              $state.go('^.list');
+            }
+          },
+        });
       };
 
 
