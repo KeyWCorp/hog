@@ -183,14 +183,22 @@ angular.module('hog')
 
 
 
-      vm.deleteScript = function()
+      vm.deleteScript = function(ev)
       {
-        Runner.destroy(vm.script._id)
-          .then(
-              function(data)
-              {
-                $state.go('^.list');
-              });
+        $mdDialog.show({
+          controller: HogTemplates.DeleteDialogController,
+          templateUrl: HogTemplates.deleteDialogTemplate,
+          clickOutsideToClose: true,
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            script_id: vm.script._id,
+            cb: function (data)
+            {
+              $state.go('^.list');
+            }
+          },
+        });
       };
 
 
@@ -256,7 +264,7 @@ angular.module('hog')
                 $scope.script_data = vm.script.data;
                 $scope.script_name = vm.script.name;
 
-                vm.versions = vm.script.history;
+                vm.versions = lodash.filter(vm.script.history, 'version');
 
                 vm.version = vm.currentVersion = vm.versions[vm.versions.length-1];
                 console.log('vm1: ', vm);
@@ -290,13 +298,6 @@ angular.module('hog')
       vm.saveAndRun = function()
       {
         vm.save(null, null, vm.run);
-      };
-
-
-
-      vm.saveAndRunAndTrack = function()
-      {
-        vm.save(null, null, vm.runAndTrack);
       };
 
 
@@ -365,7 +366,7 @@ angular.module('hog')
                     vm.outputs.push(update.data.json);
                     vm.info_outputs.push({data: update.data.json, type: "output", color: {'color': 'green.400'}});
 
-                    vm.parseOutput(update.data.json);
+                    HogTemplates.parseOutput(update.data.json, vm.pigList);
                   }
                 }
                 else if (update.type == 'error')
@@ -375,83 +376,6 @@ angular.module('hog')
                 }
               });
       };
-
-
-
-      vm.runAndTrack = function()
-      {
-        vm.taskList = [];
-        vm.outputs = [];
-        // start progress bar
-        vm.pigList = [];
-        vm.running = true;
-        vm.graph_data = false;
-        vm.errors = [];
-
-        $log.debug('running: ', vm.script._id);
-        vm.info_outputs = [];
-        vm.logs = [];
-        vm.warnings = [];
-        Runner.runAndTrack(vm.script._id)
-          .then(
-              function(end)
-              {
-                console.log("END");
-              },
-              function(error)
-              {
-                console.log("ERROR: " + JSON.stringify(error));
-              },
-              function(update)
-              {
-                if (update.type == 'progress')
-                {
-                  vm.progress = update.data.json;
-                }
-                else if (update.type == 'log')
-                {
-                  if (update.data.json !== "null")
-                  {
-                    vm.logs.push(update.data.json);
-                    vm.info_outputs.push({data: update.data.json, type: "log", color: {'color': 'blue.400'}});
-                  }
-                }
-                else if (update.type == 'warning')
-                {
-                  if (update.data.json !== "null")
-                  {
-                    vm.warnings.push(update.data.json);
-                    vm.info_outputs.push({data: update.data.json, type: "warning", color: {'color': 'orange.400'}});
-                  }
-                }
-                else if (update.type == 'output')
-                {
-                  if (update.data.json !== "null")
-                  {
-                    var tmp_output = "(";
-                    for (var i = 0; i < Object.keys(update.data.json).length; i++) {
-                      var key = Object.keys(update.data.json)[i];
-                      tmp_output += update.data.json[key];
-                      if (i + 1 < Object.keys(update.data.json).length) {
-                        tmp_output += ", ";
-                      }
-                    }
-                    tmp_output += ")\n";
-
-                    vm.outputs.push(tmp_output);
-                    vm.info_outputs.push({data: tmp_output, type: "output", color: {'color': 'green.400'}});
-                    vm.parseOutput(tmp_output);
-                    vm.graph_data = true;
-                  }
-                }
-                else if (update.type == 'error')
-                {
-                  vm.errors.push(update.data.json);
-                  vm.info_outputs.push({data: update.data.json, type: "error", color: {'color': 'red.400'}});
-                }
-              });
-      };
-
 
 
 
@@ -487,34 +411,6 @@ angular.module('hog')
       {
         var indx = _.findIndex(list, 'arg', item);
         return indx;
-      };
-
-
-
-      vm.parseOutput = function (data)
-      {
-        var failed = false;
-        try
-        {
-          var tmp_data = data
-            .replace(/\(/g, "[")
-            .replace(/\)/g, "]")
-            .replace(/(?:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(\w+\.*\w*))/g, '"$1$2"');
-
-          var output_data = JSON.parse(tmp_data);
-        }
-        catch (err)
-        {
-          failed = true;
-        }
-        finally
-        {
-          if (!failed)
-          {
-            vm.pigList.push(output_data);
-          }
-        }
-
       };
 
 
