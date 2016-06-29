@@ -353,7 +353,7 @@ angular.module('hog')
                     vm.outputs.push(update.data.json);
                     vm.info_outputs.push({data: update.data.json, type: "output", color: {'color': 'green.400'}});
 
-                    vm.parseOutput(update.data.json);
+                    HogTemplates.parseOutput(update.data.json, vm.pigList);
                   }
                 }
                 else if (update.type == 'error')
@@ -398,34 +398,6 @@ angular.module('hog')
       {
         var indx = _.findIndex(list, 'arg', item);
         return indx;
-      };
-
-
-
-      vm.parseOutput = function (data)
-      {
-        var failed = false;
-        try
-        {
-          var tmp_data = data
-            .replace(/\(/g, "[")
-            .replace(/\)/g, "]")
-            .replace(/(?:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(\w+\.*\w*))/g, '"$1$2"');
-
-          var output_data = JSON.parse(tmp_data);
-        }
-        catch (err)
-        {
-          failed = true;
-        }
-        finally
-        {
-          if (!failed)
-          {
-            vm.pigList.push(output_data);
-          }
-        }
-
       };
 
 

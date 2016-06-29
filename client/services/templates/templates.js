@@ -541,6 +541,32 @@ angular.module('hog.hog-templates', [])
         }
       };
 
+      function parseOutput (data, myList)
+      {
+        var failed = false;
+        try
+        {
+          var tmp_data = data
+            .replace(/\(/g, "[")
+            .replace(/\)/g, "]")
+            .replace(/(?:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|([\w\.]+))/g, '"$1$2"');
+
+          var output_data = JSON.parse(tmp_data);
+        }
+        catch (err)
+        {
+          failed = true;
+        }
+        finally
+        {
+          if (!failed)
+          {
+            myList.push(output_data);
+          }
+        }
+      };
+
+
       return {
         // Controllers
         GraphInfoController: GraphInfoController,
@@ -548,6 +574,9 @@ angular.module('hog.hog-templates', [])
         VersionDiffController: VersionDiffController,
         DeleteDialogController: DeleteDialogController,
         SettingsController: SettingsController,
+
+        // functions
+        parseOutput: parseOutput,
 
         // Views
         outputInfoTemplate: "services/templates/html/outputInfoTemplate.html",

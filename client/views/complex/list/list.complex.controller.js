@@ -144,7 +144,7 @@ angular.module('hog')
                   if (update.data.json !== "null")
                   {
                     vm.scripts[id].outputs.push(update.data.json);
-                    vm.parseOutput(id, update.data.json);
+                    HogTemplates.parseOutput(update.data.json, vm.scripts[id].pigList);
 
                     vm.scripts[id].info_outputs.push({data: update.data.json, type: "output", color: {'color': 'green.400'}});
                   }
@@ -156,31 +156,6 @@ angular.module('hog')
                 }
               });
       },
-      parseOutput: function (id, data)
-      {
-        var failed = false;
-        try
-        {
-          var tmp_data = data
-            .replace(/\(/g, "[")
-            .replace(/\)/g, "]")
-            .replace(/(?:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(\w+\.*))/g, '"$1$2"');
-
-          var output_data = JSON.parse(tmp_data);
-        }
-        catch (err)
-        {
-          failed = true;
-        }
-        finally
-        {
-          if (!failed)
-          {
-            vm.scripts[id].pigList.push(output_data);
-          }
-        }
-
-      }
 
     });
     // Percent Data figures out the percentage to place
