@@ -36,6 +36,8 @@ angular.module('hog')
             vm.script.type = "simple";
           });
 
+
+
       vm.save = function ()
       {
         vm.script.args = vm.args.split(" ");
@@ -60,10 +62,14 @@ angular.module('hog')
               });
       };
 
+
+
       vm.ots = function (d)
       {
         return JSON.stringify(d);
       };
+
+
 
       angular.extend(vm, {
         name: 'NewSimpleCtrl'

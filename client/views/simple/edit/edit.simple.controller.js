@@ -40,10 +40,15 @@ angular.module('hog')
         }
         _ace.$blockScrolling = Infinity;
       };
+
+
+
       vm.onEditorChange = function(_ace)
       {
 
       };
+
+
 
       vm.editorOptions = {
         mode: vm.mode.toLowerCase(),
@@ -65,11 +70,11 @@ angular.module('hog')
       };
 
 
+
       Runner.get($stateParams.id)
         .then(
             function(data)
             {
-              //angular.copy(data.json, vm.script);
               angular.copy(data.json, vm.data);
               vm.script = data.json;
 
@@ -86,6 +91,8 @@ angular.module('hog')
 
               vm.data_ready = true;
             });
+
+
 
       $scope.$watch('vm.output_data.nodes', function(newValue, oldValue)
           {
@@ -105,6 +112,8 @@ angular.module('hog')
 
             updateEdit();
           }, true);
+
+
 
       $scope.$watch('vm.output_data.script', function(newValue, oldValue)
           {
@@ -126,6 +135,7 @@ angular.module('hog')
           });
 
 
+
       $scope.$watch("script_name", function(newValue, oldValue)
       {
         if (vm.script)
@@ -145,6 +155,8 @@ angular.module('hog')
         }
       });
 
+
+
       $scope.$watch("script_args", function(newValue, oldValue)
       {
         if (vm.args !== "undefined")
@@ -162,15 +174,19 @@ angular.module('hog')
       });
 
 
+
       function updateEdit ()
       {
         vm.edited = vm.script_edited || vm.name_edited || vm.args_edited;
       };
 
+
+
       vm.editComplex = function ()
       {
         $state.go('home.complex.edit', {id: vm.script._id});
       };
+
 
 
       vm.deleteScript = function(ev)
@@ -190,6 +206,8 @@ angular.module('hog')
           },
         });
       };
+
+
 
       vm.save = function (cb)
       {
@@ -227,10 +245,14 @@ angular.module('hog')
               });
       };
 
+
+
       Pig.on('run:finished', function ()
           {
             vm.running = false;
           });
+
+
 
       vm.saveAndRun = function ()
       {
@@ -239,6 +261,8 @@ angular.module('hog')
               vm.run();
             });
       };
+
+
 
       vm.kill = function()
       {
@@ -249,6 +273,8 @@ angular.module('hog')
                 console.log("Killed: " + JSON.stringify(data, null, 2));
               });
       };
+
+
 
       vm.run = function()
       {
@@ -319,10 +345,14 @@ angular.module('hog')
         return JSON.stringify(d);
       };
 
+
+
       angular.extend(this, {
         name: 'EditSimpleCtrl',
         running: false
       });
+
+
 
       vm.openGraphInfo = function(ev, graph_data, script)
       {
@@ -339,6 +369,8 @@ angular.module('hog')
           },
         });
       };
+
+
 
       vm.openInfo = function(ev, filter_type)
       {

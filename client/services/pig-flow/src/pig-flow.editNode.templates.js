@@ -5,10 +5,6 @@
  */
 
 
-
-/**
- */
-
 'use strict';
 
 if (PigFlowModule === undefined)
@@ -25,6 +21,7 @@ PigFlowModule
   {
     var vm = $scope;
     vm.node_info = data;
+
 
     vm.loadData = function ()
     {
@@ -68,7 +65,11 @@ PigFlowModule
         script: vm.script
       };
     }
+
+
+
     vm.loadData();
+
 
     vm.saveAndClose = function ()
     {
@@ -84,6 +85,8 @@ PigFlowModule
       old_scope.start();
       $mdDialog.hide({reload: false, data: vm.node_info});
     };
+
+
 
     vm.addInput = function(param)
     {
@@ -134,10 +137,12 @@ PigFlowModule
     };
 
 
+
     vm.close = function (r)
     {
       $mdDialog.hide({reload: true, data: r} || {reload: false, data: vm.node_info});
     };
+
 
 
     vm.cancel = function ()

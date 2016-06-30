@@ -31,7 +31,8 @@ module.exports = [
   '!client/services/pig-flow/pages/**/*.js',
   '!client/services/pig-flow/w.js',
 
-  // hog-tracker
+  // dont include hog-tracker
+  '!client/services/hog-tracker/src/hog-tracker.directive.js',
   '!client/services/hog-tracker/server.js',
   '!client/services/hog-tracker/app.js',
   '!client/services/hog-tracker/Gruntfile.js',

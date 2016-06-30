@@ -6,9 +6,6 @@
 
 
 
-/**
-*/
-
 'use strict';
 
 if (OutputTableModule === undefined)
@@ -31,13 +28,16 @@ OutputTableModule
           page: 1
         };
 
+
         $scope.inputData.map(function(data)
             {
               var tmp_data = lodash.extend({}, data);
               $scope.totalData.push(tmp_data);
             });
 
+
         $scope.headers = Object.keys($scope.totalData[0]);
+
 
         $scope.updateData = function(data, limit)
         {
@@ -112,13 +112,19 @@ OutputTableModule
 
           $scope.tableData = $scope.totalData.slice(start, end);
         };
+
+
+
         $scope.updateData($scope.query.order);
+
 
         $scope.close = function ()
         {
           $mdDialog.cancel();
         };
       };
+
+
 
       var ipAddressPre = function (a)
       {

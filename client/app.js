@@ -25,7 +25,6 @@ angular.module('hog', [
     'ngLodash',
     'chart.js',
     'md.data.table',
-    'hog.hog-tracker',
     'pig.filters',
     'pig.pig-flow',
     'pig.uploader',

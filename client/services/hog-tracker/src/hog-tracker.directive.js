@@ -5,9 +5,6 @@
  */
 
 
-/**
- */
-
 'use strict';
 
 angular.module("hog.hog-tracker", [])
@@ -53,7 +50,6 @@ angular.module("hog.hog-tracker", [])
 
         $scope.color_status = {
           "RUNNING": "rgba(76,175,80,1)",
-          //"RUNNING": "rgba(0,0,0,1)",
           "FINISHED": "rgba(200,200,200,1)",
           "FAILED": "rgba(211,47,47,1)",
           "pending": "rgba(255,255,255,1)"
@@ -140,10 +136,13 @@ angular.module("hog.hog-tracker", [])
           $scope.finished_init = true;
         }
 
+
+
         $scope.$watch("taskString", function ()
         {
           $scope.taskList = JSON.parse($scope.taskString);
         });
+
 
 
         $scope.$watch("trackerId", function ()
@@ -153,6 +152,8 @@ angular.module("hog.hog-tracker", [])
             init_tree();
           }
         });
+
+
 
         $scope.$watch("taskList", function (newD, oldD)
         {
@@ -211,6 +212,7 @@ angular.module("hog.hog-tracker", [])
         };
 
 
+
         $scope.update = function (source)
           {
 
@@ -245,7 +247,6 @@ angular.module("hog.hog-tracker", [])
               {
                 return "translate(" + source.y0 + "," + source.x0 + ")";
               });
-              //.on("click", click);
 
             nodeEnter.append("circle")
               .attr("r", 12)
@@ -253,7 +254,6 @@ angular.module("hog.hog-tracker", [])
               {
                 return d.status ? $scope.color_status[d.status] : "#fff";
               });
-            //.attr("class", function(d) { return d.status ? "md-primary" : "test"; });
 
             nodeEnter.append("text")
               .attr("x", function (d)
@@ -285,7 +285,6 @@ angular.module("hog.hog-tracker", [])
               {
                 return d.status ? $scope.color_status[d.status] : "#fff";
               });
-            //.attr("class", function(d) { return d.status ? "md-primary" : "test"; });
 
             nodeUpdate.select("text")
               .attr("x", function (d)

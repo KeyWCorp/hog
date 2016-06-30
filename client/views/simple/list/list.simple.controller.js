@@ -30,6 +30,9 @@ angular.module('hog')
       vm.filter_noCache = false;
       vm.searchText = "";
       vm.selectedItem = null;
+
+
+
       vm.onEditorLoad = function(_ace)
       {
         vm.modeChanged = function () {
@@ -38,10 +41,15 @@ angular.module('hog')
         }
         _ace.$blockScrolling = Infinity;
       };
+
+
+
       vm.onEditorChange = function(_ace)
       {
 
       };
+
+
 
       vm.editorOptions = {
         mode: vm.mode.toLowerCase(),
@@ -54,6 +62,8 @@ angular.module('hog')
         readOnly: true
       };
 
+
+
       vm.getScripts = function ()
       {
         Runner.simpleList()
@@ -64,7 +74,12 @@ angular.module('hog')
                 vm.scripts = data.json;
               });
       };
+
+
+
       vm.getScripts();
+
+
 
       Pig.on('run:finished', function ()
           {
@@ -78,6 +93,7 @@ angular.module('hog')
                   }
                 });
           });
+
 
 
       vm.deleteScript = function(ev, id)
@@ -105,6 +121,7 @@ angular.module('hog')
       };
 
 
+
       vm.kill = function(id)
       {
         Runner.kill(id)
@@ -114,6 +131,8 @@ angular.module('hog')
                 console.log("Killed: " + JSON.stringify(data, null, 2));
               });
       };
+
+
 
       vm.run = function(id)
       {
@@ -181,15 +200,21 @@ angular.module('hog')
               });
       };
 
+
+
       vm.edit = function(id)
       {
         $state.go('^.edit', {id: id});
       };
 
+
+
       vm.ots = function (d)
       {
         return JSON.stringify(d);
       };
+
+
 
       vm.openGraphInfo = function(ev, id)
       {
@@ -206,6 +231,8 @@ angular.module('hog')
           },
         });
       };
+
+
 
       vm.openInfo = function(ev, id, filter_type)
       {
@@ -230,11 +257,13 @@ angular.module('hog')
         });
       };
 
+
+
       angular.extend(vm, {
         name: 'ListSimpleCtrl',
       });
 
-      // * Create filter function for a query string
+
 
       vm.createFilterFor = function(query)
       {
@@ -244,6 +273,9 @@ angular.module('hog')
           return (lodash.toLower(script.name).indexOf(lowercaseQuery) !== -1);
         };
       }
+
+
+
       vm.querySearch = function(query)
       {
         var results = query ? lodash.filter( vm.scripts, vm.createFilterFor(query) ) : vm.scripts;

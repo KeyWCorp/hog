@@ -87,7 +87,6 @@ angular.module('hog')
               function(data)
               {
                 vm.script = data.json;
-                // Place pop up for saved
                 $mdToast.show(
                     $mdToast.simple()
                     .content('Script Saved!')
@@ -144,7 +143,6 @@ angular.module('hog')
 
       vm.exists = function(item, list)
       {
-        //$log.debug('Item, list', item, list);
         return list.indexOf(item) > -1;
       };
 

@@ -5,9 +5,6 @@
  */
 
 
-/**
- */
-
 'use strict';
 
 if (PigFlowModule === undefined)
@@ -180,6 +177,7 @@ PigFlowModule
           }
 
         };
+
 
 
         /*

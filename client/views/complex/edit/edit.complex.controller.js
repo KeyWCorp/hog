@@ -13,7 +13,6 @@ angular.module('hog')
   function ($scope, $window, $timeout, $log, $state, $stateParams, HogTemplates, Runner, lodash, Settings, $mdToast,  NgTableParams, $interval, Pig, $mdDialog, PigCompleter, FileSaver, Blob)
     {
       var vm = this;
-      //vm.script =  Runner.getData();
 
       var ctx;
       var myNewChart;
@@ -97,12 +96,9 @@ angular.module('hog')
       {
         vm.leftIdx = vm.versions.length-1;
         vm.rightIdx = lodash.findIndex(vm.versions, ['version', vm.version.version]);
-        //var leftVers = vm.versions[vm.leftIdx];
-        //var rightVers = vm.versions[vm.rightIdx];
         var dmp = new $window.diff_match_patch();
 
             var rightDiff = vm.versions[vm.rightIdx].diff;
-           // console.log('diff: ', rightDiff);
             var rt = _.transform(rightDiff, function(result, e) {
                if(e[0] == 0)
                {
@@ -110,7 +106,6 @@ angular.module('hog')
                  return true;
                }
               }, []);
-             // console.log('right transform: ', rt);
             rt = rt.join('');
             var rp = dmp.patch_make(rightDiff);
             var rs = dmp.patch_apply(rp, rt);
@@ -147,7 +142,11 @@ angular.module('hog')
 
       vm.onEditorLoad = function(_ace)
       {
+        /*
+         * set vim keybindings
+         */
         //_ace.setKeyboardHandler("ace/keyboard/vim");
+
         vm.modeChanged = function () {
           console.log('changing mode to: ' + vm.mode.toLowerCase());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
@@ -321,7 +320,6 @@ angular.module('hog')
       vm.run = function()
       {
         vm.taskList = [];
-        // start progress bar
         vm.pigList = [];
         vm.running = true;
         vm.graph_data = false;

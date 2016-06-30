@@ -5,9 +5,6 @@
  */
 
 
-/**
- */
-
 'use strict';
 
 if (PigFlowModule === undefined)
@@ -46,6 +43,7 @@ PigFlowModule
           .scaleExtent([.5, 10])
           .on("zoom", zoomed);
 
+
         d3.selection.prototype.moveToFront = function ()
         {
           return this.each(function ()
@@ -53,6 +51,7 @@ PigFlowModule
             this.parentNode.appendChild(this);
           });
         };
+
 
         function moveToBack(d)
         {
@@ -66,8 +65,10 @@ PigFlowModule
           });
         };
 
+
         vm.width = element[0].clientWidth;
         vm.height = window.innerHeight - window.innerHeight * 0.15;
+
 
         vm.$watch(element[0], function ()
         {
@@ -164,6 +165,7 @@ PigFlowModule
             .links(vm.links)
 
         });
+
 
         vm.start = function ()
         {
@@ -687,6 +689,7 @@ PigFlowModule
         };
 
 
+
         vm.$watch("inputDataString", function ()
         {
           vm.tmp_data = JSON.parse(vm.inputDataString);
@@ -714,6 +717,7 @@ PigFlowModule
         });
 
 
+
         function tick()
         {
 
@@ -723,22 +727,18 @@ PigFlowModule
           vm.link
             .attr("x1", function (d)
             {
-              //return d.source.x + d.source.width * 0.5;
               return d.source.x + d.x1;
             })
             .attr("y1", function (d)
             {
-              //return d.source.y + d.source.height;
               return d.source.y + d.y1;
             })
             .attr("x2", function (d)
             {
-              //return d.target.x + d.target.width * 0.5;
               return d.target.x + d.x2;
             })
             .attr("y2", function (d)
             {
-              //return d.target.y;
               return d.target.y + d.y2;
             });
 
@@ -943,6 +943,8 @@ PigFlowModule
 
         }
 
+
+
         function zoomed()
         {
           vm.translate = d3.event.translate;
@@ -950,6 +952,8 @@ PigFlowModule
 
           vm.container.attr("transform", "translate(" + vm.translate + ")scale(" + vm.scale + ")");
         };
+
+
 
         function startConnection(d, t, n)
         {
@@ -975,6 +979,8 @@ PigFlowModule
             vm.start();
           }
         };
+
+
 
         function endConnection(d, t, n)
         {
@@ -1058,17 +1064,23 @@ PigFlowModule
           }
         };
 
+
+
         function dragstart(d)
         {
           d3.event.sourceEvent.stopPropagation();
           d3.select(this).classed("dragging", true);
         }
 
+
+
         function dragended(d)
         {
           d3.select(this).classed("dragging", false);
           start_update();
         }
+
+
 
         function removeNode(d)
         {
@@ -1077,6 +1089,8 @@ PigFlowModule
           vm.nodes.splice(d.index, 1);
           vm.start();
         };
+
+
 
         function editNode(l, info, index)
         {
@@ -1117,6 +1131,8 @@ PigFlowModule
           reloadDialog();
         };
 
+
+
         function removeLinks(d)
         {
 
@@ -1130,6 +1146,8 @@ PigFlowModule
             vm.links.splice(vm.links.indexOf(l), 1);
           });
         };
+
+
 
         function removeLink(d)
         {
@@ -1173,6 +1191,7 @@ PigFlowModule
             vm.links.splice(vm.links.indexOf(l), 1);
           });
         };
+
 
 
         function updateNodeIndexs (deleted_index)
@@ -1238,6 +1257,7 @@ PigFlowModule
         };
 
 
+
         function start_update()
         {
           vm.outputData = {
@@ -1250,6 +1270,8 @@ PigFlowModule
             $scope.$apply();
           });
         };
+
+
 
         vm.updateScript = function()
         {
@@ -1264,6 +1286,7 @@ PigFlowModule
             start_update();
           });
         };
+
 
 
         vm.addNode = function (c, t)
@@ -1336,6 +1359,8 @@ PigFlowModule
 
           editNode(newNode, null, newNode.index);
         };
+
+
 
         vm.toggleNodeList = function ()
         {

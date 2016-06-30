@@ -165,10 +165,13 @@ angular.module('hog')
       },
 
     });
-    // Percent Data figures out the percentage to place
-    // keep percent lower than 100%
+
+
+
     function percent_data (current)
     {
+      // Percent Data figures out the percentage to place
+      // keep percent lower than 100%
       var currentPer = current;
       var top = 95;
       if (currentPer < top)
@@ -180,16 +183,19 @@ angular.module('hog')
         currentPer = currentPer;
       }
       return currentPer;
-    }
-    //Do not delete
+    };
+
+
+
     Runner.list()
       .then(
           function(data)
           {
-            // Might Need to Parse it
             vm.scripts = {};
             vm.scripts = data.json;
           });
+
+
 
     vm.openGraphInfo = function(ev, id)
     {
@@ -206,6 +212,8 @@ angular.module('hog')
         },
       });
     };
+
+
 
     vm.openInfo = function(ev, id, filter_type)
     {
@@ -230,7 +238,7 @@ angular.module('hog')
       });
     };
 
-    // * Create filter function for a query string
+
 
     vm.createFilterFor = function(query)
     {
@@ -240,6 +248,9 @@ angular.module('hog')
         return (lodash.toLower(script.name).indexOf(lowercaseQuery) !== -1);
       };
     }
+
+
+
     vm.querySearch = function(query)
     {
       var results = query ? lodash.filter( vm.scripts, vm.createFilterFor(query) ) : vm.scripts;
