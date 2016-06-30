@@ -1,3 +1,10 @@
+/*
+ * @license MIT
+ * @file
+ * @copyright KeyW Corporation 2016
+ */
+
+
 /**
  * Files injected into index.html by gulp-inject
  * used by tasks inject & watch

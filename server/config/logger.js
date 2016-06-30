@@ -1,3 +1,10 @@
+/*
+ * @license MIT
+ * @file
+ * @copyright KeyW Corporation 2016
+ */
+
+
 var winston = require('winston');
 winston.emitErrs = true;
 

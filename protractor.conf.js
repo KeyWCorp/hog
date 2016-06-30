@@ -1,3 +1,10 @@
+/*
+ * @license MIT
+ * @file
+ * @copyright KeyW Corporation 2016
+ */
+
+
 exports.config = { // jshint ignore:line
 
   // The version is susceptible to change

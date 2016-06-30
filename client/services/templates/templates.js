@@ -1,3 +1,10 @@
+/*
+ * @license MIT
+ * @file
+ * @copyright KeyW Corporation 2016
+ */
+
+
 angular.module('hog.hog-templates', [])
 .factory('HogTemplates', function()
     {

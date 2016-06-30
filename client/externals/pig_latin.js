@@ -1,3 +1,10 @@
+/*
+ * @license MIT
+ * @file
+ * @copyright KeyW Corporation 2016
+ */
+
+
 ace.define("ace/snippets/pig_latin",["require","exports","module"], function(require, exports, module) {
 "use strict";
 

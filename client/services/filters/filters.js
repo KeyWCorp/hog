@@ -1,3 +1,10 @@
+/*
+ * @license MIT
+ * @file
+ * @copyright KeyW Corporation 2016
+ */
+
+
 angular.module('pig.filters', [])
 .filter('replaceWithSpaces', function() {
   return function(data) {

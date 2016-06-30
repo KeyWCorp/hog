@@ -1,3 +1,10 @@
+/*
+ * @license MIT
+ * @file
+ * @copyright KeyW Corporation 2016
+ */
+
+
 'use strict';
 
 var bowerFilesToExclude = require('./tasks/config/bowerFilesToExclude.js');
