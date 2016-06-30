@@ -33,7 +33,7 @@ gulp.task('comment', function(done)
 {
     function comment(p, cb)
     {
-        exec('smartcomments -g -t ' + p, function (err, stdout, stderr) {
+        exec('smartcomments -g -c smartcomments.json -t ' + p, function (err, stdout, stderr) {
             console.log(stdout);
             console.log(stderr);
             cb(err);
