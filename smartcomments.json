@@ -1,0 +1,17 @@
+
+{
+   "target_dir": [""],	
+   "match_files": ["^((?!~).)*.(js)$"],
+   "backup" : false,
+   "private" : false,
+   "favor_generated" : false,
+   "tags": {
+        "function":{
+          "name":{},
+          "desc":{"value":"Description"},
+          "params":{}
+          
+        }
+	},
+	"template" : "../templates/default.js"
+}
