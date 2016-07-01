@@ -8,6 +8,11 @@
 var connect = require('camo').connect;
 var path    = require('path');
 
+/**
+ * Description
+ * @method init
+ * @param {} cb
+ */
 exports.init = function(cb)
 {
   var uri = 'nedb://' + path.join(__dirname, '../db');

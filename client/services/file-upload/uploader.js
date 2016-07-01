@@ -15,12 +15,24 @@ angular.module("pig.uploader", [])
     return {
       restrict: 'A',
       scope: false,
+      /**
+       * Description
+       * @method link
+       * @param {} $scope
+       * @param {} element
+       * @param {} attrs
+       */
       link: function($scope, element, attrs) {
         var fn = $parse(attrs.onReadFile);
 
         element.on('change', function(onChangeEvent) {
           var reader = new FileReader();
 
+          /**
+           * Description
+           * @method onload
+           * @param {} onLoadEvent
+           */
           reader.onload = function(onLoadEvent) {
             $scope.$apply(function() {
               fn($scope, {$fileContent:onLoadEvent.target.result});

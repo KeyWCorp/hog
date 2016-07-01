@@ -39,6 +39,11 @@ angular.module('hog')
             vm.running = false;
           });
 
+      /**
+       * Description
+       * @method ots
+       * @param {} o
+       */
       vm.ots = function (o)
       {
         return JSON.stringify(o);
@@ -51,6 +56,11 @@ angular.module('hog')
 
 
       // Inject data from PIG script output to chart
+      /**
+       * Description
+       * @method getData
+       * @param {} newData
+       */
       vm.getData = function(newData)
       {
         var t = JSON.parse(newData);
@@ -92,6 +102,11 @@ angular.module('hog')
               $scope.script_args = vm.args;
 
             });
+      /**
+       * Description
+       * @method getVersion
+       * @param {} idx
+       */
       vm.getVersion = function(idx)
       {
         vm.leftIdx = vm.versions.length-1;
@@ -111,6 +126,10 @@ angular.module('hog')
             var rs = dmp.patch_apply(rp, rt);
             $scope.script_data = rs[0];
       }
+      /**
+       * Description
+       * @method bumpVersion
+       */
       vm.bumpVersion = function()
       {
         Runner.bumpVersion(vm.script._id)
@@ -140,6 +159,11 @@ angular.module('hog')
       vm.warnings = [];
       vm.errors = [];
 
+      /**
+       * Description
+       * @method onEditorLoad
+       * @param {} _ace
+       */
       vm.onEditorLoad = function(_ace)
       {
         /*
@@ -147,6 +171,10 @@ angular.module('hog')
          */
         //_ace.setKeyboardHandler("ace/keyboard/vim");
 
+        /**
+         * Description
+         * @method modeChanged
+         */
         vm.modeChanged = function () {
           console.log('changing mode to: ' + vm.mode.toLowerCase());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
@@ -155,6 +183,11 @@ angular.module('hog')
         var langTools = ace.require("ace/ext/language_tools");
         langTools.addCompleter(PigCompleter);
       };
+      /**
+       * Description
+       * @method onEditorChange
+       * @param {} _ace
+       */
       vm.onEditorChange = function(_ace)
       {
 
@@ -170,6 +203,11 @@ angular.module('hog')
           enableLiveAutocompletion: true
         },
         mode: vm.mode.toLowerCase(),
+        /**
+         * Description
+         * @method onLoad
+         * @param {} _ace
+         */
         onLoad: function(_ace) {vm.onEditorLoad(_ace);},
         useWrapMode: false,
         showGutter: true,
@@ -180,6 +218,10 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method downloadScript
+       */
       vm.downloadScript = function()
       {
         var data = new Blob([vm.script.data], {type: 'text/plain;charset=utf-8'});
@@ -189,6 +231,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method deleteScript
+       * @param {} ev
+       */
       vm.deleteScript = function(ev)
       {
         $mdDialog.show({
@@ -199,6 +246,11 @@ angular.module('hog')
           targetEvent: ev,
           locals: {
             script_id: vm.script._id,
+            /**
+             * Description
+             * @method cb
+             * @param {} data
+             */
             cb: function (data)
             {
               $state.go('^.list');
@@ -210,6 +262,13 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method save
+       * @param {} graph
+       * @param {} numOutput
+       * @param {} cb
+       */
       vm.save = function(graph, numOutput, cb)
       {
         if (vm.script.type == 'simple')
@@ -301,12 +360,20 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method saveAndRun
+       */
       vm.saveAndRun = function()
       {
         vm.save(null, null, vm.run);
       };
 
 
+      /**
+       * Description
+       * @method kill
+       */
       vm.kill = function()
       {
         Runner.kill(vm.script._id)
@@ -317,6 +384,10 @@ angular.module('hog')
               });
       };
 
+      /**
+       * Description
+       * @method run
+       */
       vm.run = function()
       {
         vm.taskList = [];
@@ -384,6 +455,12 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method exists
+       * @param {} item
+       * @param {} list
+       */
       vm.exists = function(item, list)
       {
         if(angular.isDefined(list) && angular.isDefined(item))
@@ -399,6 +476,12 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method toggle
+       * @param {} item
+       * @param {} list
+       */
       vm.toggle = function(item, list)
       {
         if(angular.isDefined(list) && angular.isDefined(item))
@@ -412,6 +495,12 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method index
+       * @param {} list
+       * @param {} item
+       */
       vm.index = function(list, item)
       {
         var indx = _.findIndex(list, 'arg', item);
@@ -481,10 +570,19 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method updateEdit
+       */
       function updateEdit ()
       {
         vm.edited = vm.name_edited || vm.args_edited || vm.script_edited;
       };
+      /**
+       * Description
+       * @method openVersionDifferenceInfo
+       * @param {} ev
+       */
       vm.openVersionDifferenceInfo = function(ev)
       {
         $mdDialog.show({
@@ -518,6 +616,13 @@ angular.module('hog')
           });
       };
 
+      /**
+       * Description
+       * @method openGraphInfo
+       * @param {} ev
+       * @param {} graph_data
+       * @param {} script
+       */
       vm.openGraphInfo = function(ev, graph_data, script)
       {
         $mdDialog.show({
@@ -536,6 +641,12 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method openInfo
+       * @param {} ev
+       * @param {} filter_type
+       */
       vm.openInfo = function(ev, filter_type)
       {
         $mdDialog.show({
@@ -561,6 +672,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method openSettings
+       * @param {} ev
+       */
       vm.openSettings = function(ev)
       {
 

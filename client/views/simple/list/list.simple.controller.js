@@ -33,8 +33,17 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method onEditorLoad
+       * @param {} _ace
+       */
       vm.onEditorLoad = function(_ace)
       {
+        /**
+         * Description
+         * @method modeChanged
+         */
         vm.modeChanged = function () {
           console.log('changing mode to: ' + vm.mode.toLowerCase());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
@@ -44,6 +53,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method onEditorChange
+       * @param {} _ace
+       */
       vm.onEditorChange = function(_ace)
       {
 
@@ -53,6 +67,11 @@ angular.module('hog')
 
       vm.editorOptions = {
         mode: vm.mode.toLowerCase(),
+        /**
+         * Description
+         * @method onLoad
+         * @param {} _ace
+         */
         onLoad: function(_ace) {vm.onEditorLoad(_ace);},
         useWrapMode: false,
         showGutter: false,
@@ -64,6 +83,10 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method getScripts
+       */
       vm.getScripts = function ()
       {
         Runner.simpleList()
@@ -96,6 +119,12 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method deleteScript
+       * @param {} ev
+       * @param {} id
+       */
       vm.deleteScript = function(ev, id)
       {
         $mdDialog.show({
@@ -106,6 +135,11 @@ angular.module('hog')
           targetEvent: ev,
           locals: {
             script_id: id,
+            /**
+             * Description
+             * @method cb
+             * @param {} data
+             */
             cb: function (data)
             {
               Runner.simpleList()
@@ -122,6 +156,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method kill
+       * @param {} id
+       */
       vm.kill = function(id)
       {
         Runner.kill(id)
@@ -134,6 +173,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method run
+       * @param {} id
+       */
       vm.run = function(id)
       {
         vm.output[id] = [];
@@ -202,6 +246,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method edit
+       * @param {} id
+       */
       vm.edit = function(id)
       {
         $state.go('^.edit', {id: id});
@@ -209,6 +258,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method ots
+       * @param {} d
+       */
       vm.ots = function (d)
       {
         return JSON.stringify(d);
@@ -216,6 +270,12 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method openGraphInfo
+       * @param {} ev
+       * @param {} id
+       */
       vm.openGraphInfo = function(ev, id)
       {
         $mdDialog.show({
@@ -234,6 +294,13 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method openInfo
+       * @param {} ev
+       * @param {} id
+       * @param {} filter_type
+       */
       vm.openInfo = function(ev, id, filter_type)
       {
         $mdDialog.show({
@@ -265,6 +332,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method createFilterFor
+       * @param {} query
+       */
       vm.createFilterFor = function(query)
       {
         var lowercaseQuery = lodash.toLower(query);
@@ -276,6 +348,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method querySearch
+       * @param {} query
+       */
       vm.querySearch = function(query)
       {
         var results = query ? lodash.filter( vm.scripts, vm.createFilterFor(query) ) : vm.scripts;

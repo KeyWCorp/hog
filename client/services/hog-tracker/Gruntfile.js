@@ -17,6 +17,11 @@
 
 'use strict';
 
+/**
+ * Description
+ * @method exports
+ * @param {} grunt
+ */
 module.exports = function(grunt) {
 
 	/**
@@ -31,10 +36,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-karma');
 
 	/**
-	Function that wraps everything to allow dynamically setting/changing grunt options and config later by grunt task. This init function is called once immediately (for using the default grunt options, config, and setup) and then may be called again AFTER updating grunt (command line) options.
-	@toc 3.
-	@method init
-	*/
+	 * Function that wraps everything to allow dynamically setting/changing grunt options and config later by grunt task. This init function is called once immediately (for using the default grunt options, config, and setup) and then may be called again AFTER updating grunt (command line) options.
+	 * @toc 3.
+	 * @method init
+	 * @param {} params
+	 */
 	function init(params) {
 		/**
 		Project configuration.

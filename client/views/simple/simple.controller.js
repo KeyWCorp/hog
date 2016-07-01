@@ -12,11 +12,21 @@ angular.module('hog')
 
     var vm = this;
 
+    /**
+     * Description
+     * @method update
+     * @param {} d
+     */
     vm.update = function (d)
     {
       console.log(d);
     };
 
+    /**
+     * Description
+     * @method ots
+     * @param {} d
+     */
     vm.ots = function (d)
     {
       return JSON.stringify(d);

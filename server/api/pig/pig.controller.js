@@ -14,10 +14,21 @@ var Pigs    = require('./pig.model');
 var logger  = require('../../config/logger.js');
 var _ready  = false;
 var Pig     = Pigs.Pig;
-/* Set up response functions */
+/**
+ * Set up response functions
+ * @method handleError
+ * @param {} socket
+ * @param {} err
+ */
 function handleError (socket, err) {
   return socket.emit('pig:error', {status: 500, json: err});
 }
+/**
+ * Description
+ * @method buildResponse
+ * @param {} statusCode
+ * @param {} data
+ */
 function buildResponse (statusCode, data)
 {
   return {status: statusCode, json: data};
@@ -30,18 +41,37 @@ function buildResponse (statusCode, data)
    logger.error('Failed to load Pig collection with error [%s]', err);
    });*/
 
-/* Set up messages */
+/**
+ * Set up messages
+ * @method init
+ * @param {} socket
+ */
 exports.init = function (socket)
 {
   logger.info('initializing pig controller')
+  /**
+   * Description
+   * @method created
+   * @param {} obj
+   */
   Pig.created = function(obj)
   {
     socket.emit('Pig:created', obj);
   }
+  /**
+   * Description
+   * @method updated
+   * @param {} obj
+   */
   Pig.updated = function(obj)
   {
     socket.emit('Pig:updated', obj);
   }
+  /**
+   * Description
+   * @method removed
+   * @param {} obj
+   */
   Pig.removed = function(obj)
   {
     socket.emit('Pig:removed', obj);
@@ -54,9 +84,8 @@ exports.init = function (socket)
 }
 /**
  * Get list of Pig
- *
- * @param req
- * @param res
+ * @method index
+ * @param {} socket
  */
 exports.index = function (socket) {
   logger.debug('in index function')
@@ -92,9 +121,8 @@ exports.index = function (socket) {
 };
 /**
  * Get list of simple Pig
- *
- * @param req
- * @param res
+ * @method simpleIndex
+ * @param {} socket
  */
 exports.simpleIndex = function (socket) {
   logger.debug('in index function')
@@ -130,9 +158,8 @@ exports.simpleIndex = function (socket) {
 
 /**
  * Get a single Pig
- *
- * @param req
- * @param res
+ * @method show
+ * @param {} socket
  */
 exports.show = function (socket) {
   socket.on('show',
@@ -161,9 +188,8 @@ exports.show = function (socket) {
 
 /**
  * Creates a new Pig in the DB.
- *
- * @param req
- * @param res
+ * @method create
+ * @param {} socket
  */
 exports.create = function (socket) {
   socket.on('create',
@@ -198,9 +224,8 @@ exports.create = function (socket) {
 
 /**
  * Updates an existing Pig in the DB.
- *
- * @param req
- * @param res
+ * @method update
+ * @param {} socket
  */
 exports.update = function (socket)
 {
@@ -286,9 +311,8 @@ exports.update = function (socket)
 
 /**
  * Deletes a Pig from the DB.
- *
- * @param req
- * @param res
+ * @method destroy
+ * @param {} socket
  */
 exports.destroy = function (socket) {
   socket.on('destroy',
@@ -313,7 +337,7 @@ exports.destroy = function (socket) {
 
 /**
  * Runs a Pig.
- *
+ * @method run
  * @param socket
  */
 exports.run = function (socket) {
@@ -381,7 +405,7 @@ exports.run = function (socket) {
 
 /**
  * Runs a Pig and tracks it
- *
+ * @method runAndTrack
  * @param socket
  */
 exports.runAndTrack = function (socket) {
@@ -454,7 +478,7 @@ exports.runAndTrack = function (socket) {
 };
 /**
  * Gets a list of the most recently changed scripts up to the limit passed in
- *
+ * @method getRecent
  * @param socket
  */
 exports.getRecent = function (socket) {
@@ -477,7 +501,7 @@ exports.getRecent = function (socket) {
 
 /**
  * bumps the pigs version
- *
+ * @method bumpVersion
  * @param socket
  */
 exports.bumpVersion = function(socket)

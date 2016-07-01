@@ -38,6 +38,11 @@ class Setting extends Document {
   }
 }
 exports.Setting = Setting;
+/**
+ * Description
+ * @method init
+ * @param {} cb
+ */
 exports.init = function(cb)
 {
   cb(null);

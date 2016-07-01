@@ -38,6 +38,10 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method save
+       */
       vm.save = function ()
       {
         vm.script.args = vm.args.split(" ");
@@ -64,6 +68,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method ots
+       * @param {} d
+       */
       vm.ots = function (d)
       {
         return JSON.stringify(d);

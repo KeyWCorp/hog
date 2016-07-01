@@ -271,6 +271,11 @@ class Pig extends Document {
 }
 
 exports.Pig = Pig;
+/**
+ * Description
+ * @method init
+ * @param {} cb
+ */
 exports.init = function(cb)
 {
   cb(null);

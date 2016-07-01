@@ -23,8 +23,10 @@ var script_location = "/Users/kmcoxe/Documents/IPI/test/test.pig";
 
 
 
-/*
+/**
  * Function to output stdOut
+ * @method stdOut
+ * @param {} data
  */
 function stdOut(data)
 {
@@ -40,8 +42,10 @@ function stdOut(data)
 
 
 
-/*
+/**
  * Function to output stdErr
+ * @method stdError
+ * @param {} data
  */
 function stdError(data)
 {
@@ -57,8 +61,10 @@ function stdError(data)
 
 
 
-/*
+/**
  * Function to output Logs
+ * @method stdLog
+ * @param {} data
  */
 function stdLog(data)
 {
@@ -74,8 +80,10 @@ function stdLog(data)
 
 
 
-/*
+/**
  * Function to output Logs
+ * @method taskTracker
+ * @param {} data
  */
 function taskTracker (data)
 {
@@ -92,8 +100,9 @@ function taskTracker (data)
 
 
 
-/*
+/**
  * Function to output Logs
+ * @method finished
  */
 function finished ()
 {

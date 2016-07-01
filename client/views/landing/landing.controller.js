@@ -26,11 +26,21 @@ angular.module('hog')
           console.log('piggies', vm.complexPigs, 'data', data.json);
         });
 
+    /**
+     * Description
+     * @method editComplex
+     * @param {} id
+     */
     vm.editComplex = function(id)
     {
       $state.go('home.complex.edit', {id: id});
     };
 
+    /**
+     * Description
+     * @method editSimple
+     * @param {} id
+     */
     vm.editSimple = function(id)
     {
       $state.go('home.simple.edit', {id: id});

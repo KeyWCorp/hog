@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Hog Index</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Hog</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html#addArg">addArg</a></li><li><a href="global.html#addChild">addChild</a></li><li><a href="global.html#addInput">addInput</a></li><li><a href="global.html#addNode">addNode</a></li><li><a href="global.html#all">all</a></li><li><a href="global.html#allResolved">allResolved</a></li><li><a href="global.html#allSettled">allSettled</a></li><li><a href="global.html#any">any</a></li><li><a href="global.html#apply">apply</a></li><li><a href="global.html#applyStyle">applyStyle</a></li><li><a href="global.html#assembleStyles">assembleStyles</a></li><li><a href="global.html#async">async</a></li><li><a href="global.html#become">become</a></li><li><a href="global.html#bound">bound</a></li><li><a href="global.html#build">build</a></li><li><a href="global.html#builder">builder</a></li><li><a href="global.html#buildResponse">buildResponse</a></li><li><a href="global.html#bump">bump</a></li><li><a href="global.html#bumpVersion">bumpVersion</a></li><li><a href="global.html#cancel">cancel</a></li><li><a href="global.html#captureLine">captureLine</a></li><li><a href="global.html#cb">cb</a></li><li><a href="global.html#Chalk">Chalk</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#clicked">clicked</a></li><li><a href="global.html#close">close</a></li><li><a href="global.html#coerce">coerce</a></li><li><a href="global.html#collapse">collapse</a></li><li><a href="global.html#continuer">continuer</a></li><li><a href="global.html#controller">controller</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#created">created</a></li><li><a href="global.html#createFilterFor">createFilterFor</a></li><li><a href="global.html#createProc">createProc</a></li><li><a href="global.html#defer">defer</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#DeleteDialogController">DeleteDialogController</a></li><li><a href="global.html#deleteScript">deleteScript</a></li><li><a href="global.html#denodeify">denodeify</a></li><li><a href="global.html#deprecate">deprecate</a></li><li><a href="global.html#describeToRegex">describeToRegex</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#diff">diff</a></li><li><a href="global.html#dispatch">dispatch</a></li><li><a href="global.html#done">done</a></li><li><a href="global.html#downloadScript">downloadScript</a></li><li><a href="global.html#dragended">dragended</a></li><li><a href="global.html#dragstart">dragstart</a></li><li><a href="global.html#edit">edit</a></li><li><a href="global.html#editComplex">editComplex</a></li><li><a href="global.html#editNode">editNode</a></li><li><a href="global.html#EditNodeControllerTemplate">EditNodeControllerTemplate</a></li><li><a href="global.html#editSimple">editSimple</a></li><li><a href="global.html#endConnection">endConnection</a></li><li><a href="global.html#exec">exec</a></li><li><a href="global.html#execFile">execFile</a></li><li><a href="global.html#exists">exists</a></li><li><a href="global.html#exports">exports</a></li><li><a href="global.html#fapply">fapply</a></li><li><a href="global.html#fbind">fbind</a></li><li><a href="global.html#fcall">fcall</a></li><li><a href="global.html#fillScript">fillScript</a></li><li><a href="global.html#filterByAll">filterByAll</a></li><li><a href="global.html#filterByError">filterByError</a></li><li><a href="global.html#filterByLog">filterByLog</a></li><li><a href="global.html#filterByOutput">filterByOutput</a></li><li><a href="global.html#filterByWarning">filterByWarning</a></li><li><a href="global.html#filteredInfo">filteredInfo</a></li><li><a href="global.html#filterStackString">filterStackString</a></li><li><a href="global.html#finished">finished</a></li><li><a href="global.html#FlowToScript">FlowToScript</a></li><li><a href="global.html#flush">flush</a></li><li><a href="global.html#fulfill">fulfill</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getCompletions">getCompletions</a></li><li><a href="global.html#getData">getData</a></li><li><a href="global.html#getFileNameAndLineNumber">getFileNameAndLineNumber</a></li><li><a href="global.html#getMostRecent">getMostRecent</a></li><li><a href="global.html#getOutputSynchronously">getOutputSynchronously</a></li><li><a href="global.html#getp">getp</a></li><li><a href="global.html#getRecent">getRecent</a></li><li><a href="global.html#getScripts">getScripts</a></li><li><a href="global.html#getToastPosition">getToastPosition</a></li><li><a href="global.html#getUnhandledReasons">getUnhandledReasons</a></li><li><a href="global.html#getVersion">getVersion</a></li><li><a href="global.html#goState">goState</a></li><li><a href="global.html#GraphInfoController">GraphInfoController</a></li><li><a href="global.html#graphToString">graphToString</a></li><li><a href="global.html#handleError">handleError</a></li><li><a href="global.html#hasFlag">hasFlag</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#InfoController">InfoController</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#init_tree">init_tree</a></li><li><a href="global.html#inspect">inspect</a></li><li><a href="global.html#invoke">invoke</a></li><li><a href="global.html#ipAddressPre">ipAddressPre</a></li><li><a href="global.html#isDef">isDef</a></li><li><a href="global.html#isFulfilled">isFulfilled</a></li><li><a href="global.html#isInternalFrame">isInternalFrame</a></li><li><a href="global.html#isNodeFrame">isNodeFrame</a></li><li><a href="global.html#isObject">isObject</a></li><li><a href="global.html#isPending">isPending</a></li><li><a href="global.html#isPromise">isPromise</a></li><li><a href="global.html#isPromiseAlike">isPromiseAlike</a></li><li><a href="global.html#isRejected">isRejected</a></li><li><a href="global.html#isStopIteration">isStopIteration</a></li><li><a href="global.html#join">join</a></li><li><a href="global.html#keys">keys</a></li><li><a href="global.html#kill">kill</a></li><li><a href="global.html#link">link</a></li><li><a href="global.html#list">list</a></li><li><a href="global.html#loadData">loadData</a></li><li><a href="global.html#makeNodeResolver">makeNodeResolver</a></li><li><a href="global.html#makeStackTraceLong">makeStackTraceLong</a></li><li><a href="global.html#master">master</a></li><li><a href="global.html#modeChanged">modeChanged</a></li><li><a href="global.html#moveToBack">moveToBack</a></li><li><a href="global.html#moveToFront">moveToFront</a></li><li><a href="global.html#nbind">nbind</a></li><li><a href="global.html#nearer">nearer</a></li><li><a href="global.html#newScript">newScript</a></li><li><a href="global.html#nfapply">nfapply</a></li><li><a href="global.html#nfcall">nfcall</a></li><li><a href="global.html#ninvoke">ninvoke</a></li><li><a href="global.html#noConflict">noConflict</a></li><li><a href="global.html#nodeify">nodeify</a></li><li><a href="global.html#noop">noop</a></li><li><a href="global.html#notify">notify</a></li><li><a href="global.html#npost">npost</a></li><li><a href="global.html#onEditorChange">onEditorChange</a></li><li><a href="global.html#onEditorLoad">onEditorLoad</a></li><li><a href="global.html#onFulfilled">onFulfilled</a></li><li><a href="global.html#onLoad">onLoad</a></li><li><a href="global.html#onload">onload</a></li><li><a href="global.html#onmessage">onmessage</a></li><li><a href="global.html#onProgress">onProgress</a></li><li><a href="global.html#onRejected">onRejected</a></li><li><a href="global.html#onUnhandledError">onUnhandledError</a></li><li><a href="global.html#openGraphInfo">openGraphInfo</a></li><li><a href="global.html#openInfo">openInfo</a></li><li><a href="global.html#openMenu">openMenu</a></li><li><a href="global.html#openSettings">openSettings</a></li><li><a href="global.html#openTable">openTable</a></li><li><a href="global.html#openVersionDifferenceInfo">openVersionDifferenceInfo</a></li><li><a href="global.html#ots">ots</a></li><li><a href="global.html#parseOutput">parseOutput</a></li><li><a href="global.html#passByCopy">passByCopy</a></li><li><a href="global.html#percent_data">percent_data</a></li><li><a href="global.html#pigGetOutput">pigGetOutput</a></li><li><a href="global.html#pigGetTasks">pigGetTasks</a></li><li><a href="global.html#pigTableController">pigTableController</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#processDiff">processDiff</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#promise">promise</a></li><li><a href="global.html#Promise">Promise</a></li><li><a href="global.html#promised">promised</a></li><li><a href="global.html#promiseDispatch">promiseDispatch</a></li><li><a href="global.html#put">put</a></li><li><a href="global.html#Q">Q</a></li><li><a href="global.html#querySearch">querySearch</a></li><li><a href="global.html#Queue">Queue</a></li><li><a href="global.html#race">race</a></li><li><a href="global.html#regardless">regardless</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#reject">reject</a></li><li><a href="global.html#reloadData">reloadData</a></li><li><a href="global.html#reloadDialog">reloadDialog</a></li><li><a href="global.html#removeArg">removeArg</a></li><li><a href="global.html#removed">removed</a></li><li><a href="global.html#removeFirst">removeFirst</a></li><li><a href="global.html#removeLink">removeLink</a></li><li><a href="global.html#removeLinks">removeLinks</a></li><li><a href="global.html#removeNode">removeNode</a></li><li><a href="global.html#requestPortTick">requestPortTick</a></li><li><a href="global.html#resetUnhandledRejections">resetUnhandledRejections</a></li><li><a href="global.html#resolve">resolve</a></li><li><a href="global.html#revert">revert</a></li><li><a href="global.html#run">run</a></li><li><a href="global.html#runAfter">runAfter</a></li><li><a href="global.html#runAndTrack">runAndTrack</a></li><li><a href="global.html#runSingle">runSingle</a></li><li><a href="global.html#runSynchronously">runSynchronously</a></li><li><a href="global.html#save">save</a></li><li><a href="global.html#saveAndClose">saveAndClose</a></li><li><a href="global.html#saveAndRun">saveAndRun</a></li><li><a href="global.html#scriptSelect">scriptSelect</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#setLIdx">setLIdx</a></li><li><a href="global.html#setRIdx">setRIdx</a></li><li><a href="global.html#SettingsController">SettingsController</a></li><li><a href="global.html#setX">setX</a></li><li><a href="global.html#setY">setY</a></li><li><a href="global.html#show">show</a></li><li><a href="global.html#showErrorToast">showErrorToast</a></li><li><a href="global.html#showGraph">showGraph</a></li><li><a href="global.html#showRemovedArgToast">showRemovedArgToast</a></li><li><a href="global.html#showSavedToast">showSavedToast</a></li><li><a href="global.html#simpleIndex">simpleIndex</a></li><li><a href="global.html#simpleList">simpleList</a></li><li><a href="global.html#simpleObj">simpleObj</a></li><li><a href="global.html#spawn">spawn</a></li><li><a href="global.html#spread">spread</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#start_update">start_update</a></li><li><a href="global.html#startConnection">startConnection</a></li><li><a href="global.html#stdError">stdError</a></li><li><a href="global.html#stdLog">stdLog</a></li><li><a href="global.html#stdOut">stdOut</a></li><li><a href="global.html#stopUnhandledRejectionTracking">stopUnhandledRejectionTracking</a></li><li><a href="global.html#tap">tap</a></li><li><a href="global.html#taskTracker">taskTracker</a></li><li><a href="global.html#template">template</a></li><li><a href="global.html#test">test</a></li><li><a href="global.html#then">then</a></li><li><a href="global.html#thenReject">thenReject</a></li><li><a href="global.html#thenResolve">thenResolve</a></li><li><a href="global.html#tick">tick</a></li><li><a href="global.html#timeout">timeout</a></li><li><a href="global.html#toggle">toggle</a></li><li><a href="global.html#toggleNav">toggleNav</a></li><li><a href="global.html#toggleNodeList">toggleNodeList</a></li><li><a href="global.html#toString">toString</a></li><li><a href="global.html#trackRejection">trackRejection</a></li><li><a href="global.html#trackTasks">trackTasks</a></li><li><a href="global.html#Type">Type</a></li><li><a href="global.html#uncurryThis">uncurryThis</a></li><li><a href="global.html#untrackRejection">untrackRejection</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updated">updated</a></li><li><a href="global.html#updateData">updateData</a></li><li><a href="global.html#updateEdit">updateEdit</a></li><li><a href="global.html#updateNodeIndexs">updateNodeIndexs</a></li><li><a href="global.html#updateProgress">updateProgress</a></li><li><a href="global.html#updateScript">updateScript</a></li><li><a href="global.html#upload">upload</a></li><li><a href="global.html#uploadScript">uploadScript</a></li><li><a href="global.html#valueOf">valueOf</a></li><li><a href="global.html#VersionDiffController">VersionDiffController</a></li><li><a href="global.html#when">when</a></li><li><a href="global.html#wrapper">wrapper</a></li><li><a href="global.html#write">write</a></li><li><a href="global.html#writeAndRun">writeAndRun</a></li><li><a href="global.html#writeRunTrack">writeRunTrack</a></li><li><a href="global.html#zoomed">zoomed</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+    <section class="readme-section">
+        <article><h1>Hog</h1><p><a href="https://github.com/42Zavattas/generator-bangular"><img src="https://img.shields.io/badge/generated%20with-bangular-blue.svg?style=flat-square" alt="Generated with"></a>
+<a href="https://gitlab.com/ccis-irad/hog/commits/development"><img src="https://gitlab.com/ccis-irad/hog/badges/development/build.svg?style=flat-square" alt="build status"></a></p>
+<h1>To begin the progam:</h1><h1>Install Pig, (if you have a mac)</h1><pre class="prettyprint source"><code>brew install pig
+brew install apache piglatin</code></pre><h1>Save your git credentials</h1><p><a href="https://help.github.com/articles/set-up-git/">Saving email</a> and <a href="https://help.github.com/articles/caching-your-github-password-in-git/">caching your
+password</a>.</p>
+<pre class="prettyprint source"><code>git config --global user.name &quot;YOUR NAME&quot;
+git config --global user.email &quot;YOUR EMAIL ADDRESS&quot;
+
+git credential-osxkeychain
+git credential-osxkeychain
+brew install git
+git config --global credential.helper osxkeychain</code></pre><h1>Clone Hog from the Gitlab repository</h1><pre class="prettyprint source"><code>git clone https://gitlab.com/ccis-irad/hog.git
+cd hog</code></pre><h1>Installing files</h1><p>You will need to install node_modules and bower_conponents
+(If prompted to choose a version choose the option that coorisponds to hog)</p>
+<pre class="prettyprint source"><code>npm install
+bower install</code></pre><h1>Copying extra files</h1><pre class="prettyprint source"><code>cp client/externals/mode-pig_latin.js client/bower_components/ace-builds/src-min-noconflict/.</code></pre><h1>If you have an older version of hog run the DB migrate</h1><pre class="prettyprint source"><code>gulp migrate
+mv /path/to/hog/server/api/pig/pig.data.db.mig /path/to/hog/server/api/pig/pig.data.db
+mv /path/to/hog/server/api/settings/settings.data.db.mig /path/to/hog/server/api/settings/settings.data.db</code></pre><p>Move others as needed.</p>
+<h1>Running Hog</h1><p>Open a second terminal</p>
+<pre class="prettyprint source"><code>cd /path/to/hog
+gulp</code></pre><p>A tab in your browser will automatically open to 'localhost:9000' with the script
+running. We find the program runs best using a Chrome web browser.</p></article>
+    </section>
+
+
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+
+	<span class="copyright">
+	KeyW Corporation 2016
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+		on 2016-06-30T15:20:17-04:00
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

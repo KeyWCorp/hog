@@ -24,6 +24,13 @@ PigFlowModule
         id: "@"
       },
       templateUrl: pigFlowTemplate,
+      /**
+       * Description
+       * @method link
+       * @param {} $scope
+       * @param {} element
+       * @param {} attrs
+       */
       link: function ($scope, element, attrs)
       {
         var vm = $scope;
@@ -44,6 +51,10 @@ PigFlowModule
           .on("zoom", zoomed);
 
 
+        /**
+         * Description
+         * @method moveToFront
+         */
         d3.selection.prototype.moveToFront = function ()
         {
           return this.each(function ()
@@ -53,6 +64,11 @@ PigFlowModule
         };
 
 
+        /**
+         * Description
+         * @method moveToBack
+         * @param {} d
+         */
         function moveToBack(d)
         {
           return this.each(function ()
@@ -167,6 +183,10 @@ PigFlowModule
         });
 
 
+        /**
+         * Description
+         * @method start
+         */
         vm.start = function ()
         {
 
@@ -718,6 +738,10 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method tick
+         */
         function tick()
         {
 
@@ -945,6 +969,10 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method zoomed
+         */
         function zoomed()
         {
           vm.translate = d3.event.translate;
@@ -955,6 +983,13 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method startConnection
+         * @param {} d
+         * @param {} t
+         * @param {} n
+         */
         function startConnection(d, t, n)
         {
           if (d)
@@ -982,6 +1017,13 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method endConnection
+         * @param {} d
+         * @param {} t
+         * @param {} n
+         */
         function endConnection(d, t, n)
         {
           if (d)
@@ -1066,6 +1108,11 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method dragstart
+         * @param {} d
+         */
         function dragstart(d)
         {
           d3.event.sourceEvent.stopPropagation();
@@ -1074,6 +1121,11 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method dragended
+         * @param {} d
+         */
         function dragended(d)
         {
           d3.select(this).classed("dragging", false);
@@ -1082,6 +1134,11 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method removeNode
+         * @param {} d
+         */
         function removeNode(d)
         {
           removeLinks(d);
@@ -1092,11 +1149,23 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method editNode
+         * @param {} l
+         * @param {} info
+         * @param {} index
+         */
         function editNode(l, info, index)
         {
 
           var d = vm.nodes[index];
 
+          /**
+           * Description
+           * @method reloadDialog
+           * @param {} reload
+           */
           function reloadDialog(reload)
           {
             $mdDialog.show(
@@ -1133,6 +1202,11 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method removeLinks
+         * @param {} d
+         */
         function removeLinks(d)
         {
 
@@ -1149,6 +1223,11 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method removeLink
+         * @param {} d
+         */
         function removeLink(d)
         {
 
@@ -1194,6 +1273,11 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method updateNodeIndexs
+         * @param {} deleted_index
+         */
         function updateNodeIndexs (deleted_index)
         {
 
@@ -1258,6 +1342,10 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method start_update
+         */
         function start_update()
         {
           vm.outputData = {
@@ -1273,6 +1361,10 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method updateScript
+         */
         vm.updateScript = function()
         {
 
@@ -1289,6 +1381,12 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method addNode
+         * @param {} c
+         * @param {} t
+         */
         vm.addNode = function (c, t)
         {
           vm.toggleNodeList();
@@ -1362,6 +1460,10 @@ PigFlowModule
 
 
 
+        /**
+         * Description
+         * @method toggleNodeList
+         */
         vm.toggleNodeList = function ()
         {
           $mdSidenav('right')

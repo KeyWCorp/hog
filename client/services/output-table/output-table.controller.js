@@ -15,6 +15,13 @@ if (OutputTableModule === undefined)
 OutputTableModule
 .factory("pigTableController", function ($mdDialog, lodash)
     {
+      /**
+       * Description
+       * @method pigTableController
+       * @param {} $scope
+       * @param {} inputData
+       * @param {} scriptName
+       */
       var pigTableController = function ($scope, inputData, scriptName)
       {
         $scope.inputData = inputData;
@@ -39,6 +46,12 @@ OutputTableModule
         $scope.headers = Object.keys($scope.totalData[0]);
 
 
+        /**
+         * Description
+         * @method updateData
+         * @param {} data
+         * @param {} limit
+         */
         $scope.updateData = function(data, limit)
         {
 
@@ -118,6 +131,10 @@ OutputTableModule
         $scope.updateData($scope.query.order);
 
 
+        /**
+         * Description
+         * @method close
+         */
         $scope.close = function ()
         {
           $mdDialog.cancel();
@@ -126,6 +143,11 @@ OutputTableModule
 
 
 
+      /**
+       * Description
+       * @method ipAddressPre
+       * @param {} a
+       */
       var ipAddressPre = function (a)
       {
 

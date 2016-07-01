@@ -13,11 +13,17 @@ var StringDecoder = require('string_decoder').StringDecoder;
 var decoder = new StringDecoder('utf8');
 
 
-/*
- *
- *
- *
- *
+/**
+ * Description
+ * @method run
+ * @param {} input_args
+ * @param {} script_location
+ * @param {} stdOut
+ * @param {} stdError
+ * @param {} stdLog
+ * @param {} stdWarning
+ * @param {} finishedCallback
+ * @param {} killCB
  */
 function run(input_args, script_location, stdOut, stdError, stdLog, stdWarning, finishedCallback, killCB)
 {
@@ -109,10 +115,18 @@ function run(input_args, script_location, stdOut, stdError, stdLog, stdWarning, 
 // =============================================================================
 // Start Track Tasks
 // =============================================================================
-/*
- *
- *
- *
+/**
+ * Description
+ * @method trackTasks
+ * @param {} input_args
+ * @param {} script_location
+ * @param {} stdOut
+ * @param {} stdError
+ * @param {} stdLog
+ * @param {} stdWarning
+ * @param {} taskTracker
+ * @param {} finished_callback
+ * @param {} killCB
  */
 function trackTasks(input_args, script_location, stdOut, stdError, stdLog, stdWarning, taskTracker, finished_callback, killCB)
 {
@@ -171,9 +185,10 @@ function trackTasks(input_args, script_location, stdOut, stdError, stdLog, stdWa
 
       var i = 0;
       var j = 0;
-      /*
-       *
-       *
+      /**
+       * Description
+       * @method runSynchronously
+       * @param {} i
        */
       function runSynchronously(i)
       {
@@ -209,9 +224,10 @@ function trackTasks(input_args, script_location, stdOut, stdError, stdLog, stdWa
       runSynchronously(i);
 
 
-      /*
-       *
-       *
+      /**
+       * Description
+       * @method getOutputSynchronously
+       * @param {} j
        */
       function getOutputSynchronously(j)
       {
@@ -238,9 +254,18 @@ function trackTasks(input_args, script_location, stdOut, stdError, stdLog, stdWa
 
 
 
-/*
- *
- *
+/**
+ * Description
+ * @method writeRunTrack
+ * @param {} input_args
+ * @param {} output_list
+ * @param {} command
+ * @param {} callback
+ * @param {} stdOut
+ * @param {} stdError
+ * @param {} stdLog
+ * @param {} stdWarning
+ * @param {} killCB
  */
 function writeRunTrack(input_args, output_list, command, callback, stdOut, stdError, stdLog, stdWarning, killCB)
 {
@@ -285,9 +310,17 @@ function writeRunTrack(input_args, output_list, command, callback, stdOut, stdEr
 
 
 
-/*
- *
- *
+/**
+ * Description
+ * @method pigGetTasks
+ * @param {} input_args
+ * @param {} script_location
+ * @param {} callback
+ * @param {} stdOut
+ * @param {} stdError
+ * @param {} stdLog
+ * @param {} stdWarning
+ * @param {} killCB
  */
 function pigGetTasks(input_args, script_location, callback, stdOut, stdError, stdLog, stdWarning, killCB)
 {
@@ -385,13 +418,23 @@ function pigGetTasks(input_args, script_location, callback, stdOut, stdError, st
 
 
 
-/*
+/**
  * Function for creating the new
  * script and running it.
- *
  * When script is done it will
  * delete the file
- *
+ * @method writeAndRun
+ * @param {} input_args
+ * @param {} output_list
+ * @param {} command
+ * @param {} callback
+ * @param {} stdOut
+ * @param {} stdError
+ * @param {} stdLog
+ * @param {} stdWarning
+ * @param {} taskTracker
+ * @param {} task_list
+ * @param {} killCB
  */
 function writeAndRun(input_args, output_list, command, callback, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list, killCB)
 {
@@ -431,9 +474,19 @@ function writeAndRun(input_args, output_list, command, callback, stdOut, stdErro
 
 
 
-/*
+/**
  * Function to run the pig script
- *
+ * @method pigGetOutput
+ * @param {} input_args
+ * @param {} script_location
+ * @param {} callback
+ * @param {} stdOut
+ * @param {} stdError
+ * @param {} stdLog
+ * @param {} stdWarning
+ * @param {} taskTracker
+ * @param {} task_list
+ * @param {} killCB
  */
 function pigGetOutput(input_args, script_location, callback, stdOut, stdError, stdLog, stdWarning, taskTracker, task_list, killCB)
 {
@@ -604,12 +657,13 @@ function pigGetOutput(input_args, script_location, callback, stdOut, stdError, s
 
 
 
-/*
+/**
  * Function that takes in the output
  * from the 'DESCRIBE' command
  * and returns a JSON describtion
  * and regex
- *
+ * @method describeToRegex
+ * @param {} describe_input
  */
 function describeToRegex(describe_input)
 {

@@ -43,6 +43,10 @@ angular.module('hog')
 
       return service;
 
+      /**
+       * Description
+       * @method getData
+       */
       function getData()
       {
         var temp =   list()
@@ -58,6 +62,12 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method getMostRecent
+       * @param {} _count
+       * @param {} _type
+       */
       function getMostRecent(_count, _type)
       {
         var deferred = $q.defer();
@@ -73,6 +83,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method bump
+       * @param {} id
+       */
       function bump(id)
       {
         console.log('bumping');
@@ -96,6 +111,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method save
+       * @param {} data
+       */
       function save(data)
       {
         console.log(' IN RUNNER SAVE FUNCTION');
@@ -119,6 +139,10 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method list
+       */
       function list()
       {
         var deferred = $q.defer();
@@ -143,6 +167,10 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method simpleList
+       */
       function simpleList()
       {
         var deferred = $q.defer();
@@ -167,6 +195,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method create
+       * @param {} procData
+       */
       function create(procData)
       {
         console.log('in create ' + JSON.stringify(procData));
@@ -189,6 +222,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method update
+       * @param {} procData
+       */
       function update(procData)
       {
         holdData = procData;
@@ -209,6 +247,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method destroy
+       * @param {} id
+       */
       function destroy(id)
       {
         var deferred = $q.defer();
@@ -228,6 +271,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method get
+       * @param {} id
+       */
       function get(id)
       {
         var deferred = $q.defer();
@@ -247,6 +295,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method kill
+       * @param {} id
+       */
       function kill(id)
       {
         var deferred = $q.defer();
@@ -257,6 +310,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method run
+       * @param {} id
+       */
       function run(id)
       {
         var deferred = $q.defer();
@@ -303,6 +361,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method runAndTrack
+       * @param {} id
+       */
       function runAndTrack(id)
       {
         var deferred = $q.defer();
@@ -349,6 +412,15 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method createProc
+       * @param {} args
+       * @param {} data
+       * @param {} procCB
+       * @param {} updCB
+       * @param {} endCB
+       */
       function createProc(args, data, procCB, updCB, endCB)
       {
         console.log('in createProc');

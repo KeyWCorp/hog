@@ -14,8 +14,15 @@ if (PigFlowModule === undefined)
 PigFlowModule
 .factory('editNodeTemplates', function() {
 
-  /*
+  /**
    * Edit node controller
+   * @method EditNodeControllerTemplate
+   * @param {} $scope
+   * @param {} $mdDialog
+   * @param {} data
+   * @param {} old_scope
+   * @param {} templates
+   * @param {} info
    */
   function EditNodeControllerTemplate($scope, $mdDialog, data, old_scope, templates, info)
   {
@@ -23,6 +30,10 @@ PigFlowModule
     vm.node_info = data;
 
 
+    /**
+     * Description
+     * @method loadData
+     */
     vm.loadData = function ()
     {
       vm.types = Object.assign({}, old_scope.types);
@@ -71,6 +82,10 @@ PigFlowModule
     vm.loadData();
 
 
+    /**
+     * Description
+     * @method saveAndClose
+     */
     vm.saveAndClose = function ()
     {
       vm.node_info.name = vm.tmp_node.name;
@@ -88,6 +103,11 @@ PigFlowModule
 
 
 
+    /**
+     * Description
+     * @method addInput
+     * @param {} param
+     */
     vm.addInput = function(param)
     {
       if (param.value !== "")
@@ -138,6 +158,11 @@ PigFlowModule
 
 
 
+    /**
+     * Description
+     * @method close
+     * @param {} r
+     */
     vm.close = function (r)
     {
       $mdDialog.hide({reload: true, data: r} || {reload: false, data: vm.node_info});
@@ -145,6 +170,10 @@ PigFlowModule
 
 
 
+    /**
+     * Description
+     * @method cancel
+     */
     vm.cancel = function ()
     {
       $mdDialog.hide({reload: false, data: data, cancel: true, info: info || false});

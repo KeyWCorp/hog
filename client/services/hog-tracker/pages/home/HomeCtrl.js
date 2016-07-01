@@ -15,6 +15,10 @@ myApp.controller('HomeCtrl', ['$scope', 'socket', function($scope, socket) {
 
     $scope.running = false;
 
+    /**
+     * Description
+     * @method removeFirst
+     */
     $scope.removeFirst = function() {
         $scope.taskOne.obj.children.splice(0,1);
     };
@@ -38,12 +42,20 @@ myApp.controller('HomeCtrl', ['$scope', 'socket', function($scope, socket) {
     });
 
 
+    /**
+     * Description
+     * @method run
+     */
     $scope.run = function () {
       $scope.taskList = [];
       $scope.running = true;
       socket.emit('run');
     };
 
+    /**
+     * Description
+     * @method addChild
+     */
     $scope.addChild = function() {
         $scope.taskList.push({
             id: $scope.taskList.length + 1,
@@ -53,6 +65,11 @@ myApp.controller('HomeCtrl', ['$scope', 'socket', function($scope, socket) {
         });
     };
 
+    /**
+     * Description
+     * @method ots
+     * @param {} o
+     */
     $scope.ots = function(o) {
         return JSON.stringify(o);
     };

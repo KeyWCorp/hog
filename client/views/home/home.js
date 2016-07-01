@@ -27,6 +27,13 @@ angular.module('hog')
             }
           },
           resolve: {
+            /**
+             * Description
+             * @method simpleObj
+             * @param {} $q
+             * @param {} $timeout
+             * @param {} $state
+             */
             simpleObj: function ($q, $timeout, $state)
             {
               var deferred = $q.defer();

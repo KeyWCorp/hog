@@ -24,10 +24,22 @@ OutputTableModule
         scriptName: "="
       },
       templateUrl: "services/output-table/html/outputTemplate.html",
+      /**
+       * Description
+       * @method link
+       * @param {} $scope
+       * @param {} element
+       * @param {} attrs
+       */
       link: function ($scope, element, attrs)
       {
         var vm = $scope;
 
+        /**
+         * Description
+         * @method openTable
+         * @param {} ev
+         */
         vm.openTable = function (ev)
         {
           $mdDialog.show({

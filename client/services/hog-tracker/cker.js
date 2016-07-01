@@ -37,6 +37,12 @@ angular.module('.hog-tracker', []).directive('Cker', [ function () {
 		},
 
 		// replace: true,
+		/**
+		 * Description
+		 * @method template
+		 * @param {} element
+		 * @param {} attrs
+		 */
 		template: function(element, attrs) {
 			var defaultsAttrs ={
 			};
@@ -51,9 +57,23 @@ angular.module('.hog-tracker', []).directive('Cker', [ function () {
 			return html;
 		},
 		
+		/**
+		 * Description
+		 * @method link
+		 * @param {} scope
+		 * @param {} element
+		 * @param {} attrs
+		 */
 		link: function(scope, element, attrs) {
 		},
 		
+		/**
+		 * Description
+		 * @method controller
+		 * @param {} $scope
+		 * @param {} $element
+		 * @param {} $attrs
+		 */
 		controller: function($scope, $element, $attrs) {
 		}
 	};

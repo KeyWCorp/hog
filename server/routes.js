@@ -9,6 +9,11 @@
 
 var config = require('./config/environment');
 
+/**
+ * Description
+ * @method exports
+ * @param {} app
+ */
 module.exports = function (app) {
 
   // API

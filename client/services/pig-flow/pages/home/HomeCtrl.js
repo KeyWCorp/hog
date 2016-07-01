@@ -23,6 +23,10 @@ angular.module('myApp').controller('HomeCtrl', ['$rootScope', '$scope', '$mdDial
 
       $scope.outputData = {};
 
+      /**
+       * Description
+       * @method newScript
+       */
       $scope.newScript = function ()
       {
         $scope.data = {
@@ -630,6 +634,11 @@ angular.module('myApp').controller('HomeCtrl', ['$rootScope', '$scope', '$mdDial
         };
       };
 
+      /**
+       * Description
+       * @method ots
+       * @param {} d
+       */
       $scope.ots = function(d)
       {
         return JSON.stringify(d);

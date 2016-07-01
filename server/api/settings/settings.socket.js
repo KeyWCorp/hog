@@ -10,6 +10,11 @@
 var Settings = require('./settings.controller');
 var logger = require('../../config/logger.js');
 
+/**
+ * Description
+ * @method register
+ * @param {} io
+ */
 exports.register = function (io) {
 
     var nps = io.of('/api/settings');

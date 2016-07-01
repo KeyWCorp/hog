@@ -39,6 +39,13 @@ angular.module("hog.hog-tracker", [])
         + "        </table>"
         + "    </md-table-container>"
         + "</div>",
+      /**
+       * Description
+       * @method link
+       * @param {} $scope
+       * @param {} element
+       * @param {} attrs
+       */
       link: function ($scope, element, attrs)
       {
 
@@ -77,6 +84,10 @@ angular.module("hog.hog-tracker", [])
 
         $scope.height = 400;
 
+        /**
+         * Description
+         * @method init_tree
+         */
         function init_tree()
         {
 
@@ -123,6 +134,11 @@ angular.module("hog.hog-tracker", [])
           root.y0 = 0;
 
 
+          /**
+           * Description
+           * @method collapse
+           * @param {} d
+           */
           function collapse(d)
           {
             if (d.children)
@@ -178,6 +194,10 @@ angular.module("hog.hog-tracker", [])
 
         });
 
+        /**
+         * Description
+         * @method updateProgress
+         */
         function updateProgress()
         {
           if ($scope.taskList)
@@ -213,6 +233,11 @@ angular.module("hog.hog-tracker", [])
 
 
 
+        /**
+         * Description
+         * @method update
+         * @param {} source
+         */
         $scope.update = function (source)
           {
 
@@ -372,6 +397,11 @@ angular.module("hog.hog-tracker", [])
           } // end update
 
         // Toggle children on click.
+        /**
+         * Description
+         * @method click
+         * @param {} d
+         */
         function click(d)
         {
           if (d.children)

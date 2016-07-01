@@ -12,6 +12,15 @@ angular.module('hog')
     function ()
     {
       var staticWordCompleter = {
+        /**
+         * Description
+         * @method getCompletions
+         * @param {} editor
+         * @param {} session
+         * @param {} pos
+         * @param {} prefix
+         * @param {} callback
+         */
         getCompletions: function(editor, session, pos, prefix, callback) {
           var wordList = [
           {data: "AS", type: "keyword"},

@@ -33,8 +33,10 @@ var staticPath = '/';
 // =============================================================================
 
 
-/*
+/**
  * Function to output stdOut
+ * @method stdOut
+ * @param {} data
  */
 function stdOut(data)
 {
@@ -50,8 +52,10 @@ function stdOut(data)
 
 
 
-/*
+/**
  * Function to output stdErr
+ * @method stdError
+ * @param {} data
  */
 function stdError(data)
 {
@@ -67,8 +71,10 @@ function stdError(data)
 
 
 
-/*
+/**
  * Function to output Logs
+ * @method stdLog
+ * @param {} data
  */
 function stdLog(data)
 {
@@ -91,12 +97,26 @@ io.on('connection',
             var script_location = "/Users/kmcoxe/Documents/IPI/pig-parser/src/test.pig";
             //var script_location = "/opt/kevins/hog-tracker/node_modules/pig-parser/src/test.pig";
 
+            /**
+             * Description
+             * @method taskTracker
+             * @param {} task_list
+             */
             function taskTracker (task_list) {
               socket.emit('update', task_list);
             };
 
+            /**
+             * Description
+             * @method test
+             * @param {} d
+             */
             function test (d) {};
 
+            /**
+             * Description
+             * @method finished
+             */
             function finished ()
             {
               socket.emit('finish');

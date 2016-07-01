@@ -22,6 +22,13 @@
         return {
           restrict: 'A',
           scope: { mdStyleColor: '=' },
+          /**
+           * Description
+           * @method link
+           * @param {} scope
+           * @param {} element
+           * @param {} attrs
+           */
           link: function (scope, element, attrs) {
             for (var p in scope.mdStyleColor) {
               if (scope.mdStyleColor.hasOwnProperty(p)) {

@@ -15,6 +15,12 @@ PigFlowModule
 .factory('FlowToScript', function()
     {
 
+      /**
+       * Description
+       * @method FlowToScript
+       * @param {} nodes
+       * @param {} links
+       */
       function FlowToScript (nodes, links)
       {
         this.nodes = nodes || [];
@@ -24,8 +30,10 @@ PigFlowModule
         this.output_script = "";
 
 
-        /*
+        /**
          * Replace script contents
+         * @method fillScript
+         * @param {} node
          */
         this.fillScript = function (node)
         {
@@ -180,8 +188,10 @@ PigFlowModule
 
 
 
-        /*
+        /**
          * Start sorting
+         * @method start
+         * @param {} cb
          */
         this.start = function (cb)
         {

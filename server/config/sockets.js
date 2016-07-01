@@ -7,6 +7,11 @@
 
 'use strict';
 
+/**
+ * Description
+ * @method exports
+ * @param {} io
+ */
 module.exports = function (io) {
 
   /*io.on('connection', function (socket) {

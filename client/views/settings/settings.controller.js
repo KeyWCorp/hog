@@ -19,6 +19,10 @@ angular.module('hog')
         });
       var priv = {
         removedArgs: [],
+        /**
+         * Description
+         * @method getToastPosition
+         */
         getToastPosition: function()
         {
           return {
@@ -34,6 +38,12 @@ angular.module('hog')
       angular.extend(vm, {
         name: 'SettingsCtrl',
         ins: Settings.list(),
+        /**
+         * Description
+         * @method save
+         * @param {} data
+         * @param {} script
+         */
         save: function(data, script)
         {
           for(var i = 0; i < vm.script.length; i++)
@@ -88,9 +98,18 @@ angular.module('hog')
               });
             $log.debug(goodCount);
         },
+        /**
+         * Description
+         * @method showSavedToast
+         */
         showSavedToast: function() {
           $mdToast.showSimple('Settings Saved!');
         },
+        /**
+         * Description
+         * @method showErrorToast
+         * @param {} err
+         */
         showErrorToast: function(err) {
           $mdToast.show(
             $mdToast.simple()
@@ -99,6 +118,11 @@ angular.module('hog')
             .hideDelay(3000)
           )
         },
+        /**
+         * Description
+         * @method showRemovedArgToast
+         * @param {} opt
+         */
         showRemovedArgToast: function(opt)
         {
           var pinTo = priv.getToastPosition();
@@ -119,6 +143,12 @@ angular.module('hog')
               });
         },
         udfs: {displayName: 'User Defined Functions (UDF):', data: []},
+        /**
+         * Description
+         * @method removeArg
+         * @param {} opt
+         * @param {} index
+         */
         removeArg: function(opt, index)
         {
           if(!lodash.isUndefined(vm.ins[opt].data[index]))
@@ -142,6 +172,12 @@ angular.module('hog')
 
           $log.info('remove clicked');
         },
+        /**
+         * Description
+         * @method addArg
+         * @param {} opt
+         * @param {} temp
+         */
         addArg: function(opt, temp)
         {
           vm.ins[opt].data.push({description: "", arg: temp, default: "" });
@@ -161,6 +197,11 @@ angular.module('hog')
             {
               vm.udfs = data.json;
             });
+          /**
+           * Description
+           * @method scriptSelect
+           * @param {} script
+           */
           vm.scriptSelect = function(script)
           {
             vm.script.line = script.line;

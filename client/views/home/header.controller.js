@@ -9,6 +9,10 @@
 angular.module('hog')
   .controller('HeaderCtrl', function ($scope, $log, $mdSidenav, $state) {
 
+    /**
+     * Description
+     * @method close
+     */
     $scope.close = function (){
         $mdSidenav('left').close();
     }
@@ -57,20 +61,42 @@ angular.module('hog')
           },
 
         ],
+        /**
+         * Description
+         * @method toggleNav
+         */
         toggleNav: function()
         {
             $mdSidenav('left').toggle();
         },
         originatorEv: null,
+        /**
+         * Description
+         * @method openMenu
+         * @param {} $mdOpenMenu
+         * @param {} ev
+         */
         openMenu: function($mdOpenMenu, ev)
         {
           vm.originatorEv = ev;
           $mdOpenMenu(ev);
         },
+        /**
+         * Description
+         * @method goState
+         * @param {} state
+         */
         goState: function(state)
         {
           $state.go(state);
         },
+        /**
+         * Description
+         * @method clicked
+         * @param {} nav
+         * @param {} $mdOpenMenu
+         * @param {} ev
+         */
         clicked: function(nav, $mdOpenMenu, ev)
         {
           if(nav.substates)

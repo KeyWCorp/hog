@@ -11,10 +11,21 @@ var fs = require('fs');
 var Settings = require('./settings.model');
 var logger = require('../../config/logger.js');
 var _ready = false;
-/* Set up response functions */
+/**
+ * Set up response functions 
+ * @method handleError
+ * @param {} socket
+ * @param {} err
+ */
 function handleError (socket, err) {
   return socket.emit('settings:error', {status: 500, json: err});
 }
+/**
+ * Description
+ * @method buildResponse
+ * @param {} statusCode
+ * @param {} data
+ */
 function buildResponse (statusCode, data)
 {
     return {status: statusCode, json: data};
@@ -27,18 +38,37 @@ function buildResponse (statusCode, data)
         logger.error('Failed to load Settings collection with error [%s]', err);
     });*/
 
-/* Set up messages */
+/**
+ * Set up messages 
+ * @method init
+ * @param {} socket
+ */
 exports.init = function (socket)
 {
     logger.info('initializing settings controller')
+    /**
+     * Description
+     * @method created
+     * @param {} obj
+     */
     Settings.created = function(obj)
     {
         socket.emit('Settings:created', obj);
     }
+    /**
+     * Description
+     * @method updated
+     * @param {} obj
+     */
     Settings.updated = function(obj)
     {
         socket.emit('Settings:updated', obj);
     }
+    /**
+     * Description
+     * @method removed
+     * @param {} obj
+     */
     Settings.removed = function(obj)
     {
         socket.emit('Settings:removed', obj);
@@ -52,9 +82,8 @@ exports.init = function (socket)
 }
 /**
  * Get list of Settings
- *
- * @param req
- * @param res
+ * @method index
+ * @param {} socket
  */
 exports.index = function (socket) {
     logger.debug('in index function')
@@ -84,9 +113,8 @@ exports.index = function (socket) {
 
 /**
  * Get a single Setting
- *
- * @param req
- * @param res
+ * @method show
+ * @param {} socket
  */
 exports.show = function (socket) {
     socket.on('show',
@@ -111,9 +139,8 @@ exports.show = function (socket) {
 
 /**
  * Creates a new Setting in the DB.
- *
- * @param req
- * @param res
+ * @method create
+ * @param {} socket
  */
 exports.create = function (socket) {
     socket.on('create',
@@ -141,9 +168,8 @@ exports.create = function (socket) {
 
 /**
  * Updates an existing Setting in the DB.
- *
- * @param req
- * @param res
+ * @method update
+ * @param {} socket
  */
 exports.update = function (socket)
 {
@@ -172,9 +198,8 @@ exports.update = function (socket)
 
 /**
  * Deletes a Setting from the DB.
- *
- * @param req
- * @param res
+ * @method destroy
+ * @param {} socket
  */
 exports.destroy = function (socket) {
     socket.on('destroy',

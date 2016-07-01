@@ -16,6 +16,11 @@ var logger = require('./logger.js');
 
 var config = require('./environment');
 
+/**
+ * Description
+ * @method exports
+ * @param {} app
+ */
 module.exports = function (app) {
 
   var env = config.env;

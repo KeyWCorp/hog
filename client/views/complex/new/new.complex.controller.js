@@ -29,8 +29,17 @@ angular.module('hog')
         type: 'complex'
       };
 
+      /**
+       * Description
+       * @method onEditorLoad
+       * @param {} _ace
+       */
       vm.onEditorLoad = function(_ace)
       {
+        /**
+         * Description
+         * @method modeChanged
+         */
         vm.modeChanged = function () {
           console.log('changing mode to: ' + vm.mode.toLowerCase());
           _ace.getSession().setMode("ace/mode/" + vm.mode.toLowerCase());
@@ -42,6 +51,11 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method onEditorChange
+       * @param {} _ace
+       */
       vm.onEditorChange = function(_ace)
       {
 
@@ -57,6 +71,11 @@ angular.module('hog')
           enableLiveAutocompletion: true
         },
         mode: vm.mode.toLowerCase(),
+        /**
+         * Description
+         * @method onLoad
+         * @param {} _ace
+         */
         onLoad: function(_ace) {vm.onEditorLoad(_ace);},
         useWrapMode: true,
         showGutter: false,
@@ -66,11 +85,20 @@ angular.module('hog')
       };
 
 
+      /**
+       * Description
+       * @method upload
+       */
       vm.upload = function()
       {
         document.getElementById('fileInput').click();
       };
 
+      /**
+       * Description
+       * @method uploadScript
+       * @param {} $fileContent
+       */
       vm.uploadScript = function($fileContent)
       {
         vm.script.data = $fileContent;
@@ -78,6 +106,10 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method save
+       */
       vm.save = function()
       {
         vm.script.args = vm.args.split(" ");
@@ -98,6 +130,10 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method run
+       */
       vm.run = function()
       {
         if (angular.isDefined(vm.script._id))
@@ -141,6 +177,12 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method exists
+       * @param {} item
+       * @param {} list
+       */
       vm.exists = function(item, list)
       {
         return list.indexOf(item) > -1;
@@ -148,6 +190,12 @@ angular.module('hog')
 
 
 
+      /**
+       * Description
+       * @method toggle
+       * @param {} item
+       * @param {} list
+       */
       vm.toggle = function(item, list)
       {
         var idx = list.indexOf(item);

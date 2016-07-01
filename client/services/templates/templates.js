@@ -8,11 +8,15 @@
 angular.module('hog.hog-templates', [])
   .factory('HogTemplates', function()
       {
-        /*
-         *
+        /**
          * Controller Templates
+         * @method GraphInfoController
+         * @param {} $mdDialog
+         * @param {} $scope
+         * @param {} $timeout
+         * @param {} graph_data
+         * @param {} script
          */
-
         function GraphInfoController($mdDialog, $scope, $timeout, graph_data, script)
         {
           $scope.script_name = script.name;
@@ -42,6 +46,11 @@ angular.module('hog.hog-templates', [])
             Radar: false
           };
 
+          /**
+           * Description
+           * @method reloadData
+           * @param {} cb
+           */
           function reloadData (cb)
           {
 
@@ -100,6 +109,11 @@ angular.module('hog.hog-templates', [])
           var myNewChart;
           var ctx;
 
+          /**
+           * Description
+           * @method setX
+           * @param {} x_axis
+           */
           $scope.setX = function (x_axis)
           {
             if (x_axis === -1)
@@ -135,11 +149,20 @@ angular.module('hog.hog-templates', [])
             }
           };
 
+          /**
+           * Description
+           * @method graphToString
+           */
           $scope.graphToString = function ()
           {
             return $scope.graph_layout.toString();
           };
 
+          /**
+           * Description
+           * @method setY
+           * @param {} y_axis
+           */
           $scope.setY = function (y_axis)
           {
             $scope.graph_layout[$scope.y_axis] = $scope.y_axis;
@@ -166,6 +189,11 @@ angular.module('hog.hog-templates', [])
           };
 
 
+          /**
+           * Description
+           * @method showGraph
+           * @param {} graph_type
+           */
           $scope.showGraph = function(graph_type)
           {
             if ($scope.y_location != -1)
@@ -251,6 +279,10 @@ angular.module('hog.hog-templates', [])
               });
 
 
+          /**
+           * Description
+           * @method cancel
+           */
           $scope.cancel = function()
           {
             $mdDialog.cancel();
@@ -265,6 +297,22 @@ angular.module('hog.hog-templates', [])
 
 
         // Controller for Info Modal
+        /**
+         * Description
+         * @method InfoController
+         * @param {} $mdDialog
+         * @param {} $scope
+         * @param {} script_name
+         * @param {} info_outputs
+         * @param {} outputs
+         * @param {} logs
+         * @param {} warnings
+         * @param {} errors
+         * @param {} filter_type
+         * @param {} graph_data
+         * @param {} openGraphInfo
+         * @param {} script_id
+         */
         function InfoController(
           $mdDialog,
           $scope,
@@ -291,6 +339,10 @@ angular.module('hog.hog-templates', [])
           $scope.openGraphInfo = openGraphInfo;
           $scope.script_id = script_id;
 
+          /**
+           * Description
+           * @method filteredInfo
+           */
           $scope.filteredInfo = function ()
           {
             return $scope.info_outputs.filter(function (info)
@@ -305,31 +357,55 @@ angular.module('hog.hog-templates', [])
                 });
           };
 
+          /**
+           * Description
+           * @method filterByAll
+           */
           $scope.filterByAll = function ()
           {
             $scope.filter_type = "all";
           };
 
+          /**
+           * Description
+           * @method filterByOutput
+           */
           $scope.filterByOutput = function ()
           {
             $scope.filter_type = "output";
           };
 
+          /**
+           * Description
+           * @method filterByLog
+           */
           $scope.filterByLog = function ()
           {
             $scope.filter_type = "log";
           };
 
+          /**
+           * Description
+           * @method filterByWarning
+           */
           $scope.filterByWarning = function ()
           {
             $scope.filter_type = "warning";
           };
 
+          /**
+           * Description
+           * @method filterByError
+           */
           $scope.filterByError = function ()
           {
             $scope.filter_type = "error";
           };
 
+          /**
+           * Description
+           * @method cancel
+           */
           $scope.cancel = function()
           {
             $mdDialog.cancel();
@@ -338,6 +414,17 @@ angular.module('hog.hog-templates', [])
 
 
 
+        /**
+         * Description
+         * @method VersionDiffController
+         * @param {} $mdDialog
+         * @param {} $window
+         * @param {} $scope
+         * @param {} $timeout
+         * @param {} $q
+         * @param {} lodash
+         * @param {} vm
+         */
         function VersionDiffController($mdDialog, $window, $scope, $timeout, $q, lodash, vm)
         {
           var _ = lodash;
@@ -346,6 +433,12 @@ angular.module('hog.hog-templates', [])
           vm.leftVers = vm.versions[vm.leftIdx];
           vm.rightVers = vm.versions[vm.rightIdx];
 
+          /**
+           * Description
+           * @method processDiff
+           * @param {} lIdx
+           * @param {} rIdx
+           */
           vm.processDiff = function(lIdx, rIdx)
           {
             var p = $q.defer();
@@ -406,18 +499,32 @@ angular.module('hog.hog-templates', [])
             );
 
 
+          /**
+           * Description
+           * @method setLIdx
+           * @param {} vers
+           */
           vm.setLIdx = function(vers)
           {
             vm.leftIdx = _.findIndex(vm.versions, ['version', vers.version])
           }
 
 
+          /**
+           * Description
+           * @method setRIdx
+           * @param {} vers
+           */
           vm.setRIdx = function(vers)
           {
             vm.rightIdx = _.findIndex(vm.versions, ['version', vers.version])
           }
 
 
+          /**
+           * Description
+           * @method diff
+           */
           vm.diff = function()
           {
             $scope.vm.loading = true;
@@ -441,12 +548,22 @@ angular.module('hog.hog-templates', [])
 
 
           $scope.vm = vm;
+          /**
+           * Description
+           * @method revert
+           * @param {} vIdx
+           * @param {} source
+           */
           $scope.revert = function(vIdx, source)
           {
             $mdDialog.hide({revertIdx: vIdx, source: source});
           }
 
 
+          /**
+           * Description
+           * @method cancel
+           */
           $scope.cancel = function()
           {
             $mdDialog.cancel();
@@ -456,6 +573,15 @@ angular.module('hog.hog-templates', [])
 
 
         // Controller for Info Modal
+        /**
+         * Description
+         * @method DeleteDialogController
+         * @param {} $mdDialog
+         * @param {} $scope
+         * @param {} Runner
+         * @param {} script_id
+         * @param {} cb
+         */
         function DeleteDialogController(
           $mdDialog,
           $scope,
@@ -465,6 +591,10 @@ angular.module('hog.hog-templates', [])
         {
           $scope.script_id = script_id;
 
+          /**
+           * Description
+           * @method deleteScript
+           */
           $scope.deleteScript = function ()
           {
             Runner.destroy($scope.script_id)
@@ -481,6 +611,10 @@ angular.module('hog.hog-templates', [])
                       });
                 });
           };
+          /**
+           * Description
+           * @method cancel
+           */
           $scope.cancel = function()
           {
             $mdDialog.cancel();
@@ -489,9 +623,20 @@ angular.module('hog.hog-templates', [])
 
 
 
+        /**
+         * Description
+         * @method SettingsController
+         * @param {} $mdDialog
+         * @param {} $scope
+         * @param {} vm
+         */
         function SettingsController( $mdDialog, $scope, vm)
         {
           $scope.vm = vm;
+          /**
+           * Description
+           * @method cancel
+           */
           $scope.cancel = function()
           {
             $mdDialog.cancel();
@@ -509,6 +654,10 @@ angular.module('hog.hog-templates', [])
 
           $scope.graph_output_count = $scope.vm.script.graph_count;
 
+          /**
+           * Description
+           * @method save
+           */
           $scope.save = function()
           {
             if ($scope.graph.Bar)
@@ -535,6 +684,12 @@ angular.module('hog.hog-templates', [])
 
 
 
+        /**
+         * Description
+         * @method parseOutput
+         * @param {} data
+         * @param {} myList
+         */
         function parseOutput (data, myList)
         {
           var failed = false;
