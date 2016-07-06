@@ -8,7 +8,7 @@
             <input required ng-model="script_name">
           </md-input-container>
 
-          <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+          <section flex layout="row" layout-sm="column" layout-align="center center" layout-wrap>
             <md-button flex class="md-raised md-primary" ng-disabled="scriptForm.$invalid || vm.running" ng-if="!vm.edited && !vm.running" ng-click="vm.run()">Run</md-button>
             <md-button flex class="md-raised md-primary" ng-disabled="scriptForm.$invalid || vm.running" ng-if="vm.edited && !vm.running" ng-click="vm.saveAndRun()">Save and Run</md-button>
             <md-button flex class="md-raised md-warn   " ng-if="vm.running" ng-click="vm.kill()" ng-show="vm.running">Kill</md-button>
