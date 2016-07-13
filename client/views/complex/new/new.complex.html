@@ -1,40 +1,28 @@
 <md-content>
-    {{vm.name}}
-    <section id="input">
-        <md-input-container>
-            <label>Name:</label>
-            <input ng-model="vm.script.name">
+  <form name="scriptForm">
+    <section layout="column" id="input">
+      <md-input-container layout-padding>
+        <label>*Name:</label>
+        <input required ng-model="vm.script.name">
+      </md-input-container>
+      <md-input-container layout-padding>
+        <label>Pig Arguments:</label>
+        <input ng-model="vm.args">
+      </md-input-container>
+      <div ui-ace="vm.editorOptions" ng-model="vm.script.data"></div>
+      <div layout="row" layout-padding>
+        <md-input-container flex layout-padding>
+          <md-button ng-disabled="!vm.script.data || scriptForm.$invalid" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
         </md-input-container>
         <div ui-ace="vm.editorOptions" ng-model="vm.script.data">
-
         </div>
-        <md-input-container>
-            <md-button class="md-raised md-primary" ng-click="vm.run()">Execute</md-button>
-            <div flex="50" ng-repeat="item in vm.args">
-                <md-checkbox ng-checked="vm.exists(item, vm.script.args)" ng-click="vm.toggle(item, vm.script.args)">
-                    {{item.arg}}
-                </md-checkbox>
-                <md-input-container ng-show="vm.exists(item, vm.script.args)">
-                    <input ng-model="item.input" aria-label="arg {{item.arg}}">
-                </md-input-container>
-            </div>
+        <input id="fileInput" type="file" ng-hide="true" on-read-file="vm.uploadScript($fileContent)">
+        <md-input-container flex layout-padding>
+          <md-button class="md-raised md-primary" ng-click="vm.upload()">
+            Upload Script
+          </md-button>
         </md-input-container>
-
+      </div>
     </section>
-    <div>{{vm.script}}</div>
-    <div>{{vm.script.args}}</div>
-    <section id="output">
-        <div>
-            <div ng-show="vm.progress">
-                <p>{{vm.progress}}</p>
-            </div>
-            <div ng-show="vm.output">
-                <pre>{{vm.output}}</pre>
-            </div>
-            <div ng-show="vm.log">
-                <pre>{{vm.log}}</pre>
-            </div>
-            <!-- Graph the results -->
-        </div>
-    </section>
+  </form>
 </md-content>

@@ -1,0 +1,23 @@
+<md-content layout='column' layout-padding>
+  <form name="scriptForm">
+    <md-input-container flex>
+      <label>Name:</label>
+      <input required ng-model="vm.script.name">
+    </md-input-container>
+
+    <md-input-container flex>
+      <label>Pig Arguments:</label>
+      <input ng-model="vm.args">
+    </md-input-container>
+
+    <md-input-container flex>
+      <md-button ng-disabled="!vm.script.data || scriptForm.$invalid" class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+    </md-input-container>
+  </form>
+
+  <div layout="column" layout-margin>
+    <div flex>
+      <div pig-flow layout="column" input-data-string="vm.ots(vm.data)" output-data="vm.output_data" id="pig-flow"></div>
+    </div>
+  </div>
+</md-content>

@@ -1,3 +1,10 @@
+/*
+ * @license MIT
+ * @file
+ * @copyright KeyW Corporation 2016
+ */
+
+
 'use strict';
 
 var express = require('express');
@@ -9,6 +16,11 @@ var logger = require('./logger.js');
 
 var config = require('./environment');
 
+/**
+ * Description
+ * @method exports
+ * @param {} app
+ */
 module.exports = function (app) {
 
   var env = config.env;

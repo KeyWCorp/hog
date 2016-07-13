@@ -1,0 +1,113 @@
+<md-content>
+  <md-card>
+    <md-card-content>
+      <form name="scriptForm" layout='column' layout-padding>
+        <div layout="row">
+          <md-input-container flex>
+            <label>Name:</label>
+            <input required ng-model="script_name">
+          </md-input-container>
+
+          <section flex layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <md-button flex class="md-raised md-primary" ng-disabled="scriptForm.$invalid || vm.running" ng-if="!vm.edited && !vm.running" ng-click="vm.run()">Run</md-button>
+            <md-button flex class="md-raised md-primary" ng-disabled="scriptForm.$invalid || vm.running" ng-if="vm.edited && !vm.running" ng-click="vm.saveAndRun()">Save and Run</md-button>
+            <md-button flex class="md-raised md-warn   " ng-if="vm.running" ng-click="vm.kill()" ng-show="vm.running">Kill</md-button>
+            <md-button flex class="md-raised md-primary" ng-disabled="!vm.edited || scriptForm.$invalid" ng-click="vm.save()">Save</md-button>
+
+            <md-menu flex layout="row">
+              <md-button flex class="md-raised md-primary" ng-click="$mdOpenMenu($event)">
+                Download/Export
+              </md-button>
+              <md-menu-content flex width="4">
+                <md-menu-item>
+                  <md-button ng-disabled="vm.running || !vm.pigList || vm.pigList.length <= 0" ng-csv="vm.pigList" filename="{{ vm.script.name }}.csv">Export Output To CSV</md-button>
+                </md-menu-item>
+
+                <md-menu-item>
+                  <md-button ng-disabled="!vm.script.data" ng-click="vm.downloadScript()">Download Script</md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+            <md-button flex class="md-raised md-warn" ng-click="vm.deleteScript($event)">
+              Delete
+              <md-icon md-font-set='material-icons'>delete</md-icon>
+            </md-button>
+          </section>
+        </div>
+
+        <md-input-container flex>
+          <label>Pig Arguments</label>
+          <input ng-model="script_args" aria-label="Pig Arguments">
+        </md-input-container>
+
+        <div flex class='md-padding' layout="column" layout-padding ng-show="vm.info_outputs.length > 0">
+          <md-subheader class="md-primary">Display Outputs</md-subheader>
+          <section layout="row">
+            <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'all')" ng-if="vm.info_outputs.length > 0">
+              Show All: #{{ vm.info_outputs.length }}
+            </md-button>
+
+            <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'output')" md-style-color="{'background-color': 'green.400'}" ng-if="vm.outputs.length > 0">
+              Show Results: #{{ vm.outputs.length }}
+            </md-button>
+
+            <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'log')" md-style-color="{'background-color': 'blue.400'}" ng-if="vm.logs.length > 0">
+              Show Info Logs: #{{ vm.logs.length }}
+            </md-button>
+
+            <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'warning')" md-style-color="{'background-color': 'orange.400'}" ng-if="vm.warnings.length > 0">
+              Show Warnings: #{{ vm.warnings.length }}
+            </md-button>
+
+            <md-button class="md-raised chip-btn" ng-click="vm.openInfo($event, 'error')" md-style-color="{'background-color': 'red.400'}" ng-if="vm.errors.length > 0">
+              Show Errors: #{{ vm.errors.length }}
+            </md-button>
+
+            <md-button class="md-raised chip-btn" ng-click="vm.openGraphInfo($event)" ng-if="vm.pigList.length > 0">
+              Show Graph Info: #{{ vm.pigList.length }}
+            </md-button>
+
+            <md-divider ></md-divider>
+          </section>
+        </div>
+
+        <div flex layout="column" layout-padding>
+          <pig-table flex layout="row" input-data="vm.pigList" script-name="vm.script.name" ng-if="vm.pigList.length > 0"></pig-table>
+        </div>
+
+
+
+        <v-accordion class="vAccordion--default" layout="column" layout-padding flex="45">
+          <v-pane expanded="true">
+            <v-pane-header>
+              Simple Editor
+            </v-pane-header>
+            <v-pane-content>
+              <div layout="column" layout-margin ng-if="vm.data_ready">
+                <div flex>
+                  <div pig-flow layout="column" input-data-string="vm.ots(vm.data)" output-data="vm.output_data" id="pig-flow{{ vm.script._id }}"></div>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+          <v-pane>
+            <v-pane-header>
+              Complex Script Preview
+            </v-pane-header>
+            <v-pane-content>
+              <div flex layout="column" layout-padding>
+                <div ui-ace="vm.editorOptions" readonly ng-model="vm.script.data" style="height: 400px;"></div>
+                <div flex layout="row" layout-padding>
+                  <md-button flex class="md-raised" flex ng-click="vm.editComplex()">
+                    Edit Complex Script
+                  </md-button>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+        </v-accordion>
+
+      </form>
+    </md-card-content>
+  </md-card>
+</md-content>

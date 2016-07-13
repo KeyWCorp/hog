@@ -1,12 +1,23 @@
+/*
+ * @license MIT
+ * @file
+ * @copyright KeyW Corporation 2016
+ */
+
+
 'use strict';
 angular.module('hog')
   .controller('HeaderCtrl', function ($scope, $log, $mdSidenav, $state) {
 
+    /**
+     * Description
+     * @method close
+     */
     $scope.close = function (){
         $mdSidenav('left').close();
     }
     var vm = this;
-    
+
     $scope.$on('stateChangeSuccess',
         function()
         {
@@ -16,10 +27,6 @@ angular.module('hog')
     angular.extend(vm, {
         name: 'Hog',
         menu: [
-          {
-            name: 'Settings',
-            state: 'home.settings'
-          },
           {
               name: 'Complex',
               state: 'home.complex',
@@ -52,28 +59,44 @@ angular.module('hog')
               }
             ]
           },
-         
+
         ],
+        /**
+         * Description
+         * @method toggleNav
+         */
         toggleNav: function()
         {
-            $log.debug('clicked')
-            $mdSidenav('left').toggle()
-                .then(
-                    function()
-                    {
-                        $log.debug('slide');
-                    });
+            $mdSidenav('left').toggle();
         },
         originatorEv: null,
+        /**
+         * Description
+         * @method openMenu
+         * @param {} $mdOpenMenu
+         * @param {} ev
+         */
         openMenu: function($mdOpenMenu, ev)
         {
           vm.originatorEv = ev;
           $mdOpenMenu(ev);
         },
+        /**
+         * Description
+         * @method goState
+         * @param {} state
+         */
         goState: function(state)
         {
           $state.go(state);
         },
+        /**
+         * Description
+         * @method clicked
+         * @param {} nav
+         * @param {} $mdOpenMenu
+         * @param {} ev
+         */
         clicked: function(nav, $mdOpenMenu, ev)
         {
           if(nav.substates)

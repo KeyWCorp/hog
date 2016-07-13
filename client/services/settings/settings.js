@@ -1,3 +1,10 @@
+/*
+ * @license MIT
+ * @file
+ * @copyright KeyW Corporation 2016
+ */
+
+
 'use strict';
 
 angular.module('hog')
@@ -23,20 +30,40 @@ angular.module('hog')
       }
       return service;
 
-      
+
+      /**
+       * Description
+       * @method set
+       * @param {} setting
+       * @param {} value
+       */
       function set(setting, value)
       {
         if(!lodash.isUndefined(settings[setting]))
           settings[setting] = value;
       };
+      /**
+       * Description
+       * @method get
+       * @param {} setting
+       */
       function get(setting)
       {
         return lodash.isUndefined(settings[setting]) ? null : settings[setting];
       }
+      /**
+       * Description
+       * @method all
+       */
       function all()
       {
         return settings;
       }
+      /**
+       * Description
+       * @method save
+       * @param {} data
+       */
       function save(data)
       {
         var deferred = $q.defer();
@@ -56,6 +83,10 @@ angular.module('hog')
             });
         return deferred.promise;
       }
+            /**
+             * Description
+             * @method list
+             */
             function list()
             {
                 var deferred = $q.defer();
@@ -75,10 +106,15 @@ angular.module('hog')
                     });
                 return deferred.promise;
             }
+            /**
+             * Description
+             * @method create
+             * @param {} procData
+             */
             function create(procData)
             {
                 var deferred = $q.defer();
-                
+
                 Setting.emit('create', angular.toJson(procData));
                 Setting.on('create',
                     function(data)
@@ -92,6 +128,11 @@ angular.module('hog')
                     });
                 return deferred.promise;
             }
+            /**
+             * Description
+             * @method update
+             * @param {} procData
+             */
             function update(procData)
             {
                 var deferred = $q.defer();
@@ -108,6 +149,11 @@ angular.module('hog')
                     });
                 return deferred.promise;
             }
+            /**
+             * Description
+             * @method destroy
+             * @param {} id
+             */
             function destroy(id)
             {
                 var deferred = $q.defer();
@@ -124,6 +170,11 @@ angular.module('hog')
                     });
                 return deferred.promise;
             }
+            /**
+             * Description
+             * @method getp
+             * @param {} id
+             */
             function getp(id)
             {
                 var deferred = $q.defer();

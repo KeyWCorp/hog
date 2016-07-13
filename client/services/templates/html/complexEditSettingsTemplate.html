@@ -1,0 +1,34 @@
+<md-dialog ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Graph Settings</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <legend>How would you like to view your output?</legend>
+        <div layout="column" layout-align="center start">
+          <md-checkbox ng-disabled="graph.Line || graph.Radar"  ng-model="graph.Bar" >
+            Bar Graph
+          </md-checkbox>
+          <md-checkbox ng-disabled="graph.Bar || graph.Radar"  ng-model="graph.Line" >
+            Line Graph
+          </md-checkbox>
+          <md-checkbox ng-disabled="graph.Bar || graph.Line"  ng-model="graph.Radar">
+            Radar Graph
+          </md-checkbox>
+        </div>
+      </div>
+      <md-input-container flex layout-padding class="md-block">
+        <label>Enter the number of desired outputs</label>
+        <input ng-model="graph_output_count">
+      </md-input-container>
+      <md-input-container layout="row" class="md-block">
+        <md-button flex class="md-raised md-primary" ng-click="cancel()">Cancel</md-button>
+        <md-button flex class="md-raised md-primary" ng-click="save()">Save</md-button>
+      </md-input-container>
+     </md-dialog-content>
+  </form>
+</md-dialog>

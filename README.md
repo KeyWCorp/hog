@@ -1,4 +1,6 @@
-# Hog [![Generated with](https://img.shields.io/badge/generated%20with-bangular-blue.svg?style=flat-square)](https://github.com/42Zavattas/generator-bangular)
+# Hog
+[![Generated with](https://img.shields.io/badge/generated%20with-bangular-blue.svg?style=flat-square)](https://github.com/42Zavattas/generator-bangular)
+[![build status](https://gitlab.com/ccis-irad/hog/badges/development/build.svg?style=flat-square)](https://gitlab.com/ccis-irad/hog/commits/development)
 
 # To begin the progam:
 
@@ -38,6 +40,14 @@ bower install
 ```
 cp client/externals/mode-pig_latin.js client/bower_components/ace-builds/src-min-noconflict/.
 ```
+# If you have an older version of hog run the DB migrate
+```
+gulp migrate
+mv /path/to/hog/server/api/pig/pig.data.db.mig /path/to/hog/server/api/pig/pig.data.db
+mv /path/to/hog/server/api/settings/settings.data.db.mig /path/to/hog/server/api/settings/settings.data.db
+```
+Move others as needed.
+
 
 # Running Hog
 Open a second terminal

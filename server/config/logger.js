@@ -1,3 +1,10 @@
+/*
+ * @license MIT
+ * @file
+ * @copyright KeyW Corporation 2016
+ */
+
+
 var winston = require('winston');
 winston.emitErrs = true;
 
@@ -24,6 +31,12 @@ var logger = new winston.Logger({
 
 module.exports = logger;
 module.exports.stream = {
+    /**
+     * Description
+     * @method write
+     * @param {} message
+     * @param {} encoding
+     */
     write: function(message, encoding){
         logger.info(message);
     }

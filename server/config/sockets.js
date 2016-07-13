@@ -1,5 +1,17 @@
+/*
+ * @license MIT
+ * @file
+ * @copyright KeyW Corporation 2016
+ */
+
+
 'use strict';
 
+/**
+ * Description
+ * @method exports
+ * @param {} io
+ */
 module.exports = function (io) {
 
   /*io.on('connection', function (socket) {
@@ -17,6 +29,6 @@ module.exports = function (io) {
 
   });*/
     // nps inserts
-    require('../api/pig/pig.socket.js').register(io);
+  require('../api/pig/pig.socket.js').register(io);
   require('../api/settings/settings.socket.js').register(io);
 };

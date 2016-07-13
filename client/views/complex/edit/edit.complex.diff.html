@@ -1,0 +1,49 @@
+<md-dialog flex ng-cloak>
+  <md-dialog-content>
+   
+        <md-card flex>
+          <md-card-header layout="row">
+            <md-input-container flex layout-align="beginning" style="float:left;">
+              <label>Latest Version</label>
+              <input ng-disabled="true" value="{{vm.latest}}">
+            </md-input-container>
+            <md-input-container flex="25">
+               <label>Left Version</label>
+               <md-select ng-model="vm.leftVers" md-on-close="vm.setLIdx(vm.leftVers)">
+                <md-option ng-value="version" ng-repeat="version in vm.versions track by $index">{{version.version}}</md-option>
+              </md-select>
+            </md-input-container>
+             <md-input-container flex="25">
+                <label>Right Version</label>
+               <md-select ng-model="vm.rightVers" md-on-close="vm.setRIdx(vm.rightVers)">
+                <md-option ng-value="version" ng-repeat="version in vm.versions track by $index">{{version.version}}</md-option>
+              </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+              <md-button class="md-raised md-primary" ng-click="vm.diff()"> Update Diff</md-button>
+            </md-input-container>
+          </md-card-header>
+          <md-card-content ng-hide="vm.loading">
+            <pre class="textdiff" line-diff left-obj="vm.ls" right-obj="vm.rs"></pre>
+          </md-card-content>
+          <md-card-content ng-show="vm.loading">
+            <div layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+          </md-card-content>
+        </md-card>
+      
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="revert(vm.leftIdx, vm.ls)">
+       Revert to {{vm.leftVers.version}}
+      </md-button>
+      <md-button ng-click="revert(vm.rightIdx, vm.rs)">
+       Revert to {{vm.rightVers.version}}
+      </md-button>
+      <md-button ng-click="cancel()">
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+</md-dialog>

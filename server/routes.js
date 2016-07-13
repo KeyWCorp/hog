@@ -1,7 +1,19 @@
+/*
+ * @license MIT
+ * @file
+ * @copyright KeyW Corporation 2016
+ */
+
+
 'use strict';
 
 var config = require('./config/environment');
 
+/**
+ * Description
+ * @method exports
+ * @param {} app
+ */
 module.exports = function (app) {
 
   // API
