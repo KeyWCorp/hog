@@ -2,6 +2,15 @@
 [![Generated with](https://img.shields.io/badge/generated%20with-bangular-blue.svg?style=flat-square)](https://github.com/42Zavattas/generator-bangular)
 [![build status](https://gitlab.com/ccis-irad/hog/badges/development/build.svg?style=flat-square)](https://gitlab.com/ccis-irad/hog/commits/development)
 
+Hog is an interactive development environment that was created to assist
+analysts and developers with Apache Pig script creation requiring minimal
+knowledge of the language. The web application that was constructed provides a
+resource for script generation, analyzing output as well as archiving scripts.
+Using the Simple environment, users have drag and drop capabilities to generate
+scripts. The Complex side of the application provides a development environment
+that lets developers create, save and analyze output of their scripts.
+
+
 # To begin the progam:
 
 # Install Pig, (if you have a mac)
@@ -70,6 +79,6 @@ RUN bower install --allow-root
 CMD npm prune && npm install && gulp
 ```
 Run 'docker build --build-arg cred='GitLabUser:GitLabPass' -t DockerImageName path/to/Dockerfile' to build the container and then 'docker run -d -p=127.0.0.1:9000:9000 DockerImageName'
-The image will build itself from an image that offloads some of the public dependencies during the build. Each time the container is ran, the container will 
-update removing any un-needed dependencies before begining as so to work with development a little better. The image will take around 8 minutes to build but to update should simply take 
+The image will build itself from an image that offloads some of the public dependencies during the build. Each time the container is ran, the container will
+update removing any un-needed dependencies before begining as so to work with development a little better. The image will take around 8 minutes to build but to update should simply take
 a simple command.
