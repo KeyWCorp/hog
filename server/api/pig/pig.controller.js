@@ -1,6 +1,6 @@
 /*
  * @license MIT
- * @file
+ * @file pig.controller.js
  * @copyright KeyW Corporation 2016
  */
 
@@ -15,7 +15,7 @@ var logger  = require('../../config/logger.js');
 var _ready  = false;
 var Pig     = Pigs.Pig;
 /**
- * Set up response functions
+ * Set up error functions
  * @method handleError
  * @param {} socket
  * @param {} err
@@ -24,7 +24,7 @@ function handleError (socket, err) {
   return socket.emit('pig:error', {status: 500, json: err});
 }
 /**
- * Description
+ * Set up response functions
  * @method buildResponse
  * @param {} statusCode
  * @param {} data
@@ -33,13 +33,6 @@ function buildResponse (statusCode, data)
 {
   return {status: statusCode, json: data};
 }
-
-/* Load the objects */
-/* Pig.load(
-   function(err)
-   {
-   logger.error('Failed to load Pig collection with error [%s]', err);
-   });*/
 
 /**
  * Set up messages
@@ -50,7 +43,7 @@ exports.init = function (socket)
 {
   logger.info('initializing pig controller')
   /**
-   * Description
+   * Not Used Callback
    * @method created
    * @param {} obj
    */
@@ -59,7 +52,7 @@ exports.init = function (socket)
     socket.emit('Pig:created', obj);
   }
   /**
-   * Description
+   * Not Used Callback
    * @method updated
    * @param {} obj
    */
@@ -68,7 +61,7 @@ exports.init = function (socket)
     socket.emit('Pig:updated', obj);
   }
   /**
-   * Description
+   * Not Used Callback
    * @method removed
    * @param {} obj
    */
@@ -88,23 +81,15 @@ exports.init = function (socket)
  * @param {} socket
  */
 exports.index = function (socket) {
-  logger.debug('in index function')
     socket.on('index',
         function()
         {
           if (_ready)
           {
-            console.log('Index requested');
-            logger.debug('Index requested');
             Pig.find({})
               .then(
                 function (pigs)
                 {
-                  //
-                  console.log('index sent')
-
-                  console.log(pigs);
-
                   /*
                    * convert array to object
                    */
@@ -125,21 +110,15 @@ exports.index = function (socket) {
  * @param {} socket
  */
 exports.simpleIndex = function (socket) {
-  logger.debug('in index function')
     socket.on('simpleIndex',
         function()
         {
           if (_ready)
           {
-            console.log('Index requested');
-            logger.debug('Index requested');
             Pig.find({type: 'simple'})
               .then(
                 function (pigs)
                 {
-                  //
-                  console.log('index sent')
-
                   /*
                    * convert array to object
                    */
@@ -165,15 +144,12 @@ exports.show = function (socket) {
   socket.on('show',
       function(id)
       {
-        console.log('in show for pig: ', id, _ready);
         if (_ready)
         {
           Pig.findOne({_id: id}, {populate: true})
             .then(
               function(obj)
               {
-                //if (err) { return handleError(socket, err); }
-                //logger.info('data for show: ', obj.toJSON());
                 socket.emit('show', buildResponse(200, obj.toJSON()));
               },
               function(err)
@@ -199,18 +175,13 @@ exports.create = function (socket) {
         {
           var d = JSON.parse(data);
           d.version = d.version == '' ? null : d.version;
-          console.log('d: ', d);
           var pig = Pig.create(d);
-          console.log('pig: ', pig, ' data: ' , data);
           pig.diff({data: ''}, true);
-          console.log(pig);
           pig.updateModified();
           pig.save()
             .then(
               function(obj)
               {
-                console.log(obj);
-              //if (err) { return handleError(socket, err); }
                 socket.emit('server:create', buildResponse(201, obj.toJSON()));
               },
               function(err)
@@ -234,9 +205,7 @@ exports.update = function (socket)
       {
         if (_ready)
         {
-          console.log('updating', data.obj);
           var newData = JSON.parse(data.obj);
-          console.log('json parsed: ', newData);
           Pig.findOne({_id: newData._id})
             .then(
               function(doc)
@@ -244,34 +213,21 @@ exports.update = function (socket)
                 console.log('Found One: ', doc);
                 if(newData.version != doc.version)
                 {
-                  console.log('new version: ', newData.version, 'Old version: ', doc.version);
-                  doc.diff(doc, true, newData);
+                   doc.diff(doc, true, newData);
                 }
                 if(newData.name != doc.name)
                 {
-                  //console.log('updating before renaming');
-                  //doc.update(newData);
-                  console.log('renaming script to: ', newData.name);
-
                   var script_location = path.join(__dirname, '../../',  'scripts/pig/', newData.name +  '.pig');
-                  console.log('script location 2: ', script_location);
-
                   newData.script_loc = script_location;
-
-                  console.log('starting rename');
                   doc.rename(script_location)
                     .then(
                       function()
                       {
-                        console.log('rename successful, updating')
                         doc.update(newData);
-                        console.log('Saving');
                         doc.save()
                           .then(
                             function(obj)
                             {
-                              console.log('finished updating', obj);
-                              //if (err) { return handleError(socket, err); }
                               socket.emit('update', buildResponse(200, obj.toJSON()));
                             },
                             function(err)
@@ -291,8 +247,6 @@ exports.update = function (socket)
                     .then(
                       function(obj)
                       {
-                        console.log('finished updating', obj);
-                        //if (err) { return handleError(socket, err); }
                         socket.emit('update', buildResponse(200, obj.toJSON()));
                       },
                       function(err)
@@ -324,7 +278,6 @@ exports.destroy = function (socket) {
             .then(
               function(err)
               {
-                //if (err) { return handleError(socket, err); }
                 socket.emit('destroy', buildResponse(204, {}));
               },
               function(err)
@@ -489,7 +442,6 @@ exports.getRecent = function (socket) {
         .then(
             function(docs)
             {
-              console.log('count: ', countntype.count, 'type: ', countntype.type, 'docs: ', docs);
               socket.emit('recents-'+countntype.type, buildResponse(200, docs));
             },
             function(err)
@@ -511,19 +463,12 @@ exports.bumpVersion = function(socket)
     {
       if (_ready)
       {
-        console.log('finding and bumping', id);
         Pig.findOne({_id: id})
           .then(
             function(doc)
             {
-              console.log(id, 'found attempting bump');
-
               var ver = doc.bump();
-
-                    console.log('finished bumping version', ver);
-                    //if (err) { return handleError(socket, err); }
-                    socket.emit('bumped', buildResponse(200, ver));
-
+              socket.emit('bumped', buildResponse(200, ver));
             },
             function(err)
             {

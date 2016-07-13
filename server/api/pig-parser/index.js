@@ -1,6 +1,6 @@
 /*
  * @license MIT
- * @file
+ * @file index.js
  * @copyright KeyW Corporation 2016
  */
 
@@ -14,16 +14,16 @@ var decoder = new StringDecoder('utf8');
 
 
 /**
- * Description
+ * Runs a pig script
  * @method run
- * @param {} input_args
- * @param {} script_location
- * @param {} stdOut
- * @param {} stdError
- * @param {} stdLog
- * @param {} stdWarning
- * @param {} finishedCallback
- * @param {} killCB
+ * @param {obj} input_args - arguments to pass to script
+ * @param {string} script_location - the path to the script
+ * @param {func} stdOut - stdout callback
+ * @param {func} stdError - stderr callback
+ * @param {func} stdLog - stdlog callback
+ * @param {func} stdWarning - stdwarning callback
+ * @param {func} finishedCallback - callback for run finished
+ * @param {func} killCB - callback for killing script
  */
 function run(input_args, script_location, stdOut, stdError, stdLog, stdWarning, finishedCallback, killCB)
 {
@@ -116,7 +116,7 @@ function run(input_args, script_location, stdOut, stdError, stdLog, stdWarning, 
 // Start Track Tasks
 // =============================================================================
 /**
- * Description
+ * Tracks the pig scripts tasks
  * @method trackTasks
  * @param {} input_args
  * @param {} script_location

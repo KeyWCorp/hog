@@ -1,6 +1,6 @@
 /*
  * @license MIT
- * @file
+ * @file camo.js
  * @copyright KeyW Corporation 2016
  */
 
@@ -9,9 +9,9 @@ var connect = require('camo').connect;
 var path    = require('path');
 
 /**
- * Description
+ * Initialize the camo ODM
  * @method init
- * @param {} cb
+ * @param {func} cb - callback
  */
 exports.init = function(cb)
 {

@@ -1,6 +1,6 @@
 /*
  * @license MIT
- * @file
+ * @file pig.socket.js
  * @copyright KeyW Corporation 2016
  */
 
@@ -11,23 +11,19 @@ var Pig = require('./pig.controller');
 var logger = require('../../config/logger.js');
 
 /**
- * Description
+ * Registers the socket namespace
  * @method register
- * @param {} io
+ * @param {} io - the socket.io instance
  */
 exports.register = function (io) {
 
   var nps = io.of('/api/pigs');
+  // Connect the socket
   nps.on('connection', function(socket)
       {
         socket.connectDate = new Date();
         socket.ip = (socket.handshake.address) ? socket.handshake.address : null;
-        socket.on('index',
-            function()
-            {
-              logger.debug('test on indx')
-            }
-            );
+        // Set up message handlers
         Pig.init(socket);
         Pig.index(socket);
         Pig.simpleIndex(socket);
@@ -41,7 +37,7 @@ exports.register = function (io) {
         Pig.getRecent(socket);
         /* insert your logic */
 
-
+        // Disconnect the socket
         socket.on('disconnect', function () {
           logger.debug('/api/pigs [%s] %s disconnected.', new Date().toUTCString(), socket.ip);
           console.log('/api/pigs [%s] %s disconnected.', new Date().toUTCString(), socket.ip);

@@ -1,6 +1,6 @@
 /*
  * @license MIT
- * @file
+ * @file logger.js
  * @copyright KeyW Corporation 2016
  */
 

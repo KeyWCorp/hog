@@ -1,6 +1,6 @@
 /*
  * @license MIT
- * @file
+ * @file routes.js
  * @copyright KeyW Corporation 2016
  */
 
@@ -10,7 +10,7 @@
 var config = require('./config/environment');
 
 /**
- * Description
+ * Sets up the Rest API
  * @method exports
  * @param {} app
  */

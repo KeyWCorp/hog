@@ -1,6 +1,6 @@
 /*
  * @license MIT
- * @file
+ * @file settings.socket.js
  * @copyright KeyW Corporation 2016
  */
 
@@ -11,23 +11,20 @@ var Settings = require('./settings.controller');
 var logger = require('../../config/logger.js');
 
 /**
- * Description
+ * Registers a socket namespace
  * @method register
- * @param {} io
+ * @param {} io - socket.io instance
  */
 exports.register = function (io) {
 
     var nps = io.of('/api/settings');
+    // Set up connection
     nps.on('connection', function(socket)
     {
         socket.connectDate = new Date();
         socket.ip = (socket.handshake.address) ? socket.handshake.address : null;
-        socket.on('index',
-            function()
-            {
-                logger.debug('test on indx')
-        }
-            )
+        
+        // Set up message handlers
         Settings.init(socket);
         Settings.index(socket);
         Settings.show(socket);
@@ -36,6 +33,7 @@ exports.register = function (io) {
         Settings.destroy(socket);
         /* insert your logic */
 
+        // Set up disconnect
         socket.on('disconnect', function () {
             logger.debug('/api/settings [%s] %s disconnected.', new Date().toUTCString(), socket.ip);
             console.log('/api/settings [%s] %s disconnected.', new Date().toUTCString(), socket.ip);

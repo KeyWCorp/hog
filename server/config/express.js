@@ -1,6 +1,6 @@
 /*
  * @license MIT
- * @file
+ * @file express.js
  * @copyright KeyW Corporation 2016
  */
 
@@ -17,7 +17,7 @@ var logger = require('./logger.js');
 var config = require('./environment');
 
 /**
- * Description
+ * Creates the express application
  * @method exports
  * @param {} app
  */

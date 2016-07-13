@@ -1,6 +1,6 @@
 /*
  * @license MIT
- * @file
+ * @file settings.controller.js
  * @copyright KeyW Corporation 2016
  */
 
@@ -12,7 +12,7 @@ var Settings = require('./settings.model');
 var logger = require('../../config/logger.js');
 var _ready = false;
 /**
- * Set up response functions 
+ * Set up error functions 
  * @method handleError
  * @param {} socket
  * @param {} err
@@ -21,7 +21,7 @@ function handleError (socket, err) {
   return socket.emit('settings:error', {status: 500, json: err});
 }
 /**
- * Description
+ * Set up responce functions
  * @method buildResponse
  * @param {} statusCode
  * @param {} data
@@ -30,13 +30,6 @@ function buildResponse (statusCode, data)
 {
     return {status: statusCode, json: data};
 }
-
-/* Load the objects */
-/*Settings.load(
-    function(err)
-    {
-        logger.error('Failed to load Settings collection with error [%s]', err);
-    });*/
 
 /**
  * Set up messages 
@@ -47,7 +40,7 @@ exports.init = function (socket)
 {
     logger.info('initializing settings controller')
     /**
-     * Description
+     * Deprecated
      * @method created
      * @param {} obj
      */
@@ -56,7 +49,7 @@ exports.init = function (socket)
         socket.emit('Settings:created', obj);
     }
     /**
-     * Description
+     * Deprecated
      * @method updated
      * @param {} obj
      */
@@ -65,7 +58,7 @@ exports.init = function (socket)
         socket.emit('Settings:updated', obj);
     }
     /**
-     * Description
+     * Deprecated
      * @method removed
      * @param {} obj
      */
@@ -86,12 +79,9 @@ exports.init = function (socket)
  * @param {} socket
  */
 exports.index = function (socket) {
-    logger.debug('in index function')
     socket.on('index',
         function()
         {
-            //console.log('Index requested');
-            logger.debug('Index requested');
             if (_ready)
             {
               var Settin = Settings.Setting;
@@ -99,7 +89,6 @@ exports.index = function (socket) {
                 .then(
                   function (settings)
                   {
-                    logger.debug('index sent settings:', settings);
                     socket.emit('index', buildResponse(200, settings));
                   },
                   function (err)
@@ -153,9 +142,7 @@ exports.create = function (socket) {
               .then(
                 function(obj)
                 {
-                    logger.debug('creating obj:', obj);
-                    //if (err) { return handleError(socket, err); }
-                    socket.emit('create', buildResponse(201, obj.toJSON()));
+                   socket.emit('create', buildResponse(201, obj.toJSON()));
                 },
                 function(err)
                 {
@@ -179,13 +166,10 @@ exports.update = function (socket)
         {
           if (_ready)
           {
-            logger.debug('updating', data);
             Settings.Setting.findOneAndUpdate({_id: data.id}, JSON.parse(data.obj), {upsert: true})
               .then(
                 function(obj)
                 {
-                    logger.debug('finished updating', err, obj);
-                    //if (err) { return handleError(socket, err); }
                     socket.emit('update', buildResponse(200, obj.toJSON()));
                 },
                 function(err)
@@ -211,7 +195,6 @@ exports.destroy = function (socket) {
               .then(
                 function(err)
                 {
-                    //if (err) { return handleError(socket, err); }
                     socket.emit('destroy', buildResponse(204, {}));
                 },
                 function(err)

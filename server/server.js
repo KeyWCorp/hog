@@ -1,6 +1,6 @@
 /*
  * @license MIT
- * @file
+ * @file server.js
  * @copyright KeyW Corporation 2016
  */
 
