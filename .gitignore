@@ -7,6 +7,8 @@ dist/
 .sass-cache/
 nbproject
 **/*.log
+**/*.log.back
+*.log
 *.swp
 *.pig
 parser_table.py
