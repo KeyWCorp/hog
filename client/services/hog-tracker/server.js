@@ -95,7 +95,6 @@ io.on('connection',
           function ()
           {
             var script_location = "/Users/kmcoxe/Documents/IPI/pig-parser/src/test.pig";
-            //var script_location = "/opt/kevins/hog-tracker/node_modules/pig-parser/src/test.pig";
 
             /**
              * Description
@@ -123,7 +122,6 @@ io.on('connection',
             }
 
             console.log("running...");
-            //pigParser.trackTasks(script_location, test, test, test, taskTracker);
             pigParser.trackTasks(script_location, stdOut, stdError, stdLog, taskTracker, finished);
           });
     });

@@ -31,11 +31,8 @@ myApp.config(['$routeProvider', '$locationProvider', '$compileProvider',
         */
         $locationProvider.html5Mode(false);     //can't use this with github pages / if don't have access to the server
 
-        // var staticPath ='/';
         var staticPath;
-        // staticPath ='/angular-directives/hog-tracker/';      //local
         staticPath ='/';        //nodejs (local)
-        // staticPath ='/hog-tracker/';     //gh-pages
         var appPathRoute ='/';
         var pagesPath =staticPath+'pages/';
 
@@ -48,7 +45,6 @@ myApp.config(['$routeProvider', '$locationProvider', '$compileProvider',
 
 myApp.factory('socket', function (socketFactory) {
     var myIoSocket = io.connect('http://localhost:3000');
-    //var myIoSocket = io.connect('http://10.1.10.26:3000');
 
     var mySocket = socketFactory({
       ioSocket: myIoSocket

@@ -33,7 +33,7 @@ git config --global credential.helper osxkeychain
 ```
 # Clone Hog from the Gitlab repository
 ```
-git clone https://gitlab.com/ccis-irad/hog.git
+git clone hog
 cd hog
 ```
 
