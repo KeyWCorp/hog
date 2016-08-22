@@ -1,0 +1,1 @@
+# location for pig scripts
