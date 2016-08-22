@@ -25,17 +25,6 @@ module.exports = [
   // custom text colors
   'client/services/mdColors/mdColors.js',
 
-  // pig-flow
-  '!client/services/pig-flow/server.js',
-  '!client/services/pig-flow/app.js',
-  '!client/services/pig-flow/pages/**/*.js',
-  '!client/services/pig-flow/w.js',
-
   // dont include hog-tracker
   '!client/services/hog-tracker/src/hog-tracker.directive.js',
-  '!client/services/hog-tracker/server.js',
-  '!client/services/hog-tracker/app.js',
-  '!client/services/hog-tracker/Gruntfile.js',
-  '!client/services/hog-tracker/cker.js',
-  '!client/services/hog-tracker/pages/**/*.js'
 ];
