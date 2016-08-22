@@ -10,6 +10,7 @@ nbproject
 **/*.log.back
 *.log
 *.swp
+**/*.pig
 *.pig
 parser_table.py
 server/api/pig/pig.data.db

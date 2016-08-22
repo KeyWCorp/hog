@@ -1,1 +1,0 @@
-DUMP <input_var>;
