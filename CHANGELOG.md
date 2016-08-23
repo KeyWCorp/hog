@@ -1,5 +1,6 @@
 # 1.0.3
 - add hog logo svg to repo
+- add CHANGELOG
 
 # 1.0.2
 - remove pig scripts from repo
