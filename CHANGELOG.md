@@ -1,3 +1,6 @@
+# 1.0.4
+- add white paper to docs
+
 # 1.0.3
 - add hog logo svg to repo
 - add CHANGELOG
