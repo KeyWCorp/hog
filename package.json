@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "apidoc": "^0.13.1",
+    "bower": "^1.7.9",
     "chai": "*",
     "del": "^2.0.2",
     "docco": "^0.7.0",
@@ -75,7 +76,8 @@
     "winston": "^2.0.0"
   },
   "scripts": {
-    "start": "node server/server.js",
+    "build": "npm install; bower install; gulp build",
+    "start": "gulp",
     "test": "gulp test"
   }
 }
