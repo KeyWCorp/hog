@@ -11,6 +11,7 @@
  * Build task
  */
 
+var fs                   = require('fs');
 var gulp                 = require('gulp');
 var path                 = require('path');
 var sq                   = require('streamqueue');
@@ -33,13 +34,25 @@ var toDelete = [];
 
 module.exports = function (done) {
   runSequence(
-    ['clean:dist', 'sass'],
+    ['copy:dependencies', 'clean:dist', 'sass'],
     ['usemin', 'copy:dist'],
     ['replace', 'scripts', 'cssmin'],
     'rev',
     'clean:finish',
     done);
 };
+
+gulp.task('copy:dependencies', function (done) {
+  var dest_base = 'client/bower_components/ace-builds/src-min-noconflict/';
+  var dest_path = [dest_base, 'mode-pig_latin.js'].join('');
+  fs.stat(dest_path, function (err, stat)
+  {
+    if (err !== null) {
+      gulp.src('client/externals/mode-pig_latin.js')
+        .pipe(gulp.dest(dest_base));
+    }
+  });
+});
 
 gulp.task('clean:dist', function (done) {
   del(['dist/**', '!dist', '!dist/.git{,/**}'])
