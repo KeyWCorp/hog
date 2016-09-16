@@ -11,9 +11,16 @@ that lets developers create, save and analyze output of their scripts.
 
 
 # Install Pig, (if you have a mac)
+
+***make sure to have java installed***
+
+```
+brew cask install java
+```
+then install pig
+
 ```
 brew install pig
-brew install apache piglatin
 ```
 
 # Clone Hog from the Gitlab repository
