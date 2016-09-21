@@ -9,32 +9,48 @@ Using the Simple environment, users have drag and drop capabilities to generate
 scripts. The Complex side of the application provides a development environment
 that lets developers create, save and analyze output of their scripts.
 
-
-# Install Pig, (if you have a mac)
+# Prerequisites
+## Install [Apache Pig](https://pig.apache.org/)
 
 ***make sure to have java installed***
 
-```
-brew cask install java
-```
-then install pig
+- Mac OS
+
+  ```
+  brew cask install java
+  ```
+  then install pig
+
+  ```
+  brew install pig
+  ```
+
+## Install node and npm
+- [Node.js](https://nodejs.org/en/) >= v6.5.0
+
+Recommended way to install node is [NVM](https://github.com/creationix/nvm)
 
 ```
-brew install pig
+nvm install 6
 ```
 
-# Clone Hog from the Gitlab repository
+# Clone Hog from the Github repository
 ```
-git clone hog
+git clone https://github.com/KeywCorp/hog.git
 cd hog
 ```
 
 # Installing files
-You will need to install node_modules and bower_conponents
-(If prompted to choose a version choose the option that coorisponds to hog)
+You will need to install node_modules and bower_components
+(If prompted to choose a version choose the option that corresponds to hog)
 
 ```
 npm run build
+```
+If running as root use this option
+
+```
+npm run build:root
 ```
 
 # If you have an older version of hog run the DB migrate
