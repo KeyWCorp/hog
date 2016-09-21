@@ -76,6 +76,7 @@
     "winston": "^2.0.0"
   },
   "scripts": {
+    "build:root": "npm install; bower install --allow-root; gulp build",
     "build": "npm install; bower install; gulp build",
     "start": "gulp",
     "test": "gulp test"
