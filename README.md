@@ -120,7 +120,7 @@ nvm install 6
 
 # Clone Hog from the Github repository
 ```
-git clone https://github.com/KeywCorp/hog.git
+git clone https://github.com/KeyWCorp/hog.git
 cd hog
 ```
 
