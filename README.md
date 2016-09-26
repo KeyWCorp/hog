@@ -145,6 +145,37 @@ mv /path/to/hog/server/api/settings/settings.data.db.mig /path/to/hog/server/api
 ```
 Move others as needed.
 
+# Running hog on a server
+There are two files that will need to be edited to run hog on a server.
+
+- `client/services/pig/pig.js`
+	 	
+ 	Replace
+ 	
+	```
+	var myIoSocket = io.connect('localhost:9000/api/pigs');
+	```
+	
+	With
+	
+	```
+	var myIoSocket = io.connect('<server_ip>:<server_port>/api/pigs');
+	```
+
+
+- `client/services/settings/setting.js`
+ 	
+ 	Replace
+ 	
+	```
+	var myIoSocket = io.connect('localhost:9000/api/settings');
+	```
+	
+	With
+	
+	```
+	var myIoSocket = io.connect('<server_ip>:<server_port>/api/settings');
+	```	
 
 # Running Hog
 Open a second terminal
