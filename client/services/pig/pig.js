@@ -21,7 +21,7 @@ angular.module('hog')
       /*
        * On server
        */
-      //var myIoSocket = io.connect('10.1.10.26:9000/api/pigs');
+      //var myIoSocket = io.connect('<server_ip>:<server_port>/api/pigs');
 
       var pig = socketFactory({
         ioSocket: myIoSocket
