@@ -16,7 +16,7 @@ angular.module('hog')
       /*
        * Socket setting
        */
-      var myIoSocket = io.connect('localhost:9000/api/settings');
+      var myIoSocket = io.connect('/api/settings');
 
       var setting = socketFactory({
         ioSocket: myIoSocket

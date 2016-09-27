@@ -16,7 +16,7 @@ angular.module('hog')
       /*
        * Socket Settings
        */
-      var myIoSocket = io.connect('localhost:9000/api/pigs');
+      var myIoSocket = io.connect('/api/pigs');
 
       var pig = socketFactory({
         ioSocket: myIoSocket

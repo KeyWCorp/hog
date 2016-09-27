@@ -47,7 +47,7 @@ that lets developers create, save and analyze output of their scripts.
   rm pig-0.15.0.tar.gz &&\
   chown root:root -R pig-0.15.0 &&\
   mv pig-0.15.0/* . &&\
-  rm -rf pig-0.15.0 
+  rm -rf pig-0.15.0
   ```
 
 ## Install [Apache Hadoop](http://hadoop.apache.org/) Client
@@ -68,7 +68,7 @@ that lets developers create, save and analyze output of their scripts.
   rm hadoop-2.7.1.tar.gz &&\
   chown root:root -R hadoop-2.7.1 &&\
   mv hadoop-2.7.1/* . &&\
-  rm -rf hadoop-2.7.1 
+  rm -rf hadoop-2.7.1
   ```
 
 ## Configure Hadoop and Pig Client to run locally or with an Exisiting Hadoop Cluster
@@ -78,7 +78,7 @@ To configure your Pig client to run locally edit the pig.properties file with th
   ```
   exectype=local
   ```
- 
+
 To configure your Hadoop and Pig clients to work with an exisiting Hadoop cluster, please follow the steps below.
 
 Either by updating your .bashrc or be exporting enviroment variables:
@@ -88,7 +88,7 @@ Either by updating your .bashrc or be exporting enviroment variables:
   ```
   export HADOOP_HOME=/etc/hadoop/2.7.1
   export HADOOP_PREFIX=$HADOOP_HOME
-  export PATH=$HADOOP_HOME/bin:$PATH 
+  export PATH=$HADOOP_HOME/bin:$PATH
   ```
 
 From an exisiting Hadoop cluster, add your existing hadoop/conf/*.xml to your $HADOOP_HOME/etc/hadoop/
@@ -97,7 +97,7 @@ From an exisiting Hadoop cluster, add your existing hadoop/conf/*.xml to your $H
 
   ```
   export PIG_HOME=/etc/pig/0.15.0
-  export PATH=$PIG_HOME/bin:$PATH 
+  export PATH=$PIG_HOME/bin:$PATH
   ```
 
 To test your Hadoop client run:
@@ -145,38 +145,6 @@ mv /path/to/hog/server/api/settings/settings.data.db.mig /path/to/hog/server/api
 ```
 Move others as needed.
 
-# Running hog on a server
-There are two files that will need to be edited to run hog on a server.
-
-- `client/services/pig/pig.js`
-	 	
- 	Replace
- 	
-	```
-	var myIoSocket = io.connect('localhost:9000/api/pigs');
-	```
-	
-	With
-	
-	```
-	var myIoSocket = io.connect('<server_ip>:<server_port>/api/pigs');
-	```
-
-
-- `client/services/settings/setting.js`
- 	
- 	Replace
- 	
-	```
-	var myIoSocket = io.connect('localhost:9000/api/settings');
-	```
-	
-	With
-	
-	```
-	var myIoSocket = io.connect('<server_ip>:<server_port>/api/settings');
-	```	
-
 # Running Hog
 Open a second terminal
 ```
@@ -185,4 +153,3 @@ npm start
 ```
 A tab in your browser will automatically open to 'localhost:9000' with the script
 running. We find the program runs best using a Chrome web browser.
-
