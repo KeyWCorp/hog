@@ -55,7 +55,6 @@ angular.module('hog')
             {
               // Might Need to Parse it
               var script = data.json;
-              ////      console.log(script);
             });
           return temp;
       }
@@ -75,7 +74,6 @@ angular.module('hog')
         Pig.on('recents-'+_type,
           function(indata)
           {
-            console.log('recents returned: ', indata);
             deferred.resolve(indata);
           });
         return deferred.promise;
@@ -90,13 +88,11 @@ angular.module('hog')
        */
       function bump(id)
       {
-        console.log('bumping');
         var deferred = $q.defer();
         Pig.emit('bump', id);
         Pig.on('bumped',
           function(data)
           {
-            console.log('data');
             deferred.resolve(data);
 
           });
@@ -118,7 +114,6 @@ angular.module('hog')
        */
       function save(data)
       {
-        console.log(' IN RUNNER SAVE FUNCTION');
         var deferred = $q.defer();
         Pig.emit('save', data);
         Pig.on('saved',
@@ -202,8 +197,6 @@ angular.module('hog')
        */
       function create(procData)
       {
-        console.log('in create ' + JSON.stringify(procData));
-        console.log(typeof(procData));
         var deferred = $q.defer();
         Pig.emit('create', angular.toJson(procData));
         Pig.on('server:create',
@@ -423,7 +416,6 @@ angular.module('hog')
        */
       function createProc(args, data, procCB, updCB, endCB)
       {
-        console.log('in createProc');
         var id = uuid4.generate();
         processes[id] = {
           args: args,

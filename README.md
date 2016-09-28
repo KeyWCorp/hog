@@ -101,11 +101,11 @@ From an exisiting Hadoop cluster, add your existing hadoop/conf/*.xml to your $H
   ```
 
 To test your Hadoop client run:
-	hadoop fs -ls /
+  hadoop fs -ls /
 This should display any files or subdirectories in HDFS from your / directory
 
 To test your Pig client run:
-	pig -x mapreduce
+  pig -x mapreduce
 This will connect to HDFS and your YARN Resource Manager within the Pig grunt shell
 
 
