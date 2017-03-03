@@ -20,7 +20,7 @@ import { MenuPage } from '../pages/menu/menu';
 import { SettingsPage } from '../pages/settings/settings';
 import { SearchPage } from '../pages/search/search';
 import { EditComplexPage } from '../pages/edit-complex/edit-complex';
-
+import { EditSimplePage } from '../pages/edit-simple/edit-simple';
 
 import { User } from '../providers/user';
 import { Api } from '../providers/api';
@@ -34,7 +34,7 @@ import { InfoOutputsComponent } from '../components/info-outputs/info-outputs'
 import { PigTableComponent } from '../components/pig-table/pig-table'
 import { ScriptOutputComponent } from '../components/script-output/script-output'
 import { VersionDiffComponent } from '../components/version-diff/version-diff'
-
+import { SimpleFormComponent } from '../components/simple-form/simple-form'
 //import { AceEditorComponent } from 'ng2-ace-editor'
 
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
@@ -82,7 +82,8 @@ let pages = [
   MenuPage,
   SettingsPage,
   SearchPage,
-  EditComplexPage
+  EditComplexPage,
+  EditSimplePage
 ];
 let components = [
   GraphInfoComponent,
@@ -91,6 +92,7 @@ let components = [
   PigTableComponent,
   ScriptOutputComponent,
   VersionDiffComponent,
+  SimpleFormComponent
   //AceEditorComponent
 ];
 /*let directives = [
