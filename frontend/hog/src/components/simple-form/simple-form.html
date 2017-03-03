@@ -1,0 +1,39 @@
+<!--
+  Generated template for the SimpleForm component.
+
+  See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
+  for more info on Angular 2 Components.
+-->
+
+  <ion-fab left top #fab>
+    <button ion-fab color="secondary"><ion-icon name="arrow-dropright"></ion-icon></button>
+    <ion-fab-list side="right">
+      <button ion-fab (click)="download()"><ion-icon name="code-download"></ion-icon></button>
+      <button ion-fab (click)="buildScript()"><ion-icon name="build"></ion-icon></button>
+      <button ion-fab (click)="save()"><ion-icon name="document"></ion-icon></button>
+      <button ion-fab (click)="run()"><ion-icon name="code-working"></ion-icon></button>
+    </ion-fab-list>
+</ion-fab>
+<ion-list>
+
+  <ion-item>
+    <ion-label floating>Input</ion-label>
+     <ion-select [(ngModel)]="input" (ionChange)="inputSelected()">
+      <ion-option *ngFor="let opt of inputOptions" value="opt.name">{{opt.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Action</ion-label>
+    <ion-select [(ngModel)]="action" (ionChange)="actionSelected()">
+      <ion-option *ngFor="let opt of actionOptions" value="opt.name">{{opt.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Output</ion-label>
+       <ion-select [(ngModel)]="output" (ionChange)="outputSelected()">
+      <ion-option *ngFor="let opt of outputOptions" value="opt.name">{{opt.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
+

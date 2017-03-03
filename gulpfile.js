@@ -8,7 +8,7 @@
 'use strict';
 
 var gulp = require('gulp');
-var nodeInspector = require('gulp-node-inspector');
+//var nodeInspector = require('gulp-node-inspector');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -27,7 +27,7 @@ gulp.task('e2e',        ['serve'],      require('./tasks/test').e2eTests);
 gulp.task('test',                       require('./tasks/test').test);
 gulp.task('extrafiles',                 require('./tasks/extrafiles'));
 gulp.task('documentation',              require('./tasks/document'));
-gulp.task('debug', function() {
+/*gulp.task('debug', function() {
 
   gulp.src([])
     .pipe(nodeInspector({
@@ -42,5 +42,5 @@ gulp.task('debug', function() {
       sslKey: '',
       sslCert: ''
     }));
-});
+});*/
 gulp.task('migrate',                    require('./tasks/migrate'));

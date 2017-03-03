@@ -64,7 +64,6 @@
     "diff": "^2.2.3",
     "diff-match-patch": "^1.0.0",
     "express": "^4.12.2",
-    "gulp-node-inspector": "^0.1.0",
     "lodash": "^4.13.1",
     "method-override": "^2.3.1",
     "morgan": "^1.5.1",

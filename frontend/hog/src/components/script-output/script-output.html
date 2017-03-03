@@ -1,0 +1,39 @@
+<!--
+  Generated template for the ScriptOutput component.
+
+  See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
+  for more info on Angular 2 Components.
+-->
+
+<div flex padding>
+  <ion-chip *ngIf="info_outputs.length > 0" #InfoOutputs>
+    <ion-label>Show All: {{info_outputs.length}}</ion-label>
+    <button ion-button clear color="light" (click)="openInfo(InfoOutput, 'all')">
+    </button>
+  </ion-chip>
+  <ion-chip color="secondary" *ngIf="outputs.length > 0" #Outputs>
+    <ion-label>Show Results: {{outputs.length}}</ion-label>
+    <button ion-button clear (click)="openInfo(Output, 'output')">
+    </button>
+  </ion-chip>
+   <ion-chip color="primary" *ngIf="logs.length > 0" #Logs>
+    <ion-label>Show Logs: {{logs.length}}</ion-label>
+    <button ion-button clear (click)="openInfo(Logs, 'logs')">
+    </button>
+  </ion-chip>
+   <ion-chip color="warning" *ngIf="warnings.length > 0" #Warnings>
+    <ion-label>Show Results: {{warnings.length}}</ion-label>
+    <button ion-button clear (click)="openInfo(Warnings, 'warnings')">
+    </button>
+  </ion-chip>
+   <ion-chip color="danger" *ngIf="errors.length > 0" #Errors>
+    <ion-label>Show Results: {{errors.length}}</ion-label>
+    <button ion-button clear (click)="openInfo(Errors, 'errors')">
+    </button>
+  </ion-chip>
+  <ion-chip *ngIf="pigList.length > 0" #List>
+    <ion-label>Show Results: {{pigList.length}}</ion-label>
+    <button ion-button clear (click)="openGraphInfo(List, 'list')">
+    </button>
+  </ion-chip>
+</div>

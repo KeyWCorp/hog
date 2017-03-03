@@ -1,0 +1,46 @@
+<!--
+  Generated template for the InfoOutputs component.
+
+  See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
+  for more info on Angular 2 Components.
+-->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Info <span *ngIf="name"> for {{name}} </span>
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary">Cancel</span>
+      </button>
+      <button disabled="info_outputs.length <= 0" 
+        (click)="filterBy('all')">
+        Show all
+      </button>
+      <button disabled="outputs.length <= 0" 
+        (click)="filterBy('output')">
+        Show Results
+      </button>
+      <button disabled="logs.length <= 0" 
+        (click)="filterBy('logs')">
+        Show Logs
+      </button>
+      <button disabled="warnings.length <= 0" 
+        (click)="filterBy('warnings')">
+        Show Warnings
+      </button>
+      <button disabled="errors.length <= 0" 
+        (click)="filterBy('errors')">
+        Show Errors
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-list>
+  <ion-item ngFor="let data in filteredInfo()">
+    <span> {{data.color}} | {{data.data}} </span>
+  </ion-item>
+</ion-list>

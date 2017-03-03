@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{ 'RECENTS_TITLE' | translate }}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col width-50>
+        <button ion-button (click)="goToSimple()"> Simple List </button>
+        <ion-card (click)="editSimple(item._id)" *ngFor="let item of simple">
+          <ion-item>
+            <h2>{{item.name}}</h2>
+            <p>{{item.lastModified}}</p>
+          </ion-item>
+        </ion-card>
+        <ion-fab >
+        <button ion-fab mini (click)="editSimple(-1)">
+          <ion-icon name="add"></ion-icon>
+        </button>
+        </ion-fab>
+      </ion-col>
+      <ion-col width-50>
+        <button ion-button (click)="goToComplex()"> Complex List </button>
+        <ion-card (click)="editComplex(item._id)" *ngFor="let item of (complex$ | async)?.json">
+          <ion-item>
+            <h2>{{item.name}} </h2>
+            <p>{{item.lastModified}} </p>
+          </ion-item>
+        </ion-card>
+        <ion-fab >
+        <button ion-fab mini (click)="editComplex(-1)">
+          <ion-icon name="add"></ion-icon>
+        </button>
+        </ion-fab>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
